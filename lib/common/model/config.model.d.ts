@@ -1,4 +1,4 @@
-export interface SConfigModel {
+export interface MrdConfig {
     baseColors: {
         primary: string;
         accent: string;

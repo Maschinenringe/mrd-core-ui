@@ -1,5 +1,6 @@
-import { SConfigModel } from "../model/config.model";
+import { MrdConfig } from "../model/config.model";
 export declare class ConfigUtil {
     private static config;
-    static getConfig(): SConfigModel;
+    static getConfig(): MrdConfig;
+    private static parseJsObject;
 }
