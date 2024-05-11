@@ -45,7 +45,6 @@ export declare class MrdButtonComponent implements OnInit, AfterViewInit {
     outlineBorderStyle: string;
     outlineBorderColor: string;
     constructor(cdr: ChangeDetectorRef);
-    private readConfig;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdButtonComponent, never>;

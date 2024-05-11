@@ -4,6 +4,26 @@ import { ObservableValue } from 'mrd-core';
 import * as i1 from '@angular/common';
 import { CommonModule } from '@angular/common';
 
+class ConfigUtil {
+    static config;
+    static getConfig() {
+        if (this.config) {
+            return this.config;
+        }
+        let url = 'assets/mrd-core-ui.config.json';
+        let config = {};
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, false);
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                config = JSON.parse(xhr.responseText);
+            }
+        };
+        xhr.send();
+        return config;
+    }
+}
+
 class ColorUtil {
     static hexToRgb(hex) {
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -113,7 +133,7 @@ class MrdButtonComponent {
     _disabled = false;
     loading = new ObservableValue(false);
     // @Output() public click: EventEmitter<void> = new EventEmitter();
-    _config = this.readConfig();
+    _config = ConfigUtil.getConfig();
     _defaultBgColor = 'transparent';
     _defaultTextLightColor = '#ffffff';
     _defaultTextDarkColor = '#000000';
@@ -137,19 +157,6 @@ class MrdButtonComponent {
     outlineBorderColor = this._config?.button?.outline?.border || this._defaultOutlineBorderColor;
     constructor(cdr) {
         this.cdr = cdr;
-    }
-    readConfig() {
-        let url = './s-material.config.js';
-        let config = {};
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false);
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                config = JSON.parse(xhr.responseText);
-            }
-        };
-        xhr.send();
-        return config;
     }
     ngOnInit() {
     }
