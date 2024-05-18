@@ -1,24 +1,53 @@
 export interface MrdConfig {
-    baseColors: {
-        primary: string;
-        accent: string;
-        warn: string;
+    baseColors: MrdBaseColor;
+    button?: MrdButton;
+    formField?: {
+        focusColor?: string;
+        focusColorDark?: string;
+        /** Wird aus focusColor errechnet, wenn nicht angegeben */
+        focusColorOutline?: string;
+        errorColor?: string;
+        erroColorDark?: string;
+        /** Wird aus errorColor errechnet, wenn nicht angegeben */
+        errorColorOutline?: string;
     };
-    button?: {
-        primary?: string;
-        accent?: string;
-        warn?: string;
-        textLight?: string;
-        textDark?: string;
-        defaultBg?: string;
-        defaultHover?: string;
-        defaultActive?: string;
-        defaultDisabledTextColor?: string;
-        defaultDisabledBgColor?: string;
-        outline?: {
-            border?: string;
-            borderWidth?: string;
-            broderStyle?: string;
-        };
-    };
+}
+export interface MrdBaseColor {
+    primary?: string | MrdBaseColorTheme;
+    accent?: string | MrdBaseColorTheme;
+    warn?: string | MrdBaseColorTheme;
+    disabled?: string | MrdBaseColorTheme;
+}
+export interface MrdBaseColorButton {
+    primary?: string | MrdBaseColorTheme;
+    accent?: string | MrdBaseColorTheme;
+    warn?: string | MrdBaseColorTheme;
+    disabled?: MrdBaseColorTheme;
+}
+export interface MrdBaseColorTheme {
+    text: string;
+    background: string;
+    border?: string | MrdBorder;
+}
+export interface MrdButton extends MrdBaseColorButton, MrdButtonAppearance {
+    outline?: MrdButtonAppearance;
+    flat?: MrdButtonAppearance;
+    raised?: MrdButtonAppearance;
+    icon?: MrdButtonAppearance;
+    fab?: MrdButtonAppearance;
+    miniFab?: MrdButtonAppearance;
+}
+export interface MrdButtonAppearance extends MrdBaseColorButton {
+    backgroundColor?: string;
+    textLightColor?: string;
+    textDarkColor?: string;
+    hoverColor?: string;
+    activeColor?: string;
+    border?: string | MrdBorder;
+    borderRadius?: string;
+}
+export interface MrdBorder {
+    width: string;
+    style: string;
+    color: string;
 }

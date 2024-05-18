@@ -1,34 +1,119 @@
 import * as i0 from '@angular/core';
 import { booleanAttribute, Component, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
+import * as _ from 'underscore';
 import { ObservableValue } from 'mrd-core';
 import * as i1 from '@angular/common';
 import { CommonModule } from '@angular/common';
 
 class ConfigUtil {
     static config;
+    static customConfig;
+    static setConfig(config) {
+        this.customConfig = config;
+    }
     static getConfig() {
         if (this.config) {
             return this.config;
         }
-        let url = 'assets/mrd-core-ui.config.js';
-        let config = {};
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false);
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                config = this.parseJsObject(xhr.responseText.substring(xhr.responseText.indexOf('module.exports'))
-                    .replace('module.exports =', '')
-                    .replace('module.exports=', '')
-                    .trim());
+        // let url = 'assets/mrd-core-ui.config.js';
+        // let config: MrdConfig = {} as MrdConfig;
+        // let xhr = new XMLHttpRequest();
+        // xhr.open('GET', url, false);
+        // xhr.onreadystatechange = () => {
+        //   if (xhr.readyState === 4 && xhr.status === 200) {
+        //     config = this.parseJsObject(
+        //       xhr.responseText.substring(xhr.responseText.indexOf('module.exports'))
+        //       .replace('module.exports =', '')
+        //       .replace('module.exports=', '')
+        //       .trim()
+        //     );
+        //   }
+        // };
+        // xhr.send();
+        // let config = loadConfig();
+        // this.config = config;
+        // return config;
+        let config = this.customConfig;
+        let defaultConfig = this.baseConfig;
+        this.extendObject(defaultConfig, config);
+        this.config = defaultConfig;
+        console.log(this.config);
+        return defaultConfig;
+    }
+    // private static parseJsObject(data: string): any {
+    //   const func = new Function('return ' + data + ';');
+    //   return func();
+    // }
+    static extendObject(obj, extObj) {
+        for (const [key, value] of Object.entries(extObj)) {
+            if (_.isObject(value) && !_.isArray(value)) {
+                obj[key] = this.extendObject(obj[key], value);
+            }
+            else {
+                obj[key] = value;
+            }
+        }
+        ;
+        return obj;
+    }
+    static get baseConfig() {
+        return {
+            baseColors: {
+                primary: "#68b022",
+                accent: "#e7e7e7",
+                warn: "#b00122",
+                disabled: "#afa6a6"
+            },
+            button: {
+                backgroundColor: "transparent",
+                textLightColor: "#ffffff",
+                textDarkColor: "#000000",
+                hoverColor: "#d3d3d361",
+                activeColor: "#d3d3d3",
+                disabled: {
+                    text: "#a6a6a6",
+                    background: "transparent"
+                },
+                border: "0 unset unset",
+                borderRadius: "4px",
+                outline: {
+                    border: "1px solid #d3d3d3"
+                },
+                flat: {
+                    backgroundColor: "#ffffff",
+                    disabled: {
+                        text: "#a6a6a6",
+                        background: "#d3d3d3"
+                    }
+                },
+                raised: {
+                    backgroundColor: "#ffffff",
+                    disabled: {
+                        text: "#a6a6a6",
+                        background: "#d3d3d3"
+                    }
+                },
+                icon: {
+                    borderRadius: "50%"
+                },
+                fab: {
+                    backgroundColor: "#ffffff",
+                    disabled: {
+                        text: "#a6a6a6",
+                        background: "#d3d3d3"
+                    },
+                    borderRadius: "50%"
+                },
+                miniFab: {
+                    backgroundColor: "#ffffff",
+                    disabled: {
+                        text: "#a6a6a6",
+                        background: "#d3d3d3"
+                    },
+                    borderRadius: "50%"
+                }
             }
         };
-        xhr.send();
-        this.config = config;
-        return config;
-    }
-    static parseJsObject(data) {
-        const func = new Function('return ' + data + ';');
-        return func();
     }
 }
 
@@ -152,17 +237,17 @@ class MrdButtonComponent {
     _defaultOutlineBorderWidth = '1px';
     _defaultOutlineBorderStyle = 'solid';
     _defaultOutlineBorderColor = '#d3d3d3';
-    bgColor = this._config?.button?.defaultBg || this._defaultBgColor;
-    textLightColor = this._config?.button?.textLight || this._defaultTextLightColor;
-    textDarkColor = this._config?.button?.textDark || this._defaultTextDarkColor;
+    bgColor = this._config?.button?.backgroundColor || this._defaultBgColor;
+    textLightColor = this._config?.button?.textLightColor || this._defaultTextLightColor;
+    textDarkColor = this._config?.button?.textDarkColor || this._defaultTextDarkColor;
     textColor = this.textDarkColor;
-    hoverColor = this._config?.button?.defaultHover || this._defaultHoverColor;
-    activeColor = this._config?.button?.defaultActive || this._defaultActiveColor;
-    disabledTextColor = this._config?.button?.defaultDisabledTextColor || this._defaultDisabledTextColor;
-    disabledBgColor = this._config?.button?.defaultDisabledBgColor || this._defaultDisabledBgColor;
-    outlineBorderWidth = this._config?.button?.outline?.borderWidth || this._defaultOutlineBorderWidth;
-    outlineBorderStyle = this._config?.button?.outline?.broderStyle || this._defaultOutlineBorderStyle;
-    outlineBorderColor = this._config?.button?.outline?.border || this._defaultOutlineBorderColor;
+    hoverColor = this._config?.button?.hoverColor || this._defaultHoverColor;
+    activeColor = this._config?.button?.activeColor || this._defaultActiveColor;
+    disabledTextColor = this._config?.button?.disabled.text || this._defaultDisabledTextColor;
+    disabledBgColor = this._config?.button?.disabled.background || this._defaultDisabledBgColor;
+    outlineBorderWidth = this._defaultOutlineBorderWidth;
+    outlineBorderStyle = this._defaultOutlineBorderStyle;
+    outlineBorderColor = this._defaultOutlineBorderColor;
     constructor(cdr) {
         this.cdr = cdr;
     }
@@ -264,5 +349,5 @@ class MrdButtonModule {
  * Generated bundle index. Do not edit.
  */
 
-export { MrdButtonComponent, MrdButtonModule };
+export { ConfigUtil, MrdButtonComponent, MrdButtonModule };
 //# sourceMappingURL=mrd-core-ui.mjs.map
