@@ -1,0 +1,37 @@
+import { AfterViewInit, OnDestroy } from '@angular/core';
+import * as i0 from "@angular/core";
+export declare class MrdProgressSpinnerComponent implements AfterViewInit, OnDestroy {
+    private config;
+    mode: 'determinate' | 'indeterminate';
+    set color(color: string);
+    get color(): string;
+    private _color;
+    get value(): number;
+    set value(v: number);
+    private _value;
+    get diameter(): number;
+    set diameter(size: number);
+    private _diameter;
+    get strokeWidth(): number;
+    set strokeWidth(value: number);
+    private _strokeWidth;
+    showLabel: boolean;
+    set labelText(label: string);
+    get labelText(): string;
+    private _labelText;
+    dots: string;
+    private interval;
+    get circleRadius(): number;
+    get strokeCircumference(): number;
+    get strokeDashOffset(): number;
+    get circleStrokeWidth(): number;
+    get viewBox(): string;
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MrdProgressSpinnerComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdProgressSpinnerComponent, "mrd-progress-spinner", never, { "mode": { "alias": "mode"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "strokeWidth": { "alias": "strokeWidth"; "required": false; }; "showLabel": { "alias": "showLabel"; "required": false; }; "labelText": { "alias": "labelText"; "required": false; }; }, {}, never, never, false, never>;
+    static ngAcceptInputType_value: unknown;
+    static ngAcceptInputType_diameter: unknown;
+    static ngAcceptInputType_strokeWidth: unknown;
+    static ngAcceptInputType_showLabel: unknown;
+}
