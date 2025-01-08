@@ -57,6 +57,7 @@ export interface MrdButtonAppearance extends MrdBaseColorButton {
     border?: string | MrdBorder;
     borderRadius?: string;
     fontSize?: string;
+    fontFamily?: string;
     minHeight?: string;
     diameter?: string;
     iconSize?: string;

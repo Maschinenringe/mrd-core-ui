@@ -1,6 +1,6 @@
 {
   "name": "mrd-core-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": "^16.1.7",
     "@angular/core": "^16.1.7",
@@ -8,7 +8,8 @@
     "@angular/forms": "^16.1.7",
     "moment": "^2.24.0",
     "underscore": "^1.9.1",
-    "mrd-core": "git+https://github.com/Maschinenringe/mrd-core.git#v1.0.9"
+    "mrd-core": "git+https://github.com/Maschinenringe/mrd-core.git#v1.0.9",
+    "rxjs": "^7.8.1"
   },
   "build": {
     "preserveSymlinks": true
