@@ -34,6 +34,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     searchText: string;
     optionsWidthExceeded: boolean;
     optionsHeightExceeded: boolean;
+    private optionChangeSubscription;
     constructor(elementRef: ElementRef, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngAfterContentInit(): void;
