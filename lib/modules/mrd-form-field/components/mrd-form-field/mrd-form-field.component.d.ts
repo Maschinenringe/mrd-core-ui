@@ -19,6 +19,7 @@ export declare class MrdFormFieldComponent extends BaseObject implements AfterVi
     rounded: boolean;
     borderRadius: string;
     centered: boolean;
+    fillColor: string;
     disabled: boolean;
     focused: boolean;
     hasError: boolean;
@@ -33,11 +34,12 @@ export declare class MrdFormFieldComponent extends BaseObject implements AfterVi
     ngOnDestroy(): void;
     ngAfterViewInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFormFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdFormFieldComponent, "mrd-form-field", never, { "outline": { "alias": "outline"; "required": false; }; "fill": { "alias": "fill"; "required": false; }; "dark": { "alias": "dark"; "required": false; }; "requiredAsterisk": { "alias": "requiredAsterisk"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "centered": { "alias": "centered"; "required": false; }; }, {}, ["input", "select", "label", "error"], ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-suffix", "mrd-hint", "mrd-error"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdFormFieldComponent, "mrd-form-field", never, { "outline": { "alias": "outline"; "required": false; }; "fill": { "alias": "fill"; "required": false; }; "dark": { "alias": "dark"; "required": false; }; "requiredAsterisk": { "alias": "requiredAsterisk"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "centered": { "alias": "centered"; "required": false; }; "fillColor": { "alias": "fillColor"; "required": false; }; }, {}, ["input", "select", "label", "error"], ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-suffix", "mrd-hint", "mrd-error"], false, never>;
     static ngAcceptInputType_outline: unknown;
     static ngAcceptInputType_fill: unknown;
     static ngAcceptInputType_dark: unknown;
     static ngAcceptInputType_rounded: unknown;
     static ngAcceptInputType_borderRadius: string | number;
     static ngAcceptInputType_centered: unknown;
+    static ngAcceptInputType_fillColor: string;
 }

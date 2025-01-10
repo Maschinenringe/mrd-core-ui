@@ -14,6 +14,9 @@ export interface MrdConfigModel {
         errorColorOutline?: string;
         borderRadius?: string;
         borderRadiusRounded?: string;
+        fill?: {
+            backgroundColor?: string;
+        };
     };
 }
 export interface MrdBaseFont {

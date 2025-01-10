@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnInit, QueryList } from '@angular/core';
-import { AccessableFormControl, BasePushStrategyObject, ObservableValue } from 'mrd-core';
+import { AccessableFormArray, AccessableFormControl, BasePushStrategyObject, ObservableValue } from 'mrd-core';
 import { MrdSelectOptionComponent } from '../mrd-select-option/mrd-select-option.component';
 import { Observable } from 'rxjs';
 import { MrdSelectCustomTriggerComponent } from '../mrd-select-custom-trigger/mrd-select-custom-trigger.component';
@@ -12,6 +12,9 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     private _initialized;
     readonly optionSelectionChanges: Observable<any>;
     formControl: AccessableFormControl;
+    formArrayControl: AccessableFormArray<any>;
+    identifier: string;
+    items: any[];
     autoComplete: boolean;
     searchSelection: boolean;
     chipSelection: boolean;
@@ -49,7 +52,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     focus(event: FocusEvent): void;
     blur(event: FocusEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "mrd-select-option"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "mrd-select-option"], false, never>;
     static ngAcceptInputType_autoComplete: unknown;
     static ngAcceptInputType_searchSelection: unknown;
     static ngAcceptInputType_chipSelection: unknown;
