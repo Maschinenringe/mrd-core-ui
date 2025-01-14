@@ -10,11 +10,12 @@ import * as i8 from "./components/mrd-label/mrd-label.component";
 import * as i9 from "./components/mrd-prefix/mrd-prefix.component";
 import * as i10 from "./components/mrd-suffix/mrd-suffix.component";
 import * as i11 from "@angular/common";
-import * as i12 from "../mrd-tooltip/mrd-tooltip.module";
-import * as i13 from "../mrd-chip/mrd-chip.module";
-import * as i14 from "../mrd-checkbox/mrd-checkbox.module";
+import * as i12 from "@angular/cdk/overlay";
+import * as i13 from "../mrd-tooltip/mrd-tooltip.module";
+import * as i14 from "../mrd-chip/mrd-chip.module";
+import * as i15 from "../mrd-checkbox/mrd-checkbox.module";
 export declare class MrdFormFieldModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFormFieldModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MrdFormFieldModule, [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle], [typeof i11.CommonModule, typeof i12.MrdTooltipModule, typeof i13.MrdChipModule, typeof i14.MrdCheckboxModule], [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MrdFormFieldModule, [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle], [typeof i11.CommonModule, typeof i12.OverlayModule, typeof i13.MrdTooltipModule, typeof i14.MrdChipModule, typeof i15.MrdCheckboxModule], [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MrdFormFieldModule>;
 }
