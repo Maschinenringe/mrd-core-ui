@@ -7,7 +7,11 @@ export declare class MrdInputComponent implements AfterViewInit {
     private static readonly DEFAULT_MIN_ROWS;
     private static readonly DEFAULT_MAX_ROWS;
     private static readonly DEFAULT_LINE_HEIGHT;
+    private static readonly DATE_REGEX;
+    private static readonly DATE_REGEX_INPUT;
+    baseInputElement: ElementRef<HTMLInputElement>;
     textAreaElement: ElementRef<HTMLTextAreaElement>;
+    dateInputElement: ElementRef<HTMLInputElement>;
     formControl: AccessableFormControl;
     placeholder: string;
     value: string;
@@ -19,7 +23,10 @@ export declare class MrdInputComponent implements AfterViewInit {
     readonly: boolean;
     required: boolean;
     textarea: boolean;
+    date: boolean;
+    customDateToggle: boolean;
     centered: boolean;
+    datePickerToggle: HTMLElement;
     touched: EventEmitter<void>;
     focused: EventEmitter<void>;
     blurred: EventEmitter<void>;
@@ -31,8 +38,9 @@ export declare class MrdInputComponent implements AfterViewInit {
     inputClicked(event: MouseEvent): void;
     focus(event: FocusEvent): void;
     blur(event: FocusEvent): void;
+    toggleClicked(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdInputComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "centered": { "alias": "centered"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "customDateToggle": { "alias": "customDateToggle"; "required": false; }; "centered": { "alias": "centered"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; }, never, never, false, never>;
     static ngAcceptInputType_maxLength: unknown;
     static ngAcceptInputType_minRows: unknown;
     static ngAcceptInputType_maxRows: unknown;
@@ -41,5 +49,16 @@ export declare class MrdInputComponent implements AfterViewInit {
     static ngAcceptInputType_readonly: unknown;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_textarea: unknown;
+    static ngAcceptInputType_date: unknown;
+    static ngAcceptInputType_customDateToggle: unknown;
     static ngAcceptInputType_centered: unknown;
+}
+export declare class MrdDatePickerToggle implements AfterViewInit {
+    private elementRef;
+    mrdDatePickerToggle: MrdInputComponent;
+    constructor(elementRef: ElementRef);
+    ngAfterViewInit(): void;
+    onClick(event: MouseEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MrdDatePickerToggle, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdDatePickerToggle, "[mrdDatePickerToggle]", never, { "mrdDatePickerToggle": { "alias": "mrdDatePickerToggle"; "required": false; }; }, {}, never, never, false, never>;
 }
