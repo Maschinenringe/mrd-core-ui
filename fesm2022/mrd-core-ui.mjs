@@ -10,7 +10,7 @@ import { BasePushStrategyObject, Util, BaseObject, SubscriptionHandler, Observab
 import { ComponentPortal } from '@angular/cdk/portal';
 import * as i1$2 from '@angular/cdk/overlay';
 import * as i1$3 from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 
 class ConfigUtil {
     static config;
@@ -4262,10 +4262,6 @@ class MrdInputComponent {
         if (this.lineHeight !== undefined && Number.isNaN(this.lineHeight)) {
             this.lineHeight = MrdInputComponent.DEFAULT_LINE_HEIGHT;
         }
-        if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.value)) {
-            this.value = this.formControl.value;
-            this.cdr.detectChanges();
-        }
         if (this.textarea && Util.isDefined(this.textAreaElement) && Util.isDefined(this.maxLength)) {
             this.textAreaElement.nativeElement.maxLength = this.maxLength;
             this.calculateTextAreaHeight();
@@ -4275,13 +4271,9 @@ class MrdInputComponent {
                 return Util.isDefined(value) && moment.isMoment(value) ? value.format('DD.MM.YYYY') : value;
             };
         }
-        if (this.datePickerToggle) {
-            this.datePickerToggle.addEventListener('click', (event) => {
-                if (Util.isDefined(this.dateInputElement)) {
-                    debugger;
-                    this.dateInputElement.nativeElement.focus();
-                }
-            });
+        if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.value)) {
+            this.value = this.formControl.value;
+            this.cdr.detectChanges();
         }
     }
     input(event) {
