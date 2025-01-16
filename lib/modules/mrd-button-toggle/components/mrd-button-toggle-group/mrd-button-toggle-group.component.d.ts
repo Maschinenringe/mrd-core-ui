@@ -8,6 +8,9 @@ export declare class MrdButtonToggleGroupComponent extends BaseObject implements
     rounded: boolean;
     disabled: boolean;
     multiple: boolean;
+    set selectedIndex(index: number | number[]);
+    get selectedIndex(): number | number[];
+    private _selectedIndex;
     /**
      * Gibt an, ob die ButtonGroup das Theme "primary" hat.
      *
@@ -95,7 +98,7 @@ export declare class MrdButtonToggleGroupComponent extends BaseObject implements
      * @type {EventEmitter<Event>}
      * @memberof MrdButtonComponent
      */
-    indexChange: EventEmitter<number>;
+    indexChange: EventEmitter<number | number[]>;
     /**
      * Die Konfiguration des Mrd-Buttons.
      *
@@ -104,14 +107,14 @@ export declare class MrdButtonToggleGroupComponent extends BaseObject implements
      * @memberof MrdButtonComponent
      */
     private _config;
-    activeIndex: number;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdButtonToggleGroupComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonToggleGroupComponent, "mrd-button-toggle-group", never, { "rounded": { "alias": "rounded"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "unselectedBgColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "unselectedTextColor"; "required": false; }; "customToggleSelectedColor": { "alias": "selectedBgColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "selectedTextColor"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; }, { "indexChange": "indexChange"; }, ["buttons"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonToggleGroupComponent, "mrd-button-toggle-group", never, { "rounded": { "alias": "rounded"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "unselectedBgColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "unselectedTextColor"; "required": false; }; "customToggleSelectedColor": { "alias": "selectedBgColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "selectedTextColor"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; }, { "indexChange": "indexChange"; }, ["buttons"], ["*"], false, never>;
     static ngAcceptInputType_rounded: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_multiple: unknown;
+    static ngAcceptInputType_selectedIndex: unknown;
     static ngAcceptInputType_primary: unknown;
     static ngAcceptInputType_accent: unknown;
     static ngAcceptInputType_warn: unknown;

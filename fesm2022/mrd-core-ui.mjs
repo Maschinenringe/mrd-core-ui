@@ -1370,7 +1370,7 @@ function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf &
 } }
 const _c1$c = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c2$8 = function (a0) { return { "min-width": a0 }; };
-const _c3$5 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
+const _c3$6 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
 const _c4 = function (a0) { return { "isCollapsed": a0 }; };
 const _c5 = function (a0) { return { "full-icon": a0 }; };
 const _c6 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
@@ -1932,7 +1932,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             const _r1 = i0.ɵɵreference(8);
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--text-color", ctx.textColor)("--disabled-text-color", ctx.disabledTextColor)("--disabled-bg-color", ctx.disabledBgColor)("--border-width", ctx.borderWidth)("--border-color", ctx.borderColor)("--border-style", ctx.borderStyle)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--unselected-color", ctx.toggleUnselectedColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(50, _c2$8, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(52, _c3$5, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(50, _c2$8, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(52, _c3$6, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip);
             i0.ɵɵadvance(3);
             i0.ɵɵstyleProp("--hover-color", ctx.hoverColor)("--active-color", ctx.activeColor);
             i0.ɵɵadvance(1);
@@ -3743,6 +3743,40 @@ class MrdButtonToggleGroupComponent extends BaseObject {
     rounded = false;
     disabled = false;
     multiple = false;
+    set selectedIndex(index) {
+        if (this.multiple && !Array.isArray(index)) {
+            index = [index];
+        }
+        this._selectedIndex = index;
+        if (this.buttons) {
+            this.buttons.forEach((b, i) => {
+                if (this.multiple) {
+                    if (index.includes(i) && !b.toggleSelected) {
+                        b.toggleSelected = true;
+                        b.updateStyle();
+                    }
+                    else if (!index.includes(i) && b.toggleSelected) {
+                        b.toggleSelected = false;
+                        b.updateStyle();
+                    }
+                }
+                else if (i === index && !b.toggleSelected) {
+                    b.toggleSelected = true;
+                    b.updateStyle();
+                }
+                else if (i !== index && b.toggleSelected) {
+                    b.toggleSelected = false;
+                    b.updateStyle();
+                }
+            });
+        }
+        this.indexChange.emit(index);
+        this.cdr.detectChanges();
+    }
+    get selectedIndex() {
+        return this._selectedIndex;
+    }
+    _selectedIndex = 0;
     /**
      * Gibt an, ob die ButtonGroup das Theme "primary" hat.
      *
@@ -3839,12 +3873,15 @@ class MrdButtonToggleGroupComponent extends BaseObject {
      * @memberof MrdButtonComponent
      */
     _config = ConfigUtil.getConfig();
-    activeIndex = 0;
+    // public activeIndex: number|number[] = 0;
     constructor(cdr) {
         super();
         this.cdr = cdr;
     }
     ngAfterViewInit() {
+        if (this.multiple && !Array.isArray(this.selectedIndex)) {
+            this.selectedIndex = [this.selectedIndex];
+        }
         this.buttons.forEach((button, index) => {
             button.elementRef.nativeElement.style.width = `calc(${100 / this.buttons.length}% + 28px)`;
             // button.flat = true;
@@ -3861,25 +3898,29 @@ class MrdButtonToggleGroupComponent extends BaseObject {
             button.minHeight ??= this.minHeight;
             button.fontSize ??= this.fontSize;
             button.borderRadius = this.borderRadius ?? this.rounded ? '50px' : '4px';
-            if (this.activeIndex === index) {
-                button.toggleSelected = this.multiple ? !button.toggleSelected : true;
-            }
+            button.toggleSelected = this.multiple ? this.selectedIndex.includes(index) : this.selectedIndex === index;
             button.updateStyle();
             this.watch(button.click.asObservable(), new SubscriptionHandler((event) => {
                 event.stopPropagation();
                 event.preventDefault();
-                this.activeIndex = index;
-                button.toggleSelected = this.multiple ? !button.toggleSelected : true;
-                if (!this.multiple) {
-                    this.buttons.forEach((b, i) => {
-                        if (i !== index) {
-                            b.toggleSelected = false;
-                            b.updateStyle();
-                        }
-                    });
+                if (this.multiple) {
+                    this.selectedIndex = this.selectedIndex.includes(index) ? this.selectedIndex.filter(i => i !== index) : [...this.selectedIndex, index];
                 }
-                button.updateStyle();
-                this.indexChange.emit(index);
+                else {
+                    this.selectedIndex = index;
+                }
+                // this.activeIndex = index;
+                // button.toggleSelected = this.multiple ? !button.toggleSelected : true;
+                // if (!this.multiple) {
+                //   this.buttons.forEach((b, i) => {
+                //     if (i !== index) {
+                //       b.toggleSelected = false;
+                //       b.updateStyle();
+                //     }
+                //   });
+                // }
+                // button.updateStyle();
+                this.indexChange.emit(this.selectedIndex);
                 this.cdr.detectChanges();
             }));
         });
@@ -3891,7 +3932,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute] }, outputs: { indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$c, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], selectedIndex: ["selectedIndex", "selectedIndex", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute] }, outputs: { indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$c, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -3913,6 +3954,9 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         }], multiple: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
+        }], selectedIndex: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
         }], primary: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
@@ -3983,26 +4027,46 @@ class MrdButtonToggleModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdButtonToggleModule, { declarations: [MrdButtonToggleGroupComponent], imports: [CommonModule,
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
-function MrdCheckboxComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
+function MrdCheckboxComponent_span_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(1, "svg", 4);
-    i0.ɵɵelement(2, "g", 5)(3, "g", 6);
-    i0.ɵɵelementStart(4, "g", 7)(5, "title");
+    i0.ɵɵelementStart(1, "svg", 5);
+    i0.ɵɵelement(2, "g", 6)(3, "g", 7);
+    i0.ɵɵelementStart(4, "g", 8)(5, "title");
     i0.ɵɵtext(6, "check");
     i0.ɵɵelementEnd();
-    i0.ɵɵelement(7, "path", 8);
+    i0.ɵɵelement(7, "path", 9);
     i0.ɵɵelementEnd()();
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$b = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
-const _c1$8 = function (a0) { return { "checked": a0 }; };
-const _c2$5 = ["*"];
+const _c0$b = function (a0) { return { "checked": a0 }; };
+function MrdCheckboxComponent_span_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 4);
+    i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_ng_container_1_Template, 8, 0, "ng-container", 2);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$b, ctx_r0.checked));
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r0.checked);
+} }
+function MrdCheckboxComponent_ng_content_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵprojection(0, 1, ["*ngIf", "checked"]);
+} }
+function MrdCheckboxComponent_ng_content_3_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵprojection(0, 2, ["*ngIf", "!checked"]);
+} }
+const _c1$8 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]]];
+const _c2$5 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
+const _c3$5 = ["*", "[icon-checked]", "[icon-unchecked]"];
 class MrdCheckboxComponent {
     cdr;
     formControl;
     checked = false;
     disabled = false;
+    customIcons = false;
+    checkboxHeight = '16px';
+    checkboxWidth = '16px';
     checkedChange = new EventEmitter();
     constructor(cdr) {
         this.cdr = cdr;
@@ -4019,27 +4083,30 @@ class MrdCheckboxComponent {
         this.cdr.detectChanges();
     }
     /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], inputs: { formControl: "formControl", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c2$5, decls: 5, vars: 7, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "click"], [1, "mrd-checkbox-box", 3, "ngClass"], [4, "ngIf"], [1, "mrd-checkbox-label"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef();
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], inputs: { formControl: "formControl", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$5, decls: 6, vars: 10, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "click"], ["class", "mrd-checkbox-box", 3, "ngClass", 4, "ngIf"], [4, "ngIf"], [1, "mrd-checkbox-label"], [1, "mrd-checkbox-box", 3, "ngClass"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$8);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener() { return ctx.toggle(); });
-            i0.ɵɵelementStart(1, "span", 1);
-            i0.ɵɵtemplate(2, MrdCheckboxComponent_ng_container_2_Template, 8, 0, "ng-container", 2);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(3, "span", 3);
-            i0.ɵɵprojection(4);
+            i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 2, 4, "span", 1);
+            i0.ɵɵtemplate(2, MrdCheckboxComponent_ng_content_2_Template, 1, 0, "ng-content", 2);
+            i0.ɵɵtemplate(3, MrdCheckboxComponent_ng_content_3_Template, 1, 0, "ng-content", 2);
+            i0.ɵɵelementStart(4, "span", 3);
+            i0.ɵɵprojection(5);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$b, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled));
+            i0.ɵɵstyleProp("--box-height", ctx.checkboxHeight)("--box-width", ctx.checkboxWidth);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c2$5, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c1$8, ctx.checked));
+            i0.ɵɵproperty("ngIf", !ctx.customIcons);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.checked);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:-moz-fit-content;width:fit-content}.mrd-checkbox-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;cursor:pointer}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{max-height:16px;max-width:16px;height:16px;width:16px;min-width:16px;min-height:16px;display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#3faa49;border:none}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{color:#afa6a6}"], changeDetection: 0 });
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", !ctx.checked);
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:-moz-fit-content;width:fit-content}.mrd-checkbox-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;cursor:pointer}.mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width)}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#3faa49;border:none}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{color:#afa6a6}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCheckboxComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-checkbox', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle()\">\r\n  <span class=\"mrd-checkbox-box\" [ngClass]=\"{'checked': checked}\">\r\n    <ng-container *ngIf=\"checked\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <span class=\"mrd-checkbox-label\"><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer}.mrd-checkbox-container .mrd-checkbox-box{max-height:16px;max-width:16px;height:16px;width:16px;min-width:16px;min-height:16px;display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-box.checked{background-color:#3faa49;border:none}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}\n"] }]
+        args: [{ selector: 'mrd-checkbox', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle()\"\r\n  [style.--box-height]=\"checkboxHeight\" [style.--box-width]=\"checkboxWidth\">\r\n  <span class=\"mrd-checkbox-box\" [ngClass]=\"{'checked': checked}\" *ngIf=\"!customIcons\">\r\n    <ng-container *ngIf=\"checked\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\r\n  <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\r\n  <span class=\"mrd-checkbox-label\"><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width)}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-box.checked{background-color:#3faa49;border:none}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { formControl: [{
             type: Input
         }], checked: [{
@@ -4048,6 +4115,15 @@ class MrdCheckboxComponent {
         }], disabled: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
+        }], customIcons: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], checkboxHeight: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], checkboxWidth: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
         }], checkedChange: [{
             type: Output
         }] }); })();
@@ -4547,9 +4623,9 @@ function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("checked", ctx_r0.selected);
 } }
-const _c1$3 = [[["mat-icon", 9, "icon-end"]], "*", [["mat-icon", 8, "icon-end"]]];
+const _c1$3 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c2$3 = function (a0, a1, a2) { return { "selected": a0, "filtered": a1, "focused": a2 }; };
-const _c3$3 = ["mat-icon:not(.icon-end)", "*", "mat-icon.icon-end"];
+const _c3$3 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 class MrdSelectOptionComponent {
     elementRef;
     select;
@@ -4629,7 +4705,7 @@ class MrdSelectOptionComponent {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectOptionComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused}\" (click)=\"optionClick()\">\r\n  <span>\r\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\r\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\r\n        <ng-container *ngIf=\"selected\">\r\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n          </svg>\r\n        </ng-container>\r\n      </span> -->\r\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\r\n    </div>\r\n    <ng-content select=\"mat-icon:not(.icon-end)\"></ng-content>\r\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\r\n    <ng-content select=\"mat-icon.icon-end\"></ng-content>\r\n  </span>\r\n</div>\r\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}\n"] }]
+        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused}\" (click)=\"optionClick()\">\r\n  <span>\r\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\r\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\r\n        <ng-container *ngIf=\"selected\">\r\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n          </svg>\r\n        </ng-container>\r\n      </span> -->\r\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\r\n    </div>\r\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\r\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n  </span>\r\n</div>\r\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: MrdSelectComponent, decorators: [{
                 type: Host
             }] }, { type: i0.ChangeDetectorRef }]; }, { optionValue: [{
@@ -5325,6 +5401,7 @@ class MrdFormFieldComponent extends BaseObject {
                 }
                 if (this.input.textarea) {
                     this.label.labelTop = true;
+                    this.cdr.detectChanges();
                 }
             }
             this.input.touched.subscribe(() => {

@@ -24,7 +24,7 @@ export declare class MrdSelectOptionComponent implements AfterViewInit {
     set focused(value: boolean);
     get focused(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectOptionComponent, [null, { host: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectOptionComponent, "mrd-select-option", never, { "value": { "alias": "value"; "required": false; }; "noCheckbox": { "alias": "noCheckbox"; "required": false; }; }, { "optionClicked": "optionClicked"; }, never, ["mat-icon:not(.icon-end)", "*", "mat-icon.icon-end"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectOptionComponent, "mrd-select-option", never, { "value": { "alias": "value"; "required": false; }; "noCheckbox": { "alias": "noCheckbox"; "required": false; }; }, { "optionClicked": "optionClicked"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
     static ngAcceptInputType_noCheckbox: unknown;
 }
 export interface MrdSelectOptionChange {
