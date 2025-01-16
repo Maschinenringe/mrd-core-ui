@@ -18,6 +18,7 @@ export interface MrdConfigModel {
             backgroundColor?: string;
         };
     };
+    checkbox?: MrdCheckbox;
 }
 export interface MrdBaseFont {
     size?: string;
@@ -87,4 +88,15 @@ export interface MrdGeoIcon {
     overlaySelectedOpacity?: number;
     backOpacity?: number;
     backSelectedOpacity?: number;
+}
+export interface MrdCheckbox extends MrdBaseColor {
+    fill?: {
+        unselected?: MrdBaseColor;
+        selected?: MrdBaseColor;
+    };
+    outline?: {
+        unselected?: MrdBaseColor;
+        selected?: MrdBaseColor;
+    };
+    checkboxSize?: string;
 }

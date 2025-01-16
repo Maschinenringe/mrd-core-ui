@@ -5,5 +5,6 @@ export declare class ConfigUtil {
     static setConfig(config: MrdConfigModel): void;
     static getConfig(): MrdConfigModel;
     private static extendObject;
+    static getMostSpecificValue(entry: string[]): any;
     private static get baseConfig();
 }
