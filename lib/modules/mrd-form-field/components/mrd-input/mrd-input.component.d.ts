@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter } from '@angular/core';
-import { AccessableFormControl } from 'mrd-core';
+import { AccessableFormControl, BaseObject } from 'mrd-core';
 import * as i0 from "@angular/core";
-export declare class MrdInputComponent implements AfterViewInit {
+export declare class MrdInputComponent extends BaseObject implements AfterViewInit {
     private cdr;
     private static readonly DEFAULT_MAX_LENGTH;
     private static readonly DEFAULT_MIN_ROWS;
@@ -33,6 +33,7 @@ export declare class MrdInputComponent implements AfterViewInit {
     valueChange: EventEmitter<string>;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
+    private formControlChanged;
     input(event: InputEvent): void;
     private calculateTextAreaHeight;
     inputClicked(event: MouseEvent): void;

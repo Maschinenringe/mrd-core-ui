@@ -42,6 +42,8 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
+    private formControlChanged;
+    private formArrayControlChanged;
     private _resetOptions;
     removeSelected(): void;
     chipClosed(option: MrdSelectOptionComponent): void;

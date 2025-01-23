@@ -2753,7 +2753,6 @@ class MrdTabGroupComponent extends BaseObject {
         }
     }
     activateTab(index) {
-        debugger;
         if (Util.isDefined(this.activeIndex) && Util.isDefined(this.activeTab)) {
             if (index === this.activeIndex) {
                 return;
@@ -4148,7 +4147,18 @@ class MrdCheckboxComponent {
     ellipsis = false;
     tooltip = false;
     tooltipIfTruncated = false;
-    tooltipText;
+    set tooltipText(value) {
+        if (Util.isDefined(value)) {
+            this._tooltipText = value;
+        }
+        else if (Util.isDefined(this.label)) {
+            this._tooltipText = this.label.nativeElement.innerText;
+        }
+    }
+    get tooltipText() {
+        return this._tooltipText;
+    }
+    _tooltipText;
     tooltipPosition = 'bottom';
     tooltipDisabled = false;
     checkedChange = new EventEmitter();
@@ -4205,7 +4215,7 @@ class MrdCheckboxComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
         } }, hostVars: 2, hostBindings: function MrdCheckboxComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("max-width", ctx.fitContent ? "fit-content" : "100%");
-        } }, inputs: { formControl: "formControl", rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: "tooltipIfTruncated", tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c4, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showIfTruncated", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: "formControl", rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c4, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c2$5);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener() { return ctx.toggle(); });
@@ -4216,9 +4226,10 @@ class MrdCheckboxComponent {
             i0.ɵɵprojection(6);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
+            const _r3 = i0.ɵɵreference(5);
             i0.ɵɵstyleProp("--box-height", ctx.checkboxHeight)("--box-width", ctx.checkboxWidth)("--bg-color", ctx.bgColor)("--bg-color-hover", ctx.bgColorHover)("--bg-color-checked", ctx.bgColorChecked)("--bg-color-checked-hover", ctx.bgColorCheckedHover)("--color", ctx.color)("--color-hover", ctx.colorHover)("--color-checked", ctx.colorChecked)("--color-checked-hover", ctx.colorCheckedHover)("--border", ctx.border)("--border-hover", ctx.borderHover)("--border-checked", ctx.borderChecked)("--border-checked-hover", ctx.borderCheckedHover);
             i0.ɵɵclassProp("rounded", ctx.rounded)("checked", ctx.checked);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$5, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showIfTruncated", ctx.tooltipIfTruncated);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$5, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r3 : undefined);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.customIcons);
             i0.ɵɵadvance(1);
@@ -4233,7 +4244,7 @@ class MrdCheckboxComponent {
         type: Component,
         args: [{ selector: 'mrd-checkbox', host: {
                     "[style.max-width]": "fitContent ? 'fit-content' : '100%'",
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle()\"\r\n  [mrdToolTip]=\"tooltipText\" [showToolTip]=\"tooltip && !tooltipDisabled\" [position]=\"tooltipPosition\" [showIfTruncated]=\"tooltipIfTruncated\"\r\n  [style.--box-height]=\"checkboxHeight\" \r\n  [style.--box-width]=\"checkboxWidth\"\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--bg-color-hover]=\"bgColorHover\"\r\n  [style.--bg-color-checked]=\"bgColorChecked\"\r\n  [style.--bg-color-checked-hover]=\"bgColorCheckedHover\"\r\n  [style.--color]=\"color\"\r\n  [style.--color-hover]=\"colorHover\"\r\n  [style.--color-checked]=\"colorChecked\"\r\n  [style.--color-checked-hover]=\"colorCheckedHover\"\r\n  [style.--border]=\"border\"\r\n  [style.--border-hover]=\"borderHover\"\r\n  [style.--border-checked]=\"borderChecked\"\r\n  [style.--border-checked-hover]=\"borderCheckedHover\"\r\n  [class.rounded]=\"rounded\"\r\n  [class.checked]=\"checked\"\r\n  >\r\n  <span class=\"mrd-checkbox-box\" *ngIf=\"!customIcons\">\r\n    <ng-container *ngIf=\"checked\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <div class=\"mrd-checkbox-custom\" [ngClass]=\"{'isHover': !customHoverIcons}\" *ngIf=\"customIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-checkbox-custom-hover\" *ngIf=\"customHoverIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked-hover]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked-hover]\"></ng-content>\r\n  </div>\r\n  \r\n  \r\n  <span #checkboxlabel class=\"mrd-checkbox-label\"\r\n    [class.singleLine]=\"singleLine\"\r\n    [class.ellipsis]=\"ellipsis\"\r\n  ><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded{border-radius:999999px}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked],.mrd-checkbox-container ::ng-deep [icon-checked-hover],.mrd-checkbox-container ::ng-deep [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked .mrd-checkbox-box{background-color:#3faa49;border:none}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-label{overflow:hidden}.mrd-checkbox-container .mrd-checkbox-label.singleLine{white-space:nowrap}.mrd-checkbox-container .mrd-checkbox-label.ellipsis{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom:not(.isHover){display:none}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom-hover{display:flex}.mrd-checkbox-custom{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover{display:none;flex-direction:column;justify-content:center;align-items:center}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle()\"\r\n  [mrdToolTip]=\"tooltipText\" [showToolTip]=\"tooltip && !tooltipDisabled\" [position]=\"tooltipPosition\" [showOnTruncatedElement]=\"tooltipIfTruncated ? checkboxlabel : undefined\"\r\n  [style.--box-height]=\"checkboxHeight\" \r\n  [style.--box-width]=\"checkboxWidth\"\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--bg-color-hover]=\"bgColorHover\"\r\n  [style.--bg-color-checked]=\"bgColorChecked\"\r\n  [style.--bg-color-checked-hover]=\"bgColorCheckedHover\"\r\n  [style.--color]=\"color\"\r\n  [style.--color-hover]=\"colorHover\"\r\n  [style.--color-checked]=\"colorChecked\"\r\n  [style.--color-checked-hover]=\"colorCheckedHover\"\r\n  [style.--border]=\"border\"\r\n  [style.--border-hover]=\"borderHover\"\r\n  [style.--border-checked]=\"borderChecked\"\r\n  [style.--border-checked-hover]=\"borderCheckedHover\"\r\n  [class.rounded]=\"rounded\"\r\n  [class.checked]=\"checked\"\r\n  >\r\n  <span class=\"mrd-checkbox-box\" *ngIf=\"!customIcons\">\r\n    <ng-container *ngIf=\"checked\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <div class=\"mrd-checkbox-custom\" [ngClass]=\"{'isHover': !customHoverIcons}\" *ngIf=\"customIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-checkbox-custom-hover\" *ngIf=\"customHoverIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked-hover]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked-hover]\"></ng-content>\r\n  </div>\r\n  \r\n  \r\n  <span #checkboxlabel class=\"mrd-checkbox-label\"\r\n    [class.singleLine]=\"singleLine\"\r\n    [class.ellipsis]=\"ellipsis\"\r\n  ><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded{border-radius:999999px}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked],.mrd-checkbox-container ::ng-deep [icon-checked-hover],.mrd-checkbox-container ::ng-deep [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked .mrd-checkbox-box{background-color:#3faa49;border:none}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-label{overflow:hidden}.mrd-checkbox-container .mrd-checkbox-label.singleLine{white-space:nowrap}.mrd-checkbox-container .mrd-checkbox-label.ellipsis{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom:not(.isHover){display:none}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom-hover{display:flex}.mrd-checkbox-custom{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover{display:none;flex-direction:column;justify-content:center;align-items:center}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { label: [{
             type: ViewChild,
             args: ['checkboxlabel']
@@ -4308,7 +4319,8 @@ class MrdCheckboxComponent {
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], tooltipIfTruncated: [{
-            type: Input
+            type: Input,
+            args: [{ transform: booleanAttribute }]
         }], tooltipText: [{
             type: Input
         }], tooltipPosition: [{
@@ -4488,7 +4500,7 @@ function MrdInputComponent_textarea_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵstyleProp("pointer-events", ctx_r2.readonly ? "none" : "auto");
     i0.ɵɵproperty("value", ctx_r2.value)("disabled", (ctx_r2.formControl == null ? null : ctx_r2.formControl.disabled) || ctx_r2.disabled)("placeholder", ctx_r2.placeholder)("ngStyle", i0.ɵɵpureFunction1(6, _c3$4, ctx_r2.lineHeight + "px"));
 } }
-class MrdInputComponent {
+class MrdInputComponent extends BaseObject {
     cdr;
     static DEFAULT_MAX_LENGTH = 512;
     static DEFAULT_MIN_ROWS = 1;
@@ -4519,6 +4531,7 @@ class MrdInputComponent {
     blurred = new EventEmitter();
     valueChange = new EventEmitter();
     constructor(cdr) {
+        super();
         this.cdr = cdr;
     }
     ngAfterViewInit() {
@@ -4547,6 +4560,21 @@ class MrdInputComponent {
             this.value = this.formControl.value;
             this.cdr.detectChanges();
         }
+        if (Util.isDefined(this.formControl)) {
+            this.watch(this.formControl.valueChanges, new SubscriptionHandler(() => this.formControlChanged()));
+        }
+    }
+    formControlChanged() {
+        if (this.textarea) {
+            if (Util.isDefined(this.textAreaElement)) {
+                this.calculateTextAreaHeight();
+            }
+        }
+        if (Util.isDefined(this.formControl.control.value)) {
+            this.value = this.date ? this.formControl.value : this.formControl.control.value;
+        }
+        this.valueChange.emit(this.value);
+        this.cdr.detectChanges();
     }
     input(event) {
         let targetValue = event.target.value;
@@ -4558,10 +4586,7 @@ class MrdInputComponent {
         if (Util.isDefined(this.formControl)) {
             let dateMatch = MrdInputComponent.DATE_REGEX.test(targetValue);
             let dateInputMatch = MrdInputComponent.DATE_REGEX_INPUT.test(targetValue);
-            this.formControl.setValue(this.date && (dateMatch || dateInputMatch) ? (dateMatch ? moment(targetValue, 'DD.MM.YYYY').utc(true) : moment(targetValue, 'YYYY-MM-DD')) : targetValue);
-            if (Util.isDefined(this.formControl.control.value)) {
-                this.value = this.date ? this.formControl.value : this.formControl.control.value;
-            }
+            this.formControl.setValue(this.date && (dateMatch || dateInputMatch) ? (dateMatch ? moment(targetValue, 'DD.MM.YYYY').utc(true) : moment(targetValue, 'YYYY-MM-DD').utc(true)) : targetValue);
             if (this.date && dateInputMatch) {
                 this.baseInputElement.nativeElement.focus();
             }
@@ -4593,9 +4618,6 @@ class MrdInputComponent {
                 let momentDate = moment(this.formControl.control.value, 'DD.MM.YYYY').utc(true);
                 if (momentDate.isValid()) {
                     this.formControl.setValue(momentDate);
-                    if (Util.isDefined(this.formControl.value)) {
-                        this.value = this.formControl.value;
-                    }
                 }
             }
         }
@@ -4614,7 +4636,7 @@ class MrdInputComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.baseInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], centered: ["centered", "centered", booleanAttribute], datePickerToggle: "datePickerToggle" }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature], decls: 3, vars: 3, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "click", "focus", "blur", "input", 4, "ngIf"], ["type", "date", 3, "width", "padding", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [3, "value", "disabled", "placeholder", "click", "focus", "blur", "input"], ["baseInput", ""], ["type", "date", 3, "input"], ["dateInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], centered: ["centered", "centered", booleanAttribute], datePickerToggle: "datePickerToggle" }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], decls: 3, vars: 3, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "click", "focus", "blur", "input", 4, "ngIf"], ["type", "date", 3, "width", "padding", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [3, "value", "disabled", "placeholder", "click", "focus", "blur", "input"], ["baseInput", ""], ["type", "date", 3, "input"], ["dateInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 7, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_input_1_Template, 2, 4, "input", 1);
             i0.ɵɵtemplate(2, MrdInputComponent_textarea_2_Template, 2, 8, "textarea", 2);
@@ -5157,15 +5179,13 @@ class MrdSelectComponent extends BasePushStrategyObject {
             originX: 'start',
             originY: 'top',
             overlayX: 'start',
-            overlayY: 'bottom',
-            // panelClass: 'mrd-select-options-above',
+            overlayY: 'bottom'
         },
         {
             originX: 'end',
             originY: 'top',
             overlayX: 'end',
-            overlayY: 'bottom',
-            // panelClass: 'mat-mdc-select-panel-above',
+            overlayY: 'bottom'
         },
     ];
     constructor(elementRef, cdr) {
@@ -5174,36 +5194,33 @@ class MrdSelectComponent extends BasePushStrategyObject {
         this.cdr = cdr;
     }
     ngOnInit() {
-        this.watch(this.showOptions.changed, new SubscriptionHandler((value) => {
-            if (value) {
-                setTimeout(() => {
-                    let optionsContainer = this.elementRef.nativeElement.querySelector('.mrd-select-options-container');
-                    let optionsContainerRight = optionsContainer.getBoundingClientRect().right;
-                    let optionsContainerBottom = optionsContainer.getBoundingClientRect().bottom;
-                    let windowWidth = window.innerWidth;
-                    if (optionsContainerRight > windowWidth) {
-                        this.optionsWidthExceeded = true;
-                    }
-                    else {
-                        this.optionsWidthExceeded = false;
-                    }
-                    let windowHeight = window.innerHeight;
-                    if (optionsContainerBottom > windowHeight) {
-                        this.optionsHeightExceeded = true;
-                    }
-                    else {
-                        this.optionsHeightExceeded = false;
-                    }
-                    this.optionsVisible = true;
-                    this.cdr.markForCheck();
-                });
-            }
-            else {
-                this.optionsWidthExceeded = false;
-                this.optionsHeightExceeded = false;
-                this.optionsVisible = false;
-            }
-        }));
+        // this.watch(this.showOptions.changed, new SubscriptionHandler((value: boolean) => {
+        //   if (value) {
+        //     setTimeout(() => {
+        //       let optionsContainer = this.elementRef.nativeElement.querySelector('.mrd-select-options-container');
+        //       let optionsContainerRight = optionsContainer.getBoundingClientRect().right;
+        //       let optionsContainerBottom = optionsContainer.getBoundingClientRect().bottom;
+        //       let windowWidth = window.innerWidth;
+        //       if (optionsContainerRight > windowWidth) {
+        //         this.optionsWidthExceeded = true;
+        //       } else {
+        //         this.optionsWidthExceeded = false;
+        //       }
+        //       let windowHeight = window.innerHeight;
+        //       if (optionsContainerBottom > windowHeight) {
+        //         this.optionsHeightExceeded = true;
+        //       } else {
+        //         this.optionsHeightExceeded = false;
+        //       }
+        //       this.optionsVisible = true;
+        //       this.cdr.markForCheck();
+        //     });
+        //   } else {
+        //     this.optionsWidthExceeded = false;
+        //     this.optionsHeightExceeded = false;
+        //     this.optionsVisible = false;
+        //   }
+        // }));
     }
     ngAfterContentInit() {
         this._initialized.next(null);
@@ -5229,6 +5246,12 @@ class MrdSelectComponent extends BasePushStrategyObject {
         if (Util.isDefined(this.formControl) && Util.isDefined(this.formArrayControl)) {
             throw new Error('Es kann nur ein FormControl oder ein FormArrayControl verwendet werden.');
         }
+        if (Util.isDefined(this.formControl)) {
+            this.watch(this.formControl.valueChanges, new SubscriptionHandler(() => this.formControlChanged()));
+        }
+        if (Util.isDefined(this.formArrayControl)) {
+            this.watch(this.formArrayControl.control.valueChanges, new SubscriptionHandler(() => this.formArrayControlChanged()));
+        }
         if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.value)) {
             if (!this.multiple) {
                 this.options.find(option => option.value === this.formControl.value)?.optionClick();
@@ -5251,6 +5274,84 @@ class MrdSelectComponent extends BasePushStrategyObject {
             });
         }
     }
+    formControlChanged() {
+        if (this.autoComplete) {
+            this.value = this.formControl.value;
+            this.options.forEach(option => {
+                option.focused = false;
+                if ((option.optionValue?.nativeElement.innerText || '').toLowerCase().indexOf(this.value?.toLowerCase()) > -1) {
+                    option.filtered = false;
+                }
+                else {
+                    option.filtered = true;
+                }
+            });
+            if (this.value.length > 0) {
+                let filteredOptions = this.options.filter(option => !option.filtered);
+                if (filteredOptions.length > 0) {
+                    filteredOptions[0].focused = true;
+                }
+                this.showNoOptionsOnSearch = filteredOptions.length === 0;
+            }
+        }
+        else {
+            if (!Util.isDefined(this.formControl.value)) {
+                this.value = '';
+                this.options.forEach(option => option.selected = false);
+            }
+            else {
+                if (!this.multiple) {
+                    this.options.forEach(option => option.selected = false);
+                    let option = this.options.find(option => option.value === this.formControl.value);
+                    if (Util.isDefined(option)) {
+                        option.selected = true;
+                        this.value = option.optionValue?.nativeElement.innerText || '';
+                    }
+                }
+                else {
+                    let selectedValues = this.formControl.value;
+                    this.options.forEach(option => {
+                        if (selectedValues.includes(option.value)) {
+                            option.selected = true;
+                        }
+                        else {
+                            option.selected = false;
+                        }
+                    });
+                    let selectedOptions = this.options.filter(option => option.selected);
+                    this.value = selectedOptions.length === 0 ? '' : selectedOptions.map(option => option.optionValue?.nativeElement.innerText || '').join(', ');
+                }
+            }
+        }
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+    }
+    formArrayControlChanged() {
+        if (this.autoComplete) {
+            // TODO: Implement
+        }
+        else {
+            if (!Util.isDefined(this.formArrayControl.control.value) || this.formArrayControl.control.value.length === 0) {
+                this.value = '';
+                this.options.forEach(option => option.selected = false);
+            }
+            else {
+                let selectedValues = this.formArrayControl.control.value.map(value => value[this.identifier]);
+                this.options.forEach(option => {
+                    if (selectedValues.includes(option.value)) {
+                        option.selected = true;
+                    }
+                    else {
+                        option.selected = false;
+                    }
+                });
+                let selectedOptions = this.options.filter(option => option.selected);
+                this.value = selectedOptions.length === 0 ? '' : selectedOptions.map(option => option.optionValue?.nativeElement.innerText || '').join(', ');
+            }
+        }
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+    }
     _resetOptions() {
         if (Util.isDefined(this.optionChangeSubscription) && !this.optionChangeSubscription.closed) {
             this.optionChangeSubscription.unsubscribe();
@@ -5272,7 +5373,9 @@ class MrdSelectComponent extends BasePushStrategyObject {
                     if (Util.isDefined(this.formControl) && this.formControl.value !== event.key) {
                         this.formControl.setValue(event.key);
                     }
-                    this.value = event.value;
+                    else {
+                        this.value = event.value;
+                    }
                     this.showOptions.value = false;
                 }
                 else {
@@ -5283,21 +5386,21 @@ class MrdSelectComponent extends BasePushStrategyObject {
                     if (Util.isDefined(this.formArrayControl)) {
                         this.formArrayControl.reset(selectedOptions.length === 0 ? [] : selectedOptions.map(option => this.items.find(item => item[this.identifier] === option.value)));
                     }
-                    this.value = selectedOptions.length === 0 ? '' : selectedOptions.map(option => option.optionValue?.nativeElement.innerText || '').join(', ');
+                    // this.value = selectedOptions.length === 0 ? '' : selectedOptions.map(option => option.optionValue?.nativeElement.innerText || '').join(', ');
                 }
             }
             this.cdr.detectChanges();
         }));
     }
     removeSelected() {
-        this.options.forEach(option => option.selected = false);
+        // this.options.forEach(option => option.selected = false);
         if (Util.isDefined(this.formControl)) {
             this.formControl.setValue(null);
         }
         if (Util.isDefined(this.formArrayControl)) {
             this.formArrayControl.reset([]);
         }
-        this.value = '';
+        // this.value = '';
         if (!this.multiple) {
             this.showOptions.value = false;
         }
@@ -5312,30 +5415,29 @@ class MrdSelectComponent extends BasePushStrategyObject {
         if (Util.isDefined(this.formArrayControl)) {
             this.formArrayControl.reset(selectedOptions.length === 0 ? [] : selectedOptions.map(option => this.items.find(item => item[this.identifier] === option.value)));
         }
-        this.value = selectedOptions.length === 0 ? '' : selectedOptions.map(option => option.optionValue?.nativeElement.innerText || '').join(', ');
+        // this.value = selectedOptions.length === 0 ? '' : selectedOptions.map(option => option.optionValue?.nativeElement.innerText || '').join(', ');
         this.cdr.detectChanges();
     }
     autoCompleteInput(event) {
         if (Util.isDefined(this.formControl)) {
             this.formControl.setValue(event.target.value);
         }
-        this.value = event.target.value;
-        this.options.forEach(option => {
-            option.focused = false;
-            if ((option.optionValue?.nativeElement.innerText || '').toLowerCase().indexOf(this.value.toLowerCase()) > -1) {
-                option.filtered = false;
-            }
-            else {
-                option.filtered = true;
-            }
-        });
-        if (this.value.length > 0) {
-            let filteredOptions = this.options.filter(option => !option.filtered);
-            if (filteredOptions.length > 0) {
-                filteredOptions[0].focused = true;
-            }
-            this.showNoOptionsOnSearch = filteredOptions.length === 0;
-        }
+        // this.value = (event.target as HTMLInputElement).value;
+        // this.options.forEach(option => {
+        //   option.focused = false;
+        //   if ((option.optionValue?.nativeElement.innerText || '').toLowerCase().indexOf(this.value.toLowerCase()) > -1) {
+        //     option.filtered = false;
+        //   } else {
+        //     option.filtered = true;
+        //   }
+        // });
+        // if (this.value.length > 0) {
+        //   let filteredOptions = this.options.filter(option => !option.filtered);
+        //   if (filteredOptions.length > 0) {
+        //     filteredOptions[0].focused = true;
+        //   }
+        //   this.showNoOptionsOnSearch = filteredOptions.length === 0;
+        // }
         this.cdr.markForCheck();
     }
     searchInput(event) {

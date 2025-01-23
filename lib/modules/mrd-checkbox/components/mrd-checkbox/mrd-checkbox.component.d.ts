@@ -30,7 +30,9 @@ export declare class MrdCheckboxComponent implements AfterViewInit {
     ellipsis: boolean;
     tooltip: boolean;
     tooltipIfTruncated: boolean;
-    tooltipText: string;
+    set tooltipText(value: string);
+    get tooltipText(): string;
+    private _tooltipText;
     tooltipPosition: 'top' | 'bottom' | 'left' | 'right';
     tooltipDisabled: boolean;
     checkedChange: EventEmitter<boolean>;
@@ -60,5 +62,6 @@ export declare class MrdCheckboxComponent implements AfterViewInit {
     static ngAcceptInputType_fitContent: unknown;
     static ngAcceptInputType_ellipsis: unknown;
     static ngAcceptInputType_tooltip: unknown;
+    static ngAcceptInputType_tooltipIfTruncated: unknown;
     static ngAcceptInputType_tooltipDisabled: unknown;
 }
