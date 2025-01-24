@@ -4167,6 +4167,7 @@ class MrdCheckboxComponent {
         this.cdr = cdr;
     }
     ngAfterViewInit() {
+        this.cdr.detectChanges();
         if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.value)) {
             this.checked = !!this.formControl.value;
         }
@@ -4572,6 +4573,9 @@ class MrdInputComponent extends BaseObject {
         }
         if (Util.isDefined(this.formControl.control.value)) {
             this.value = this.date ? this.formControl.value : this.formControl.control.value;
+        }
+        else {
+            this.value = null;
         }
         this.valueChange.emit(this.value);
         this.cdr.detectChanges();
