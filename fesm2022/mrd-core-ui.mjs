@@ -4149,6 +4149,7 @@ class MrdCheckboxComponent {
     tooltipIfTruncated = false;
     set tooltipText(value) {
         if (Util.isDefined(value)) {
+            this.customTooltipText = true;
             this._tooltipText = value;
         }
         else if (Util.isDefined(this.label)) {
@@ -4159,6 +4160,7 @@ class MrdCheckboxComponent {
         return this._tooltipText;
     }
     _tooltipText;
+    customTooltipText = false;
     tooltipPosition = 'bottom';
     tooltipDisabled = false;
     checkedChange = new EventEmitter();
@@ -4167,7 +4169,6 @@ class MrdCheckboxComponent {
         this.cdr = cdr;
     }
     ngAfterViewInit() {
-        this.cdr.detectChanges();
         if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.value)) {
             this.checked = !!this.formControl.value;
         }
@@ -4175,7 +4176,7 @@ class MrdCheckboxComponent {
             this.tooltip = true;
         }
         if (this.tooltip && !Util.isDefined(this.tooltipText)) {
-            this.tooltipText = this.label.nativeElement.innerText;
+            this._tooltipText = this.label.nativeElement.innerText;
         }
         if (!Util.isDefined(this.checkboxHeight)) {
             this.checkboxHeight = this.checkboxSize;
@@ -4194,6 +4195,11 @@ class MrdCheckboxComponent {
         // } else if (this.warn) {
         //   this.color = this.config.warnColor;
         // }
+    }
+    ngAfterViewChecked() {
+        if (this.tooltip && Util.isDefined(this.label) && !this.customTooltipText && (!Util.isDefined(this.tooltipText) || this.tooltipText !== this.label.nativeElement.innerText)) {
+            this._tooltipText = this.label.nativeElement.innerText;
+        }
     }
     // private initBaseStyle(): void {
     // }

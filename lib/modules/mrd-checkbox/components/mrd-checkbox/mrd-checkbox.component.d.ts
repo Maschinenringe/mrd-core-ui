@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter } from '@angular/core';
 import { AccessableFormControl } from 'mrd-core';
 import * as i0 from "@angular/core";
-export declare class MrdCheckboxComponent implements AfterViewInit {
+export declare class MrdCheckboxComponent implements AfterViewInit, AfterViewChecked {
     private cdr;
     label: ElementRef<HTMLElement>;
     formControl: AccessableFormControl;
@@ -33,12 +33,14 @@ export declare class MrdCheckboxComponent implements AfterViewInit {
     set tooltipText(value: string);
     get tooltipText(): string;
     private _tooltipText;
+    private customTooltipText;
     tooltipPosition: 'top' | 'bottom' | 'left' | 'right';
     tooltipDisabled: boolean;
     checkedChange: EventEmitter<boolean>;
     private config;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
+    ngAfterViewChecked(): void;
     toggle(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdCheckboxComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MrdCheckboxComponent, "mrd-checkbox", never, { "formControl": { "alias": "formControl"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "color": { "alias": "color"; "required": false; }; "colorHover": { "alias": "colorHover"; "required": false; }; "colorChecked": { "alias": "colorChecked"; "required": false; }; "colorCheckedHover": { "alias": "colorCheckedHover"; "required": false; }; "bgColor": { "alias": "bgColor"; "required": false; }; "bgColorHover": { "alias": "bgColorHover"; "required": false; }; "bgColorChecked": { "alias": "bgColorChecked"; "required": false; }; "bgColorCheckedHover": { "alias": "bgColorCheckedHover"; "required": false; }; "border": { "alias": "border"; "required": false; }; "borderHover": { "alias": "borderHover"; "required": false; }; "borderChecked": { "alias": "borderChecked"; "required": false; }; "borderCheckedHover": { "alias": "borderCheckedHover"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "customIcons": { "alias": "customIcons"; "required": false; }; "customHoverIcons": { "alias": "customHoverIcons"; "required": false; }; "checkboxSize": { "alias": "checkboxSize"; "required": false; }; "checkboxHeight": { "alias": "checkboxHeight"; "required": false; }; "checkboxWidth": { "alias": "checkboxWidth"; "required": false; }; "singleLine": { "alias": "single-line"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "ellipsis": { "alias": "ellipsis"; "required": false; }; "tooltip": { "alias": "tooltip"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipPosition": { "alias": "tooltipPosition"; "required": false; }; "tooltipDisabled": { "alias": "tooltipDisabled"; "required": false; }; }, { "checkedChange": "checkedChange"; }, never, ["[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]", "*"], false, never>;
