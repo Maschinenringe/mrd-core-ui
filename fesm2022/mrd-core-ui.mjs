@@ -5280,14 +5280,6 @@ class MrdSelectComponent extends BasePushStrategyObject {
                 });
             }
         }
-        if (Util.isDefined(this.formArrayControl) && Util.isDefined(this.formArrayControl.value)) {
-            let selectedValues = (this.formArrayControl.value).map(value => value[this.identifier]);
-            this.options.forEach(option => {
-                if (selectedValues.includes(option.value)) {
-                    option.optionClick();
-                }
-            });
-        }
     }
     formControlChanged() {
         if (this.autoComplete) {
