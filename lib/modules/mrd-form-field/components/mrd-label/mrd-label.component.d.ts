@@ -3,7 +3,9 @@ import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
 import * as i0 from "@angular/core";
 export declare class MrdLabelComponent extends BasePushStrategyObject {
     protected cdr: ChangeDetectorRef;
-    labelTop: boolean;
+    set labelTop(value: boolean);
+    get labelTop(): boolean;
+    private _labelTop;
     float: 'always' | 'auto' | 'never';
     floating: ObservableValue<boolean>;
     required: ObservableValue<boolean>;

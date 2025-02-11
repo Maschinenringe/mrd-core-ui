@@ -6,7 +6,7 @@ export declare class MrdButtonToggleGroupComponent extends BaseObject implements
     protected cdr: ChangeDetectorRef;
     buttons: QueryList<MrdButtonComponent>;
     rounded: boolean;
-    disabled: boolean;
+    set disabled(value: boolean);
     multiple: boolean;
     set selectedIndex(index: number | number[]);
     get selectedIndex(): number | number[];
