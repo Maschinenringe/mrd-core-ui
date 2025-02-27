@@ -21,9 +21,10 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     searchSelection: boolean;
     chipSelection: boolean;
     nullable: boolean;
-    get multiple(): boolean;
     set multiple(value: boolean);
+    get multiple(): boolean;
     private _multiple;
+    closeOnSelect: boolean;
     chipPrefixIcon: string;
     chipSuffixIcon: string;
     touched: EventEmitter<void>;
@@ -58,10 +59,11 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     blur(event: FocusEvent): void;
     get optionsMinWidth(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "mrd-select-option"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "closeOnSelect": { "alias": "closeOnSelect"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "mrd-select-option"], false, never>;
     static ngAcceptInputType_autoComplete: unknown;
     static ngAcceptInputType_searchSelection: unknown;
     static ngAcceptInputType_chipSelection: unknown;
     static ngAcceptInputType_nullable: unknown;
     static ngAcceptInputType_multiple: unknown;
+    static ngAcceptInputType_closeOnSelect: unknown;
 }
