@@ -51,4 +51,5 @@ export interface MrdFlyOutConfig {
     borderRadius?: string;
     backgroundColor?: string;
     transitionTime?: string;
+    centered?: boolean;
 }

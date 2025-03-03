@@ -1,5 +1,5 @@
 import { FlyOutService } from './../../common/service/fly-out.service';
-import { AfterViewInit, ChangeDetectorRef, EventEmitter, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, ViewContainerRef } from '@angular/core';
 import { BaseObject, ObservableValue } from 'mrd-core';
 import { MrdFlyOutConfig } from '../../common/model/mrd-fly-out-config';
 import * as i0 from "@angular/core";
@@ -14,6 +14,7 @@ import * as i0 from "@angular/core";
 export declare class MrdFlyOutComponent extends BaseObject implements AfterViewInit {
     protected cdr: ChangeDetectorRef;
     protected flyOutService: FlyOutService;
+    container: ElementRef<HTMLElement>;
     /**
      * Die Referenz auf das Content-Element, in das die eingebettete Komponente geladen wird.
      *
@@ -173,6 +174,7 @@ export declare class MrdFlyOutComponent extends BaseObject implements AfterViewI
      * @memberof MrdFlyOutComponent
      */
     rightLeft: boolean;
+    centered: boolean;
     /**
      * Die ID des Overlays.
      *
@@ -213,6 +215,8 @@ export declare class MrdFlyOutComponent extends BaseObject implements AfterViewI
      * @memberof MrdFlyOutComponent
      */
     closeDirectiveClicked(returnValue: any): void;
+    get containerHeight(): string;
+    get containerWidth(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFlyOutComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MrdFlyOutComponent, "mrd-fly-out", never, {}, {}, never, never, false, never>;
 }
