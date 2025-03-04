@@ -1926,7 +1926,9 @@ class MrdButtonComponent extends BasePushStrategyObject {
     onClick(event) {
         event.stopPropagation();
         event.preventDefault();
-        this.click.emit(event);
+        if (!this.disabled) {
+            this.click.emit(event);
+        }
     }
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
@@ -3333,10 +3335,12 @@ class FlyOutService {
     close(id) {
         // Wir holen die Referenz aus der Map
         let mrdComponentRef = this.overlayMap.get(id);
-        // Wir zerstören das FlyOut und das Overlay
-        mrdComponentRef.overlayRef.detach();
-        mrdComponentRef.overlayRef.dispose();
-        this.overlayMap.delete(id);
+        // Wir zerstören das FlyOut und das Overlay, wenn sie noch existieren
+        if (Util.isDefined(mrdComponentRef)) {
+            mrdComponentRef.overlayRef.detach();
+            mrdComponentRef.overlayRef.dispose();
+            this.overlayMap.delete(id);
+        }
     }
     /** @nocollapse */ static ɵfac = function FlyOutService_Factory(t) { return new (t || FlyOutService)(i0.ɵɵinject(i1$2.Overlay), i0.ɵɵinject(i0.Injector)); };
     /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: FlyOutService, factory: FlyOutService.ɵfac, providedIn: 'root' });
@@ -3526,12 +3530,12 @@ class MrdFlyOutComponent extends BaseObject {
     backgroundColor = '#fff';
     /**
      * Die Zeit, die das FlyOut benötigt, um zu öffnen oder zu schließen.
-     * Default: '1.0s'
+     * Default: '500ms'
      *
      * @type {string}
      * @memberof MrdFlyOutComponent
      */
-    transitionTime = '1.0s';
+    transitionTime = '500ms';
     /**
      * Das vom FlyOut ausgelöste Event, wenn das FlyOut geöffnet wurde.
      *
@@ -3638,7 +3642,7 @@ class MrdFlyOutComponent extends BaseObject {
         setTimeout(() => {
             this.afterClosed.emit(returnValue);
             this.flyOutService.close(this.overlayId);
-        }, 1000);
+        }, 500);
     }
     /**
      * Wird aufgerufen, wenn das FlyOut über eine MrdFlyOutCloseDirective geschlossen wird.
@@ -4411,11 +4415,16 @@ function MrdChipComponent_mrd_button_7_Template(rf, ctx) { if (rf & 1) {
     const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
     i0.ɵɵlistener("click", function MrdChipComponent_mrd_button_7_Template_mrd_button_click_0_listener($event) { i0.ɵɵrestoreView(_r5); const ctx_r4 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r4.closeClicked($event)); });
-    i0.ɵɵelement(1, "mrd-icon", 8);
-    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(1, "span", 8);
+    i0.ɵɵnamespaceSVG();
+    i0.ɵɵelementStart(2, "svg", 9)(3, "g", 10)(4, "g", 11);
+    i0.ɵɵelement(5, "path", 12)(6, "path", 13);
+    i0.ɵɵelementEnd()()()()();
 } if (rf & 2) {
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵproperty("disabled", ctx_r3.disabled);
+    i0.ɵɵadvance(1);
+    i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r3.closeIconColor)("--chip-close-icon-cross-color", ctx_r3.closeIconCrossColor);
 } }
 const _c1$7 = function (a0) { return { "cursor": a0 }; };
 const _c2$5 = function (a0) { return { "pointer-events": a0 }; };
@@ -4453,6 +4462,8 @@ class MrdChipComponent {
         return this._disabled;
     }
     _disabled = false;
+    closeIconColor;
+    closeIconCrossColor;
     close = new EventEmitter();
     /**
        * Die Konfiguration des Mrd-Buttons.
@@ -4476,6 +4487,13 @@ class MrdChipComponent {
         if (!this.color || !ColorUtil.isHexColor(this.color)) {
             this.color = ColorUtil.shouldTextBeDark(this.backgroundColor) ? '#000000' : '#ffffff';
         }
+        let iconBgDark = ColorUtil.shouldTextBeDark(this.backgroundColor);
+        let customIconBg = true;
+        if (!this.closeIconColor) {
+            this.closeIconColor = iconBgDark ? '#606367' : '#ffffff';
+            customIconBg = false;
+        }
+        this.closeIconCrossColor = customIconBg ? ColorUtil.shouldTextBeDark(this.closeIconColor) ? '#000000' : '#ffffff' : iconBgDark ? '#ffffff' : '#000000';
         if (this.chipText) {
             this.chipTextValue = this.chipText.nativeElement.innerText;
         }
@@ -4494,7 +4512,7 @@ class MrdChipComponent {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
-        } }, inputs: { primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], color: ["color", "color", colorThemeAttribute], backgroundColor: ["backgroundColor", "backgroundColor", colorAttribute], clickable: ["clickable", "clickable", booleanAttribute], closeable: ["closeable", "closeable", booleanAttribute], prefixIcon: "prefixIcon", suffixIcon: "suffixIcon", disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { close: "close" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$5, decls: 8, vars: 14, consts: [[1, "mrd-chip-container", 3, "ngStyle"], [1, "mrd-chip-content", 3, "ngStyle"], [3, "svgIcon", 4, "ngIf"], ["showIfTruncated", "", 1, "mrd-chip-text", 3, "mrdToolTip"], ["chipText", ""], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click", 4, "ngIf"], [3, "svgIcon"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click"], ["svgIcon", "mrd_close_grey"]], template: function MrdChipComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], color: ["color", "color", colorThemeAttribute], backgroundColor: ["backgroundColor", "backgroundColor", colorAttribute], clickable: ["clickable", "clickable", booleanAttribute], closeable: ["closeable", "closeable", booleanAttribute], prefixIcon: "prefixIcon", suffixIcon: "suffixIcon", disabled: ["disabled", "disabled", booleanAttribute], closeIconColor: ["closeIconColor", "closeIconColor", colorAttribute], closeIconCrossColor: ["closeIconCrossColor", "closeIconCrossColor", colorAttribute] }, outputs: { close: "close" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$5, decls: 8, vars: 14, consts: [[1, "mrd-chip-container", 3, "ngStyle"], [1, "mrd-chip-content", 3, "ngStyle"], [3, "svgIcon", 4, "ngIf"], ["showIfTruncated", "", 1, "mrd-chip-text", 3, "mrdToolTip"], ["chipText", ""], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click", 4, "ngIf"], [3, "svgIcon"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click"], ["mrd-icon", "", 1, "chip-close-icon"], ["xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 36 36", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["transform", "translate(0 0.001)"], ["id", "X-gross-hellgrau", "transform", "translate(0 -0.001)"], ["d", "M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z", "transform", "translate(-164.994 -2778)", 1, "kreis"], ["d", "M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z", "transform", "translate(205.343 34.343)", 1, "x"]], template: function MrdChipComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵtemplate(2, MrdChipComponent_mrd_icon_2_Template, 1, 1, "mrd-icon", 2);
@@ -4503,7 +4521,7 @@ class MrdChipComponent {
             i0.ɵɵelementEnd();
             i0.ɵɵtemplate(6, MrdChipComponent_mrd_icon_6_Template, 1, 1, "mrd-icon", 2);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(7, MrdChipComponent_mrd_button_7_Template, 2, 1, "mrd-button", 5);
+            i0.ɵɵtemplate(7, MrdChipComponent_mrd_button_7_Template, 7, 5, "mrd-button", 5);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--chip-color", ctx.color)("--chip-background-color", ctx.backgroundColor);
@@ -4518,11 +4536,11 @@ class MrdChipComponent {
             i0.ɵɵproperty("ngIf", ctx.suffixIcon);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.closeable);
-        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, MrdIconComponent, MrdButtonComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]   .mrd-chip-text[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]{display:block;min-width:1em;width:1em;height:1em}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, MrdIconComponent, MrdButtonComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]   .mrd-chip-text[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]{display:block;min-width:1em;width:1em;height:1em}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.kreis[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.kreis[_ngcontent-%COMP%]{fill:var(--chip-close-icon-color)}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.x[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.x[_ngcontent-%COMP%]{fill:var(--chip-close-icon-cross-color)}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdChipComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-chip', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-chip-container\"\r\n  [ngStyle]=\"{ 'cursor': disabled || !clickable ? 'default' : 'pointer' }\"\r\n  [style.--chip-color]=\"color\"\r\n  [style.--chip-background-color]=\"backgroundColor\"\r\n>\r\n  <div class=\"mrd-chip-content\" [ngStyle]=\"{'pointer-events': disabled ? 'none' : 'auto'}\">\r\n    <mrd-icon *ngIf=\"prefixIcon\" [svgIcon]=\"prefixIcon\"></mrd-icon>\r\n    <div #chipText class=\"mrd-chip-text\" [mrdToolTip]=\"chipTextValue\" showIfTruncated>\r\n      <ng-content></ng-content>\r\n    </div>\r\n    <mrd-icon *ngIf=\"suffixIcon\" [svgIcon]=\"suffixIcon\"></mrd-icon>\r\n  </div>\r\n\r\n  <mrd-button icon-button fullIcon diameter=\"1em\" (click)=\"closeClicked($event)\" [disabled]=\"disabled\" *ngIf=\"closeable\">\r\n    <mrd-icon svgIcon=\"mrd_close_grey\"></mrd-icon>\r\n  </mrd-button>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:100%}.mrd-chip-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container .mrd-chip-content{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container .mrd-chip-content .mrd-chip-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container .mrd-chip-content mrd-icon{display:block;min-width:1em;width:1em;height:1em}\n"] }]
+        args: [{ selector: 'mrd-chip', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-chip-container\"\r\n  [ngStyle]=\"{ 'cursor': disabled || !clickable ? 'default' : 'pointer' }\"\r\n  [style.--chip-color]=\"color\"\r\n  [style.--chip-background-color]=\"backgroundColor\"\r\n>\r\n  <div class=\"mrd-chip-content\" [ngStyle]=\"{'pointer-events': disabled ? 'none' : 'auto'}\">\r\n    <mrd-icon *ngIf=\"prefixIcon\" [svgIcon]=\"prefixIcon\"></mrd-icon>\r\n    <div #chipText class=\"mrd-chip-text\" [mrdToolTip]=\"chipTextValue\" showIfTruncated>\r\n      <ng-content></ng-content>\r\n    </div>\r\n    <mrd-icon *ngIf=\"suffixIcon\" [svgIcon]=\"suffixIcon\"></mrd-icon>\r\n  </div>\r\n\r\n  <mrd-button icon-button fullIcon diameter=\"1em\" (click)=\"closeClicked($event)\" [disabled]=\"disabled\" *ngIf=\"closeable\">\r\n    <!-- <mrd-icon svgIcon=\"mrd_close_grey\"></mrd-icon> -->\r\n     <span mrd-icon [style.--chip-close-icon-color]=\"closeIconColor\" [style.--chip-close-icon-cross-color]=\"closeIconCrossColor\" class=\"chip-close-icon\">\r\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\r\n        <g transform=\"translate(0 0.001)\">\r\n          <g id=\"X-gross-hellgrau\" transform=\"translate(0 -0.001)\">\r\n            <path class=\"kreis\" d=\"M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z\" transform=\"translate(-164.994 -2778)\"></path>\r\n            <path class=\"x\" d=\"M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z\" transform=\"translate(205.343 34.343)\"></path>\r\n          </g>\r\n        </g>\r\n      </svg>\r\n     </span>\r\n  </mrd-button>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:100%}.mrd-chip-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container .mrd-chip-content{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container .mrd-chip-content .mrd-chip-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container mrd-icon,.mrd-chip-container span[mrd-icon].chip-close-icon{display:block;min-width:1em;width:1em;height:1em}.mrd-chip-container mrd-icon svg path.kreis,.mrd-chip-container span[mrd-icon].chip-close-icon svg path.kreis{fill:var(--chip-close-icon-color)}.mrd-chip-container mrd-icon svg path.x,.mrd-chip-container span[mrd-icon].chip-close-icon svg path.x{fill:var(--chip-close-icon-cross-color)}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { chipText: [{
             type: ViewChild,
             args: ['chipText']
@@ -4556,6 +4574,12 @@ class MrdChipComponent {
         }], disabled: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
+        }], closeIconColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], closeIconCrossColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
         }], close: [{
             type: Output
         }] }); })();
@@ -5355,6 +5379,11 @@ class MrdSelectComponent extends BasePushStrategyObject {
         //     this.optionsVisible = false;
         //   }
         // }));
+        this.watch(this.showOptions.changed, new SubscriptionHandler((value) => {
+            if (!value) {
+                this.blur(null);
+            }
+        }));
     }
     ngAfterContentInit() {
         this._initialized.next(null);
@@ -5547,7 +5576,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             this.formArrayControl.reset([]);
         }
         // this.value = '';
-        if (!this.multiple) {
+        if (!this.multiple || this.closeOnSelect) {
             this.showOptions.value = false;
         }
         this.cdr.detectChanges();

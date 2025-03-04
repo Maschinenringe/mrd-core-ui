@@ -117,7 +117,7 @@ export declare class MrdFlyOutComponent extends BaseObject implements AfterViewI
     backgroundColor: string;
     /**
      * Die Zeit, die das FlyOut benötigt, um zu öffnen oder zu schließen.
-     * Default: '1.0s'
+     * Default: '500ms'
      *
      * @type {string}
      * @memberof MrdFlyOutComponent
