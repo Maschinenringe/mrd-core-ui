@@ -1,5 +1,5 @@
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import * as i0 from "@angular/core";
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -24,7 +24,6 @@ import * as i0 from "@angular/core";
 export declare class MrdButtonComponent extends BasePushStrategyObject implements OnInit, AfterViewInit, OnDestroy {
     protected cdr: ChangeDetectorRef;
     elementRef: ElementRef<HTMLElement>;
-    private renderer;
     /**
      * Referenz auf das Text-Element des Buttons.
      *
@@ -315,7 +314,7 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     borderWidth: string;
     borderStyle: string;
     borderColor: string;
-    constructor(cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, renderer: Renderer2);
+    constructor(cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
