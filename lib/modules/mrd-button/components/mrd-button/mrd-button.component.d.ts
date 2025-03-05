@@ -1,5 +1,5 @@
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import * as i0 from "@angular/core";
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -21,9 +21,10 @@ import * as i0 from "@angular/core";
  * @extends {BasePushStrategyObject}
  * @implements {AfterViewInit}
  */
-export declare class MrdButtonComponent extends BasePushStrategyObject implements AfterViewInit {
+export declare class MrdButtonComponent extends BasePushStrategyObject implements OnInit, AfterViewInit, OnDestroy {
     protected cdr: ChangeDetectorRef;
     elementRef: ElementRef<HTMLElement>;
+    private renderer;
     /**
      * Referenz auf das Text-Element des Buttons.
      *
@@ -314,8 +315,10 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     borderWidth: string;
     borderStyle: string;
     borderColor: string;
-    constructor(cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>);
+    constructor(cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, renderer: Renderer2);
+    ngOnInit(): void;
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
     updateStyle(): void;
     /**
      * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
