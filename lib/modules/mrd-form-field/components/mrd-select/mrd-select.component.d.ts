@@ -15,6 +15,9 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     readonly optionSelectionChanges: Observable<any>;
     formControl: AccessableFormControl;
     formArrayControl: AccessableFormArray<any>;
+    set value(value: any);
+    get value(): any;
+    private _value;
     identifier: string;
     items: any[];
     autoComplete: boolean;
@@ -25,15 +28,20 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     get multiple(): boolean;
     private _multiple;
     closeOnSelect: boolean;
+    disabled: boolean;
+    addButton: boolean;
     chipPrefixIcon: string;
     chipSuffixIcon: string;
+    addButtonClick: EventEmitter<void>;
     touched: EventEmitter<void>;
     focused: EventEmitter<void>;
     blurred: EventEmitter<void>;
+    valueChange: EventEmitter<any>;
     showOptions: ObservableValue<boolean>;
     optionsVisible: boolean;
     _showNoOptionsOnSearch: boolean;
-    value: string;
+    standalone: boolean;
+    showValue: string;
     searchText: string;
     optionsWidthExceeded: boolean;
     optionsHeightExceeded: boolean;
@@ -45,6 +53,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     ngAfterViewInit(): void;
     private formControlChanged;
     private formArrayControlChanged;
+    private modelChanged;
     private _resetOptions;
     removeSelected(): void;
     chipClosed(option: MrdSelectOptionComponent): void;
@@ -52,6 +61,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     searchInput(event: InputEvent): void;
     onKeyDown(event: KeyboardEvent): void;
     triggerClicked(): void;
+    addButtonClicked(): void;
     get selectedOptions(): MrdSelectOptionComponent[];
     set showNoOptionsOnSearch(value: boolean);
     get showNoOptionsOnSearch(): boolean;
@@ -59,11 +69,13 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     blur(event: FocusEvent): void;
     get optionsMinWidth(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "closeOnSelect": { "alias": "closeOnSelect"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "mrd-select-option"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "value": { "alias": "value"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "closeOnSelect": { "alias": "closeOnSelect"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "addButton": { "alias": "addButton"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; }, { "addButtonClick": "addButtonClick"; "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "mrd-select-option"], false, never>;
     static ngAcceptInputType_autoComplete: unknown;
     static ngAcceptInputType_searchSelection: unknown;
     static ngAcceptInputType_chipSelection: unknown;
     static ngAcceptInputType_nullable: unknown;
     static ngAcceptInputType_multiple: unknown;
     static ngAcceptInputType_closeOnSelect: unknown;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_addButton: unknown;
 }
