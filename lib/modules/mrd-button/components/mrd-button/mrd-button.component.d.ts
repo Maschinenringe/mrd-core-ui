@@ -1,5 +1,6 @@
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { CustomHoverIconDirective } from './../../../../common/directive/custom-hover-icon/custom-hover-icon.directive';
 import * as i0 from "@angular/core";
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -23,6 +24,7 @@ import * as i0 from "@angular/core";
  */
 export declare class MrdButtonComponent extends BasePushStrategyObject implements OnInit, AfterViewInit, OnDestroy {
     protected cdr: ChangeDetectorRef;
+    private renderer;
     elementRef: ElementRef<HTMLElement>;
     /**
      * Referenz auf das Text-Element des Buttons.
@@ -281,6 +283,12 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      */
     borderRadius: string;
     value: any;
+    customHoverColor: string;
+    customHoverIconDir: CustomHoverIconDirective;
+    hasCustomHoverIcon: boolean;
+    isHovered: boolean;
+    private mouseEnterListener;
+    private mouseLeaveListener;
     /**
      * Das Klick-Event durch den Nutzer.
      *
@@ -315,7 +323,7 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     borderWidth: string;
     borderStyle: string;
     borderColor: string;
-    constructor(cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>);
+    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -335,7 +343,7 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     buttonCollapsed(isCollapsed: boolean): void;
     onClick(event: Event): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "click": "click"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "value": { "alias": "value"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; }, { "click": "click"; }, ["customHoverIconDir"], ["mrd-icon[customHoverIcon], [mrd-icon][customHoverIcon]", "mrd-icon:not([customHoverIcon]):not([icon-end]), [mrd-icon]:not([customHoverIcon]):not([icon-end])", ":not([mrd-icon]):not([mrd-icon])", "mrd-icon[customHoverIcon], [mrd-icon][customHoverIcon]", "mrd-icon[icon-end]:not([customHoverIcon]), [mrd-icon][icon-end]:not([customHoverIcon])"], false, never>;
     static ngAcceptInputType_icon: unknown;
     static ngAcceptInputType_raised: unknown;
     static ngAcceptInputType_outline: unknown;
