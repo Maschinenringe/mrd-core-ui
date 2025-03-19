@@ -5729,6 +5729,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
                 }
                 this.options.forEach(option => option.focused = false);
                 this.searchText = '';
+                this.options.forEach(option => option.filtered = false);
                 this.showNoOptionsOnSearch = false;
                 if (Util.isDefined(event.option) && !this.autoComplete) {
                     event.option.selected = this.multiple ? event.checked : true;
