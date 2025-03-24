@@ -7,6 +7,8 @@ export { timeAttribute } from './lib/common/transforms/time-transform';
 export { MrdIconRegistryService } from './lib/common/service/mrd-icon-registry.service';
 export * from './lib/common/directive/mrd-directive.module';
 export * from './lib/common/directive/hide-if-truncated/hide-if-truncated.directive';
+export * from './lib/common/directive/toggle-on-hover/toggle-on-hover.directive';
+export * from './lib/common/directive/decimal-number-directive/decimal-number.directive';
 export * from './lib/modules/mrd-button/mrd-button.module';
 export * from './lib/modules/mrd-button/components/mrd-button/mrd-button.component';
 export * from './lib/modules/mrd-icon/mrd-icon.module';

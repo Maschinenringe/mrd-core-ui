@@ -8,6 +8,7 @@ export declare class MrdSelectOptionComponent implements AfterViewInit {
     optionValue: ElementRef<HTMLElement> | undefined;
     value: any;
     noCheckbox: boolean;
+    disabled: boolean;
     optionClicked: EventEmitter<MrdSelectOptionChange>;
     optionLabel: string;
     _selected: boolean;
@@ -24,8 +25,9 @@ export declare class MrdSelectOptionComponent implements AfterViewInit {
     set focused(value: boolean);
     get focused(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectOptionComponent, [null, { host: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectOptionComponent, "mrd-select-option", never, { "value": { "alias": "value"; "required": false; }; "noCheckbox": { "alias": "noCheckbox"; "required": false; }; }, { "optionClicked": "optionClicked"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectOptionComponent, "mrd-select-option", never, { "value": { "alias": "value"; "required": false; }; "noCheckbox": { "alias": "noCheckbox"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "optionClicked": "optionClicked"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
     static ngAcceptInputType_noCheckbox: unknown;
+    static ngAcceptInputType_disabled: unknown;
 }
 export interface MrdSelectOptionChange {
     key: any;
