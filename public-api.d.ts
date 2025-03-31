@@ -49,3 +49,5 @@ export * from './lib/modules/mrd-form-field/components/mrd-select-option/mrd-sel
 export * from './lib/modules/mrd-form-field/components/mrd-select-custom-trigger/mrd-select-custom-trigger.component';
 export * from './lib/modules/mrd-geo-icon/mrd-geo-icon.module';
 export * from './lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component';
+export * from './lib/common/components/mrd-decimal/mrd-decimal.module';
+export * from './lib/common/components/mrd-decimal/components/mrd-decimal/mrd-decimal.component';
