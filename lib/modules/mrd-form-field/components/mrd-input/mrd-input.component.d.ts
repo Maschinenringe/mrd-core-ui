@@ -25,8 +25,12 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     textarea: boolean;
     date: boolean;
     customDateToggle: boolean;
-    centered: boolean;
-    textEnd: boolean;
+    set centered(value: boolean);
+    get centered(): boolean;
+    private _centered;
+    set textEnd(value: boolean);
+    get textEnd(): boolean;
+    private _textEnd;
     datePickerToggle: HTMLElement;
     maxDigits: number;
     touched: EventEmitter<void>;
@@ -34,6 +38,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     blurred: EventEmitter<void>;
     valueChange: EventEmitter<string>;
     inputChange: EventEmitter<string>;
+    isFocused: boolean;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
     private formControlChanged;
@@ -44,7 +49,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     blur(event: FocusEvent): void;
     toggleClicked(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdInputComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "customDateToggle": { "alias": "customDateToggle"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "customDateToggle": { "alias": "customDateToggle"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
     static ngAcceptInputType_maxLength: unknown;
     static ngAcceptInputType_minRows: unknown;
     static ngAcceptInputType_maxRows: unknown;
