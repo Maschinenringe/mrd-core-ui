@@ -2,6 +2,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import * as i0 from "@angular/core";
 export declare class MrdDecimalComponent {
     private cdr;
+    backgroundColor: string;
     set textEnd(value: boolean);
     get textEnd(): boolean;
     private _textEnd;
@@ -21,7 +22,7 @@ export declare class MrdDecimalComponent {
     get decimalValue(): string;
     get digitsValue(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdDecimalComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdDecimalComponent, "mrd-decimal", never, { "textEnd": { "alias": "text-end"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "minDigits": { "alias": "minDigits"; "required": false; }; "tausendertrennpunkt": { "alias": "tausendertrennpunkt"; "required": false; }; "smallDigits": { "alias": "smallDigits"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdDecimalComponent, "mrd-decimal", never, { "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "minDigits": { "alias": "minDigits"; "required": false; }; "tausendertrennpunkt": { "alias": "tausendertrennpunkt"; "required": false; }; "smallDigits": { "alias": "smallDigits"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_textEnd: unknown;
     static ngAcceptInputType_centered: unknown;
     static ngAcceptInputType_value: unknown;
