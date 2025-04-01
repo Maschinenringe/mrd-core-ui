@@ -4943,7 +4943,7 @@ class MrdInputComponent extends BaseObject {
     customDateToggle = false;
     set centered(value) {
         this._centered = value;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
     get centered() {
         return this._centered;
@@ -4951,7 +4951,7 @@ class MrdInputComponent extends BaseObject {
     _centered = false;
     set textEnd(value) {
         this._textEnd = value;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
     get textEnd() {
         return this._textEnd;
@@ -4970,9 +4970,6 @@ class MrdInputComponent extends BaseObject {
         this.cdr = cdr;
     }
     ngAfterViewInit() {
-        if (this.textEnd) {
-            debugger;
-        }
         if (this.maxLength !== undefined && Number.isNaN(this.maxLength)) {
             this.maxLength = MrdInputComponent.DEFAULT_MAX_LENGTH;
         }
@@ -6747,7 +6744,23 @@ i0.ɵɵsetComponentScope(MrdSelectComponent, [i1$1.NgClass, i1$1.NgForOf, i1$1.N
 const _c0 = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
     cdr;
-    backgroundColor = 'transparent';
+    set backgroundColor(value) {
+        this._backgroundColor = value;
+        this.cdr.markForCheck();
+    }
+    ;
+    get backgroundColor() {
+        return this._backgroundColor;
+    }
+    _backgroundColor;
+    set color(value) {
+        this._color = value;
+        this.cdr.markForCheck();
+    }
+    get color() {
+        return this._color;
+    }
+    _color;
     set textEnd(value) {
         this._textEnd = value;
         this.cdr.markForCheck();
@@ -6766,27 +6779,39 @@ class MrdDecimalComponent {
     _centered = false;
     set value(value) {
         this._value = value;
-        let valueString = '';
-        if (Util.isDefined(value) && _.isNumber(value) && !_.isNaN(value)) {
-            valueString = value.toLocaleString('de-DE', { minimumFractionDigits: this.minDigits, maximumFractionDigits: this.maxDigits });
-        }
-        if (!this.tausendertrennpunkt) {
-            valueString = valueString.replace(/\./g, '');
-        }
-        this.decimalString = Util.isDefinedNotEmptyOrZero(valueString, true, ',').split(',')[0];
-        this.digitsString = Util.isDefinedNotEmptyOrZero(valueString, true, ',').split(',')[1];
-        this.cdr.markForCheck();
+        this.generateValueString();
     }
     get value() {
         return this._value;
     }
     _value;
+    set maxDigits(value) {
+        this._maxDigits = value;
+        this.generateValueString();
+    }
+    get maxDigits() {
+        return this._maxDigits;
+    }
+    _maxDigits = 99;
+    set minDigits(value) {
+        this._minDigits = value;
+        this.generateValueString();
+    }
+    get minDigits() {
+        return this._minDigits;
+    }
+    _minDigits = 0;
+    set tausendertrennpunkt(value) {
+        this._tausendertrennpunkt = value;
+        this.generateValueString();
+    }
+    get tausendertrennpunkt() {
+        return this._tausendertrennpunkt;
+    }
+    _tausendertrennpunkt = false;
+    smallDigits = false;
     decimalString = '';
     digitsString = '';
-    maxDigits = 99;
-    minDigits = 0;
-    tausendertrennpunkt = false;
-    smallDigits = false;
     constructor(cdr) {
         this.cdr = cdr;
     }
@@ -6796,10 +6821,25 @@ class MrdDecimalComponent {
     get digitsValue() {
         return this.digitsString;
     }
+    generateValueString() {
+        let valueString = '';
+        if (Util.isDefined(this.value) && _.isNumber(this.value) && !_.isNaN(this.value)) {
+            valueString = this.value.toLocaleString('de-DE', { minimumFractionDigits: this.minDigits, maximumFractionDigits: this.maxDigits });
+            if (!this.tausendertrennpunkt) {
+                valueString = valueString.replace(/\./g, '');
+            }
+            this.decimalString = Util.isDefinedNotEmptyOrZero(valueString, true, ',').split(',')[0];
+            this.digitsString = Util.isDefinedNotEmptyOrZero(valueString, true, ',').split(',')[1];
+        }
+        else {
+            this.decimalString = Util.isDefined(this.value) ? this.value.toString() : '';
+        }
+        this.cdr.markForCheck();
+    }
     /** @nocollapse */ static ɵfac = function MrdDecimalComponent_Factory(t) { return new (t || MrdDecimalComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDecimalComponent, selectors: [["mrd-decimal"]], hostVars: 4, hostBindings: function MrdDecimalComponent_HostBindings(rf, ctx) { if (rf & 2) {
-            i0.ɵɵstyleProp("align-items", ctx.textEnd ? "flex-end" : ctx.centered ? "center" : "flex-start")("background-color", ctx.backgroundColor);
-        } }, inputs: { backgroundColor: "backgroundColor", textEnd: ["text-end", "textEnd", booleanAttribute], centered: ["text-centered", "centered", booleanAttribute], value: ["value", "value", numberAttribute], maxDigits: ["maxDigits", "maxDigits", numberAttribute], minDigits: ["minDigits", "minDigits", numberAttribute], tausendertrennpunkt: ["tausendertrennpunkt", "tausendertrennpunkt", booleanAttribute], smallDigits: ["smallDigits", "smallDigits", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], decls: 5, vars: 5, consts: [[1, "mrd-decimal-container"], [1, "mrd-decimal-content"], [1, "mrd-digits-content", 3, "ngClass"]], template: function MrdDecimalComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDecimalComponent, selectors: [["mrd-decimal"]], hostVars: 6, hostBindings: function MrdDecimalComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("align-items", ctx.textEnd ? "flex-end" : ctx.centered ? "center" : "flex-start")("background-color", ctx.backgroundColor)("color", ctx.color);
+        } }, inputs: { backgroundColor: "backgroundColor", color: "color", textEnd: ["text-end", "textEnd", booleanAttribute], centered: ["text-centered", "centered", booleanAttribute], value: "value", maxDigits: ["maxDigits", "maxDigits", numberAttribute], minDigits: ["minDigits", "minDigits", numberAttribute], tausendertrennpunkt: ["tausendertrennpunkt", "tausendertrennpunkt", booleanAttribute], smallDigits: ["smallDigits", "smallDigits", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], decls: 5, vars: 5, consts: [[1, "mrd-decimal-container"], [1, "mrd-decimal-content"], [1, "mrd-digits-content", 3, "ngClass"]], template: function MrdDecimalComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵtext(2);
             i0.ɵɵelementEnd();
@@ -6819,9 +6859,12 @@ class MrdDecimalComponent {
         type: Component,
         args: [{ selector: 'mrd-decimal', host: {
                     '[style.align-items]': 'textEnd ? "flex-end" : centered ? "center" : "flex-start"',
-                    '[style.background-color]': 'backgroundColor'
+                    '[style.background-color]': 'backgroundColor',
+                    '[style.color]': 'color'
                 }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\n</div>\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { backgroundColor: [{
+            type: Input
+        }], color: [{
             type: Input
         }], textEnd: [{
             type: Input,
@@ -6830,8 +6873,7 @@ class MrdDecimalComponent {
             type: Input,
             args: [{ alias: 'text-centered', transform: booleanAttribute }]
         }], value: [{
-            type: Input,
-            args: [{ transform: numberAttribute }]
+            type: Input
         }], maxDigits: [{
             type: Input,
             args: [{ transform: numberAttribute }]
