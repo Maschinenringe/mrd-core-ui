@@ -10,6 +10,7 @@ export declare class HideIfTruncatedDirective implements AfterViewInit, OnChange
     parentResizeElement: HTMLElement;
     hiddenChanged: EventEmitter<boolean>;
     private mutationObserver;
+    private parentMutationObserver;
     private resizeObserver;
     private blockNextResizeEvent;
     private resizeTimeout;

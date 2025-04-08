@@ -1,5 +1,5 @@
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import * as i0 from "@angular/core";
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -25,7 +25,6 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     protected cdr: ChangeDetectorRef;
     private renderer;
     elementRef: ElementRef<HTMLElement>;
-    icons: QueryList<any>;
     /**
      * Referenz auf das Text-Element des Buttons.
      *
@@ -91,7 +90,22 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @memberof MrdButtonComponent
      */
     miniFab: boolean;
+    /**
+     * Gibt an, ob der Button ein Toggle-Button ist.
+     *
+     * Toggle-Buttons sollten immer innerhalb einer Toggle-Button-Group verwendet werden.
+     * Standardmäßig haben sie einen weißen Hintergrund und die Textfarbe ist schwarz, außerdem besitzen sie im selektierten Zustand einen Schatten.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     toggle: boolean;
+    /**
+     * Gibt an, ob der Button, als Toggle-Button, selektiert ist.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     toggleSelected: boolean;
     /**
      * Gibt an, ob der Button das Theme "primary" hat.
@@ -176,8 +190,23 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @memberof MrdButtonComponent
      */
     keepCustomBgColor: boolean;
+    /**
+     * Setzt die Hintergrundfarbe des unselektierten Toggle-Buttons.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     */
     customToggleUnselectedColor: string;
+    /**
+     * Setzt die Textfarbe des unselektierten Toggle-Buttons.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     */
     customToggleUnselectedTextColor: string;
+    /**
+     * Setzt die Textfarbe des selektierten Toggle-Buttons.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     */
     customToggleSelectedTextColor: string;
     /**
      * Setzt die Farbe des Ladebalkens/Ladespinners.
@@ -235,6 +264,12 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     set tooltipIfTruncated(value: boolean);
     get tooltipIfTruncated(): boolean;
     private _tooltipIfTruncated;
+    /**
+     * Gibt an, ob der Tooltip nur angezeigt werden soll, wenn der Button collabiert ist.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     tooltipIfCollapsed: boolean;
     /**
      * Die Mindesthöhe des Buttons.
@@ -254,7 +289,20 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @memberof MrdButtonComponent
      */
     fontSize: string;
+    /**
+     * Die Schriftfamilie des Buttons.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
     fontFamily: string;
+    /**
+     * Die Schriftdicke des Buttons.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
+    fontWeight: string;
     /**
      * Der Durchmesser für Icon-, Fab- und MiniFab-Buttons.
      *
@@ -273,6 +321,12 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @memberof MrdButtonComponent
      */
     iconSize: string;
+    /**
+     * Gibt an, ob Icon des Buttons die volle Größe des Buttons einnehmen soll.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     fullIcon: boolean;
     /**
      * Der Radius der Ecken des Buttons.
@@ -283,13 +337,31 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @memberof MrdButtonComponent
      */
     borderRadius: string;
-    value: any;
+    /**
+     * Die Farbe des Buttons, wenn er gehovert wird.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
     customHoverColor: string;
+    /**
+     * Die Farbe des Textes des Buttons, wenn er gehovert wird.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
     customHoverTextColor: string;
-    hasCustomHoverIcon: boolean;
-    isHovered: boolean;
-    private mouseEnterListener;
-    private mouseLeaveListener;
+    /**
+     * Der Wert des Buttons als Toggle-Button.
+     *
+     * @type {any}
+     * @memberof MrdButtonComponent
+     */
+    value: any;
     /**
      * Das Klick-Event durch den Nutzer.
      *
@@ -305,16 +377,17 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @memberof MrdButtonComponent
      */
     private _config;
-    isCollapsed: boolean;
+    private mouseEnterListener;
+    private mouseLeaveListener;
     private uncollapsedAppearance;
     private buttonPrimary;
     private buttonAccent;
     private buttonWarn;
     private buttonDisabled;
     private buttonProgress;
-    bgColor: string;
     private textLightColor;
     private textDarkColor;
+    bgColor: string;
     textColor: string;
     hoverColor: string;
     hoverTextColor: string;
@@ -325,6 +398,8 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     borderWidth: string;
     borderStyle: string;
     borderColor: string;
+    isCollapsed: boolean;
+    isHovered: boolean;
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -345,7 +420,7 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     buttonCollapsed(isCollapsed: boolean): void;
     onClick(event: Event): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "value": { "alias": "value"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; "customHoverTextColor": { "alias": "customHoverTextColor"; "required": false; }; "hasCustomHoverIcon": { "alias": "hasCustomHoverIcon"; "required": false; }; }, { "click": "click"; }, ["icons"], ["mrd-icon[customHoverIcon]:not([icon-end]), [mrd-icon][customHoverIcon]:not([icon-end])", "mrd-icon:not([customHoverIcon]):not([icon-end]), [mrd-icon]:not([customHoverIcon]):not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end][customHoverIcon], [mrd-icon][icon-end][customHoverIcon]", "mrd-icon[icon-end]:not([customHoverIcon]), [mrd-icon][icon-end]:not([customHoverIcon])"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "fontWeight": { "alias": "fontWeight"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; "customHoverTextColor": { "alias": "customHoverTextColor"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "click": "click"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
     static ngAcceptInputType_icon: unknown;
     static ngAcceptInputType_raised: unknown;
     static ngAcceptInputType_outline: unknown;
@@ -380,5 +455,4 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     static ngAcceptInputType_borderRadius: string | number;
     static ngAcceptInputType_customHoverColor: string;
     static ngAcceptInputType_customHoverTextColor: string;
-    static ngAcceptInputType_hasCustomHoverIcon: unknown;
 }

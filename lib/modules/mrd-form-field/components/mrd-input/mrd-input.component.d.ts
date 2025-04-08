@@ -33,6 +33,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     private _textEnd;
     datePickerToggle: HTMLElement;
     maxDigits: number;
+    autofocus: boolean;
     touched: EventEmitter<void>;
     focused: EventEmitter<void>;
     blurred: EventEmitter<void>;
@@ -49,7 +50,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     blur(event: FocusEvent): void;
     toggleClicked(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdInputComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "customDateToggle": { "alias": "customDateToggle"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "customDateToggle": { "alias": "customDateToggle"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "autofocus": { "alias": "autofocus"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
     static ngAcceptInputType_maxLength: unknown;
     static ngAcceptInputType_minRows: unknown;
     static ngAcceptInputType_maxRows: unknown;
@@ -62,6 +63,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     static ngAcceptInputType_customDateToggle: unknown;
     static ngAcceptInputType_centered: unknown;
     static ngAcceptInputType_textEnd: unknown;
+    static ngAcceptInputType_autofocus: unknown;
 }
 export declare class MrdDatePickerToggle implements AfterViewInit {
     private elementRef;

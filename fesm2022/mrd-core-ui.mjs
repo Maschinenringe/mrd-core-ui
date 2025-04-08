@@ -2,7 +2,7 @@ import * as _ from 'underscore';
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { SecurityContext, Injectable, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ContentChildren, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
+import { SecurityContext, Injectable, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
 import { of, tap, map, finalize, share, Subscription, take, startWith, Subject, defer, switchMap, merge } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
@@ -226,6 +226,18 @@ class ColorUtil {
         let alpha = ((a * 255) | 1 << 8).toString(16).slice(1);
         return ColorUtil.rgbToHex(r, g, b) + alpha;
     }
+    static rgbStringToRgba(rgb) {
+        const result = /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)$/.exec(rgb);
+        if (result) {
+            return {
+                r: parseInt(result[1], 10),
+                g: parseInt(result[2], 10),
+                b: parseInt(result[3], 10),
+                a: 1
+            };
+        }
+        return null;
+    }
     static rgbStringToHex(rgb) {
         const result = /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)$/.exec(rgb);
         if (result) {
@@ -256,7 +268,7 @@ class ColorUtil {
         if (debug) {
             //debugger;
         }
-        const rgba = ColorUtil.hexToRgba(color);
+        const rgba = ColorUtil.isRgbaColor(color) ? ColorUtil.rgbaStringToRgb(color) : ColorUtil.isRgbColor(color) ? ColorUtil.rgbStringToRgba(color) : ColorUtil.hexToRgba(color);
         if (rgba) {
             const { r, g, b, a } = rgba;
             const mixedColor = {
@@ -674,6 +686,7 @@ class HideIfTruncatedDirective {
     parentResizeElement;
     hiddenChanged = new EventEmitter();
     mutationObserver;
+    parentMutationObserver;
     resizeObserver;
     blockNextResizeEvent = false;
     resizeTimeout;
@@ -699,6 +712,10 @@ class HideIfTruncatedDirective {
                     this.resizeTimeout = setTimeout(() => this.ngOnChanges(), 10);
                 });
                 this.resizeObserver.observe(this.parentResizeElement);
+                this.parentMutationObserver = new MutationObserver(() => {
+                    this.ngOnChanges();
+                });
+                this.parentMutationObserver.observe(this.parentResizeElement, { childList: true, subtree: true, characterData: true });
             }
         }
     }
@@ -1510,42 +1527,25 @@ class ToolTipRendererDirective {
             args: ['mouseleave', ['$event']]
         }] }); })();
 
-const _c0$j = ["[mrd-icon]"];
-const _c1$c = ["mrdButtonTextContent"];
-function MrdButtonComponent_ng_container_6_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementContainerStart(0);
-    i0.ɵɵprojection(1, 1);
-    i0.ɵɵelementContainerEnd();
-} }
-function MrdButtonComponent_ng_template_7_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵprojection(0, 2);
-} }
-function MrdButtonComponent_ng_container_13_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementContainerStart(0);
-    i0.ɵɵprojection(1, 3);
-    i0.ɵɵelementContainerEnd();
-} }
-function MrdButtonComponent_ng_template_14_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵprojection(0, 4);
-} }
-function MrdButtonComponent_mrd_progress_bar_16_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelement(0, "mrd-progress-bar", 13);
+const _c0$j = ["mrdButtonTextContent"];
+function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
-    const ctx_r8 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("value", ctx_r8.loadingProgress == null ? null : ctx_r8.loadingProgress.value)("mode", ctx_r8.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r8.progressColor);
+    const ctx_r2 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("value", ctx_r2.loadingProgress == null ? null : ctx_r2.loadingProgress.value)("mode", ctx_r2.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r2.progressColor);
 } }
-function MrdButtonComponent_mrd_progress_spinner_17_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelement(0, "mrd-progress-spinner", 14);
+function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-progress-spinner", 11);
 } if (rf & 2) {
-    const ctx_r9 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("value", ctx_r9.loadingProgress == null ? null : ctx_r9.loadingProgress.value)("mode", ctx_r9.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r9.progressColor);
+    const ctx_r3 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("value", ctx_r3.loadingProgress == null ? null : ctx_r3.loadingProgress.value)("mode", ctx_r3.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r3.progressColor);
 } }
-const _c2$9 = [[["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "customHoverIcon", "", 3, "icon-end", ""], ["", "mrd-icon", "", "customHoverIcon", "", 3, "icon-end", ""]], [["mrd-icon", 3, "customHoverIcon", "", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "customHoverIcon", "", 3, "icon-end", ""]], [["mrd-icon", "icon-end", "", "customHoverIcon", ""], ["", "mrd-icon", "", "icon-end", "", "customHoverIcon", ""]], [["mrd-icon", "icon-end", "", 3, "customHoverIcon", ""], ["", "mrd-icon", "", "icon-end", "", 3, "customHoverIcon", ""]]];
-const _c3$8 = function (a0) { return { "min-width": a0 }; };
-const _c4$2 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
-const _c5$1 = function (a0) { return { "isCollapsed": a0 }; };
-const _c6 = function (a0) { return { "full-icon": a0 }; };
-const _c7 = [":not([mrd-icon]):not(mrd-icon)", "mrd-icon[customHoverIcon]:not([icon-end]), [mrd-icon][customHoverIcon]:not([icon-end])", "mrd-icon:not([customHoverIcon]):not([icon-end]), [mrd-icon]:not([customHoverIcon]):not([icon-end])", "mrd-icon[icon-end][customHoverIcon], [mrd-icon][icon-end][customHoverIcon]", "mrd-icon[icon-end]:not([customHoverIcon]), [mrd-icon][icon-end]:not([customHoverIcon])"];
+const _c1$c = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$9 = function (a0) { return { "min-width": a0 }; };
+const _c3$8 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
+const _c4$2 = function (a0) { return { "isCollapsed": a0 }; };
+const _c5$1 = function (a0) { return { "full-icon": a0 }; };
+const _c6 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
  *
@@ -1570,7 +1570,6 @@ class MrdButtonComponent extends BasePushStrategyObject {
     cdr;
     renderer;
     elementRef;
-    icons;
     /**
      * Referenz auf das Text-Element des Buttons.
      *
@@ -1636,7 +1635,22 @@ class MrdButtonComponent extends BasePushStrategyObject {
      * @memberof MrdButtonComponent
      */
     miniFab = false;
+    /**
+     * Gibt an, ob der Button ein Toggle-Button ist.
+     *
+     * Toggle-Buttons sollten immer innerhalb einer Toggle-Button-Group verwendet werden.
+     * Standardmäßig haben sie einen weißen Hintergrund und die Textfarbe ist schwarz, außerdem besitzen sie im selektierten Zustand einen Schatten.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     toggle = false;
+    /**
+     * Gibt an, ob der Button, als Toggle-Button, selektiert ist.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     toggleSelected = false;
     /**
      * Gibt an, ob der Button das Theme "primary" hat.
@@ -1721,8 +1735,23 @@ class MrdButtonComponent extends BasePushStrategyObject {
      * @memberof MrdButtonComponent
      */
     keepCustomBgColor = false;
+    /**
+     * Setzt die Hintergrundfarbe des unselektierten Toggle-Buttons.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     */
     customToggleUnselectedColor;
+    /**
+     * Setzt die Textfarbe des unselektierten Toggle-Buttons.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     */
     customToggleUnselectedTextColor;
+    /**
+     * Setzt die Textfarbe des selektierten Toggle-Buttons.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     */
     customToggleSelectedTextColor;
     /**
      * Setzt die Farbe des Ladebalkens/Ladespinners.
@@ -1798,6 +1827,12 @@ class MrdButtonComponent extends BasePushStrategyObject {
         return this._tooltipIfTruncated;
     }
     _tooltipIfTruncated = false;
+    /**
+     * Gibt an, ob der Tooltip nur angezeigt werden soll, wenn der Button collabiert ist.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     tooltipIfCollapsed = false;
     /**
      * Die Mindesthöhe des Buttons.
@@ -1817,7 +1852,20 @@ class MrdButtonComponent extends BasePushStrategyObject {
      * @memberof MrdButtonComponent
      */
     fontSize;
+    /**
+     * Die Schriftfamilie des Buttons.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
     fontFamily;
+    /**
+     * Die Schriftdicke des Buttons.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
+    fontWeight;
     /**
      * Der Durchmesser für Icon-, Fab- und MiniFab-Buttons.
      *
@@ -1836,6 +1884,12 @@ class MrdButtonComponent extends BasePushStrategyObject {
      * @memberof MrdButtonComponent
      */
     iconSize;
+    /**
+     * Gibt an, ob Icon des Buttons die volle Größe des Buttons einnehmen soll.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
     fullIcon = false;
     /**
      * Der Radius der Ecken des Buttons.
@@ -1846,13 +1900,31 @@ class MrdButtonComponent extends BasePushStrategyObject {
      * @memberof MrdButtonComponent
      */
     borderRadius;
-    value;
+    /**
+     * Die Farbe des Buttons, wenn er gehovert wird.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
     customHoverColor;
+    /**
+     * Die Farbe des Textes des Buttons, wenn er gehovert wird.
+     *
+     * Es können Hex-, RGB- oder RGBA-Werte angegeben werden.
+     *
+     * @type {string}
+     * @memberof MrdButtonComponent
+     */
     customHoverTextColor;
-    hasCustomHoverIcon = false;
-    isHovered = false;
-    mouseEnterListener;
-    mouseLeaveListener;
+    /**
+     * Der Wert des Buttons als Toggle-Button.
+     *
+     * @type {any}
+     * @memberof MrdButtonComponent
+     */
+    value;
     /**
      * Das Klick-Event durch den Nutzer.
      *
@@ -1868,16 +1940,17 @@ class MrdButtonComponent extends BasePushStrategyObject {
      * @memberof MrdButtonComponent
      */
     _config = ConfigUtil.getConfig();
-    isCollapsed = false;
+    mouseEnterListener;
+    mouseLeaveListener;
     uncollapsedAppearance;
     buttonPrimary;
     buttonAccent;
     buttonWarn;
     buttonDisabled;
     buttonProgress;
-    bgColor;
     textLightColor;
     textDarkColor;
+    bgColor;
     textColor;
     hoverColor;
     hoverTextColor;
@@ -1888,6 +1961,8 @@ class MrdButtonComponent extends BasePushStrategyObject {
     borderWidth;
     borderStyle;
     borderColor;
+    isCollapsed = false;
+    isHovered = false;
     constructor(cdr, renderer, elementRef) {
         super();
         this.cdr = cdr;
@@ -1990,7 +2065,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
             // Sonst wird 'toggleUnselectedTextColor' verwendet
             // wenn customHoverColor gegeben dann setze diese sonst wird 'hoverColor' auf eine 20% transparente Version von 'baseColor' gesetzt
             this.hoverColor = this.customHoverColor ? this.customHoverColor : ColorUtil.changeColorOpacity(baseColor, 20);
-            this.hoverTextColor = this.customHoverTextColor ? this.customHoverTextColor : ColorUtil.shouldTextBeDark(this.hoverColor) ? this.textDarkColor : this.textLightColor;
+            this.hoverTextColor = this.customHoverTextColor ? this.customHoverTextColor : this.textColor; //ColorUtil.shouldTextBeDark(this.hoverColor) ? this.textDarkColor : this.textLightColor;
             // 'activeColor' wird auf 30% transparente Version von 'baseColor' mit 10% hellerer Farbe gesetzt
             this.activeColor = ColorUtil.changeColorOpacity(ColorUtil.changeColorBrightnessPercent(baseColor, 10), 30);
         }
@@ -2134,13 +2209,8 @@ class MrdButtonComponent extends BasePushStrategyObject {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], contentQueries: function MrdButtonComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
-            i0.ɵɵcontentQuery(dirIndex, _c0$j, 4);
-        } if (rf & 2) {
-            let _t;
-            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.icons = _t);
-        } }, viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c1$c, 7);
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0$j, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -2149,51 +2219,43 @@ class MrdButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
             i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
-        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value", customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], hasCustomHoverIcon: ["hasCustomHoverIcon", "hasCustomHoverIcon", booleanAttribute] }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c7, decls: 18, vars: 74, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [4, "ngIf", "ngIfElse"], ["defaultLeftIcons", ""], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["defaultRightIcons", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2$9);
+        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$c);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
             i0.ɵɵelementEnd();
             i0.ɵɵelementStart(4, "span", 4)(5, "span", 5);
-            i0.ɵɵtemplate(6, MrdButtonComponent_ng_container_6_Template, 2, 0, "ng-container", 6);
-            i0.ɵɵtemplate(7, MrdButtonComponent_ng_template_7_Template, 1, 0, "ng-template", null, 7, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵprojection(6);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(9, "span", 8, 9);
-            i0.ɵɵlistener("hiddenChanged", function MrdButtonComponent_Template_span_hiddenChanged_9_listener($event) { return ctx.buttonCollapsed($event); });
-            i0.ɵɵprojection(11);
+            i0.ɵɵelementStart(7, "span", 6, 7);
+            i0.ɵɵlistener("hiddenChanged", function MrdButtonComponent_Template_span_hiddenChanged_7_listener($event) { return ctx.buttonCollapsed($event); });
+            i0.ɵɵprojection(9, 1);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(12, "span", 5);
-            i0.ɵɵtemplate(13, MrdButtonComponent_ng_container_13_Template, 2, 0, "ng-container", 6);
-            i0.ɵɵtemplate(14, MrdButtonComponent_ng_template_14_Template, 1, 0, "ng-template", null, 10, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(10, "span", 5);
+            i0.ɵɵprojection(11, 2);
             i0.ɵɵelementEnd()();
-            i0.ɵɵtemplate(16, MrdButtonComponent_mrd_progress_bar_16_Template, 1, 3, "mrd-progress-bar", 11);
-            i0.ɵɵtemplate(17, MrdButtonComponent_mrd_progress_spinner_17_Template, 1, 3, "mrd-progress-spinner", 12);
+            i0.ɵɵtemplate(12, MrdButtonComponent_mrd_progress_bar_12_Template, 1, 3, "mrd-progress-bar", 8);
+            i0.ɵɵtemplate(13, MrdButtonComponent_mrd_progress_spinner_13_Template, 1, 3, "mrd-progress-spinner", 9);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            const _r2 = i0.ɵɵreference(8);
-            const _r4 = i0.ɵɵreference(10);
-            const _r6 = i0.ɵɵreference(15);
-            i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--text-color", ctx.textColor)("--hover-text-color", ctx.hoverTextColor)("--disabled-text-color", ctx.disabledTextColor)("--disabled-bg-color", ctx.disabledBgColor)("--border-width", ctx.borderWidth)("--border-color", ctx.borderColor)("--border-style", ctx.borderStyle)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--unselected-color", ctx.toggleUnselectedColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(56, _c3$8, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(58, _c4$2, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r4 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
+            const _r1 = i0.ɵɵreference(8);
+            i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--text-color", ctx.textColor)("--hover-text-color", ctx.hoverTextColor)("--disabled-text-color", ctx.disabledTextColor)("--disabled-bg-color", ctx.disabledBgColor)("--border-width", ctx.borderWidth)("--border-color", ctx.borderColor)("--border-style", ctx.borderStyle)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--font-weight", ctx.fontWeight)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--unselected-color", ctx.toggleUnselectedColor);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c2$9, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c3$8, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
             i0.ɵɵadvance(3);
             i0.ɵɵstyleProp("--hover-color", ctx.hoverColor)("--active-color", ctx.activeColor);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$1, ctx.isCollapsed));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(66, _c4$2, ctx.isCollapsed));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c6, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r4)("parentResizeElement", ctx.elementRef.nativeElement);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", ctx.isHovered && ctx.hasCustomHoverIcon)("ngIfElse", _r2);
-            i0.ɵɵadvance(3);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵadvance(2);
             i0.ɵɵproperty("hideIfTruncated", ctx.collapse)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(72, _c6, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r4)("parentResizeElement", ctx.elementRef.nativeElement);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", ctx.isHovered && ctx.hasCustomHoverIcon)("ngIfElse", _r6);
-            i0.ɵɵadvance(3);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c5$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && !ctx.icon && !ctx.fab && !ctx.miniFab && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.disabled && (ctx.icon || ctx.fab || ctx.miniFab) && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, i1$1.NgStyle, MrdProgressBarComponent, MrdProgressSpinnerComponent, ToolTipRendererDirective, HideIfTruncatedDirective], styles: ["[_nghost-%COMP%]{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}.active[_nghost-%COMP%]{z-index:10}.mrd-button-container[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:700;letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-icon-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     mrd-icon{margin:0 2px}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{padding:0 16px}.mrd-button-container.disabled[_ngcontent-%COMP%]{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--disabled-bg-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--hover-color)}.mrd-button-container[_ngcontent-%COMP%]:active:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--active-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-focus[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:hover{z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{transition:background-color .2s}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:not(.mrd-toggle-selected)   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--unselected-color)}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon][icon-end], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar[_ngcontent-%COMP%]{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner[_ngcontent-%COMP%]{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, i1$1.NgStyle, MrdProgressBarComponent, MrdProgressSpinnerComponent, ToolTipRendererDirective, HideIfTruncatedDirective], styles: ["[_nghost-%COMP%]{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}.active[_nghost-%COMP%]{z-index:10}.mrd-button-container[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-icon-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     mrd-icon{margin:0 2px}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{padding:0 16px}.mrd-button-container.disabled[_ngcontent-%COMP%]{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--disabled-bg-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--hover-color)}.mrd-button-container[_ngcontent-%COMP%]:active:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--active-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-focus[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:hover{z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{transition:background-color .2s}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:not(.mrd-toggle-selected)   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--unselected-color)}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon][icon-end], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar[_ngcontent-%COMP%]{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner[_ngcontent-%COMP%]{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonComponent, [{
         type: Component,
@@ -2204,11 +2266,8 @@ class MrdButtonComponent extends BasePushStrategyObject {
                     '[class.active]': 'toggle && toggleSelected',
                     '(mouseenter)': 'onMouseEnter()',
                     '(mouseleave)': 'onMouseLeave()'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der eigentlich HTML-Button -->\r\n<button class=\"mrd-button-container\"\r\n  #buttonContainer\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--text-color]=\"textColor\"\r\n  [style.--hover-text-color]=\"hoverTextColor\"\r\n  [style.--disabled-text-color]=\"disabledTextColor\"\r\n  [style.--disabled-bg-color]=\"disabledBgColor\"\r\n  [style.--border-width]=\"borderWidth\"\r\n  [style.--border-color]=\"borderColor\"\r\n  [style.--border-style]=\"borderStyle\"\r\n  [style.--border-radius]=\"borderRadius\"\r\n  [style.--min-height]=\"minHeight\"\r\n  [style.--font-size]=\"fontSize\"\r\n  [style.--font-family]=\"fontFamily\"\r\n  [style.--diameter]=\"diameter\"\r\n  [style.--icon-size]=\"iconSize\"\r\n  [style.--unselected-color]=\"toggleUnselectedColor\"\r\n\r\n  [ngStyle]=\"{'min-width': fitContent ? 'fit-content' : 'unset'}\"\r\n  [ngClass]=\"{'mrd-icon-button': icon, 'mrd-raised-button': raised, 'mrd-outline-button': outline,\r\n    'mrd-flat-button': flat, 'mrd-fab-button': fab, 'mrd-mini-fab-button': miniFab, 'mrd-toggle-button': toggle,\r\n    'mrd-toggle-selected': toggleSelected, 'disabled': disabled}\"\r\n\r\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\r\n  <div class=\"mrd-button-background\">\r\n    <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n    <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div>\r\n  </div>\r\n  <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n  <!-- <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div> -->\r\n  <!-- Der Content des Buttons -->\r\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\r\n    <!-- Linker Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-container *ngIf=\"isHovered && hasCustomHoverIcon; else defaultLeftIcons\">\r\n        <ng-content select=\"mrd-icon[customHoverIcon]:not([icon-end]), [mrd-icon][customHoverIcon]:not([icon-end])\"></ng-content>\r\n      </ng-container>\r\n      <ng-template #defaultLeftIcons>\r\n        <ng-content select=\"mrd-icon:not([customHoverIcon]):not([icon-end]), [mrd-icon]:not([customHoverIcon]):not([icon-end])\"></ng-content>\r\n      </ng-template>\r\n    </span>\r\n    \r\n    <!-- Der Text des Buttons -->\r\n    <span class=\"mrd-button-text-content\" \r\n          (hiddenChanged)=\"buttonCollapsed($event)\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          #mrdButtonTextContent \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Rechter Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-container *ngIf=\"isHovered && hasCustomHoverIcon; else defaultRightIcons\">\r\n        <ng-content select=\"mrd-icon[icon-end][customHoverIcon], [mrd-icon][icon-end][customHoverIcon]\"></ng-content>\r\n      </ng-container>\r\n      <ng-template #defaultRightIcons>\r\n        <ng-content select=\"mrd-icon[icon-end]:not([customHoverIcon]), [mrd-icon][icon-end]:not([customHoverIcon])\"></ng-content>\r\n      </ng-template>\r\n    </span>\r\n  </span>\r\n\r\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\r\n    *ngIf=\"!disabled && !icon && !fab && !miniFab && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\r\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\r\n    *ngIf=\"!disabled && (icon || fab || miniFab) && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\r\n</button>\r\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:700;letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-focus{background-color:var(--hover-color)}.mrd-button-container:active:not(.disabled) .mrd-button-focus{background-color:var(--active-color)}.mrd-button-container .mrd-button-focus{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button,.mrd-button-container.mrd-fab-button,.mrd-button-container.mrd-mini-fab-button{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button .mrd-button-background,.mrd-button-container.mrd-fab-button .mrd-button-background,.mrd-button-container.mrd-mini-fab-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background:active,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, { icons: [{
-            type: ContentChildren,
-            args: ['[mrd-icon]']
-        }], mrdButtonTextContent: [{
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der eigentlich HTML-Button -->\r\n<button class=\"mrd-button-container\"\r\n  #buttonContainer\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--text-color]=\"textColor\"\r\n  [style.--hover-text-color]=\"hoverTextColor\"\r\n  [style.--disabled-text-color]=\"disabledTextColor\"\r\n  [style.--disabled-bg-color]=\"disabledBgColor\"\r\n  [style.--border-width]=\"borderWidth\"\r\n  [style.--border-color]=\"borderColor\"\r\n  [style.--border-style]=\"borderStyle\"\r\n  [style.--border-radius]=\"borderRadius\"\r\n  [style.--min-height]=\"minHeight\"\r\n  [style.--font-size]=\"fontSize\"\r\n  [style.--font-family]=\"fontFamily\"\r\n  [style.--font-weight]=\"fontWeight\"\r\n  [style.--diameter]=\"diameter\"\r\n  [style.--icon-size]=\"iconSize\"\r\n  [style.--unselected-color]=\"toggleUnselectedColor\"\r\n\r\n  [ngStyle]=\"{'min-width': fitContent ? 'fit-content' : 'unset'}\"\r\n  [ngClass]=\"{'mrd-icon-button': icon, 'mrd-raised-button': raised, 'mrd-outline-button': outline,\r\n    'mrd-flat-button': flat, 'mrd-fab-button': fab, 'mrd-mini-fab-button': miniFab, 'mrd-toggle-button': toggle,\r\n    'mrd-toggle-selected': toggleSelected, 'disabled': disabled}\"\r\n\r\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\r\n  <div class=\"mrd-button-background\">\r\n    <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n    <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div>\r\n  </div>\r\n  <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n  <!-- <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div> -->\r\n  <!-- Der Content des Buttons -->\r\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\r\n    <!-- Linker Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Der Text des Buttons -->\r\n    <span class=\"mrd-button-text-content\" \r\n          (hiddenChanged)=\"buttonCollapsed($event)\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          #mrdButtonTextContent \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Rechter Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n    </span>\r\n  </span>\r\n\r\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\r\n    *ngIf=\"!disabled && !icon && !fab && !miniFab && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\r\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\r\n    *ngIf=\"!disabled && (icon || fab || miniFab) && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\r\n</button>\r\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-focus{background-color:var(--hover-color)}.mrd-button-container:active:not(.disabled) .mrd-button-focus{background-color:var(--active-color)}.mrd-button-container .mrd-button-focus{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button,.mrd-button-container.mrd-fab-button,.mrd-button-container.mrd-mini-fab-button{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button .mrd-button-background,.mrd-button-container.mrd-fab-button .mrd-button-background,.mrd-button-container.mrd-mini-fab-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background:active,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
             type: ViewChild,
             args: ['mrdButtonTextContent', { static: true }]
         }], icon: [{
@@ -2305,6 +2364,8 @@ class MrdButtonComponent extends BasePushStrategyObject {
             args: [{ transform: sizeAttribute }]
         }], fontFamily: [{
             type: Input
+        }], fontWeight: [{
+            type: Input
         }], diameter: [{
             type: Input,
             args: [{ transform: sizeAttribute }]
@@ -2317,17 +2378,14 @@ class MrdButtonComponent extends BasePushStrategyObject {
         }], borderRadius: [{
             type: Input,
             args: [{ transform: sizeAttribute }]
-        }], value: [{
-            type: Input
         }], customHoverColor: [{
             type: Input,
             args: [{ transform: colorAttribute }]
         }], customHoverTextColor: [{
             type: Input,
             args: [{ transform: colorAttribute }]
-        }], hasCustomHoverIcon: [{
-            type: Input,
-            args: [{ transform: booleanAttribute }]
+        }], value: [{
+            type: Input
         }], click: [{
             type: Output
         }] }); })();
@@ -4971,6 +5029,7 @@ class MrdInputComponent extends BaseObject {
     _textEnd = false;
     datePickerToggle;
     maxDigits;
+    autofocus = false;
     touched = new EventEmitter();
     focused = new EventEmitter();
     blurred = new EventEmitter();
@@ -4997,6 +5056,17 @@ class MrdInputComponent extends BaseObject {
         if (this.textarea && Util.isDefined(this.textAreaElement) && Util.isDefined(this.maxLength)) {
             this.textAreaElement.nativeElement.maxLength = this.maxLength;
             this.calculateTextAreaHeight();
+        }
+        if (this.autofocus) {
+            if (this.baseInputElement) {
+                this.baseInputElement.nativeElement.focus();
+            }
+            if (this.textAreaElement) {
+                this.textAreaElement.nativeElement.focus();
+            }
+            if (this.dateInputElement) {
+                this.dateInputElement.nativeElement.focus();
+            }
         }
         if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.control.value)) {
             this.value = this.formControl.control.value;
@@ -5091,7 +5161,7 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.baseInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits" }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 4, vars: 4, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input", 4, "ngIf"], ["type", "date", 3, "width", "padding", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input"], ["baseInput", ""], ["type", "date", 3, "input"], ["dateInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], [1, "unfocusedOverlay"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 4, vars: 4, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input", 4, "ngIf"], ["type", "date", 3, "width", "padding", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input"], ["baseInput", ""], ["type", "date", 3, "input"], ["dateInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], [1, "unfocusedOverlay"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c4);
             i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 9, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_input_1_Template, 2, 4, "input", 1);
@@ -5166,6 +5236,9 @@ class MrdInputComponent extends BaseObject {
             type: Input
         }], maxDigits: [{
             type: Input
+        }], autofocus: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
         }], touched: [{
             type: Output
         }], focused: [{
@@ -6653,11 +6726,11 @@ class MrdPrefixComponent {
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$2, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
-        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px}"] });
+        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdPrefixComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px}\n"] }]
+        args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
 const _c0$1 = ["*"];
@@ -6666,11 +6739,11 @@ class MrdSuffixComponent {
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$1, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
-        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px}"] });
+        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSuffixComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px}\n"] }]
+        args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
 class MrdFormFieldModule {
@@ -6874,7 +6947,7 @@ class MrdDecimalComponent {
                     '[style.align-items]': 'textEnd ? "flex-end" : centered ? "center" : "flex-start"',
                     '[style.background-color]': 'backgroundColor',
                     '[style.color]': 'color'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\n</div>\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\r\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\r\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\r\n</div>\r\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { backgroundColor: [{
             type: Input
         }], color: [{

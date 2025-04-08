@@ -16,6 +16,12 @@ export declare class ColorUtil {
     static hexHasAlpha(hex: string): boolean;
     static rgbToHex(r: number, g: number, b: number, a?: number): string;
     static rgbaToHex(r: number, g: number, b: number, a: number): string;
+    static rgbStringToRgba(rgb: string): {
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+    };
     static rgbStringToHex(rgb: string): string;
     static rgbaStringToHex(rgba: string): string;
     static rgbaStringToRgb(rgba: string): {
