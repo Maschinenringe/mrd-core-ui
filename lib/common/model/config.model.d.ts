@@ -17,6 +17,9 @@ export interface MrdConfigModel {
         fill?: {
             backgroundColor?: string;
         };
+        input?: {
+            color?: string;
+        };
     };
     checkbox?: MrdCheckbox;
 }
