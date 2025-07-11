@@ -43,6 +43,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     valueChange: EventEmitter<string>;
     inputChange: EventEmitter<string>;
     disabledColor: string;
+    labelPresent: boolean;
     isFocused: boolean;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
