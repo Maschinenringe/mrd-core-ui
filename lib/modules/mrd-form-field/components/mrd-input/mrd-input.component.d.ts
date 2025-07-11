@@ -42,6 +42,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     blurred: EventEmitter<void>;
     valueChange: EventEmitter<string>;
     inputChange: EventEmitter<string>;
+    disabledColor: string;
     isFocused: boolean;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
