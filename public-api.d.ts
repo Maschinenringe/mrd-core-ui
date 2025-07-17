@@ -47,6 +47,9 @@ export * from './lib/modules/mrd-form-field/components/mrd-input/mrd-input.compo
 export * from './lib/modules/mrd-form-field/components/mrd-select/mrd-select.component';
 export * from './lib/modules/mrd-form-field/components/mrd-select-option/mrd-select-option.component';
 export * from './lib/modules/mrd-form-field/components/mrd-select-custom-trigger/mrd-select-custom-trigger.component';
+export * from './lib/modules/mrd-form-field/components/mrd-datepicker/mrd-datepicker.component';
+export * from './lib/modules/mrd-form-field/components/mrd-date-range-picker/mrd-date-range-picker.component';
+export * from './lib/modules/mrd-form-field/common/directive/mrd-date-range-indicator.directive';
 export * from './lib/modules/mrd-geo-icon/mrd-geo-icon.module';
 export * from './lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component';
 export * from './lib/common/components/mrd-decimal/mrd-decimal.module';
