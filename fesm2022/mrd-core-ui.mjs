@@ -6370,7 +6370,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             this.showValue = this.formControl.value;
             this.options.forEach(option => {
                 option.focused = false;
-                if ((option.optionValue?.nativeElement.innerText || '').toLowerCase().indexOf(this.showValue?.toLowerCase()) > -1) {
+                if (!Util.isDefined(this.showValue) || (option.optionValue?.nativeElement.innerText || '').toLowerCase().indexOf(this.showValue?.toLowerCase()) > -1) {
                     option.filtered = false;
                 }
                 else {
