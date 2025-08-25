@@ -1355,6 +1355,7 @@ class ToolTipRendererDirective {
     _overlayRef;
     disabled = true;
     tooltipRef;
+    origin;
     constructor(_overlay, _overlayPositionBuilder, _elementRef) {
         this._overlay = _overlay;
         this._overlayPositionBuilder = _overlayPositionBuilder;
@@ -1393,17 +1394,25 @@ class ToolTipRendererDirective {
             overlayX = "start";
             offsetX = 5;
         }
-        const positionStrategy = this._overlayPositionBuilder
-            .flexibleConnectedTo(this._elementRef)
-            .withPositions([{
-                originX: originX,
-                originY: originY,
-                overlayX: overlayX,
-                overlayY: overlayY,
-                offsetY: offsetY,
-                offsetX: offsetX
-            }]);
-        this._overlayRef = this._overlay.create({ positionStrategy });
+        this.origin = {
+            originX: originX,
+            originY: originY,
+            overlayX: overlayX,
+            overlayY: overlayY,
+            offsetY: offsetY,
+            offsetX: offsetX
+        };
+        // const positionStrategy = this._overlayPositionBuilder
+        //                               .flexibleConnectedTo(this._elementRef)
+        //                               .withPositions([{
+        //                                                 originX: originX,
+        //                                                 originY: originY,
+        //                                                 overlayX: overlayX,
+        //                                                 overlayY: overlayY,
+        //                                                 offsetY: offsetY,
+        //                                                 offsetX: offsetX
+        //                                             }]);
+        // this._overlayRef = this._overlay.create({ positionStrategy });
     }
     /**
      * This method will be called whenever the mouse enters in the Host element
@@ -1426,6 +1435,12 @@ class ToolTipRendererDirective {
         }
         else {
             this.disabled = false;
+        }
+        if (!this.disabled && !this._overlayRef) {
+            const positionStrategy = this._overlayPositionBuilder
+                .flexibleConnectedTo(this._elementRef)
+                .withPositions([this.origin]);
+            this._overlayRef = this._overlay.create({ positionStrategy });
         }
         //attach the component if it has not already attached to the overlay
         if (!this.disabled && this._overlayRef && !this._overlayRef.hasAttached()) {
@@ -1489,6 +1504,8 @@ class ToolTipRendererDirective {
         if (this._overlayRef) {
             setTimeout(() => {
                 this._overlayRef.detach();
+                this._overlayRef.dispose();
+                this._overlayRef = null;
             }, this.hideDelay);
         }
     }
@@ -3625,6 +3642,10 @@ class FlyOutService {
         };
         // ... und fügen es der Map hinzu
         this.overlayMap.set(componentRef.instance.overlayId, mrdFlyComponentRef);
+        // Wenn Overlay detached/geschlossen wird, Map-Eintrag wieder entfernen
+        overlayRef.detachments().subscribe(() => {
+            this.overlayMap.delete(componentRef.instance.overlayId);
+        });
         // Wir geben die Referenz zurück
         return mrdFlyComponentRef;
     }
@@ -5457,6 +5478,7 @@ class MrdInputComponent extends BaseObject {
     rangeStart = false;
     rangeEnd = false;
     customDateToggle = false;
+    validateOnBlur = false;
     set color(value) {
         this._color = value;
         this.cdr.markForCheck();
@@ -5666,7 +5688,7 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.baseInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 6, vars: 9, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 6, vars: 9, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c4);
             i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 11, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 1);
@@ -5742,6 +5764,9 @@ class MrdInputComponent extends BaseObject {
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], customDateToggle: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], validateOnBlur: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], color: [{
@@ -6857,15 +6882,17 @@ class MrdFormFieldComponent extends BaseObject {
             this.input.textEnd = !this.input.textEnd ? this.textEnd : this.input.textEnd;
             if (Util.isDefined(this.input.formControl)) {
                 this.watch(this.input.formControl.valueChanges, new SubscriptionHandler(() => {
-                    if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.input.formControl.error) ? this.input.formControl.error.error : '';
+                    if (!this.input.validateOnBlur) {
+                        if (Util.isDefined(this.error)) {
+                            this.error.error = Util.isDefined(this.input.formControl.error) ? this.input.formControl.error.error : '';
+                        }
+                        this.hasError = Util.isDefined(this.input.formControl.error);
                     }
-                    this.hasError = Util.isDefined(this.input.formControl.error);
                     if (Util.isDefined(this.label)) {
                         if (Util.isDefined(this.input.formControl.value) && this.input.formControl.value !== '') {
                             this.label.floating.value = true;
                         }
-                        else {
+                        else if (!this.input.isFocused) {
                             this.label.floating.value = false;
                         }
                     }

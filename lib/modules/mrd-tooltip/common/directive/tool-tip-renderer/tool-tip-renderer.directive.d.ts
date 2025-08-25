@@ -94,6 +94,7 @@ export declare class ToolTipRendererDirective {
     private _overlayRef;
     private disabled;
     private tooltipRef;
+    private origin;
     constructor(_overlay: Overlay, _overlayPositionBuilder: OverlayPositionBuilder, _elementRef: ElementRef);
     ngOnInit(): void;
     /**
