@@ -172,6 +172,16 @@ class ConfigUtil {
                         }
                     }
                 }
+            },
+            toggleSwitch: {
+                width: "64px",
+                height: "28px",
+                bgColor: "#68b022",
+                bgNeutralColor: "#78787833",
+                knobColor: "#ffffff",
+                knobNeutralColor: "#ffffff",
+                bgDisabledColor: "#dfdfdf",
+                knobDisabledColor: "#f3f3f3"
             }
         };
     }
@@ -935,12 +945,12 @@ class MrdDirectiveModule {
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
 } }
-const _c0$n = function (a0) { return { "transform": a0 }; };
+const _c0$o = function (a0) { return { "transform": a0 }; };
 function MrdProgressBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 4);
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$n, "translateX(" + ctx_r1.value + "%)"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$o, "translateX(" + ctx_r1.value + "%)"));
 } }
 class MrdProgressBarComponent {
     cdr;
@@ -1215,7 +1225,7 @@ function MrdTooltipComponent_ng_template_2_Template(rf, ctx) { if (rf & 1) {
 function MrdTooltipComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$m = function (a0) { return { "mrd-tooltip-container": a0 }; };
+const _c0$n = function (a0) { return { "mrd-tooltip-container": a0 }; };
 class MrdTooltipComponent {
     /**
      * This is simple text which is to be shown in the tooltip
@@ -1242,7 +1252,7 @@ class MrdTooltipComponent {
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$m, ctx.defaultStyle));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$n, ctx.defaultStyle));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || _r0);
         } }, dependencies: [i1$1.NgClass, i1$1.NgTemplateOutlet], styles: [".mrd-tooltip-container[_ngcontent-%COMP%]{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}"] });
@@ -1553,7 +1563,7 @@ class ToolTipRendererDirective {
             args: ['mouseleave', ['$event']]
         }] }); })();
 
-const _c0$l = ["mrdButtonTextContent"];
+const _c0$m = ["mrdButtonTextContent"];
 function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
@@ -2236,7 +2246,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
     }
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$l, 7);
+            i0.ɵɵviewQuery(_c0$m, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -2527,7 +2537,7 @@ class MrdButtonModule {
         MrdTooltipModule,
         MrdDirectiveModule], exports: [MrdButtonComponent] }); })();
 
-const _c0$k = ["*"];
+const _c0$l = ["*"];
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -2717,7 +2727,7 @@ class MrdIconComponent {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$k, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$l, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } } });
@@ -2825,7 +2835,7 @@ class MrdTabComponent {
         }] }); })();
 
 function MrdTabBodyComponent_ng_template_1_Template(rf, ctx) { }
-const _c0$j = function (a0, a1) { return { "transform": a0, "display": a1 }; };
+const _c0$k = function (a0, a1) { return { "transform": a0, "display": a1 }; };
 class MatTabBodyPortal {
     viewContainerRef;
     _host;
@@ -2942,7 +2952,7 @@ class MrdTabBodyComponent {
             i0.ɵɵtemplate(1, MrdTabBodyComponent_ng_template_1_Template, 0, 0, "ng-template", 1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$j, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$k, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
         } }, dependencies: [i1$1.NgStyle, MatTabBodyPortal], styles: [".mrd-tab-content[_ngcontent-%COMP%]{display:block;position:absolute;inset:0;transition:transform 1s ease-out}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
@@ -2966,7 +2976,7 @@ class MrdTabBodyComponent {
             type: Input
         }] }); })();
 
-const _c0$i = ["mrdTabHeader"];
+const _c0$j = ["mrdTabHeader"];
 const _c1$d = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
 function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r6 = i0.ɵɵgetCurrentView();
@@ -3140,7 +3150,7 @@ class MrdTabGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabs = _t);
         } }, viewQuery: function MrdTabGroupComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$i, 5);
+            i0.ɵɵviewQuery(_c0$j, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabBodys = _t);
@@ -3220,7 +3230,7 @@ class MrdTabsModule {
         MatTabBodyPortal], imports: [CommonModule], exports: [MrdTabGroupComponent,
         MrdTabComponent] }); })();
 
-const _c0$h = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
+const _c0$i = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
 const _c1$c = function (a0, a1) { return { "selected": a0, "over": a1 }; };
 /**
  * Komponente für die Darstellung von Geo-Icons (Schlagzeichnungen).
@@ -3497,7 +3507,7 @@ class MrdGeoIconComponent {
             i0.ɵɵstyleProp("--width", ctx.width)("--height", ctx.height)("--margin", ctx.margin)("--transitionTime", ctx.transitionTime)("--mainColor", ctx.mainColor)("--mainSelectedColor", ctx.mainSelectedColor)("--backColor", ctx.backColor)("--backSelectedColor", ctx.backSelectedColor)("--overColor", ctx.overlayColor)("--overSelectedColor", ctx.overlaySelectedColor)("--mainOpacity", ctx.mainOpacity)("--mainSelectedOpacity", ctx.mainSelectedOpacity)("--backOpacity", ctx.backOpacity)("--backSelectedOpacity", ctx.backSelectedOpacity)("--overOpacity", ctx.overlayOpacity)("--overSelectedOpacity", ctx.overlaySelectedOpacity);
             i0.ɵɵattribute("viewBox", ctx.viewBox);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$h, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$i, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.base);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$c, ctx.isSelected, ctx.hasOverlay));
@@ -3691,7 +3701,7 @@ class FlyOutData {
             }]
     }], null, null); })();
 
-const _c0$g = ["container"];
+const _c0$h = ["container"];
 const _c1$b = ["content"];
 function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     const _r4 = i0.ɵɵgetCurrentView();
@@ -3983,7 +3993,7 @@ class MrdFlyOutComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(t) { return new (t || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFlyOutComponent, selectors: [["mrd-fly-out"]], viewQuery: function MrdFlyOutComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$g, 5);
+            i0.ɵɵviewQuery(_c0$h, 5);
             i0.ɵɵviewQuery(_c1$b, 7, ViewContainerRef);
         } if (rf & 2) {
             let _t;
@@ -4106,7 +4116,7 @@ class MrdFlyOutModule {
         MrdButtonModule], exports: [MrdFlyOutComponent,
         MrdFlyOutCloseDirective] }); })();
 
-const _c0$f = ["*"];
+const _c0$g = ["*"];
 class MrdButtonToggleGroupComponent extends BaseObject {
     cdr;
     buttons;
@@ -4344,7 +4354,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$f, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$g, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -4443,7 +4453,7 @@ class MrdButtonToggleModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdButtonToggleModule, { declarations: [MrdButtonToggleGroupComponent], imports: [CommonModule,
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
-const _c0$e = ["checkboxlabel"];
+const _c0$f = ["checkboxlabel"];
 function MrdCheckboxComponent_span_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵnamespaceSVG();
@@ -4609,7 +4619,7 @@ class MrdCheckboxComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], viewQuery: function MrdCheckboxComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$e, 5);
+            i0.ɵɵviewQuery(_c0$f, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
@@ -4759,7 +4769,7 @@ class MrdCheckboxModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdCheckboxModule, { declarations: [MrdCheckboxComponent], imports: [CommonModule,
         MrdTooltipModule], exports: [MrdCheckboxComponent] }); })();
 
-const _c0$d = ["chipText"];
+const _c0$e = ["chipText"];
 function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
@@ -4869,7 +4879,7 @@ class MrdChipComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(t) { return new (t || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdChipComponent, selectors: [["mrd-chip"]], viewQuery: function MrdChipComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$d, 5);
+            i0.ɵɵviewQuery(_c0$e, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
@@ -4980,7 +4990,7 @@ class MrdChipModule {
 function MrdDatepickerComponent_ng_container_10_div_17_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 8);
 } }
-const _c0$c = function (a0, a1) { return { "today": a0, "selected": a1 }; };
+const _c0$d = function (a0, a1) { return { "today": a0, "selected": a1 }; };
 function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
     const _r10 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 12);
@@ -4989,7 +4999,7 @@ function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Tem
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const d_r8 = ctx.$implicit;
-    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$c, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$d, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", d_r8.day, " ");
 } }
@@ -5402,7 +5412,7 @@ class MrdDatepickerComponent {
             type: Output
         }] }); })();
 
-const _c0$b = ["baseInput"];
+const _c0$c = ["baseInput"];
 const _c1$7 = ["textArea"];
 const _c2$5 = ["dateInput"];
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
@@ -5680,7 +5690,7 @@ class MrdInputComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdInputComponent, selectors: [["mrd-input"]], viewQuery: function MrdInputComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$b, 5);
+            i0.ɵɵviewQuery(_c0$c, 5);
             i0.ɵɵviewQuery(_c1$7, 5);
             i0.ɵɵviewQuery(_c2$5, 5);
         } if (rf & 2) {
@@ -5837,7 +5847,7 @@ function MrdLabelComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(1, "\u00A0*");
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$a = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
+const _c0$b = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
 const _c1$6 = ["*"];
 class MrdLabelComponent extends BasePushStrategyObject {
     cdr;
@@ -5866,7 +5876,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
             i0.ɵɵtemplate(3, MrdLabelComponent_ng_container_3_Template, 2, 0, "ng-container", 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$a, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$b, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.required.value);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
@@ -5881,7 +5891,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
             type: Input
         }] }); })();
 
-const _c0$9 = function (a0) { return { "mrd-error-ellipsis": a0 }; };
+const _c0$a = function (a0) { return { "mrd-error-ellipsis": a0 }; };
 const _c1$5 = function (a0) { return { "-webkit-line-clamp": a0 }; };
 class MrdErrorComponent {
     cdr;
@@ -5909,7 +5919,7 @@ class MrdErrorComponent {
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$9, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$5, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$a, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$5, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate1(" ", ctx.error, "\n");
         } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
@@ -5922,7 +5932,7 @@ class MrdErrorComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$8 = ["optionValue"];
+const _c0$9 = ["optionValue"];
 function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 4);
     i0.ɵɵelement(1, "mrd-checkbox", 5);
@@ -5991,7 +6001,7 @@ class MrdSelectOptionComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(t) { return new (t || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectOptionComponent, selectors: [["mrd-select-option"]], viewQuery: function MrdSelectOptionComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$8, 5);
+            i0.ɵɵviewQuery(_c0$9, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionValue = _t.first);
@@ -6033,14 +6043,14 @@ class MrdSelectOptionComponent {
             type: Output
         }] }); })();
 
-const _c0$7 = ["*"];
+const _c0$8 = ["*"];
 class MrdSelectCustomTriggerComponent {
     triggerClick = new EventEmitter();
     triggerClicked() {
         this.triggerClick.emit();
     }
     /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(t) { return new (t || MrdSelectCustomTriggerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$7, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$8, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵlistener("click", function MrdSelectCustomTriggerComponent_Template_span_click_0_listener() { return ctx.triggerClicked(); });
@@ -6055,7 +6065,7 @@ class MrdSelectCustomTriggerComponent {
             type: Output
         }] }); })();
 
-const _c0$6 = ["selectContainer"];
+const _c0$7 = ["selectContainer"];
 function MrdSelectComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
@@ -6749,7 +6759,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.customTrigger = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.options = _t);
         } }, viewQuery: function MrdSelectComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$6, 5);
+            i0.ɵɵviewQuery(_c0$7, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.selectContainer = _t.first);
@@ -6835,7 +6845,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             type: Output
         }] }); })();
 
-const _c0$5 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
+const _c0$6 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
 const _c1$2 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
 const _c2$2 = function (a0, a1, a2, a3, a4, a5) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 }; };
 const _c3$1 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
@@ -7164,7 +7174,7 @@ class MrdFormFieldComponent extends BaseObject {
         } }, hostVars: 2, hostBindings: function MrdFormFieldComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("font-family", ctx.config == null ? null : ctx.config.baseFont.family);
         } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$1, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$5);
+            i0.ɵɵprojectionDef(_c0$6);
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵelementStart(3, "div", 2);
@@ -7231,7 +7241,7 @@ class MrdFormFieldComponent extends BaseObject {
             args: [{ transform: colorAttribute }]
         }] }); })();
 
-const _c0$4 = ["hintContent"];
+const _c0$5 = ["hintContent"];
 const _c1$1 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
 const _c2$1 = function (a0) { return { "-webkit-line-clamp": a0 }; };
 const _c3 = ["*"];
@@ -7254,7 +7264,7 @@ class MrdHintComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$4, 5);
+            i0.ɵɵviewQuery(_c0$5, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
@@ -7278,10 +7288,10 @@ class MrdHintComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$3 = ["*"];
+const _c0$4 = ["*"];
 class MrdPrefixComponent {
     /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(t) { return new (t || MrdPrefixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$3, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$4, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
@@ -7291,10 +7301,10 @@ class MrdPrefixComponent {
         args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$2 = ["*"];
+const _c0$3 = ["*"];
 class MrdSuffixComponent {
     /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(t) { return new (t || MrdSuffixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$2, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$3, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
@@ -7304,7 +7314,7 @@ class MrdSuffixComponent {
         args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$1 = ["dateInput"];
+const _c0$2 = ["dateInput"];
 function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 1) {
     const _r3 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 5);
@@ -7387,7 +7397,7 @@ class MrdDateRangePickerComponent {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.inputs = _t);
         } }, viewQuery: function MrdDateRangePickerComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$1, 5);
+            i0.ɵɵviewQuery(_c0$2, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
@@ -7595,7 +7605,7 @@ class MrdFormFieldModule {
 i0.ɵɵsetComponentScope(MrdSelectComponent, [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$2.CdkConnectedOverlay, ToolTipRendererDirective, MrdChipComponent, MrdSelectOptionComponent], []);
 i0.ɵɵsetComponentScope(MrdDatepickerComponent, [i1$1.NgForOf, i1$1.NgIf, MrdButtonComponent, MrdDateRangeIndicatorDirective], []);
 
-const _c0 = function (a0) { return { "small": a0 }; };
+const _c0$1 = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
     cdr;
     set backgroundColor(value) {
@@ -7705,7 +7715,7 @@ class MrdDecimalComponent {
             i0.ɵɵadvance(2);
             i0.ɵɵtextInterpolate(ctx.decimalValue);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0, ctx.smallDigits));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$1, ctx.smallDigits));
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate(ctx.digitsValue);
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container[_ngcontent-%COMP%]   .mrd-digits-content.small[_ngcontent-%COMP%]{font-size:.8em}"], changeDetection: 0 });
@@ -7764,9 +7774,165 @@ class MrdDecimalModule {
     }], null, null); })();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdDecimalModule, { declarations: [MrdDecimalComponent], imports: [CommonModule], exports: [MrdDecimalComponent] }); })();
 
+var MrdToggleSwitchState;
+(function (MrdToggleSwitchState) {
+    MrdToggleSwitchState["LEFT"] = "left";
+    MrdToggleSwitchState["NEUTRAL"] = "neutral";
+    MrdToggleSwitchState["RIGHT"] = "right";
+})(MrdToggleSwitchState || (MrdToggleSwitchState = {}));
+
+function MrdToggleSwitchComponent_div_3_Template(rf, ctx) { if (rf & 1) {
+    const _r2 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div", 4)(1, "div", 5);
+    i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_1_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.toggle($event, ctx_r1.MrdToggleSwitchState.LEFT)); });
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(2, "div", 5);
+    i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r3 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r3.toggle($event, ctx_r3.MrdToggleSwitchState.RIGHT)); });
+    i0.ɵɵelementEnd()();
+} }
+const _c0 = function (a0, a1, a2, a3) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 }; };
+class MrdToggleSwitchComponent {
+    cdr;
+    MrdToggleSwitchState = MrdToggleSwitchState;
+    bgColor;
+    bgNeutralColor;
+    knobColor;
+    knobNeutralColor;
+    width;
+    height;
+    bgDisabledColor;
+    knobDisabledColor;
+    disabled = false;
+    set state(value) {
+        if (this._state !== value) {
+            this._state = value;
+            this.stateChange.emit(this._state);
+        }
+        this.cdr.detectChanges();
+    }
+    get state() {
+        return this._state;
+    }
+    _state = MrdToggleSwitchState.NEUTRAL;
+    stateChange = new EventEmitter();
+    _config = ConfigUtil.getConfig();
+    constructor(cdr) {
+        this.cdr = cdr;
+    }
+    ngOnInit() {
+        if (!this.width) {
+            this.width = this._config.toggleSwitch.width;
+        }
+        if (!this.height) {
+            this.height = this._config.toggleSwitch.height;
+        }
+        if (!this.bgColor) {
+            this.bgColor = this._config.toggleSwitch.bgColor;
+        }
+        if (!this.bgNeutralColor) {
+            this.bgNeutralColor = this._config.toggleSwitch.bgNeutralColor;
+        }
+        if (!this.knobColor) {
+            this.knobColor = this._config.toggleSwitch.knobColor;
+        }
+        if (!this.knobNeutralColor) {
+            this.knobNeutralColor = this._config.toggleSwitch.knobNeutralColor;
+        }
+        if (!this.bgDisabledColor) {
+            this.bgDisabledColor = this._config.toggleSwitch.bgDisabledColor;
+        }
+        if (!this.knobDisabledColor) {
+            this.knobDisabledColor = this._config.toggleSwitch.knobDisabledColor;
+        }
+        this.cdr.detectChanges();
+    }
+    toggle(event, state) {
+        event.stopPropagation();
+        if (!this.disabled) {
+            if (state) {
+                this.state = state;
+            }
+            else {
+                this.state = this.state === MrdToggleSwitchState.LEFT ? MrdToggleSwitchState.RIGHT : MrdToggleSwitchState.LEFT;
+            }
+        }
+        this.cdr.detectChanges();
+    }
+    /** @nocollapse */ static ɵfac = function MrdToggleSwitchComponent_Factory(t) { return new (t || MrdToggleSwitchComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdToggleSwitchComponent, selectors: [["mrd-toggle-switch"]], inputs: { bgColor: ["bgColor", "bgColor", colorAttribute], bgNeutralColor: ["bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: ["knobColor", "knobColor", colorAttribute], knobNeutralColor: ["knobNeutralColor", "knobNeutralColor", colorAttribute], width: ["width", "width", sizeAttribute], height: ["height", "height", sizeAttribute], bgDisabledColor: ["bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: ["knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: ["disabled", "disabled", booleanAttribute], state: "state" }, outputs: { stateChange: "stateChange" }, features: [i0.ɵɵInputTransformsFeature], decls: 4, vars: 23, consts: [[1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "ngClass", "click"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
+            i0.ɵɵlistener("click", function MrdToggleSwitchComponent_Template_div_click_1_listener($event) { return ctx.toggle($event); });
+            i0.ɵɵelement(2, "div", 2);
+            i0.ɵɵtemplate(3, MrdToggleSwitchComponent_div_3_Template, 3, 0, "div", 3);
+            i0.ɵɵelementEnd()();
+        } if (rf & 2) {
+            i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--knob-color", ctx.knobColor)("--bg-neutral-color", ctx.bgNeutralColor)("--knob-neutral-color", ctx.knobNeutralColor)("--bg-disabled-color", ctx.bgDisabledColor)("--knob-disabled-color", ctx.knobDisabledColor)("--width", ctx.width)("--height", ctx.height);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(18, _c0, ctx.disabled, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngIf", !ctx.disabled && ctx.state === ctx.MrdToggleSwitchState.NEUTRAL);
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:-moz-fit-content;width:fit-content;height:-moz-fit-content;height:fit-content}.mrd-toggle-switch-container[_ngcontent-%COMP%]{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-left[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:2px}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-right[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]   .mrd-toggle-switch-neutral-clickarea[_ngcontent-%COMP%]{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-disabled-color)}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToggleSwitchComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-toggle-switch', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div \n    [style.--bg-color]=\"bgColor\"\n    [style.--knob-color]=\"knobColor\"\n    [style.--bg-neutral-color]=\"bgNeutralColor\"\n    [style.--knob-neutral-color]=\"knobNeutralColor\"\n    [style.--bg-disabled-color]=\"bgDisabledColor\"\n    [style.--knob-disabled-color]=\"knobDisabledColor\"\n    [style.--width]=\"width\"\n    [style.--height]=\"height\"\n    class=\"mrd-toggle-switch-container\">\n    <div class=\"mrd-toggle-switch-background\" (click)=\"toggle($event)\"\n        [ngClass]=\"{'mrd-toggle-switch-disabled': disabled,\n                'mrd-toggle-switch-state-left': state === MrdToggleSwitchState.LEFT, \n                'mrd-toggle-switch-state-neutral': state === MrdToggleSwitchState.NEUTRAL,\n                'mrd-toggle-switch-state-right': state === MrdToggleSwitchState.RIGHT}\">\n        <div class=\"mrd-toggle-switch-knob\"></div>\n        <div class=\"mrd-toggle-swtich-neutral-clickareas\" *ngIf=\"!disabled && state === MrdToggleSwitchState.NEUTRAL\">\n            <div class=\"mrd-toggle-switch-neutral-clickarea\" (click)=\"toggle($event,MrdToggleSwitchState.LEFT)\"></div>\n            <div class=\"mrd-toggle-switch-neutral-clickarea\" (click)=\"toggle($event,MrdToggleSwitchState.RIGHT)\"></div>\n        </div>\n    </div>\n</div>", styles: [":host{width:-moz-fit-content;width:fit-content;height:-moz-fit-content;height:fit-content}.mrd-toggle-switch-container{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container .mrd-toggle-switch-background{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container .mrd-toggle-switch-background .mrd-toggle-switch-knob{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-left .mrd-toggle-switch-knob{left:2px}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-right .mrd-toggle-switch-knob{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral .mrd-toggle-switch-knob{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-switch-knob{background-color:var(--knob-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral .mrd-toggle-switch-knob{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-swtich-neutral-clickareas{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-swtich-neutral-clickareas .mrd-toggle-switch-neutral-clickarea{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-disabled{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-disabled .mrd-toggle-switch-knob{background-color:var(--knob-disabled-color)}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { bgColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], bgNeutralColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], knobColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], knobNeutralColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], width: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], height: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], bgDisabledColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], knobDisabledColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], disabled: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], state: [{
+            type: Input
+        }], stateChange: [{
+            type: Output
+        }] }); })();
+
+class MrdToggleSwitchModule {
+    /** @nocollapse */ static ɵfac = function MrdToggleSwitchModule_Factory(t) { return new (t || MrdToggleSwitchModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdToggleSwitchModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToggleSwitchModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdToggleSwitchComponent
+                ],
+                imports: [
+                    CommonModule
+                ],
+                exports: [
+                    MrdToggleSwitchComponent
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdToggleSwitchModule, { declarations: [MrdToggleSwitchComponent], imports: [CommonModule], exports: [MrdToggleSwitchComponent] }); })();
+
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSuffixComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTooltipModule, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSuffixComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

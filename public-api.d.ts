@@ -54,3 +54,6 @@ export * from './lib/modules/mrd-geo-icon/mrd-geo-icon.module';
 export * from './lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component';
 export * from './lib/common/components/mrd-decimal/mrd-decimal.module';
 export * from './lib/common/components/mrd-decimal/components/mrd-decimal/mrd-decimal.component';
+export * from './lib/modules/mrd-toggle-switch/mrd-toggle-switch.module';
+export * from './lib/modules/mrd-toggle-switch/common/enum/mrd-toggle-switch-state.enum';
+export * from './lib/modules/mrd-toggle-switch/components/mrd-toggle-switch/mrd-toggle-switch.component';

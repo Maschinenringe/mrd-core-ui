@@ -1,0 +1,7 @@
+export var MrdToggleSwitchState;
+(function (MrdToggleSwitchState) {
+    MrdToggleSwitchState["LEFT"] = "left";
+    MrdToggleSwitchState["NEUTRAL"] = "neutral";
+    MrdToggleSwitchState["RIGHT"] = "right";
+})(MrdToggleSwitchState || (MrdToggleSwitchState = {}));
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibXJkLXRvZ2dsZS1zd2l0Y2gtc3RhdGUuZW51bS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL21yZC1jb3JlLXVpL3NyYy9saWIvbW9kdWxlcy9tcmQtdG9nZ2xlLXN3aXRjaC9jb21tb24vZW51bS9tcmQtdG9nZ2xlLXN3aXRjaC1zdGF0ZS5lbnVtLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sQ0FBTixJQUFZLG9CQUlYO0FBSkQsV0FBWSxvQkFBb0I7SUFDNUIscUNBQWEsQ0FBQTtJQUNiLDJDQUFtQixDQUFBO0lBQ25CLHVDQUFlLENBQUE7QUFDbkIsQ0FBQyxFQUpXLG9CQUFvQixLQUFwQixvQkFBb0IsUUFJL0IiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZW51bSBNcmRUb2dnbGVTd2l0Y2hTdGF0ZSB7XHJcbiAgICBMRUZUID0gJ2xlZnQnLFxyXG4gICAgTkVVVFJBTCA9ICduZXV0cmFsJyxcclxuICAgIFJJR0hUID0gJ3JpZ2h0J1xyXG59Il19

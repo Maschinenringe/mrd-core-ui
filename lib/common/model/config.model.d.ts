@@ -22,6 +22,7 @@ export interface MrdConfigModel {
         };
     };
     checkbox?: MrdCheckbox;
+    toggleSwitch?: MrdToggleSwitch;
 }
 export interface MrdBaseFont {
     size?: string;
@@ -102,4 +103,14 @@ export interface MrdCheckbox extends MrdBaseColor {
         selected?: MrdBaseColor;
     };
     checkboxSize?: string;
+}
+export interface MrdToggleSwitch {
+    width?: string;
+    height?: string;
+    bgColor?: string;
+    bgNeutralColor?: string;
+    knobColor?: string;
+    knobNeutralColor?: string;
+    bgDisabledColor?: string;
+    knobDisabledColor?: string;
 }
