@@ -11,6 +11,7 @@ export declare class MrdStepperComponent extends BaseObject implements AfterView
     steps: QueryList<MrdStepComponent>;
     stepBodys: QueryList<MrdTabBodyComponent>;
     stepHeader: QueryList<ElementRef>;
+    labelposition: 'top' | 'right' | 'bottom' | 'left';
     set headerHeight(value: number);
     get headerHeight(): number;
     private _headerHeight;
@@ -28,6 +29,6 @@ export declare class MrdStepperComponent extends BaseObject implements AfterView
     ngAfterViewInit(): void;
     activateStep(index: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdStepperComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdStepperComponent, "mrd-stepper", never, { "headerHeight": { "alias": "headerHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "changeStep": { "alias": "changeStep"; "required": false; }; "linear": { "alias": "linear"; "required": false; }; }, { "selectedStepChanged": "selectedStepChanged"; "selectedStepIndexChanged": "selectedStepIndexChanged"; }, ["steps"], never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdStepperComponent, "mrd-stepper", never, { "labelposition": { "alias": "labelposition"; "required": false; }; "headerHeight": { "alias": "headerHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "changeStep": { "alias": "changeStep"; "required": false; }; "linear": { "alias": "linear"; "required": false; }; }, { "selectedStepChanged": "selectedStepChanged"; "selectedStepIndexChanged": "selectedStepIndexChanged"; }, ["steps"], never, false, never>;
     static ngAcceptInputType_linear: unknown;
 }
