@@ -916,6 +916,67 @@ class DecimalNumberDirective {
             args: ['keydown', ['$event']]
         }] }); })();
 
+/**
+ * Sorgt für die korrekte Eingabe von Uhrzeiten im Format HH:mm.
+ */
+class TimeInputDirective {
+    timeInput = true;
+    specialKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
+    regex = /^([0-9]?|)/;
+    constructor() { }
+    onKeyDown(event) {
+        if (!this.timeInput) {
+            return;
+        }
+        // Allow Backspace, tab, end, and home keys
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        const input = event.target;
+        const currentValue = input.value;
+        if (currentValue.length >= 5) {
+            event.preventDefault();
+            return;
+        }
+        // const selectionStart = input.selectionStart || 0;
+        // const selectionEnd = input.selectionEnd || 0;
+        // if (selectionStart === 0) {
+        //     // Erlaube nur Ziffern 0-2 an der ersten Position
+        //     if (!/[0-2]/.test(event.key)) {
+        //         event.preventDefault();
+        //         return;
+        //     }
+        // }
+        // if (selectionStart === 1) {}
+        // const newValue = currentValue.slice(0, selectionStart) + event.key + currentValue.slice(selectionEnd);
+        // Validierung des neuen Werts
+        // if (!this.isValidTimeInput(newValue)) {
+        //     event.preventDefault();
+        // }
+    }
+    isValidTimeInput(value) {
+        // Erlaubt nur das Format HH:mm
+        const timePattern = /^([01]?[0-9]|2[0-3]):?([0-5]?[0-9])?$/;
+        return timePattern.test(value);
+    }
+    /** @nocollapse */ static ɵfac = function TimeInputDirective_Factory(t) { return new (t || TimeInputDirective)(); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: TimeInputDirective, selectors: [["", "timeInput", ""]], hostBindings: function TimeInputDirective_HostBindings(rf, ctx) { if (rf & 1) {
+            i0.ɵɵlistener("keydown", function TimeInputDirective_keydown_HostBindingHandler($event) { return ctx.onKeyDown($event); });
+        } }, inputs: { timeInput: ["timeInput", "timeInput", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TimeInputDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[timeInput]'
+            }]
+    }], function () { return []; }, { timeInput: [{
+            type: Input,
+            args: [{ alias: 'timeInput', transform: booleanAttribute }]
+        }], onKeyDown: [{
+            type: HostListener,
+            args: ['keydown', ['$event']]
+        }] }); })();
+
 class MrdDirectiveModule {
     /** @nocollapse */ static ɵfac = function MrdDirectiveModule_Factory(t) { return new (t || MrdDirectiveModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdDirectiveModule });
@@ -927,20 +988,24 @@ class MrdDirectiveModule {
                 declarations: [
                     HideIfTruncatedDirective,
                     ToggleOnHoverDirective,
-                    DecimalNumberDirective
+                    DecimalNumberDirective,
+                    TimeInputDirective
                 ],
                 exports: [
                     HideIfTruncatedDirective,
                     ToggleOnHoverDirective,
-                    DecimalNumberDirective
+                    DecimalNumberDirective,
+                    TimeInputDirective
                 ]
             }]
     }], null, null); })();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdDirectiveModule, { declarations: [HideIfTruncatedDirective,
         ToggleOnHoverDirective,
-        DecimalNumberDirective], exports: [HideIfTruncatedDirective,
+        DecimalNumberDirective,
+        TimeInputDirective], exports: [HideIfTruncatedDirective,
         ToggleOnHoverDirective,
-        DecimalNumberDirective] }); })();
+        DecimalNumberDirective,
+        TimeInputDirective] }); })();
 
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
@@ -1581,7 +1646,7 @@ const _c2$a = function (a0) { return { "min-width": a0 }; };
 const _c3$8 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
 const _c4$2 = function (a0) { return { "isCollapsed": a0 }; };
 const _c5$1 = function (a0) { return { "full-icon": a0 }; };
-const _c6 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
+const _c6$1 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
  *
@@ -2255,7 +2320,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
             i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
-        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1$e);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
@@ -5412,56 +5477,210 @@ class MrdDatepickerComponent {
             type: Output
         }] }); })();
 
+function MrdTimepickerComponent_mrd_select_option_9_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-select-option", 15);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const h_r2 = ctx.$implicit;
+    i0.ɵɵproperty("value", h_r2);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(h_r2);
+} }
+function MrdTimepickerComponent_mrd_select_option_23_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-select-option", 15);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const m_r3 = ctx.$implicit;
+    i0.ɵɵproperty("value", m_r3);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(m_r3);
+} }
+class MrdTimepickerComponent {
+    time = null;
+    timeChanged = new EventEmitter();
+    hour = 0;
+    minute = 0;
+    hours = [];
+    minutes = [];
+    constructor() {
+        for (let i = 0; i < 24; i++) {
+            this.hours.push(i);
+        }
+        for (let i = 0; i < 60; i++) {
+            this.minutes.push(i);
+        }
+    }
+    ngAfterViewInit() {
+        this.time = this.checkDate(this.time);
+        if (Util.isDefined(this.time) && this.time.isValid()) {
+            this.hour = this.time.hour();
+            this.minute = this.time.minute();
+        }
+    }
+    checkDate(timeValue) {
+        if (!Util.isDefined(timeValue)) {
+            return null;
+        }
+        if (!isMoment(timeValue)) {
+            timeValue = moment(timeValue, 'HH:mm').year(2020).month(0).day(1).utc(true);
+        }
+        else if (!timeValue.isValid()) {
+            timeValue = moment().year(2020).month(0).day(1).utc(true);
+        }
+        else {
+            timeValue = timeValue.clone().year(2020).month(0).day(1).utc(true);
+        }
+        return timeValue;
+    }
+    save() {
+        const newTime = moment().year(2020).month(0).day(1).hour(this.hour).minute(this.minute).utc(true);
+        this.timeChanged.emit(newTime);
+    }
+    /** @nocollapse */ static ɵfac = function MrdTimepickerComponent_Factory(t) { return new (t || MrdTimepickerComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTimepickerComponent, selectors: [["mrd-timepicker"]], inputs: { time: "time" }, outputs: { timeChanged: "timeChanged" }, decls: 33, vars: 4, consts: [[1, "mrd-timepicker-container"], [1, "mrd-timepicker-content"], [1, "mrd-timepicker-picker"], ["raised-button", "", 3, "click"], ["mrd-icon", "", 1, "mrd-timepicker-icon-add"], ["width", "24", "height", "25", "viewBox", "0 0 24 25", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z", "fill", "#000"], [3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], ["mrd-icon", "", 1, "mrd-timepicker-icon-sub"], ["width", "24", "height", "25", "viewBox", "0 0 24 25", "fill", "none", "transform", "rotate(180)", "xmlns", "http://www.w3.org/2000/svg"], [1, "mrd-timepicker-separator"], [1, "mrd-timepicker-actions"], ["flat-button", "", "warn", "", 3, "click"], ["flat-button", "", "primary", "", 3, "click"], [3, "value"]], template: function MrdTimepickerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "mrd-button", 3);
+            i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_3_listener() { return ctx.hour = (ctx.hour + 1) % 24; });
+            i0.ɵɵelementStart(4, "span", 4);
+            i0.ɵɵnamespaceSVG();
+            i0.ɵɵelementStart(5, "svg", 5);
+            i0.ɵɵelement(6, "path", 6);
+            i0.ɵɵelementEnd()()();
+            i0.ɵɵnamespaceHTML();
+            i0.ɵɵelementStart(7, "mrd-form-field")(8, "mrd-select", 7);
+            i0.ɵɵlistener("valueChange", function MrdTimepickerComponent_Template_mrd_select_valueChange_8_listener($event) { return ctx.hour = $event; });
+            i0.ɵɵtemplate(9, MrdTimepickerComponent_mrd_select_option_9_Template, 2, 2, "mrd-select-option", 8);
+            i0.ɵɵelementEnd()();
+            i0.ɵɵelementStart(10, "mrd-button", 3);
+            i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_10_listener() { return ctx.hour = (ctx.hour - 1 + 24) % 24; });
+            i0.ɵɵelementStart(11, "span", 9);
+            i0.ɵɵnamespaceSVG();
+            i0.ɵɵelementStart(12, "svg", 10);
+            i0.ɵɵelement(13, "path", 6);
+            i0.ɵɵelementEnd()()()();
+            i0.ɵɵnamespaceHTML();
+            i0.ɵɵelementStart(14, "span", 11);
+            i0.ɵɵtext(15, ":");
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(16, "div", 2)(17, "mrd-button", 3);
+            i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_17_listener() { return ctx.minute = (ctx.minute + 1) % 60; });
+            i0.ɵɵelementStart(18, "span", 4);
+            i0.ɵɵnamespaceSVG();
+            i0.ɵɵelementStart(19, "svg", 5);
+            i0.ɵɵelement(20, "path", 6);
+            i0.ɵɵelementEnd()()();
+            i0.ɵɵnamespaceHTML();
+            i0.ɵɵelementStart(21, "mrd-form-field")(22, "mrd-select", 7);
+            i0.ɵɵlistener("valueChange", function MrdTimepickerComponent_Template_mrd_select_valueChange_22_listener($event) { return ctx.minute = $event; });
+            i0.ɵɵtemplate(23, MrdTimepickerComponent_mrd_select_option_23_Template, 2, 2, "mrd-select-option", 8);
+            i0.ɵɵelementEnd()();
+            i0.ɵɵelementStart(24, "mrd-button", 3);
+            i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_24_listener() { return ctx.minute = (ctx.minute - 1 + 60) % 60; });
+            i0.ɵɵelementStart(25, "span", 9);
+            i0.ɵɵnamespaceSVG();
+            i0.ɵɵelementStart(26, "svg", 10);
+            i0.ɵɵelement(27, "path", 6);
+            i0.ɵɵelementEnd()()()()();
+            i0.ɵɵnamespaceHTML();
+            i0.ɵɵelementStart(28, "div", 12)(29, "mrd-button", 13);
+            i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_29_listener() { return ctx.timeChanged.emit(null); });
+            i0.ɵɵtext(30, "Abbrechen");
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(31, "mrd-button", 14);
+            i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_31_listener() { return ctx.save(); });
+            i0.ɵɵtext(32, "OK");
+            i0.ɵɵelementEnd()()();
+        } if (rf & 2) {
+            i0.ɵɵadvance(8);
+            i0.ɵɵproperty("value", ctx.hour);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngForOf", ctx.hours);
+            i0.ɵɵadvance(13);
+            i0.ɵɵproperty("value", ctx.minute);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngForOf", ctx.minutes);
+        } }, styles: ["[_nghost-%COMP%]{height:224px}.mrd-timepicker-container[_ngcontent-%COMP%]{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]   .mrd-timepicker-picker[_ngcontent-%COMP%]{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]   .mrd-timepicker-picker[_ngcontent-%COMP%]   mrd-form-field[_ngcontent-%COMP%]{width:100%}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]   .mrd-timepicker-separator[_ngcontent-%COMP%]{font-size:24px}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-actions[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}"] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTimepickerComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-timepicker', template: "<div class=\"mrd-timepicker-container\">\n    <div class=\"mrd-timepicker-content\">\n        <div class=\"mrd-timepicker-picker\">\n            <mrd-button raised-button (click)=\"hour = (hour + 1) % 24\">\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n            <mrd-form-field>\n                <mrd-select [(value)]=\"hour\">\n                    <mrd-select-option *ngFor=\"let h of hours\" [value]=\"h\">{{h}}</mrd-select-option>\n                </mrd-select>\n            </mrd-form-field>\n            <mrd-button raised-button (click)=\"hour = (hour - 1 + 24) % 24\">\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n        </div>\n        <span class=\"mrd-timepicker-separator\">:</span>\n        <div class=\"mrd-timepicker-picker\">\n            <mrd-button raised-button (click)=\"minute = (minute + 1) % 60\">\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n            <mrd-form-field>\n                <mrd-select [(value)]=\"minute\">\n                    <mrd-select-option *ngFor=\"let m of minutes\" [value]=\"m\">{{m}}</mrd-select-option>\n                </mrd-select>\n            </mrd-form-field>\n            <mrd-button raised-button (click)=\"minute = (minute - 1 + 60) % 60\">\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n        </div>\n    </div>\n    <div class=\"mrd-timepicker-actions\">\n        <mrd-button flat-button warn (click)=\"timeChanged.emit(null)\">Abbrechen</mrd-button>\n        <mrd-button flat-button primary (click)=\"save()\">OK</mrd-button>\n    </div>\n</div>", styles: [":host{height:224px}.mrd-timepicker-container{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container .mrd-timepicker-content{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker mrd-form-field{width:100%}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-separator{font-size:24px}.mrd-timepicker-container .mrd-timepicker-actions{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}\n"] }]
+    }], function () { return []; }, { time: [{
+            type: Input
+        }], timeChanged: [{
+            type: Output
+        }] }); })();
+
 const _c0$c = ["baseInput"];
 const _c1$7 = ["textArea"];
 const _c2$5 = ["dateInput"];
+const _c3$4 = ["timeInput"];
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
-    const _r8 = i0.ɵɵgetCurrentView();
+    const _r11 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "input", 5, 6);
-    i0.ɵɵlistener("click", function MrdInputComponent_input_0_Template_input_click_0_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r7 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r7.inputClicked($event)); })("focus", function MrdInputComponent_input_0_Template_input_focus_0_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r9 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r9.focus($event)); })("blur", function MrdInputComponent_input_0_Template_input_blur_0_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r10 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r10.blur($event)); })("input", function MrdInputComponent_input_0_Template_input_input_0_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r11 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r11.input($event)); });
+    i0.ɵɵlistener("click", function MrdInputComponent_input_0_Template_input_click_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r10 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r10.inputClicked($event)); })("focus", function MrdInputComponent_input_0_Template_input_focus_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r12 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r12.focus($event)); })("blur", function MrdInputComponent_input_0_Template_input_blur_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r13 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r13.blur($event)); })("input", function MrdInputComponent_input_0_Template_input_input_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r14 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r14.input($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("pointer-events", ctx_r0.readonly ? "none" : "auto")("text-align", ctx_r0.textEnd ? "end" : ctx_r0.centered ? "center" : "start")("color", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled ? ctx_r0.disabledColor : ctx_r0.color);
-    i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.maxDigits);
+    i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.maxDigits)("timeInput", ctx_r0.time);
 } }
-const _c3$4 = function (a0) { return { "line-height": a0 }; };
+const _c4 = function (a0) { return { "line-height": a0 }; };
 function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
-    const _r14 = i0.ɵɵgetCurrentView();
+    const _r17 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "textarea", 7, 8);
-    i0.ɵɵlistener("click", function MrdInputComponent_textarea_1_Template_textarea_click_0_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r13 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r13.inputClicked($event)); })("focus", function MrdInputComponent_textarea_1_Template_textarea_focus_0_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r15 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r15.focus($event)); })("blur", function MrdInputComponent_textarea_1_Template_textarea_blur_0_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r16 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r16.blur($event)); })("input", function MrdInputComponent_textarea_1_Template_textarea_input_0_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r17 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r17.input($event)); });
+    i0.ɵɵlistener("click", function MrdInputComponent_textarea_1_Template_textarea_click_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r16 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r16.inputClicked($event)); })("focus", function MrdInputComponent_textarea_1_Template_textarea_focus_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r18 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r18.focus($event)); })("blur", function MrdInputComponent_textarea_1_Template_textarea_blur_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r19 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r19.blur($event)); })("input", function MrdInputComponent_textarea_1_Template_textarea_input_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r20 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r20.input($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto")("color", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled ? ctx_r1.disabledColor : ctx_r1.color);
-    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c3$4, ctx_r1.lineHeight + "px"));
+    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c4, ctx_r1.lineHeight + "px"));
 } }
 function MrdInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", null, 9);
 } }
 function MrdInputComponent_div_3_Template(rf, ctx) { if (rf & 1) {
-    const _r20 = i0.ɵɵgetCurrentView();
+    const _r23 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div")(1, "mrd-button", 10);
-    i0.ɵɵlistener("click", function MrdInputComponent_div_3_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r20); const ctx_r19 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r19.showDatepicker.value = !ctx_r19.showDatepicker.value); });
+    i0.ɵɵlistener("click", function MrdInputComponent_div_3_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r23); const ctx_r22 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r22.showDatepicker.value = !ctx_r22.showDatepicker.value); });
     i0.ɵɵelement(2, "mrd-icon", 11);
     i0.ɵɵelementEnd()();
 } }
-function MrdInputComponent_span_4_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "span", 12);
+function MrdInputComponent_div_4_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "div", null, 12);
+} }
+function MrdInputComponent_div_5_Template(rf, ctx) { if (rf & 1) {
+    const _r26 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div")(1, "mrd-button", 13);
+    i0.ɵɵlistener("click", function MrdInputComponent_div_5_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r26); const ctx_r25 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r25.showTimepicker.value = !ctx_r25.showTimepicker.value); });
+    i0.ɵɵelement(2, "mrd-icon", 14);
+    i0.ɵɵelementEnd()();
+} }
+function MrdInputComponent_span_6_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 15);
     i0.ɵɵprojection(1);
     i0.ɵɵelementEnd();
 } }
-function MrdInputComponent_ng_template_5_Template(rf, ctx) { if (rf & 1) {
-    const _r22 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-datepicker", 13);
-    i0.ɵɵlistener("dateChanged", function MrdInputComponent_ng_template_5_Template_mrd_datepicker_dateChanged_0_listener($event) { i0.ɵɵrestoreView(_r22); const ctx_r21 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r21.dateChanged($event)); });
+function MrdInputComponent_ng_template_7_Template(rf, ctx) { if (rf & 1) {
+    const _r28 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-datepicker", 16);
+    i0.ɵɵlistener("dateChanged", function MrdInputComponent_ng_template_7_Template_mrd_datepicker_dateChanged_0_listener($event) { i0.ɵɵrestoreView(_r28); const ctx_r27 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r27.dateChanged($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("date", ctx_r5.value);
+    const ctx_r7 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("date", ctx_r7.value);
 } }
-const _c4 = [[["", "unfocusedOverlay", ""]]];
-const _c5 = ["[unfocusedOverlay]"];
+function MrdInputComponent_ng_template_8_Template(rf, ctx) { if (rf & 1) {
+    const _r30 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-timepicker", 17);
+    i0.ɵɵlistener("timeChanged", function MrdInputComponent_ng_template_8_Template_mrd_timepicker_timeChanged_0_listener($event) { i0.ɵɵrestoreView(_r30); const ctx_r29 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r29.timeChanged($event)); });
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r8 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("time", ctx_r8.value);
+} }
+const _c5 = [[["", "unfocusedOverlay", ""]]];
+const _c6 = ["[unfocusedOverlay]"];
 class MrdInputComponent extends BaseObject {
     cdr;
     static DEFAULT_MAX_LENGTH = 512;
@@ -5473,6 +5692,7 @@ class MrdInputComponent extends BaseObject {
     baseInputElement;
     textAreaElement;
     dateInputElement;
+    timeInputElement;
     formControl;
     placeholder = ' ';
     value = '';
@@ -5487,7 +5707,8 @@ class MrdInputComponent extends BaseObject {
     date = false;
     rangeStart = false;
     rangeEnd = false;
-    customDateToggle = false;
+    time = false;
+    customDateTimeToggle = false;
     validateOnBlur = false;
     set color(value) {
         this._color = value;
@@ -5525,6 +5746,7 @@ class MrdInputComponent extends BaseObject {
     labelPresent = false;
     isFocused = false;
     showDatepicker = new ObservableValue(false);
+    showTimepicker = new ObservableValue(false);
     _positions = [
         {
             originX: 'start',
@@ -5585,6 +5807,9 @@ class MrdInputComponent extends BaseObject {
             }
             if (this.dateInputElement) {
                 this.dateInputElement.nativeElement.focus();
+            }
+            if (this.timeInputElement) {
+                this.timeInputElement.nativeElement.focus();
             }
         }
         if (this.date && this.rangeStart) {
@@ -5653,6 +5878,19 @@ class MrdInputComponent extends BaseObject {
         this.showDatepicker.value = false;
         this.cdr.detectChanges();
     }
+    timeChanged(event) {
+        if (Util.isDefined(this.formControl)) {
+            this.formControl.setValue(event);
+            this.baseInputElement.nativeElement.focus();
+        }
+        else {
+            this.value = event.format('HH:mm');
+            this.valueChange.emit(this.value);
+        }
+        this.inputChange.emit(event.format('HH:mm'));
+        this.showTimepicker.value = false;
+        this.cdr.detectChanges();
+    }
     calculateTextAreaHeight() {
         this.textAreaElement.nativeElement.style.height = 'auto';
         this.textAreaElement.nativeElement.style.height =
@@ -5679,13 +5917,26 @@ class MrdInputComponent extends BaseObject {
                 }
             }
         }
+        if (this.formControl && this.time && this.formControl.value && this.formControl.value !== '') {
+            if (!moment.isMoment(this.formControl.value)) {
+                let momentTime = moment(this.formControl.value, 'HH:mm').year(2020).month(0).day(1).utc(true);
+                if (momentTime.isValid()) {
+                    this.formControl.setValue(momentTime);
+                }
+            }
+        }
         this.isFocused = false;
         this.blurred.emit();
         this.cdr.detectChanges();
     }
     toggleClicked() {
         // this.dateInputElement.nativeElement.showPicker();
-        this.showDatepicker.value = true;
+        if (this.date) {
+            this.showDatepicker.value = true;
+        }
+        if (this.time) {
+            this.showTimepicker.value = true;
+        }
         this.cdr.detectChanges();
     }
     /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
@@ -5693,20 +5944,26 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵviewQuery(_c0$c, 5);
             i0.ɵɵviewQuery(_c1$7, 5);
             i0.ɵɵviewQuery(_c2$5, 5);
+            i0.ɵɵviewQuery(_c3$4, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.baseInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], customDateToggle: ["customDateToggle", "customDateToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 6, vars: 9, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c4);
-            i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 11, "input", 0);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.timeInputElement = _t.first);
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "click"], ["svgIcon", "mrd_clock"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c5);
+            i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 12, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 1);
             i0.ɵɵtemplate(2, MrdInputComponent_div_2_Template, 2, 0, "div", 2);
             i0.ɵɵtemplate(3, MrdInputComponent_div_3_Template, 3, 0, "div", 2);
-            i0.ɵɵtemplate(4, MrdInputComponent_span_4_Template, 2, 0, "span", 3);
-            i0.ɵɵtemplate(5, MrdInputComponent_ng_template_5_Template, 1, 1, "ng-template", 4);
-            i0.ɵɵlistener("backdropClick", function MrdInputComponent_Template_ng_template_backdropClick_5_listener() { return ctx.showDatepicker.value = false; });
+            i0.ɵɵtemplate(4, MrdInputComponent_div_4_Template, 2, 0, "div", 2);
+            i0.ɵɵtemplate(5, MrdInputComponent_div_5_Template, 3, 0, "div", 2);
+            i0.ɵɵtemplate(6, MrdInputComponent_span_6_Template, 2, 0, "span", 3);
+            i0.ɵɵtemplate(7, MrdInputComponent_ng_template_7_Template, 1, 1, "ng-template", 4);
+            i0.ɵɵlistener("backdropClick", function MrdInputComponent_Template_ng_template_backdropClick_7_listener() { return ctx.showDatepicker.value = false; });
+            i0.ɵɵtemplate(8, MrdInputComponent_ng_template_8_Template, 1, 1, "ng-template", 4);
+            i0.ɵɵlistener("backdropClick", function MrdInputComponent_Template_ng_template_backdropClick_8_listener() { return ctx.showTimepicker.value = false; });
         } if (rf & 2) {
             i0.ɵɵproperty("ngIf", !ctx.textarea);
             i0.ɵɵadvance(1);
@@ -5714,16 +5971,22 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.date);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", ctx.date && !ctx.customDateToggle && !ctx.rangeStart && !ctx.rangeEnd);
+            i0.ɵɵproperty("ngIf", ctx.date && !ctx.customDateTimeToggle && !ctx.rangeStart && !ctx.rangeEnd);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.time);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.time && !ctx.customDateTimeToggle);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.isFocused);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.dateInputElement)("cdkConnectedOverlayOpen", ctx.showDatepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
-        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, MrdIconComponent, DecimalNumberDirective, MrdDatepickerComponent], styles: ["[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.timeInputElement)("cdkConnectedOverlayOpen", ctx.showTimepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
+        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, MrdIconComponent, DecimalNumberDirective, TimeInputDirective, MrdDatepickerComponent, MrdTimepickerComponent], styles: ["[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdInputComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  [decimalNumber]=\"maxDigits || maxDigits === 0\" [nachkommastellen]=\"maxDigits\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"showDatepicker.value = !showDatepicker.value\"><mrd-icon svgIcon=\"mrd_calendar\"></mrd-icon></mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>", styles: [":host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
+        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  [decimalNumber]=\"maxDigits || maxDigits === 0\" [nachkommastellen]=\"maxDigits\"\r\n  [timeInput]=\"time\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"showDatepicker.value = !showDatepicker.value\"><mrd-icon svgIcon=\"mrd_calendar\"></mrd-icon></mrd-button>\r\n</div>\r\n\r\n<div #timeInput *ngIf=\"time\"></div>\r\n<div *ngIf=\"time && !customDateTimeToggle\">  \r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"showTimepicker.value = !showTimepicker.value\">\r\n    <mrd-icon svgIcon=\"mrd_clock\"></mrd-icon>\r\n  </mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showTimepicker.value = false\"\r\n>\r\n  <mrd-timepicker\r\n    [time]=\"value\"\r\n    (timeChanged)=\"timeChanged($event)\"\r\n  ></mrd-timepicker>\r\n</ng-template>", styles: [":host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { baseInputElement: [{
             type: ViewChild,
             args: ['baseInput']
@@ -5733,6 +5996,9 @@ class MrdInputComponent extends BaseObject {
         }], dateInputElement: [{
             type: ViewChild,
             args: ['dateInput']
+        }], timeInputElement: [{
+            type: ViewChild,
+            args: ['timeInput']
         }], formControl: [{
             type: Input,
             args: ['mrdFormControl']
@@ -5773,7 +6039,10 @@ class MrdInputComponent extends BaseObject {
         }], rangeEnd: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
-        }], customDateToggle: [{
+        }], time: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], customDateTimeToggle: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], validateOnBlur: [{
@@ -5808,7 +6077,7 @@ class MrdInputComponent extends BaseObject {
         }] }); })();
 class MrdDatePickerToggle {
     elementRef;
-    mrdDatePickerToggle;
+    mrdDateTimePickerToggle;
     constructor(elementRef) {
         this.elementRef = elementRef;
     }
@@ -5820,23 +6089,23 @@ class MrdDatePickerToggle {
         }
     }
     onClick(event) {
-        if (Util.isDefined(this.mrdDatePickerToggle)) {
-            this.mrdDatePickerToggle.toggleClicked();
+        if (Util.isDefined(this.mrdDateTimePickerToggle)) {
+            this.mrdDateTimePickerToggle.toggleClicked();
         }
     }
     /** @nocollapse */ static ɵfac = function MrdDatePickerToggle_Factory(t) { return new (t || MrdDatePickerToggle)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdDatePickerToggle, selectors: [["", "mrdDatePickerToggle", ""]], hostBindings: function MrdDatePickerToggle_HostBindings(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdDatePickerToggle, selectors: [["", "mrdDateTimePickerToggle", ""]], hostBindings: function MrdDatePickerToggle_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("click", function MrdDatePickerToggle_click_HostBindingHandler($event) { return ctx.onClick($event); });
-        } }, inputs: { mrdDatePickerToggle: "mrdDatePickerToggle" } });
+        } }, inputs: { mrdDateTimePickerToggle: "mrdDateTimePickerToggle" } });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatePickerToggle, [{
         type: Directive,
         args: [{
-                selector: '[mrdDatePickerToggle]'
+                selector: '[mrdDateTimePickerToggle]'
             }]
-    }], function () { return [{ type: i0.ElementRef }]; }, { mrdDatePickerToggle: [{
+    }], function () { return [{ type: i0.ElementRef }]; }, { mrdDateTimePickerToggle: [{
             type: Input,
-            args: ['mrdDatePickerToggle']
+            args: ['mrdDateTimePickerToggle']
         }], onClick: [{
             type: HostListener,
             args: ['click', ['$event']]
@@ -7542,7 +7811,8 @@ class MrdFormFieldModule {
                     MrdDatePickerToggle,
                     MrdDatepickerComponent,
                     MrdDateRangePickerComponent,
-                    MrdDateRangeIndicatorDirective
+                    MrdDateRangeIndicatorDirective,
+                    MrdTimepickerComponent
                 ],
                 imports: [
                     CommonModule,
@@ -7583,7 +7853,8 @@ class MrdFormFieldModule {
         MrdDatePickerToggle,
         MrdDatepickerComponent,
         MrdDateRangePickerComponent,
-        MrdDateRangeIndicatorDirective], imports: [CommonModule,
+        MrdDateRangeIndicatorDirective,
+        MrdTimepickerComponent], imports: [CommonModule,
         OverlayModule,
         MrdTooltipModule,
         MrdChipModule,
@@ -7604,6 +7875,9 @@ class MrdFormFieldModule {
         MrdDateRangePickerComponent] }); })();
 i0.ɵɵsetComponentScope(MrdSelectComponent, [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$2.CdkConnectedOverlay, ToolTipRendererDirective, MrdChipComponent, MrdSelectOptionComponent], []);
 i0.ɵɵsetComponentScope(MrdDatepickerComponent, [i1$1.NgForOf, i1$1.NgIf, MrdButtonComponent, MrdDateRangeIndicatorDirective], []);
+i0.ɵɵsetComponentScope(MrdTimepickerComponent, [i1$1.NgForOf, MrdButtonComponent, MrdFormFieldComponent,
+    MrdSelectComponent,
+    MrdSelectOptionComponent], []);
 
 const _c0$1 = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
@@ -7934,5 +8208,5 @@ class MrdToggleSwitchModule {
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSuffixComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSuffixComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

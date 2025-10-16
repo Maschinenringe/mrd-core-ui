@@ -9,6 +9,7 @@ export * from './lib/common/directive/mrd-directive.module';
 export * from './lib/common/directive/hide-if-truncated/hide-if-truncated.directive';
 export * from './lib/common/directive/toggle-on-hover/toggle-on-hover.directive';
 export * from './lib/common/directive/decimal-number-directive/decimal-number.directive';
+export * from './lib/common/directive/time-input-directive/time-input.directive';
 export * from './lib/modules/mrd-button/mrd-button.module';
 export * from './lib/modules/mrd-button/components/mrd-button/mrd-button.component';
 export * from './lib/modules/mrd-icon/mrd-icon.module';
@@ -50,6 +51,7 @@ export * from './lib/modules/mrd-form-field/components/mrd-select-custom-trigger
 export * from './lib/modules/mrd-form-field/components/mrd-datepicker/mrd-datepicker.component';
 export * from './lib/modules/mrd-form-field/components/mrd-date-range-picker/mrd-date-range-picker.component';
 export * from './lib/modules/mrd-form-field/common/directive/mrd-date-range-indicator.directive';
+export * from './lib/modules/mrd-form-field/components/mrd-timepicker/mrd-timepicker.component';
 export * from './lib/modules/mrd-geo-icon/mrd-geo-icon.module';
 export * from './lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component';
 export * from './lib/common/components/mrd-decimal/mrd-decimal.module';

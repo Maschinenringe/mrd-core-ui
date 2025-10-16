@@ -12,16 +12,17 @@ import * as i10 from "./components/mrd-suffix/mrd-suffix.component";
 import * as i11 from "./components/mrd-datepicker/mrd-datepicker.component";
 import * as i12 from "./components/mrd-date-range-picker/mrd-date-range-picker.component";
 import * as i13 from "./common/directive/mrd-date-range-indicator.directive";
-import * as i14 from "@angular/common";
-import * as i15 from "@angular/cdk/overlay";
-import * as i16 from "../mrd-tooltip/mrd-tooltip.module";
-import * as i17 from "../mrd-chip/mrd-chip.module";
-import * as i18 from "../mrd-checkbox/mrd-checkbox.module";
-import * as i19 from "../mrd-button/mrd-button.module";
-import * as i20 from "../mrd-icon/mrd-icon.module";
-import * as i21 from "../../common/directive/mrd-directive.module";
+import * as i14 from "./components/mrd-timepicker/mrd-timepicker.component";
+import * as i15 from "@angular/common";
+import * as i16 from "@angular/cdk/overlay";
+import * as i17 from "../mrd-tooltip/mrd-tooltip.module";
+import * as i18 from "../mrd-chip/mrd-chip.module";
+import * as i19 from "../mrd-checkbox/mrd-checkbox.module";
+import * as i20 from "../mrd-button/mrd-button.module";
+import * as i21 from "../mrd-icon/mrd-icon.module";
+import * as i22 from "../../common/directive/mrd-directive.module";
 export declare class MrdFormFieldModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFormFieldModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MrdFormFieldModule, [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle, typeof i11.MrdDatepickerComponent, typeof i12.MrdDateRangePickerComponent, typeof i13.MrdDateRangeIndicatorDirective], [typeof i14.CommonModule, typeof i15.OverlayModule, typeof i16.MrdTooltipModule, typeof i17.MrdChipModule, typeof i18.MrdCheckboxModule, typeof i19.MrdButtonModule, typeof i20.MrdIconModule, typeof i21.MrdDirectiveModule], [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle, typeof i12.MrdDateRangePickerComponent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MrdFormFieldModule, [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle, typeof i11.MrdDatepickerComponent, typeof i12.MrdDateRangePickerComponent, typeof i13.MrdDateRangeIndicatorDirective, typeof i14.MrdTimepickerComponent], [typeof i15.CommonModule, typeof i16.OverlayModule, typeof i17.MrdTooltipModule, typeof i18.MrdChipModule, typeof i19.MrdCheckboxModule, typeof i20.MrdButtonModule, typeof i21.MrdIconModule, typeof i22.MrdDirectiveModule], [typeof i1.MrdFormFieldComponent, typeof i2.MrdInputComponent, typeof i3.MrdSelectComponent, typeof i4.MrdSelectOptionComponent, typeof i5.MrdSelectCustomTriggerComponent, typeof i6.MrdErrorComponent, typeof i7.MrdHintComponent, typeof i8.MrdLabelComponent, typeof i9.MrdPrefixComponent, typeof i10.MrdSuffixComponent, typeof i2.MrdDatePickerToggle, typeof i12.MrdDateRangePickerComponent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MrdFormFieldModule>;
 }

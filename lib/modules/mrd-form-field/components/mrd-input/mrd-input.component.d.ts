@@ -14,6 +14,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     baseInputElement: ElementRef<HTMLInputElement>;
     textAreaElement: ElementRef<HTMLTextAreaElement>;
     dateInputElement: ElementRef<HTMLInputElement>;
+    timeInputElement: ElementRef<HTMLInputElement>;
     formControl: AccessableFormControl;
     placeholder: string;
     value: string;
@@ -28,7 +29,8 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     date: boolean;
     rangeStart: boolean;
     rangeEnd: boolean;
-    customDateToggle: boolean;
+    time: boolean;
+    customDateTimeToggle: boolean;
     validateOnBlur: boolean;
     set color(value: string);
     get color(): string;
@@ -51,19 +53,21 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     labelPresent: boolean;
     isFocused: boolean;
     showDatepicker: ObservableValue<boolean>;
+    showTimepicker: ObservableValue<boolean>;
     _positions: ConnectedPosition[];
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
     private formControlChanged;
     input(event: InputEvent): void;
     dateChanged(event: Moment): void;
+    timeChanged(event: Moment): void;
     private calculateTextAreaHeight;
     inputClicked(event: MouseEvent): void;
     focus(event: FocusEvent): void;
     blur(event: FocusEvent): void;
     toggleClicked(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdInputComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "rangeStart": { "alias": "rangeStart"; "required": false; }; "rangeEnd": { "alias": "rangeEnd"; "required": false; }; "customDateToggle": { "alias": "customDateToggle"; "required": false; }; "validateOnBlur": { "alias": "validateOnBlur"; "required": false; }; "color": { "alias": "color"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "autofocus": { "alias": "autofocus"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "rangeStart": { "alias": "rangeStart"; "required": false; }; "rangeEnd": { "alias": "rangeEnd"; "required": false; }; "time": { "alias": "time"; "required": false; }; "customDateTimeToggle": { "alias": "customDateTimeToggle"; "required": false; }; "validateOnBlur": { "alias": "validateOnBlur"; "required": false; }; "color": { "alias": "color"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "autofocus": { "alias": "autofocus"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
     static ngAcceptInputType_maxLength: unknown;
     static ngAcceptInputType_minRows: unknown;
     static ngAcceptInputType_maxRows: unknown;
@@ -75,7 +79,8 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     static ngAcceptInputType_date: unknown;
     static ngAcceptInputType_rangeStart: unknown;
     static ngAcceptInputType_rangeEnd: unknown;
-    static ngAcceptInputType_customDateToggle: unknown;
+    static ngAcceptInputType_time: unknown;
+    static ngAcceptInputType_customDateTimeToggle: unknown;
     static ngAcceptInputType_validateOnBlur: unknown;
     static ngAcceptInputType_color: string;
     static ngAcceptInputType_centered: unknown;
@@ -84,10 +89,10 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
 }
 export declare class MrdDatePickerToggle implements AfterViewInit {
     private elementRef;
-    mrdDatePickerToggle: MrdInputComponent;
+    mrdDateTimePickerToggle: MrdInputComponent;
     constructor(elementRef: ElementRef);
     ngAfterViewInit(): void;
     onClick(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdDatePickerToggle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdDatePickerToggle, "[mrdDatePickerToggle]", never, { "mrdDatePickerToggle": { "alias": "mrdDatePickerToggle"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdDatePickerToggle, "[mrdDateTimePickerToggle]", never, { "mrdDateTimePickerToggle": { "alias": "mrdDateTimePickerToggle"; "required": false; }; }, {}, never, never, false, never>;
 }
