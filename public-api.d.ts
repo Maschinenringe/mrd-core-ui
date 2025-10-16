@@ -23,6 +23,7 @@ export * from './lib/modules/mrd-tooltip/common/directive/tool-tip-renderer/tool
 export * from './lib/modules/mrd-tabs/mrd-tabs.module';
 export * from './lib/modules/mrd-tabs/components/mrd-tab-group/mrd-tab-group.component';
 export * from './lib/modules/mrd-tabs/components/mrd-tab/mrd-tab.component';
+export * from './lib/modules/mrd-tabs/components/mrd-tab-body/mrd-tab-body.component';
 export * from './lib/modules/mrd-geo-icon/mrd-geo-icon.module';
 export * from './lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component';
 export * from './lib/modules/mrd-fly-out/mrd-fly-out.module';
@@ -59,3 +60,6 @@ export * from './lib/common/components/mrd-decimal/components/mrd-decimal/mrd-de
 export * from './lib/modules/mrd-toggle-switch/mrd-toggle-switch.module';
 export * from './lib/modules/mrd-toggle-switch/common/enum/mrd-toggle-switch-state.enum';
 export * from './lib/modules/mrd-toggle-switch/components/mrd-toggle-switch/mrd-toggle-switch.component';
+export * from './lib/modules/mrd-stepper/mrd-stepper.module';
+export * from './lib/modules/mrd-stepper/components/mrd-stepper/mrd-stepper.component';
+export * from './lib/modules/mrd-stepper/components/mrd-step/mrd-step.component';
