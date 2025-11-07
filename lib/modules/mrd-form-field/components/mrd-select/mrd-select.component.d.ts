@@ -32,6 +32,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     chipPrefixIcon: string;
     chipSuffixIcon: string;
     showOptions: ObservableValue<boolean>;
+    smoothScroll: boolean;
     touched: EventEmitter<void>;
     focused: EventEmitter<void>;
     blurred: EventEmitter<void>;
@@ -74,7 +75,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     chipCloseClicked(value: any): void;
     get optionsMinWidth(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "value": { "alias": "value"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "closeOnSelect": { "alias": "closeOnSelect"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; "showOptions": { "alias": "showOptions"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "chipClose": "chipClose"; "valueChange": "valueChange"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "[addButton]", "mrd-select-option"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectComponent, "mrd-select", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "formArrayControl": { "alias": "mrdFormArray"; "required": false; }; "value": { "alias": "value"; "required": false; }; "identifier": { "alias": "identifier"; "required": false; }; "items": { "alias": "items"; "required": false; }; "autoComplete": { "alias": "autoComplete"; "required": false; }; "searchSelection": { "alias": "searchSelection"; "required": false; }; "chipSelection": { "alias": "chipSelection"; "required": false; }; "nullable": { "alias": "nullable"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "closeOnSelect": { "alias": "closeOnSelect"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "chipPrefixIcon": { "alias": "chipPrefixIcon"; "required": false; }; "chipSuffixIcon": { "alias": "chipSuffixIcon"; "required": false; }; "showOptions": { "alias": "showOptions"; "required": false; }; "smoothScroll": { "alias": "smoothScroll"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "chipClose": "chipClose"; "valueChange": "valueChange"; }, ["customTrigger", "options"], ["mrd-select-custom-trigger", "[addButton]", "mrd-select-option"], false, never>;
     static ngAcceptInputType_autoComplete: unknown;
     static ngAcceptInputType_searchSelection: unknown;
     static ngAcceptInputType_chipSelection: unknown;
@@ -82,4 +83,5 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     static ngAcceptInputType_multiple: unknown;
     static ngAcceptInputType_closeOnSelect: unknown;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_smoothScroll: unknown;
 }
