@@ -52,6 +52,14 @@ export declare class MrdFlyOutComponent extends BaseObject implements AfterViewI
      */
     disableClose: boolean;
     /**
+     * Gibt an, ob das FlyOut beim Drücken der Escape-Taste geschlossen wird.
+     * Default: true;
+     *
+     * @type {boolean}
+     * @memberof MrdFlyOutComponent
+     */
+    closeOnEsc: boolean;
+    /**
      * Die Farbe des Hintergrunds.
      * Default: 'rgba(0, 0, 0, 0.5)'
      *
