@@ -5407,7 +5407,6 @@ class MrdDatepickerComponent {
         this.initCalendar(this.calendarDate.startOf('month'));
     }
     monthSelected(month) {
-        debugger;
         this.monthIndex = month;
         this.showYears = false;
         this.showMonths = false;
