@@ -5933,6 +5933,9 @@ class MrdInputComponent extends BaseObject {
         }
         this.inputChange.emit(event.format('DD.MM.YYYY'));
         this.showDatepicker.value = false;
+        if (this.formControlChangeOnBlur) {
+            this.blur(null);
+        }
         this.cdr.detectChanges();
     }
     timeChanged(event) {
@@ -5951,6 +5954,9 @@ class MrdInputComponent extends BaseObject {
         }
         this.inputChange.emit(event.format('HH:mm'));
         this.showTimepicker.value = false;
+        if (this.formControlChangeOnBlur) {
+            this.blur(null);
+        }
         this.cdr.detectChanges();
     }
     calculateTextAreaHeight() {
