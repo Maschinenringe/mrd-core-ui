@@ -5922,6 +5922,7 @@ class MrdInputComponent extends BaseObject {
             if (!this.formControlChangeOnBlur) {
                 this.formControl.setValue(event);
                 this.baseInputElement.nativeElement.focus();
+                this.inputChange.emit(event.format('DD.MM.YYYY'));
             }
             else {
                 this.formControlChangeValue = event;
@@ -5930,8 +5931,8 @@ class MrdInputComponent extends BaseObject {
         else {
             this.value = event.format('DD.MM.YYYY');
             this.valueChange.emit(this.value);
+            this.inputChange.emit(event.format('DD.MM.YYYY'));
         }
-        this.inputChange.emit(event.format('DD.MM.YYYY'));
         this.showDatepicker.value = false;
         if (this.formControlChangeOnBlur) {
             this.blur(null);
@@ -5943,6 +5944,7 @@ class MrdInputComponent extends BaseObject {
             if (!this.formControlChangeOnBlur) {
                 this.formControl.setValue(event);
                 this.baseInputElement.nativeElement.focus();
+                this.inputChange.emit(event.format('HH:mm'));
             }
             else {
                 this.formControlChangeValue = event;
@@ -5951,8 +5953,8 @@ class MrdInputComponent extends BaseObject {
         else {
             this.value = event.format('HH:mm');
             this.valueChange.emit(this.value);
+            this.inputChange.emit(event.format('HH:mm'));
         }
-        this.inputChange.emit(event.format('HH:mm'));
         this.showTimepicker.value = false;
         if (this.formControlChangeOnBlur) {
             this.blur(null);
@@ -5979,6 +5981,14 @@ class MrdInputComponent extends BaseObject {
     blur(event) {
         if (this.formControlChangeOnBlur && Util.isDefined(this.formControlChangeValue)) {
             this.formControl.setValue(this.formControlChangeValue);
+            let emitValue = this.formControlChangeValue;
+            if (this.date && moment.isMoment(emitValue)) {
+                emitValue = emitValue.format('DD.MM.YYYY');
+            }
+            if (this.time && moment.isMoment(emitValue)) {
+                emitValue = emitValue.format('HH:mm');
+            }
+            this.inputChange.emit(emitValue);
             this.formControlChangeValue = undefined;
         }
         if (this.formControl && this.date && this.formControl.value && this.formControl.value !== '') {
