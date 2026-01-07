@@ -6703,7 +6703,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
         this.cdr = cdr;
     }
     ngOnInit() {
-        this.watch(this.showOptions.changed, new SubscriptionHandler((value) => {
+        this.watch(this.showOptions.changed.pipe(startWith(this.showOptions.value)), new SubscriptionHandler((value) => {
             if (!value) {
                 this.blur(null);
             }
@@ -6781,6 +6781,12 @@ class MrdSelectComponent extends BasePushStrategyObject {
                     }
                 });
             }
+        }
+        // Prüfe, ob showOptions bereits true ist und setze den Fokus falls nötig
+        if (this.showOptions.value && this.searchSelection && this.searchAutofocus) {
+            setTimeout(() => {
+                this.searchSelectionInput?.nativeElement.focus();
+            }, 500);
         }
     }
     formControlChanged() {
@@ -8130,7 +8136,7 @@ class MrdDecimalComponent {
                     '[style.align-items]': 'textEnd ? "flex-end" : centered ? "center" : "flex-start"',
                     '[style.background-color]': 'backgroundColor',
                     '[style.color]': 'color'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\n</div>\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\r\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\r\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\r\n</div>\r\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { backgroundColor: [{
             type: Input
         }], color: [{
