@@ -1,12 +1,12 @@
 import * as _ from 'underscore';
 import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, ValidatorFloat } from 'mrd-core';
-import * as i1$1 from '@angular/common';
-import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { SecurityContext, Injectable, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
+import { SecurityContext, DOCUMENT, Injectable, Optional, Inject, EventEmitter, booleanAttribute, Directive, Output, Input, numberAttribute, HostListener, NgModule, ChangeDetectionStrategy, Component, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ViewChildren, ContentChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
 import { of, tap, map, finalize, share, Subscription, take, startWith, Subject, defer, switchMap, merge } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
+import * as i1$1 from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ComponentPortal } from '@angular/cdk/portal';
 import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -667,22 +667,22 @@ class MrdIconRegistryService {
         }
         return config.svgElement;
     }
-    /** @nocollapse */ static ɵfac = function MrdIconRegistryService_Factory(t) { return new (t || MrdIconRegistryService)(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler)); };
+    /** @nocollapse */ static ɵfac = function MrdIconRegistryService_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdIconRegistryService)(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler)); };
     /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: MrdIconRegistryService, factory: MrdIconRegistryService.ɵfac, providedIn: 'root' });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconRegistryService, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconRegistryService, [{
         type: Injectable,
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: i1.HttpClient, decorators: [{
+    }], () => [{ type: i1.HttpClient, decorators: [{
                 type: Optional
             }] }, { type: i2.DomSanitizer }, { type: undefined, decorators: [{
                 type: Optional
             }, {
                 type: Inject,
                 args: [DOCUMENT]
-            }] }, { type: i0.ErrorHandler }]; }, null); })();
+            }] }, { type: i0.ErrorHandler }], null); })();
 /** Clones an SVGElement while preserving type information. */
 function cloneSvg(svg) {
     return svg.cloneNode(true);
@@ -774,15 +774,16 @@ class HideIfTruncatedDirective {
             this.resizeObserver.disconnect();
         }
     }
-    /** @nocollapse */ static ɵfac = function HideIfTruncatedDirective_Factory(t) { return new (t || HideIfTruncatedDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: HideIfTruncatedDirective, selectors: [["", "hideIfTruncated", ""]], inputs: { hideIfTruncated: ["hideIfTruncated", "hideIfTruncated", booleanAttribute], checkChildrenForAttribute: ["checkChildrenForAttribute", "checkChildrenForAttribute", booleanAttribute], hideOnTruncatedElement: "hideOnTruncatedElement", requiredHideAttribute: "requiredHideAttribute", displayState: "displayState", parentResizeElement: "parentResizeElement" }, outputs: { hiddenChanged: "hiddenChanged" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature] });
+    /** @nocollapse */ static ɵfac = function HideIfTruncatedDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || HideIfTruncatedDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: HideIfTruncatedDirective, selectors: [["", "hideIfTruncated", ""]], inputs: { hideIfTruncated: [2, "hideIfTruncated", "hideIfTruncated", booleanAttribute], checkChildrenForAttribute: [2, "checkChildrenForAttribute", "checkChildrenForAttribute", booleanAttribute], hideOnTruncatedElement: "hideOnTruncatedElement", requiredHideAttribute: "requiredHideAttribute", displayState: "displayState", parentResizeElement: "parentResizeElement" }, outputs: { hiddenChanged: "hiddenChanged" }, standalone: false, features: [i0.ɵɵNgOnChangesFeature] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(HideIfTruncatedDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(HideIfTruncatedDirective, [{
         type: Directive,
         args: [{
-                selector: '[hideIfTruncated]'
+                selector: '[hideIfTruncated]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ElementRef }]; }, { hideIfTruncated: [{
+    }], () => [{ type: i0.ElementRef }], { hideIfTruncated: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], checkChildrenForAttribute: [{
@@ -841,15 +842,16 @@ class ToggleOnHoverDirective {
         this.hoverElement.removeEventListener('mouseenter', this.mouseEnter.bind(this));
         this.hoverElement.removeEventListener('mouseleave', this.mouseLeave.bind(this));
     }
-    /** @nocollapse */ static ɵfac = function ToggleOnHoverDirective_Factory(t) { return new (t || ToggleOnHoverDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: ToggleOnHoverDirective, selectors: [["", "toggleOnHover", ""]], inputs: { toggleOnHover: "toggleOnHover", deepToggleElementSearch: ["deepToggleElementSearch", "deepToggleElementSearch", booleanAttribute], hoverElementParentDepth: ["hoverElementParentDepth", "hoverElementParentDepth", numberAttribute], hoverElement: "hoverElement", displayShowStyle: "displayShowStyle", displayShowStyleToggleElement: "displayShowStyleToggleElement" }, features: [i0.ɵɵInputTransformsFeature] });
+    /** @nocollapse */ static ɵfac = function ToggleOnHoverDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || ToggleOnHoverDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: ToggleOnHoverDirective, selectors: [["", "toggleOnHover", ""]], inputs: { toggleOnHover: "toggleOnHover", deepToggleElementSearch: [2, "deepToggleElementSearch", "deepToggleElementSearch", booleanAttribute], hoverElementParentDepth: [2, "hoverElementParentDepth", "hoverElementParentDepth", numberAttribute], hoverElement: "hoverElement", displayShowStyle: "displayShowStyle", displayShowStyleToggleElement: "displayShowStyleToggleElement" }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ToggleOnHoverDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ToggleOnHoverDirective, [{
         type: Directive,
         args: [{
-                selector: '[toggleOnHover]'
+                selector: '[toggleOnHover]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ElementRef }]; }, { toggleOnHover: [{
+    }], () => [{ type: i0.ElementRef }], { toggleOnHover: [{
             type: Input
         }], deepToggleElementSearch: [{
             type: Input,
@@ -896,17 +898,18 @@ class DecimalNumberDirective {
     ngOnChanges(changes) {
         this.regex = new RegExp(`^\\d*\\,?\\d{0,${this.nachkommastellen}}$`);
     }
-    /** @nocollapse */ static ɵfac = function DecimalNumberDirective_Factory(t) { return new (t || DecimalNumberDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵfac = function DecimalNumberDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || DecimalNumberDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: DecimalNumberDirective, selectors: [["", "decimalNumber", ""]], hostBindings: function DecimalNumberDirective_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("keydown", function DecimalNumberDirective_keydown_HostBindingHandler($event) { return ctx.onKeyDown($event); });
-        } }, inputs: { decimalNumber: ["decimalNumber", "decimalNumber", booleanAttribute], nachkommastellen: "nachkommastellen" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature] });
+        } }, inputs: { decimalNumber: [2, "decimalNumber", "decimalNumber", booleanAttribute], nachkommastellen: "nachkommastellen" }, standalone: false, features: [i0.ɵɵNgOnChangesFeature] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(DecimalNumberDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(DecimalNumberDirective, [{
         type: Directive,
         args: [{
-                selector: '[decimalNumber]'
+                selector: '[decimalNumber]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ElementRef }]; }, { decimalNumber: [{
+    }], () => [{ type: i0.ElementRef }], { decimalNumber: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], nachkommastellen: [{
@@ -959,17 +962,18 @@ class TimeInputDirective {
         const timePattern = /^([01]?[0-9]|2[0-3]):?([0-5]?[0-9])?$/;
         return timePattern.test(value);
     }
-    /** @nocollapse */ static ɵfac = function TimeInputDirective_Factory(t) { return new (t || TimeInputDirective)(); };
+    /** @nocollapse */ static ɵfac = function TimeInputDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || TimeInputDirective)(); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: TimeInputDirective, selectors: [["", "timeInput", ""]], hostBindings: function TimeInputDirective_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("keydown", function TimeInputDirective_keydown_HostBindingHandler($event) { return ctx.onKeyDown($event); });
-        } }, inputs: { timeInput: ["timeInput", "timeInput", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
+        } }, inputs: { timeInput: [2, "timeInput", "timeInput", booleanAttribute] }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TimeInputDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TimeInputDirective, [{
         type: Directive,
         args: [{
-                selector: '[timeInput]'
+                selector: '[timeInput]',
+                standalone: false
             }]
-    }], function () { return []; }, { timeInput: [{
+    }], () => [], { timeInput: [{
             type: Input,
             args: [{ alias: 'timeInput', transform: booleanAttribute }]
         }], onKeyDown: [{
@@ -978,11 +982,11 @@ class TimeInputDirective {
         }] }); })();
 
 class MrdDirectiveModule {
-    /** @nocollapse */ static ɵfac = function MrdDirectiveModule_Factory(t) { return new (t || MrdDirectiveModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdDirectiveModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDirectiveModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdDirectiveModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({});
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDirectiveModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDirectiveModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -1007,15 +1011,15 @@ class MrdDirectiveModule {
         DecimalNumberDirective,
         TimeInputDirective] }); })();
 
+const _c0$p = a0 => ({ "transform": a0 });
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
 } }
-const _c0$p = function (a0) { return { "transform": a0 }; };
 function MrdProgressBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 4);
 } if (rf & 2) {
-    const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$p, "translateX(" + ctx_r1.value + "%)"));
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$p, "translateX(" + ctx_r0.value + "%)"));
 } }
 class MrdProgressBarComponent {
     cdr;
@@ -1061,24 +1065,23 @@ class MrdProgressBarComponent {
     ngAfterViewInit() {
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdProgressBarComponent_Factory(t) { return new (t || MrdProgressBarComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdProgressBarComponent, selectors: [["mrd-progress-bar"]], inputs: { mode: "mode", value: ["value", "value", numberAttribute], color: "color" }, features: [i0.ɵɵInputTransformsFeature], decls: 3, vars: 6, consts: [[1, "mrd-progressbar-container"], ["class", "mrd-progressbar indeterminate", 4, "ngIf"], ["class", "mrd-progressbar determinate", 3, "ngStyle", 4, "ngIf"], [1, "mrd-progressbar", "indeterminate"], [1, "mrd-progressbar", "determinate", 3, "ngStyle"]], template: function MrdProgressBarComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdProgressBarComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdProgressBarComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdProgressBarComponent, selectors: [["mrd-progress-bar"]], inputs: { mode: "mode", value: [2, "value", "value", numberAttribute], color: "color" }, standalone: false, decls: 3, vars: 6, consts: [[1, "mrd-progressbar-container"], ["class", "mrd-progressbar indeterminate", 4, "ngIf"], ["class", "mrd-progressbar determinate", 3, "ngStyle", 4, "ngIf"], [1, "mrd-progressbar", "indeterminate"], [1, "mrd-progressbar", "determinate", 3, "ngStyle"]], template: function MrdProgressBarComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0);
-            i0.ɵɵtemplate(1, MrdProgressBarComponent_div_1_Template, 1, 0, "div", 1);
-            i0.ɵɵtemplate(2, MrdProgressBarComponent_div_2_Template, 1, 3, "div", 2);
+            i0.ɵɵtemplate(1, MrdProgressBarComponent_div_1_Template, 1, 0, "div", 1)(2, MrdProgressBarComponent_div_2_Template, 1, 3, "div", 2);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--progress-bar-color", ctx.color)("--progress-bar-bg-color", ctx.bgColor);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.mode === "indeterminate");
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.mode === "determinate");
         } }, dependencies: [i1$1.NgIf, i1$1.NgStyle], styles: ["[_nghost-%COMP%]{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;flex:1;max-width:100%;min-height:5px;height:100%}.mrd-progressbar-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1;width:100%;height:100%;overflow:hidden;background-color:var(--progress-bar-bg-color)}.mrd-progressbar-container[_ngcontent-%COMP%]   .mrd-progressbar[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--progress-bar-color)}.mrd-progressbar-container[_ngcontent-%COMP%]   .mrd-progressbar.indeterminate[_ngcontent-%COMP%]{animation:_ngcontent-%COMP%_mrd-progressbar-indeterminate-animation 1s infinite linear}.mrd-progressbar-container[_ngcontent-%COMP%]   .mrd-progressbar.determinate[_ngcontent-%COMP%]{transform:translate(-100%);transition:transform .3s linear}@keyframes _ngcontent-%COMP%_mrd-progressbar-indeterminate-animation{0%{width:100%;transform:translate(-100%)}50%{width:70%;transform:translate(0)}to{width:100%;transform:translate(100%)}}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressBarComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressBarComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-progress-bar', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-progressbar-container\"\r\n  [style.--progress-bar-color]=\"color\" [style.--progress-bar-bg-color]=\"bgColor\">\r\n  <div class=\"mrd-progressbar indeterminate\" *ngIf=\"mode === 'indeterminate'\"></div>\r\n  <div class=\"mrd-progressbar determinate\" *ngIf=\"mode === 'determinate'\" [ngStyle]=\"{'transform': 'translateX(' + value + '%)'}\"></div>\r\n</div>\r\n", styles: [":host{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;flex:1;max-width:100%;min-height:5px;height:100%}.mrd-progressbar-container{position:relative;display:flex;flex:1;width:100%;height:100%;overflow:hidden;background-color:var(--progress-bar-bg-color)}.mrd-progressbar-container .mrd-progressbar{position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--progress-bar-color)}.mrd-progressbar-container .mrd-progressbar.indeterminate{animation:mrd-progressbar-indeterminate-animation 1s infinite linear}.mrd-progressbar-container .mrd-progressbar.determinate{transform:translate(-100%);transition:transform .3s linear}@keyframes mrd-progressbar-indeterminate-animation{0%{width:100%;transform:translate(-100%)}50%{width:70%;transform:translate(0)}to{width:100%;transform:translate(100%)}}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { mode: [{
+        args: [{ selector: 'mrd-progress-bar', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-progressbar-container\"\n  [style.--progress-bar-color]=\"color\" [style.--progress-bar-bg-color]=\"bgColor\">\n  <div class=\"mrd-progressbar indeterminate\" *ngIf=\"mode === 'indeterminate'\"></div>\n  <div class=\"mrd-progressbar determinate\" *ngIf=\"mode === 'determinate'\" [ngStyle]=\"{'transform': 'translateX(' + value + '%)'}\"></div>\n</div>\n", styles: [":host{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;flex:1;max-width:100%;min-height:5px;height:100%}.mrd-progressbar-container{position:relative;display:flex;flex:1;width:100%;height:100%;overflow:hidden;background-color:var(--progress-bar-bg-color)}.mrd-progressbar-container .mrd-progressbar{position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--progress-bar-color)}.mrd-progressbar-container .mrd-progressbar.indeterminate{animation:mrd-progressbar-indeterminate-animation 1s infinite linear}.mrd-progressbar-container .mrd-progressbar.determinate{transform:translate(-100%);transition:transform .3s linear}@keyframes mrd-progressbar-indeterminate-animation{0%{width:100%;transform:translate(-100%)}50%{width:70%;transform:translate(0)}to{width:100%;transform:translate(100%)}}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { mode: [{
             type: Input
         }], value: [{
             type: Input,
@@ -1086,6 +1089,7 @@ class MrdProgressBarComponent {
         }], color: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdProgressBarComponent, { className: "MrdProgressBarComponent", filePath: "lib/modules/mrd-progress-bar/components/mrd-progress-bar/mrd-progress-bar.component.ts", lineNumber: 13 }); })();
 
 function MrdProgressSpinnerComponent_ng_template_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵnamespaceSVG();
@@ -1093,11 +1097,11 @@ function MrdProgressSpinnerComponent_ng_template_0_Template(rf, ctx) { if (rf & 
     i0.ɵɵelement(1, "circle", 5);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵattribute("viewBox", ctx_r1.viewBox);
-    i0.ɵɵadvance(1);
-    i0.ɵɵstyleProp("stroke-dasharray", ctx_r1.strokeCircumference, "px")("stroke-width", ctx_r1.circleStrokeWidth, "%")("stroke-dashoffset", ctx_r1.strokeCircumference / 2, "px");
-    i0.ɵɵattribute("r", ctx_r1.circleRadius);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵattribute("viewBox", ctx_r0.viewBox);
+    i0.ɵɵadvance();
+    i0.ɵɵstyleProp("stroke-dasharray", ctx_r0.strokeCircumference, "px")("stroke-width", ctx_r0.circleStrokeWidth, "%")("stroke-dashoffset", ctx_r0.strokeCircumference / 2, "px");
+    i0.ɵɵattribute("r", ctx_r0.circleRadius);
 } }
 function MrdProgressSpinnerComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 6)(1, "div", 7)(2, "div", 8);
@@ -1110,15 +1114,15 @@ function MrdProgressSpinnerComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(7, 9);
     i0.ɵɵelementEnd()()();
 } if (rf & 2) {
-    const ctx_r2 = i0.ɵɵnextContext();
-    const _r0 = i0.ɵɵreference(1);
-    i0.ɵɵstyleProp("--spinner-color", ctx_r2.color);
+    const ctx_r0 = i0.ɵɵnextContext();
+    const circle_r2 = i0.ɵɵreference(1);
+    i0.ɵɵstyleProp("--spinner-color", ctx_r0.color);
     i0.ɵɵadvance(3);
-    i0.ɵɵproperty("ngTemplateOutlet", _r0);
+    i0.ɵɵproperty("ngTemplateOutlet", circle_r2);
     i0.ɵɵadvance(2);
-    i0.ɵɵproperty("ngTemplateOutlet", _r0);
+    i0.ɵɵproperty("ngTemplateOutlet", circle_r2);
     i0.ɵɵadvance(2);
-    i0.ɵɵproperty("ngTemplateOutlet", _r0);
+    i0.ɵɵproperty("ngTemplateOutlet", circle_r2);
 } }
 function MrdProgressSpinnerComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 12);
@@ -1127,13 +1131,13 @@ function MrdProgressSpinnerComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(2, "circle", 13);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
-    const ctx_r3 = i0.ɵɵnextContext();
-    i0.ɵɵstyleProp("--spinner-color", ctx_r3.color);
-    i0.ɵɵadvance(1);
-    i0.ɵɵattribute("viewBox", ctx_r3.viewBox);
-    i0.ɵɵadvance(1);
-    i0.ɵɵstyleProp("stroke-dasharray", ctx_r3.strokeCircumference, "px")("stroke-dashoffset", ctx_r3.strokeDashOffset, "px")("stroke-width", ctx_r3.circleStrokeWidth, "%");
-    i0.ɵɵattribute("r", ctx_r3.circleRadius);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵstyleProp("--spinner-color", ctx_r0.color);
+    i0.ɵɵadvance();
+    i0.ɵɵattribute("viewBox", ctx_r0.viewBox);
+    i0.ɵɵadvance();
+    i0.ɵɵstyleProp("stroke-dasharray", ctx_r0.strokeCircumference, "px")("stroke-dashoffset", ctx_r0.strokeDashOffset, "px")("stroke-width", ctx_r0.circleStrokeWidth, "%");
+    i0.ɵɵattribute("r", ctx_r0.circleRadius);
 } }
 function MrdProgressSpinnerComponent_div_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 14);
@@ -1142,11 +1146,11 @@ function MrdProgressSpinnerComponent_div_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(3);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
-    const ctx_r4 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", ctx_r4.labelText, "");
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate1(" ", ctx_r0.labelText);
     i0.ɵɵadvance(2);
-    i0.ɵɵtextInterpolate(ctx_r4.dots);
+    i0.ɵɵtextInterpolate(ctx_r0.dots);
 } }
 class MrdProgressSpinnerComponent {
     config = ConfigUtil.getConfig();
@@ -1237,30 +1241,27 @@ class MrdProgressSpinnerComponent {
             clearInterval(this.interval);
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdProgressSpinnerComponent_Factory(t) { return new (t || MrdProgressSpinnerComponent)(); };
+    /** @nocollapse */ static ɵfac = function MrdProgressSpinnerComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdProgressSpinnerComponent)(); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdProgressSpinnerComponent, selectors: [["mrd-progress-spinner"]], hostVars: 6, hostBindings: function MrdProgressSpinnerComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("width", ctx.diameter, "px")("height", ctx.diameter, "px")("margin-bottom", ctx.showLabel ? 1.5 : 0, "em");
-        } }, inputs: { mode: "mode", color: "color", value: ["value", "value", numberAttribute], diameter: ["diameter", "diameter", numberAttribute], strokeWidth: ["strokeWidth", "strokeWidth", numberAttribute], showLabel: ["showLabel", "showLabel", booleanAttribute], labelText: "labelText" }, features: [i0.ɵɵInputTransformsFeature], decls: 5, vars: 3, consts: [["circle", ""], ["class", "mrd-spinner-indeterminate-container", "aria-hidden", "true", 3, "--spinner-color", 4, "ngIf"], ["class", "mrd-progess-spinner-determinate-container", "aria-hidden", "true", 3, "--spinner-color", 4, "ngIf"], ["class", "mrd-progress-spinner-label", 4, "ngIf"], ["xmlns", "http://www.w3.org/2000/svg", "focusable", "false", 1, "mrd-spinner-indeterminate-circle-svg"], ["cx", "50%", "cy", "50%", 1, "mrd-spinner-indeterminate-circle-svg-circle"], ["aria-hidden", "true", 1, "mrd-spinner-indeterminate-container"], [1, "mrd-spinner-indeterminate-spinners"], [1, "mrd-spinner-indeterminate-part", "mrd-spinner-indeterminate-part-left"], [3, "ngTemplateOutlet"], [1, "mrd-spinner-indeterminate-gap-part"], [1, "mrd-spinner-indeterminate-part", "mrd-spinner-indeterminate-part-right"], ["aria-hidden", "true", 1, "mrd-progess-spinner-determinate-container"], ["cx", "50%", "cy", "50%", 1, "mrd-spinner-determinate-circle-svg-circle"], [1, "mrd-progress-spinner-label"], [1, "mrd-progress-spinner-label-dots"]], template: function MrdProgressSpinnerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵtemplate(0, MrdProgressSpinnerComponent_ng_template_0_Template, 2, 8, "ng-template", null, 0, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵtemplate(2, MrdProgressSpinnerComponent_div_2_Template, 8, 5, "div", 1);
-            i0.ɵɵtemplate(3, MrdProgressSpinnerComponent_div_3_Template, 3, 10, "div", 2);
-            i0.ɵɵtemplate(4, MrdProgressSpinnerComponent_div_4_Template, 4, 2, "div", 3);
+        } }, inputs: { mode: "mode", color: "color", value: [2, "value", "value", numberAttribute], diameter: [2, "diameter", "diameter", numberAttribute], strokeWidth: [2, "strokeWidth", "strokeWidth", numberAttribute], showLabel: [2, "showLabel", "showLabel", booleanAttribute], labelText: "labelText" }, standalone: false, decls: 5, vars: 3, consts: [["circle", ""], ["class", "mrd-spinner-indeterminate-container", "aria-hidden", "true", 3, "--spinner-color", 4, "ngIf"], ["class", "mrd-progess-spinner-determinate-container", "aria-hidden", "true", 3, "--spinner-color", 4, "ngIf"], ["class", "mrd-progress-spinner-label", 4, "ngIf"], ["xmlns", "http://www.w3.org/2000/svg", "focusable", "false", 1, "mrd-spinner-indeterminate-circle-svg"], ["cx", "50%", "cy", "50%", 1, "mrd-spinner-indeterminate-circle-svg-circle"], ["aria-hidden", "true", 1, "mrd-spinner-indeterminate-container"], [1, "mrd-spinner-indeterminate-spinners"], [1, "mrd-spinner-indeterminate-part", "mrd-spinner-indeterminate-part-left"], [3, "ngTemplateOutlet"], [1, "mrd-spinner-indeterminate-gap-part"], [1, "mrd-spinner-indeterminate-part", "mrd-spinner-indeterminate-part-right"], ["aria-hidden", "true", 1, "mrd-progess-spinner-determinate-container"], ["cx", "50%", "cy", "50%", 1, "mrd-spinner-determinate-circle-svg-circle"], [1, "mrd-progress-spinner-label"], [1, "mrd-progress-spinner-label-dots"]], template: function MrdProgressSpinnerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵtemplate(0, MrdProgressSpinnerComponent_ng_template_0_Template, 2, 8, "ng-template", null, 0, i0.ɵɵtemplateRefExtractor)(2, MrdProgressSpinnerComponent_div_2_Template, 8, 5, "div", 1)(3, MrdProgressSpinnerComponent_div_3_Template, 3, 10, "div", 2)(4, MrdProgressSpinnerComponent_div_4_Template, 4, 2, "div", 3);
         } if (rf & 2) {
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.mode === "indeterminate");
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.mode === "determinate");
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.showLabel);
         } }, dependencies: [i1$1.NgIf, i1$1.NgTemplateOutlet], styles: ["[_nghost-%COMP%]{position:relative;display:block}.mrd-progess-spinner-determinate-container[_ngcontent-%COMP%]{transform:rotate(-90deg)}.mrd-spinner-determinate-circle-svg-circle[_ngcontent-%COMP%]{transition:stroke-dashoffset .5s 0ms cubic-bezier(0,0,.2,1)}.mrd-progess-spinner-determinate-container[_ngcontent-%COMP%], .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%], .mrd-spinner-indeterminate-container[_ngcontent-%COMP%], .mrd-spinner-indeterminate-spinners[_ngcontent-%COMP%]{position:absolute;width:100%;height:100%}.mrd-spinner-indeterminate-container[_ngcontent-%COMP%]{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mrd-spinner-indeterminate-spinners[_ngcontent-%COMP%]{animation:_ngcontent-%COMP%_mrd-spinner-indeterminate-spinners-rotate 5332ms cubic-bezier(.4,0,.2,1) infinite both}.mrd-spinner-indeterminate-part[_ngcontent-%COMP%]{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mrd-spinner-indeterminate-gap-part[_ngcontent-%COMP%]{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mrd-spinner-indeterminate-container[_ngcontent-%COMP%]{animation:_ngcontent-%COMP%_mrd-spinner-indeterminate-container-rotate 1.5682352941176s linear infinite}.mrd-spinner-indeterminate-container[_ngcontent-%COMP%]{opacity:1}.mrd-spinner-determinate-circle-svg-circle[_ngcontent-%COMP%], .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{stroke:var(--spinner-color)}.mrd-spinner-indeterminate-part[_ngcontent-%COMP%]   .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{width:200%}.mrd-spinner-indeterminate-part-right[_ngcontent-%COMP%]   .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{left:-100%}.mrd-spinner-determinate-circle-svg-circle-graphic[_ngcontent-%COMP%], .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{fill:#0000}.mrd-spinner-indeterminate-gap-part[_ngcontent-%COMP%]   .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{left:-900%;width:2000%;transform:rotate(180deg)}.mrd-progress-spinner-label[_ngcontent-%COMP%]{position:absolute;height:1.5em;margin:0 .25em;bottom:-1.5em;left:6px;right:0;text-align:center}.mrd-progress-spinner-label[_ngcontent-%COMP%]   .mrd-progress-spinner-label-dots[_ngcontent-%COMP%]{display:inline-block;width:12px;text-align:start}.mrd-spinner-indeterminate-part-left[_ngcontent-%COMP%]   .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{animation:_ngcontent-%COMP%_mrd-spinner-indeterminate-circle-left-rotate 1333ms cubic-bezier(.4,0,.2,1) infinite both}.mrd-spinner-indeterminate-part-right[_ngcontent-%COMP%]   .mrd-spinner-indeterminate-circle-svg[_ngcontent-%COMP%]{animation:_ngcontent-%COMP%_mrd-spinner-indeterminate-circle-right-rotate 1333ms cubic-bezier(.4,0,.2,1) infinite both}@keyframes _ngcontent-%COMP%_mrd-spinner-indeterminate-circle-right-rotate{0%{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}@keyframes _ngcontent-%COMP%_mrd-spinner-indeterminate-circle-left-rotate{0%{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes _ngcontent-%COMP%_mrd-spinner-indeterminate-spinners-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}to{transform:rotate(1080deg)}}@keyframes _ngcontent-%COMP%_mrd-spinner-indeterminate-container-rotate{to{transform:rotate(360deg)}}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressSpinnerComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressSpinnerComponent, [{
         type: Component,
         args: [{ selector: 'mrd-progress-spinner', host: {
                     '[style.width.px]': 'diameter',
                     '[style.height.px]': 'diameter',
                     '[style.margin-bottom.em]': 'showLabel ? 1.5 : 0'
-                }, template: "<ng-template #circle>\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" focusable=\"false\" class=\"mrd-spinner-indeterminate-circle-svg\" [attr.viewBox]=\"viewBox\">\r\n    <circle cx=\"50%\" cy=\"50%\" class=\"mrd-spinner-indeterminate-circle-svg-circle\" [attr.r]=\"circleRadius\"\r\n      [style.stroke-dasharray.px]=\"strokeCircumference\" [style.stroke-width.%]=\"circleStrokeWidth\" [style.stroke-dashoffset.px]=\"strokeCircumference / 2\"\r\n      ></circle>\r\n  </svg>\r\n</ng-template>\r\n\r\n<div class=\"mrd-spinner-indeterminate-container\" aria-hidden=\"true\" *ngIf=\"mode === 'indeterminate'\" [style.--spinner-color]=\"color\">\r\n  <div class=\"mrd-spinner-indeterminate-spinners\">\r\n    <div class=\"mrd-spinner-indeterminate-part mrd-spinner-indeterminate-part-left\">\r\n      <ng-container [ngTemplateOutlet]=\"circle\"></ng-container>\r\n    </div>\r\n    <div class=\"mrd-spinner-indeterminate-gap-part\">\r\n      <ng-container [ngTemplateOutlet]=\"circle\"></ng-container>\r\n    </div>\r\n    <div class=\"mrd-spinner-indeterminate-part mrd-spinner-indeterminate-part-right\">\r\n      <ng-container [ngTemplateOutlet]=\"circle\"></ng-container>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"mrd-progess-spinner-determinate-container\" aria-hidden=\"true\" *ngIf=\"mode === 'determinate'\" [style.--spinner-color]=\"color\">\r\n  <svg class=\"mrd-spinner-indeterminate-circle-svg\" [attr.viewBox]=\"viewBox\"\r\n       xmlns=\"http://www.w3.org/2000/svg\" focusable=\"false\">\r\n    <circle [attr.r]=\"circleRadius\"\r\n            [style.stroke-dasharray.px]=\"strokeCircumference\"\r\n            [style.stroke-dashoffset.px]=\"strokeDashOffset\"\r\n            [style.stroke-width.%]=\"circleStrokeWidth\"\r\n            class=\"mrd-spinner-determinate-circle-svg-circle\"\r\n            cx=\"50%\" cy=\"50%\"/>\r\n  </svg>\r\n</div>\r\n\r\n<div class=\"mrd-progress-spinner-label\" *ngIf=\"showLabel\">\r\n  {{labelText}}<span class=\"mrd-progress-spinner-label-dots\">{{dots}}</span>\r\n</div>\r\n", styles: [":host{position:relative;display:block}.mrd-progess-spinner-determinate-container{transform:rotate(-90deg)}.mrd-spinner-determinate-circle-svg-circle{transition:stroke-dashoffset .5s 0ms cubic-bezier(0,0,.2,1)}.mrd-progess-spinner-determinate-container,.mrd-spinner-indeterminate-circle-svg,.mrd-spinner-indeterminate-container,.mrd-spinner-indeterminate-spinners{position:absolute;width:100%;height:100%}.mrd-spinner-indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mrd-spinner-indeterminate-spinners{animation:mrd-spinner-indeterminate-spinners-rotate 5332ms cubic-bezier(.4,0,.2,1) infinite both}.mrd-spinner-indeterminate-part{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mrd-spinner-indeterminate-gap-part{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mrd-spinner-indeterminate-container{animation:mrd-spinner-indeterminate-container-rotate 1.5682352941176s linear infinite}.mrd-spinner-indeterminate-container{opacity:1}.mrd-spinner-determinate-circle-svg-circle,.mrd-spinner-indeterminate-circle-svg{stroke:var(--spinner-color)}.mrd-spinner-indeterminate-part .mrd-spinner-indeterminate-circle-svg{width:200%}.mrd-spinner-indeterminate-part-right .mrd-spinner-indeterminate-circle-svg{left:-100%}.mrd-spinner-determinate-circle-svg-circle-graphic,.mrd-spinner-indeterminate-circle-svg{fill:#0000}.mrd-spinner-indeterminate-gap-part .mrd-spinner-indeterminate-circle-svg{left:-900%;width:2000%;transform:rotate(180deg)}.mrd-progress-spinner-label{position:absolute;height:1.5em;margin:0 .25em;bottom:-1.5em;left:6px;right:0;text-align:center}.mrd-progress-spinner-label .mrd-progress-spinner-label-dots{display:inline-block;width:12px;text-align:start}.mrd-spinner-indeterminate-part-left .mrd-spinner-indeterminate-circle-svg{animation:mrd-spinner-indeterminate-circle-left-rotate 1333ms cubic-bezier(.4,0,.2,1) infinite both}.mrd-spinner-indeterminate-part-right .mrd-spinner-indeterminate-circle-svg{animation:mrd-spinner-indeterminate-circle-right-rotate 1333ms cubic-bezier(.4,0,.2,1) infinite both}@keyframes mrd-spinner-indeterminate-circle-right-rotate{0%{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}@keyframes mrd-spinner-indeterminate-circle-left-rotate{0%{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mrd-spinner-indeterminate-spinners-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}to{transform:rotate(1080deg)}}@keyframes mrd-spinner-indeterminate-container-rotate{to{transform:rotate(360deg)}}\n"] }]
+                }, standalone: false, template: "<ng-template #circle>\n  <svg xmlns=\"http://www.w3.org/2000/svg\" focusable=\"false\" class=\"mrd-spinner-indeterminate-circle-svg\" [attr.viewBox]=\"viewBox\">\n    <circle cx=\"50%\" cy=\"50%\" class=\"mrd-spinner-indeterminate-circle-svg-circle\" [attr.r]=\"circleRadius\"\n      [style.stroke-dasharray.px]=\"strokeCircumference\" [style.stroke-width.%]=\"circleStrokeWidth\" [style.stroke-dashoffset.px]=\"strokeCircumference / 2\"\n    ></circle>\n  </svg>\n</ng-template>\n\n<div class=\"mrd-spinner-indeterminate-container\" aria-hidden=\"true\" *ngIf=\"mode === 'indeterminate'\" [style.--spinner-color]=\"color\">\n  <div class=\"mrd-spinner-indeterminate-spinners\">\n    <div class=\"mrd-spinner-indeterminate-part mrd-spinner-indeterminate-part-left\">\n      <ng-container [ngTemplateOutlet]=\"circle\"></ng-container>\n    </div>\n    <div class=\"mrd-spinner-indeterminate-gap-part\">\n      <ng-container [ngTemplateOutlet]=\"circle\"></ng-container>\n    </div>\n    <div class=\"mrd-spinner-indeterminate-part mrd-spinner-indeterminate-part-right\">\n      <ng-container [ngTemplateOutlet]=\"circle\"></ng-container>\n    </div>\n  </div>\n</div>\n\n<div class=\"mrd-progess-spinner-determinate-container\" aria-hidden=\"true\" *ngIf=\"mode === 'determinate'\" [style.--spinner-color]=\"color\">\n  <svg class=\"mrd-spinner-indeterminate-circle-svg\" [attr.viewBox]=\"viewBox\"\n       xmlns=\"http://www.w3.org/2000/svg\" focusable=\"false\">\n    <circle [attr.r]=\"circleRadius\"\n            [style.stroke-dasharray.px]=\"strokeCircumference\"\n            [style.stroke-dashoffset.px]=\"strokeDashOffset\"\n            [style.stroke-width.%]=\"circleStrokeWidth\"\n            class=\"mrd-spinner-determinate-circle-svg-circle\"\n            cx=\"50%\" cy=\"50%\"/>\n  </svg>\n</div>\n\n<div class=\"mrd-progress-spinner-label\" *ngIf=\"showLabel\">\n  {{labelText}}<span class=\"mrd-progress-spinner-label-dots\">{{dots}}</span>\n</div>\n", styles: [":host{position:relative;display:block}.mrd-progess-spinner-determinate-container{transform:rotate(-90deg)}.mrd-spinner-determinate-circle-svg-circle{transition:stroke-dashoffset .5s 0ms cubic-bezier(0,0,.2,1)}.mrd-progess-spinner-determinate-container,.mrd-spinner-indeterminate-circle-svg,.mrd-spinner-indeterminate-container,.mrd-spinner-indeterminate-spinners{position:absolute;width:100%;height:100%}.mrd-spinner-indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mrd-spinner-indeterminate-spinners{animation:mrd-spinner-indeterminate-spinners-rotate 5332ms cubic-bezier(.4,0,.2,1) infinite both}.mrd-spinner-indeterminate-part{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mrd-spinner-indeterminate-gap-part{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mrd-spinner-indeterminate-container{animation:mrd-spinner-indeterminate-container-rotate 1.5682352941176s linear infinite}.mrd-spinner-indeterminate-container{opacity:1}.mrd-spinner-determinate-circle-svg-circle,.mrd-spinner-indeterminate-circle-svg{stroke:var(--spinner-color)}.mrd-spinner-indeterminate-part .mrd-spinner-indeterminate-circle-svg{width:200%}.mrd-spinner-indeterminate-part-right .mrd-spinner-indeterminate-circle-svg{left:-100%}.mrd-spinner-determinate-circle-svg-circle-graphic,.mrd-spinner-indeterminate-circle-svg{fill:#0000}.mrd-spinner-indeterminate-gap-part .mrd-spinner-indeterminate-circle-svg{left:-900%;width:2000%;transform:rotate(180deg)}.mrd-progress-spinner-label{position:absolute;height:1.5em;margin:0 .25em;bottom:-1.5em;left:6px;right:0;text-align:center}.mrd-progress-spinner-label .mrd-progress-spinner-label-dots{display:inline-block;width:12px;text-align:start}.mrd-spinner-indeterminate-part-left .mrd-spinner-indeterminate-circle-svg{animation:mrd-spinner-indeterminate-circle-left-rotate 1333ms cubic-bezier(.4,0,.2,1) infinite both}.mrd-spinner-indeterminate-part-right .mrd-spinner-indeterminate-circle-svg{animation:mrd-spinner-indeterminate-circle-right-rotate 1333ms cubic-bezier(.4,0,.2,1) infinite both}@keyframes mrd-spinner-indeterminate-circle-right-rotate{0%{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}@keyframes mrd-spinner-indeterminate-circle-left-rotate{0%{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mrd-spinner-indeterminate-spinners-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}to{transform:rotate(1080deg)}}@keyframes mrd-spinner-indeterminate-container-rotate{to{transform:rotate(360deg)}}\n"] }]
     }], null, { mode: [{
             type: Input
         }], color: [{
@@ -1280,17 +1281,18 @@ class MrdProgressSpinnerComponent {
         }], labelText: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdProgressSpinnerComponent, { className: "MrdProgressSpinnerComponent", filePath: "lib/modules/mrd-progress-spinner/components/mrd-progress-spinner/mrd-progress-spinner.component.ts", lineNumber: 16 }); })();
 
+const _c0$o = a0 => ({ "mrd-tooltip-container": a0 });
 function MrdTooltipComponent_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(0);
 } if (rf & 2) {
-    const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵtextInterpolate1(" ", ctx_r1.text, " ");
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵtextInterpolate1(" ", ctx_r0.text, " ");
 } }
 function MrdTooltipComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$o = function (a0) { return { "mrd-tooltip-container": a0 }; };
 class MrdTooltipComponent {
     /**
      * This is simple text which is to be shown in the tooltip
@@ -1308,30 +1310,30 @@ class MrdTooltipComponent {
     constructor() { }
     ngOnInit() {
     }
-    /** @nocollapse */ static ɵfac = function MrdTooltipComponent_Factory(t) { return new (t || MrdTooltipComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTooltipComponent, selectors: [["mrd-tooltip"]], inputs: { text: "text", contentTemplate: "contentTemplate", defaultStyle: "defaultStyle" }, decls: 5, vars: 4, consts: [[3, "ngClass"], ["simpleText", ""], [4, "ngTemplateOutlet"]], template: function MrdTooltipComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵelementStart(0, "div")(1, "div", 0);
-            i0.ɵɵtemplate(2, MrdTooltipComponent_ng_template_2_Template, 1, 1, "ng-template", null, 1, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵtemplate(4, MrdTooltipComponent_ng_container_4_Template, 1, 0, "ng-container", 2);
+    /** @nocollapse */ static ɵfac = function MrdTooltipComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTooltipComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTooltipComponent, selectors: [["mrd-tooltip"]], inputs: { text: "text", contentTemplate: "contentTemplate", defaultStyle: "defaultStyle" }, standalone: false, decls: 5, vars: 4, consts: [["simpleText", ""], [3, "ngClass"], [4, "ngTemplateOutlet"]], template: function MrdTooltipComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div")(1, "div", 1);
+            i0.ɵɵtemplate(2, MrdTooltipComponent_ng_template_2_Template, 1, 1, "ng-template", null, 0, i0.ɵɵtemplateRefExtractor)(4, MrdTooltipComponent_ng_container_4_Template, 1, 0, "ng-container", 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            const _r0 = i0.ɵɵreference(3);
-            i0.ɵɵadvance(1);
+            const simpleText_r2 = i0.ɵɵreference(3);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$o, ctx.defaultStyle));
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || _r0);
+            i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || simpleText_r2);
         } }, dependencies: [i1$1.NgClass, i1$1.NgTemplateOutlet], styles: [".mrd-tooltip-container[_ngcontent-%COMP%]{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTooltipComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTooltipComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-tooltip', template: "<div>\r\n  <div [ngClass]=\"{'mrd-tooltip-container': defaultStyle}\">\r\n    <ng-template #simpleText>\r\n      {{text}}\r\n    </ng-template>\r\n    <ng-container *ngTemplateOutlet=\"contentTemplate || simpleText\">\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n", styles: [".mrd-tooltip-container{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}\n"] }]
-    }], function () { return []; }, { text: [{
+        args: [{ selector: 'mrd-tooltip', standalone: false, template: "<div>\r\n  <div [ngClass]=\"{'mrd-tooltip-container': defaultStyle}\">\r\n    <ng-template #simpleText>\r\n      {{text}}\r\n    </ng-template>\r\n    <ng-container *ngTemplateOutlet=\"contentTemplate || simpleText\">\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n", styles: [".mrd-tooltip-container{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}\n"] }]
+    }], () => [], { text: [{
             type: Input
         }], contentTemplate: [{
             type: Input
         }], defaultStyle: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdTooltipComponent, { className: "MrdTooltipComponent", filePath: "lib/modules/mrd-tooltip/components/mrd-tooltip/mrd-tooltip.component.ts", lineNumber: 9 }); })();
 
 class ToolTipRendererDirective {
     _overlay;
@@ -1584,18 +1586,19 @@ class ToolTipRendererDirective {
             }, this.hideDelay);
         }
     }
-    /** @nocollapse */ static ɵfac = function ToolTipRendererDirective_Factory(t) { return new (t || ToolTipRendererDirective)(i0.ɵɵdirectiveInject(i1$2.Overlay), i0.ɵɵdirectiveInject(i1$2.OverlayPositionBuilder), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵfac = function ToolTipRendererDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || ToolTipRendererDirective)(i0.ɵɵdirectiveInject(i1$2.Overlay), i0.ɵɵdirectiveInject(i1$2.OverlayPositionBuilder), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: ToolTipRendererDirective, selectors: [["", "mrdToolTip", ""]], hostBindings: function ToolTipRendererDirective_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("mouseenter", function ToolTipRendererDirective_mouseenter_HostBindingHandler() { return ctx.show(); })("mouseleave", function ToolTipRendererDirective_mouseleave_HostBindingHandler($event) { return ctx.hide($event); });
-        } }, inputs: { showToolTip: "showToolTip", text: ["mrdToolTip", "text"], contentTemplate: "contentTemplate", defaultStyle: "defaultStyle", position: "position", showIfTruncated: ["showIfTruncated", "showIfTruncated", booleanAttribute], showOnTruncatedElement: "showOnTruncatedElement", keepOnTooltipHover: ["keepOnTooltipHover", "keepOnTooltipHover", booleanAttribute], showDelay: ["showDelay", "showDelay", numberAttribute], hideDelay: ["hideDelay", "hideDelay", numberAttribute] }, exportAs: ["mrdToolTip"], features: [i0.ɵɵInputTransformsFeature] });
+        } }, inputs: { showToolTip: "showToolTip", text: [0, "mrdToolTip", "text"], contentTemplate: "contentTemplate", defaultStyle: "defaultStyle", position: "position", showIfTruncated: [2, "showIfTruncated", "showIfTruncated", booleanAttribute], showOnTruncatedElement: "showOnTruncatedElement", keepOnTooltipHover: [2, "keepOnTooltipHover", "keepOnTooltipHover", booleanAttribute], showDelay: [2, "showDelay", "showDelay", numberAttribute], hideDelay: [2, "hideDelay", "hideDelay", numberAttribute] }, exportAs: ["mrdToolTip"], standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ToolTipRendererDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ToolTipRendererDirective, [{
         type: Directive,
         args: [{
                 selector: '[mrdToolTip]',
-                exportAs: 'mrdToolTip'
+                exportAs: 'mrdToolTip',
+                standalone: false
             }]
-    }], function () { return [{ type: i1$2.Overlay }, { type: i1$2.OverlayPositionBuilder }, { type: i0.ElementRef }]; }, { showToolTip: [{
+    }], () => [{ type: i1$2.Overlay }, { type: i1$2.OverlayPositionBuilder }, { type: i0.ElementRef }], { showToolTip: [{
             type: Input
         }], text: [{
             type: Input,
@@ -1629,24 +1632,24 @@ class ToolTipRendererDirective {
         }] }); })();
 
 const _c0$n = ["mrdButtonTextContent"];
+const _c1$f = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$b = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
+const _c3$9 = a0 => ({ "min-width": a0 });
+const _c4$4 = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => ({ "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 });
+const _c5$1 = a0 => ({ "isCollapsed": a0 });
+const _c6$1 = a0 => ({ "full-icon": a0 });
 function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
-    const ctx_r2 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("value", ctx_r2.loadingProgress == null ? null : ctx_r2.loadingProgress.value)("mode", ctx_r2.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r2.progressColor);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("value", ctx_r0.loadingProgress == null ? null : ctx_r0.loadingProgress.value)("mode", ctx_r0.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r0.progressColor);
 } }
 function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-spinner", 11);
 } if (rf & 2) {
-    const ctx_r3 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("value", ctx_r3.loadingProgress == null ? null : ctx_r3.loadingProgress.value)("mode", ctx_r3.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r3.progressColor);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("value", ctx_r0.loadingProgress == null ? null : ctx_r0.loadingProgress.value)("mode", ctx_r0.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r0.progressColor);
 } }
-const _c1$f = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
-const _c2$b = function (a0) { return { "min-width": a0 }; };
-const _c3$9 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
-const _c4$4 = function (a0) { return { "isCollapsed": a0 }; };
-const _c5$1 = function (a0) { return { "full-icon": a0 }; };
-const _c6$1 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
  *
@@ -2309,66 +2312,61 @@ class MrdButtonComponent extends BasePushStrategyObject {
             this.click.emit(event);
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$n, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
-        } }, hostVars: 8, hostBindings: function MrdButtonComponent_HostBindings(rf, ctx) { if (rf & 1) {
-            i0.ɵɵlistener("mouseenter", function MrdButtonComponent_mouseenter_HostBindingHandler() { return ctx.onMouseEnter(); })("mouseleave", function MrdButtonComponent_mouseleave_HostBindingHandler() { return ctx.onMouseLeave(); });
-        } if (rf & 2) {
+        } }, hostVars: 8, hostBindings: function MrdButtonComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
             i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
-        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { icon: [2, "icon-button", "icon", booleanAttribute], raised: [2, "raised-button", "raised", booleanAttribute], outline: [2, "outline-button", "outline", booleanAttribute], flat: [2, "flat-button", "flat", booleanAttribute], fab: [2, "fab-button", "fab", booleanAttribute], miniFab: [2, "miniFab-button", "miniFab", booleanAttribute], toggle: [2, "toggle-button", "toggle", booleanAttribute], toggleSelected: [2, "selected", "toggleSelected", booleanAttribute], primary: [2, "primary", "primary", booleanAttribute], accent: [2, "accent", "accent", booleanAttribute], warn: [2, "warn", "warn", booleanAttribute], disabled: [2, "disabled", "disabled", booleanAttribute], loading: "loading", isLoading: [2, "isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: [2, "color", "customTextColor", colorThemeAttribute], customBgColor: [2, "backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: [2, "keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: [2, "keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: [2, "customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: [2, "customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: [2, "customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: [2, "progressColor", "progressColor", colorAttribute], collapse: [2, "collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: [2, "fit-content", "fitContent", booleanAttribute], showTooltip: [2, "tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: [2, "tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: [2, "tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: [2, "minHeight", "minHeight", sizeAttribute], fontSize: [2, "fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: [2, "diameter", "diameter", sizeAttribute], iconSize: [2, "iconSize", "iconSize", sizeAttribute], fullIcon: [2, "fullIcon", "fullIcon", booleanAttribute], borderRadius: [2, "borderRadius", "borderRadius", sizeAttribute], customHoverColor: [2, "customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: [2, "customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c2$b, decls: 14, vars: 72, consts: [["buttonContainer", ""], ["mrdButtonTextContent", ""], [1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hiddenChanged", "hideIfTruncated", "parentResizeElement"], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1$f);
-            i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
-            i0.ɵɵelement(3, "div", 3);
+            i0.ɵɵelementStart(0, "button", 2, 0)(2, "div", 3);
+            i0.ɵɵelement(3, "div", 4);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "span", 4)(5, "span", 5);
+            i0.ɵɵelementStart(4, "span", 5)(5, "span", 6);
             i0.ɵɵprojection(6);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(7, "span", 6, 7);
+            i0.ɵɵelementStart(7, "span", 7, 1);
             i0.ɵɵlistener("hiddenChanged", function MrdButtonComponent_Template_span_hiddenChanged_7_listener($event) { return ctx.buttonCollapsed($event); });
             i0.ɵɵprojection(9, 1);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(10, "span", 5);
+            i0.ɵɵelementStart(10, "span", 6);
             i0.ɵɵprojection(11, 2);
             i0.ɵɵelementEnd()();
-            i0.ɵɵtemplate(12, MrdButtonComponent_mrd_progress_bar_12_Template, 1, 3, "mrd-progress-bar", 8);
-            i0.ɵɵtemplate(13, MrdButtonComponent_mrd_progress_spinner_13_Template, 1, 3, "mrd-progress-spinner", 9);
+            i0.ɵɵtemplate(12, MrdButtonComponent_mrd_progress_bar_12_Template, 1, 3, "mrd-progress-bar", 8)(13, MrdButtonComponent_mrd_progress_spinner_13_Template, 1, 3, "mrd-progress-spinner", 9);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            const _r1 = i0.ɵɵreference(8);
+            const mrdButtonTextContent_r2 = i0.ɵɵreference(8);
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--text-color", ctx.textColor)("--hover-text-color", ctx.hoverTextColor)("--disabled-text-color", ctx.disabledTextColor)("--disabled-bg-color", ctx.disabledBgColor)("--border-width", ctx.borderWidth)("--border-color", ctx.borderColor)("--border-style", ctx.borderStyle)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--font-weight", ctx.fontWeight)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--unselected-color", ctx.toggleUnselectedColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c2$b, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c3$9, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c3$9, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c4$4, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? mrdButtonTextContent_r2 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
             i0.ɵɵadvance(3);
             i0.ɵɵstyleProp("--hover-color", ctx.hoverColor)("--active-color", ctx.activeColor);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(66, _c4$4, ctx.isCollapsed));
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵadvance();
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(66, _c5$1, ctx.isCollapsed));
+            i0.ɵɵadvance();
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c6$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", mrdButtonTextContent_r2)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("hideIfTruncated", ctx.collapse)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c5$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c6$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", mrdButtonTextContent_r2)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && !ctx.icon && !ctx.fab && !ctx.miniFab && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", !ctx.disabled && (ctx.icon || ctx.fab || ctx.miniFab) && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, i1$1.NgStyle, MrdProgressBarComponent, MrdProgressSpinnerComponent, ToolTipRendererDirective, HideIfTruncatedDirective], styles: ["[_nghost-%COMP%]{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}.active[_nghost-%COMP%]{z-index:10}.mrd-button-container[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-icon-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     mrd-icon{margin:0 2px}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{padding:0 16px}.mrd-button-container.disabled[_ngcontent-%COMP%]{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--disabled-bg-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--hover-color)}.mrd-button-container[_ngcontent-%COMP%]:active:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--active-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-focus[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:hover{z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{transition:background-color .2s}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:not(.mrd-toggle-selected)   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--unselected-color)}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon][icon-end], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar[_ngcontent-%COMP%]{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner[_ngcontent-%COMP%]{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, i1$1.NgStyle, MrdProgressBarComponent, MrdProgressSpinnerComponent, ToolTipRendererDirective, HideIfTruncatedDirective], styles: ["[_nghost-%COMP%]{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}.active[_nghost-%COMP%]{z-index:10}.mrd-button-container[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-icon-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     mrd-icon{margin:0 2px}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{padding:0 16px}.mrd-button-container.disabled[_ngcontent-%COMP%]{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--disabled-bg-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--hover-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container[_ngcontent-%COMP%]:active:not(.disabled)   .mrd-button-focus[_ngcontent-%COMP%]{background-color:var(--active-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-focus[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button[_ngcontent-%COMP%]:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]     mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon, .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active, .mrd-button-container.mrd-fab-button[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:hover{z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{transition:background-color .2s}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:not(.mrd-toggle-selected)   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--unselected-color)}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon][icon-end], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar[_ngcontent-%COMP%]{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner[_ngcontent-%COMP%]{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonComponent, [{
         type: Component,
         args: [{ selector: 'mrd-button', host: {
                     '[style.min-width]': 'fitContent ? "fit-content" : "unset"',
                     '[style.margin]': 'toggle ? "0 -16px" : "unset"',
                     '[style.transition]': 'toggle ? "transform 0.2s" : "unset"',
-                    '[class.active]': 'toggle && toggleSelected',
-                    '(mouseenter)': 'onMouseEnter()',
-                    '(mouseleave)': 'onMouseLeave()'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der eigentlich HTML-Button -->\r\n<button class=\"mrd-button-container\"\r\n  #buttonContainer\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--text-color]=\"textColor\"\r\n  [style.--hover-text-color]=\"hoverTextColor\"\r\n  [style.--disabled-text-color]=\"disabledTextColor\"\r\n  [style.--disabled-bg-color]=\"disabledBgColor\"\r\n  [style.--border-width]=\"borderWidth\"\r\n  [style.--border-color]=\"borderColor\"\r\n  [style.--border-style]=\"borderStyle\"\r\n  [style.--border-radius]=\"borderRadius\"\r\n  [style.--min-height]=\"minHeight\"\r\n  [style.--font-size]=\"fontSize\"\r\n  [style.--font-family]=\"fontFamily\"\r\n  [style.--font-weight]=\"fontWeight\"\r\n  [style.--diameter]=\"diameter\"\r\n  [style.--icon-size]=\"iconSize\"\r\n  [style.--unselected-color]=\"toggleUnselectedColor\"\r\n\r\n  [ngStyle]=\"{'min-width': fitContent ? 'fit-content' : 'unset'}\"\r\n  [ngClass]=\"{'mrd-icon-button': icon, 'mrd-raised-button': raised, 'mrd-outline-button': outline,\r\n    'mrd-flat-button': flat, 'mrd-fab-button': fab, 'mrd-mini-fab-button': miniFab, 'mrd-toggle-button': toggle,\r\n    'mrd-toggle-selected': toggleSelected, 'disabled': disabled}\"\r\n\r\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\r\n  <div class=\"mrd-button-background\">\r\n    <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n    <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div>\r\n  </div>\r\n  <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n  <!-- <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div> -->\r\n  <!-- Der Content des Buttons -->\r\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\r\n    <!-- Linker Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Der Text des Buttons -->\r\n    <span class=\"mrd-button-text-content\" \r\n          (hiddenChanged)=\"buttonCollapsed($event)\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          #mrdButtonTextContent \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Rechter Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n    </span>\r\n  </span>\r\n\r\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\r\n    *ngIf=\"!disabled && !icon && !fab && !miniFab && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\r\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\r\n    *ngIf=\"!disabled && (icon || fab || miniFab) && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\r\n</button>\r\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-focus{background-color:var(--hover-color)}.mrd-button-container:active:not(.disabled) .mrd-button-focus{background-color:var(--active-color)}.mrd-button-container .mrd-button-focus{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button,.mrd-button-container.mrd-fab-button,.mrd-button-container.mrd-mini-fab-button{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button .mrd-button-background,.mrd-button-container.mrd-fab-button .mrd-button-background,.mrd-button-container.mrd-mini-fab-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background:active,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
+                    '[class.active]': 'toggle && toggleSelected'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<!-- Der eigentlich HTML-Button -->\n<button class=\"mrd-button-container\"\n  #buttonContainer\n  [style.--bg-color]=\"bgColor\"\n  [style.--text-color]=\"textColor\"\n  [style.--hover-text-color]=\"hoverTextColor\"\n  [style.--disabled-text-color]=\"disabledTextColor\"\n  [style.--disabled-bg-color]=\"disabledBgColor\"\n  [style.--border-width]=\"borderWidth\"\n  [style.--border-color]=\"borderColor\"\n  [style.--border-style]=\"borderStyle\"\n  [style.--border-radius]=\"borderRadius\"\n  [style.--min-height]=\"minHeight\"\n  [style.--font-size]=\"fontSize\"\n  [style.--font-family]=\"fontFamily\"\n  [style.--font-weight]=\"fontWeight\"\n  [style.--diameter]=\"diameter\"\n  [style.--icon-size]=\"iconSize\"\n  [style.--unselected-color]=\"toggleUnselectedColor\"\n\n  [ngStyle]=\"{'min-width': fitContent ? 'fit-content' : 'unset'}\"\n  [ngClass]=\"{'mrd-icon-button': icon, 'mrd-raised-button': raised, 'mrd-outline-button': outline,\n    'mrd-flat-button': flat, 'mrd-fab-button': fab, 'mrd-mini-fab-button': miniFab, 'mrd-toggle-button': toggle,\n    'mrd-toggle-selected': toggleSelected, 'disabled': disabled}\"\n\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\n  <div class=\"mrd-button-background\">\n    <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\n    <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div>\n  </div>\n  <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\n  <!-- <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div> -->\n  <!-- Der Content des Buttons -->\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\n    <!-- Linker Icon-Container -->\n    <span class=\"mrd-button-icon-content\"\n      [ngClass]=\"{'full-icon': fullIcon}\"\n      [hideIfTruncated]=\"collapse\"\n      displayState=\"flex\"\n      requiredHideAttribute=\"icon-collapse\"\n      checkChildrenForAttribute\n      [hideOnTruncatedElement]=\"mrdButtonTextContent\"\n      [parentResizeElement]=\"this.elementRef.nativeElement\">\n      <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\n    </span>\n\n    <!-- Der Text des Buttons -->\n    <span class=\"mrd-button-text-content\"\n      (hiddenChanged)=\"buttonCollapsed($event)\"\n      [hideIfTruncated]=\"collapse\"\n      #mrdButtonTextContent\n      [parentResizeElement]=\"this.elementRef.nativeElement\">\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\n    </span>\n\n    <!-- Rechter Icon-Container -->\n    <span class=\"mrd-button-icon-content\"\n      [ngClass]=\"{'full-icon': fullIcon}\"\n      [hideIfTruncated]=\"collapse\"\n      displayState=\"flex\"\n      requiredHideAttribute=\"icon-collapse\"\n      checkChildrenForAttribute\n      [hideOnTruncatedElement]=\"mrdButtonTextContent\"\n      [parentResizeElement]=\"this.elementRef.nativeElement\">\n      <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\n    </span>\n  </span>\n\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\n    *ngIf=\"!disabled && !icon && !fab && !miniFab && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\n    *ngIf=\"!disabled && (icon || fab || miniFab) && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\n</button>\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-focus{background-color:var(--hover-color)}.mrd-button-container:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:active:not(.disabled) .mrd-button-focus{background-color:var(--active-color)}.mrd-button-container .mrd-button-focus{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button,.mrd-button-container.mrd-fab-button,.mrd-button-container.mrd-mini-fab-button{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button .mrd-button-background,.mrd-button-container.mrd-fab-button .mrd-button-background,.mrd-button-container.mrd-mini-fab-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background:active,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }], { mrdButtonTextContent: [{
             type: ViewChild,
             args: ['mrdButtonTextContent', { static: true }]
         }], icon: [{
@@ -2490,6 +2488,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
         }], click: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdButtonComponent, { className: "MrdButtonComponent", filePath: "lib/modules/mrd-button/components/mrd-button/mrd-button.component.ts", lineNumber: 45 }); })();
 var MrdButtonAppearance;
 (function (MrdButtonAppearance) {
     // DEFAULT = null,
@@ -2503,11 +2502,11 @@ var MrdButtonAppearance;
 })(MrdButtonAppearance || (MrdButtonAppearance = {}));
 
 class MrdProgressBarModule {
-    /** @nocollapse */ static ɵfac = function MrdProgressBarModule_Factory(t) { return new (t || MrdProgressBarModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdProgressBarModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdProgressBarModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdProgressBarModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressBarModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressBarModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -2524,11 +2523,11 @@ class MrdProgressBarModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdProgressBarModule, { declarations: [MrdProgressBarComponent], imports: [CommonModule], exports: [MrdProgressBarComponent] }); })();
 
 class MrdProgressSpinnerModule {
-    /** @nocollapse */ static ɵfac = function MrdProgressSpinnerModule_Factory(t) { return new (t || MrdProgressSpinnerModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdProgressSpinnerModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdProgressSpinnerModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdProgressSpinnerModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressSpinnerModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressSpinnerModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -2545,11 +2544,11 @@ class MrdProgressSpinnerModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdProgressSpinnerModule, { declarations: [MrdProgressSpinnerComponent], imports: [CommonModule], exports: [MrdProgressSpinnerComponent] }); })();
 
 class MrdTooltipModule {
-    /** @nocollapse */ static ɵfac = function MrdTooltipModule_Factory(t) { return new (t || MrdTooltipModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdTooltipModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTooltipModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdTooltipModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTooltipModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTooltipModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -2574,7 +2573,7 @@ class MrdTooltipModule {
  * @class MrdButtonModule
  */
 class MrdButtonModule {
-    /** @nocollapse */ static ɵfac = function MrdButtonModule_Factory(t) { return new (t || MrdButtonModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdButtonModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdButtonModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdButtonModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             MrdProgressBarModule,
@@ -2582,7 +2581,7 @@ class MrdButtonModule {
             MrdTooltipModule,
             MrdDirectiveModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonModule, [{
         type: NgModule,
         args: [{
                 declarations: [MrdButtonComponent],
@@ -2791,21 +2790,22 @@ class MrdIconComponent {
                 throw Error(`Invalid icon name: "${iconName}"`); // TODO: add an ngDevMode check
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$m, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, standalone: false, ngContentSelectors: _c0$m, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
-        } } });
+        } }, encapsulation: 2 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-icon', template: "<ng-content></ng-content>\r\n" }]
-    }], function () { return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
+        args: [{ selector: 'mrd-icon', standalone: false, template: "<ng-content></ng-content>\r\n" }]
+    }], () => [{ type: i0.ElementRef }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [MRD_ICON_LOCATION]
-            }] }, { type: i0.ErrorHandler }, { type: MrdIconRegistryService }]; }, { svgIcon: [{
+            }] }, { type: i0.ErrorHandler }, { type: MrdIconRegistryService }], { svgIcon: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdIconComponent, { className: "MrdIconComponent", filePath: "lib/modules/mrd-icon/components/mrd-icon.component.ts", lineNumber: 65 }); })();
 
 /**
  * Dieses Modul stellt den Mrd-Icon zur Verfügung.
@@ -2814,11 +2814,11 @@ class MrdIconComponent {
  * @class MrdIconModule
  */
 class MrdIconModule {
-    /** @nocollapse */ static ɵfac = function MrdIconModule_Factory(t) { return new (t || MrdIconModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdIconModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdIconModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdIconModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconModule, [{
         type: NgModule,
         args: [{
                 declarations: [MrdIconComponent],
@@ -2875,20 +2875,21 @@ class MrdTabComponent {
         this.cdr = cdr;
         this.tr = tr;
     }
-    /** @nocollapse */ static ɵfac = function MrdTabComponent_Factory(t) { return new (t || MrdTabComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.TemplateRef)); };
+    /** @nocollapse */ static ɵfac = function MrdTabComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTabComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.TemplateRef)); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdTabComponent, selectors: [["", "mrdTab", ""]], viewQuery: function MrdTabComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(TemplateRef, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx._implicitContent = _t.first);
-        } }, inputs: { label: ["mrdTab", "label"], preserveContent: ["mrdTabPreserveContent", "preserveContent", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
+        } }, inputs: { label: [0, "mrdTab", "label"], preserveContent: [2, "mrdTabPreserveContent", "preserveContent", booleanAttribute] }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabComponent, [{
         type: Directive,
         args: [{
-                selector: '[mrdTab]'
+                selector: '[mrdTab]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.TemplateRef }]; }, { _implicitContent: [{
+    }], () => [{ type: i0.ChangeDetectorRef }, { type: i0.TemplateRef }], { _implicitContent: [{
             type: ViewChild,
             args: [TemplateRef, { static: true }]
         }], label: [{
@@ -2899,8 +2900,8 @@ class MrdTabComponent {
             args: [{ alias: 'mrdTabPreserveContent', transform: booleanAttribute }]
         }] }); })();
 
+const _c0$l = (a0, a1) => ({ "transform": a0, "display": a1 });
 function MrdTabBodyComponent_ng_template_1_Template(rf, ctx) { }
-const _c0$l = function (a0, a1) { return { "transform": a0, "display": a1 }; };
 class MatTabBodyPortal {
     viewContainerRef;
     _host;
@@ -2932,18 +2933,19 @@ class MatTabBodyPortal {
         this._centeringSub.unsubscribe();
         this._leavingSub.unsubscribe();
     }
-    /** @nocollapse */ static ɵfac = function MatTabBodyPortal_Factory(t) { return new (t || MatTabBodyPortal)(i0.ɵɵdirectiveInject(i0.ViewContainerRef), i0.ɵɵdirectiveInject(forwardRef(() => MrdTabBodyComponent))); };
-    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MatTabBodyPortal, selectors: [["", "mrdTabBodyHost", ""]] });
+    /** @nocollapse */ static ɵfac = function MatTabBodyPortal_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MatTabBodyPortal)(i0.ɵɵdirectiveInject(i0.ViewContainerRef), i0.ɵɵdirectiveInject(forwardRef(() => MrdTabBodyComponent))); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MatTabBodyPortal, selectors: [["", "mrdTabBodyHost", ""]], standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MatTabBodyPortal, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MatTabBodyPortal, [{
         type: Directive,
         args: [{
-                selector: '[mrdTabBodyHost]'
+                selector: '[mrdTabBodyHost]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ViewContainerRef }, { type: MrdTabBodyComponent, decorators: [{
+    }], () => [{ type: i0.ViewContainerRef }, { type: MrdTabBodyComponent, decorators: [{
                 type: Inject,
                 args: [forwardRef(() => MrdTabBodyComponent)]
-            }] }]; }, null); })();
+            }] }], null); })();
 class MrdTabBodyComponent {
     cdr;
     set content(value) {
@@ -3011,8 +3013,8 @@ class MrdTabBodyComponent {
     constructor(cdr) {
         this.cdr = cdr;
     }
-    /** @nocollapse */ static ɵfac = function MrdTabBodyComponent_Factory(t) { return new (t || MrdTabBodyComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTabBodyComponent, selectors: [["mrd-tab-body"]], inputs: { content: "content", index: "index", active: "active", preserveContent: ["preserveContent", "preserveContent", booleanAttribute], hidden: "hidden" }, outputs: { _isHidden: "_isHidden", _goingToActive: "_goingToActive" }, features: [i0.ɵɵInputTransformsFeature], decls: 2, vars: 4, consts: [[1, "mrd-tab-content", 3, "ngStyle"], ["mrdTabBodyHost", ""]], template: function MrdTabBodyComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdTabBodyComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTabBodyComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTabBodyComponent, selectors: [["mrd-tab-body"]], inputs: { content: "content", index: "index", active: "active", preserveContent: [2, "preserveContent", "preserveContent", booleanAttribute], hidden: "hidden" }, outputs: { _isHidden: "_isHidden", _goingToActive: "_goingToActive" }, standalone: false, decls: 2, vars: 4, consts: [[1, "mrd-tab-content", 3, "ngStyle"], ["mrdTabBodyHost", ""]], template: function MrdTabBodyComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵtemplate(1, MrdTabBodyComponent_ng_template_1_Template, 0, 0, "ng-template", 1);
             i0.ɵɵelementEnd();
@@ -3020,10 +3022,10 @@ class MrdTabBodyComponent {
             i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$l, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
         } }, dependencies: [i1$1.NgStyle, MatTabBodyPortal], styles: [".mrd-tab-content[_ngcontent-%COMP%]{display:block;position:absolute;inset:0;transition:transform 1s ease-out}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-tab-body', changeDetection: ChangeDetectionStrategy.OnPush, template: "\r\n<div\r\n  class=\"mrd-tab-content\"\r\n  [ngStyle]=\"{'transform': 'translateX('+translate+')', 'display': hidden ? 'none' : 'block'}\">\r\n  <ng-template mrdTabBodyHost></ng-template>\r\n</div>\r\n", styles: [".mrd-tab-content{display:block;position:absolute;inset:0;transition:transform 1s ease-out}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { content: [{
+        args: [{ selector: 'mrd-tab-body', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "\r\n<div\r\n  class=\"mrd-tab-content\"\r\n  [ngStyle]=\"{'transform': 'translateX('+translate+')', 'display': hidden ? 'none' : 'block'}\">\r\n  <ng-template mrdTabBodyHost></ng-template>\r\n</div>\r\n", styles: [".mrd-tab-content{display:block;position:absolute;inset:0;transition:transform 1s ease-out}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { content: [{
             type: Input,
             args: ['content']
         }], index: [{
@@ -3040,45 +3042,46 @@ class MrdTabBodyComponent {
         }], hidden: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdTabBodyComponent, { className: "MrdTabBodyComponent", filePath: "lib/modules/mrd-tabs/components/mrd-tab-body/mrd-tab-body.component.ts", lineNumber: 52 }); })();
 
 const _c0$k = ["mrdTabHeader"];
-const _c1$e = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
+const _c1$e = a0 => ({ "height": a0 });
+const _c2$a = (a0, a1, a2) => ({ "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 });
 function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r6 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "div", 6, 7);
-    i0.ɵɵlistener("click", function MrdTabGroupComponent_div_0_div_1_Template_div_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r6); const tab_r3 = restoredCtx.$implicit; const ctx_r5 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r5.activateTab(tab_r3.index)); });
+    const _r1 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div", 7, 0);
+    i0.ɵɵlistener("click", function MrdTabGroupComponent_div_0_div_1_Template_div_click_0_listener() { const tab_r2 = i0.ɵɵrestoreView(_r1).$implicit; const ctx_r2 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r2.activateTab(tab_r2.index)); });
     i0.ɵɵtext(2);
     i0.ɵɵelement(3, "div", 8);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const tab_r3 = ctx.$implicit;
+    const tab_r2 = ctx.$implicit;
     const ctx_r2 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$e, tab_r3.active, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c2$a, tab_r2.active, ctx_r2.rounded, ctx_r2.labelsFit));
     i0.ɵɵadvance(2);
-    i0.ɵɵtextInterpolate1(" ", tab_r3.label, " ");
+    i0.ɵɵtextInterpolate1(" ", tab_r2.label, " ");
 } }
-const _c2$a = function (a0) { return { "height": a0 }; };
 function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "div", 3);
-    i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 6, "div", 4);
-    i0.ɵɵelement(2, "div", 5);
+    i0.ɵɵelementStart(0, "div", 4);
+    i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 6, "div", 5);
+    i0.ɵɵelement(2, "div", 6);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(6, _c2$a, ctx_r0.headerHeight + "px"));
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r0.tabs);
-    i0.ɵɵadvance(1);
-    i0.ɵɵstyleProp("left", ctx_r0.tabUnderlineLeft, "px")("width", ctx_r0.tabUnderlineWidth, "px");
+    const ctx_r2 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(6, _c1$e, ctx_r2.headerHeight + "px"));
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngForOf", ctx_r2.tabs);
+    i0.ɵɵadvance();
+    i0.ɵɵstyleProp("left", ctx_r2.tabUnderlineLeft, "px")("width", ctx_r2.tabUnderlineWidth, "px");
 } }
 function MrdTabGroupComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵelement(1, "mrd-tab-body", 9);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const tab_r7 = ctx.$implicit;
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("content", tab_r7.content)("active", tab_r7.active)("index", tab_r7.index)("preserveContent", tab_r7.preserveContent);
+    const tab_r4 = ctx.$implicit;
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("content", tab_r4.content)("active", tab_r4.active)("index", tab_r4.index)("preserveContent", tab_r4.preserveContent);
 } }
 class MrdTabGroupComponent extends BaseObject {
     cdr;
@@ -3207,34 +3210,33 @@ class MrdTabGroupComponent extends BaseObject {
         }
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdTabGroupComponent_Factory(t) { return new (t || MrdTabGroupComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i1$3.Router), i0.ɵɵdirectiveInject(i1$3.ActivatedRoute)); };
+    /** @nocollapse */ static ɵfac = function MrdTabGroupComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTabGroupComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i1$3.Router), i0.ɵɵdirectiveInject(i1$3.ActivatedRoute)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTabGroupComponent, selectors: [["mrd-tab-group"]], contentQueries: function MrdTabGroupComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdTabComponent, 4);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabs = _t);
         } }, viewQuery: function MrdTabGroupComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$k, 5);
+            i0.ɵɵviewQuery(MrdTabBodyComponent, 5)(_c0$k, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabBodys = _t);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabHeader = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], labelsFit: ["labelsFit", "labelsFit", booleanAttribute], noHeader: ["noHeader", "noHeader", booleanAttribute], queryParameterActive: "queryParameterActive", headerHeight: "headerHeight", selectedIndex: "selectedIndex", changeTab: "changeTab" }, outputs: { selectedTabChanged: "selectedTabChanged", selectedTabIndexChanged: "selectedTabIndexChanged" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], decls: 3, vars: 2, consts: [["class", "mrd-tab-group-tabs-container", 3, "ngStyle", 4, "ngIf"], [1, "mrd-tab-group-content-container"], [4, "ngFor", "ngForOf"], [1, "mrd-tab-group-tabs-container", 3, "ngStyle"], ["class", "mrd-tab-group-tab", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "mrd-tab-underline"], [1, "mrd-tab-group-tab", 3, "ngClass", "click"], ["mrdTabHeader", ""], [1, "mrd-tab-group-tab-indicator"], [3, "content", "active", "index", "preserveContent"]], template: function MrdTabGroupComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵtemplate(0, MrdTabGroupComponent_div_0_Template, 3, 8, "div", 0);
-            i0.ɵɵelementStart(1, "div", 1);
-            i0.ɵɵtemplate(2, MrdTabGroupComponent_ng_container_2_Template, 2, 4, "ng-container", 2);
+        } }, inputs: { rounded: [2, "rounded", "rounded", booleanAttribute], labelsFit: [2, "labelsFit", "labelsFit", booleanAttribute], noHeader: [2, "noHeader", "noHeader", booleanAttribute], queryParameterActive: "queryParameterActive", headerHeight: "headerHeight", selectedIndex: "selectedIndex", changeTab: "changeTab" }, outputs: { selectedTabChanged: "selectedTabChanged", selectedTabIndexChanged: "selectedTabIndexChanged" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], decls: 3, vars: 2, consts: [["mrdTabHeader", ""], ["class", "mrd-tab-group-tabs-container", 3, "ngStyle", 4, "ngIf"], [1, "mrd-tab-group-content-container"], [4, "ngFor", "ngForOf"], [1, "mrd-tab-group-tabs-container", 3, "ngStyle"], ["class", "mrd-tab-group-tab", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "mrd-tab-underline"], [1, "mrd-tab-group-tab", 3, "click", "ngClass"], [1, "mrd-tab-group-tab-indicator"], [3, "content", "active", "index", "preserveContent"]], template: function MrdTabGroupComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵtemplate(0, MrdTabGroupComponent_div_0_Template, 3, 8, "div", 1);
+            i0.ɵɵelementStart(1, "div", 2);
+            i0.ɵɵtemplate(2, MrdTabGroupComponent_ng_container_2_Template, 2, 4, "ng-container", 3);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵproperty("ngIf", !ctx.noHeader);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngForOf", ctx.tabs);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgStyle, MrdTabBodyComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-underline[_ngcontent-%COMP%]{position:absolute;bottom:0;height:2px;background-color:#00f;transition:left .3s,width .3s}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.fit-labels[_ngcontent-%COMP%]{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%], .mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{position:absolute;inset:0}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:active{pointer-events:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgStyle, MrdTabBodyComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-underline[_ngcontent-%COMP%]{position:absolute;bottom:0;height:2px;background-color:#00f;transition:left .3s,width .3s}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.fit-labels[_ngcontent-%COMP%]{max-width:fit-content}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%], .mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{position:absolute;inset:0}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:active{pointer-events:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabGroupComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabGroupComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-tab-group', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-tab-group-tabs-container\" [ngStyle]=\"{'height': headerHeight+'px'}\" *ngIf=\"!noHeader\">\r\n  <div class=\"mrd-tab-group-tab\" #mrdTabHeader *ngFor=\"let tab of tabs\"\r\n    [ngClass]=\"{'tab-active': tab.active, 'tabs-rounded': rounded, 'fit-labels': labelsFit}\" (click)=\"activateTab(tab.index)\">\r\n    {{tab.label}}\r\n    <div class=\"mrd-tab-group-tab-indicator\"></div>\r\n  </div>\r\n  <div class=\"mrd-tab-underline\" [style.left.px]=\"tabUnderlineLeft\" [style.width.px]=\"tabUnderlineWidth\"></div>\r\n</div>\r\n<div class=\"mrd-tab-group-content-container\">\r\n  <!-- <ng-content></ng-content> -->\r\n  <ng-container *ngFor=\"let tab of tabs\">\r\n    <mrd-tab-body\r\n      [content]=\"tab.content\"\r\n      [active]=\"tab.active\"\r\n      [index]=\"tab.index\"\r\n      [preserveContent]=\"tab.preserveContent\"\r\n    >\r\n\r\n    </mrd-tab-body>\r\n  </ng-container>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container .mrd-tab-underline{position:absolute;bottom:0;height:2px;background-color:#00f;transition:left .3s,width .3s}.mrd-tab-group-tabs-container .mrd-tab-group-tab{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container .mrd-tab-group-tab.fit-labels{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded,.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded .mrd-tab-group-tab-indicator{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active .mrd-tab-group-tab-indicator:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator{position:absolute;inset:0}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:active{pointer-events:none}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i1$3.Router }, { type: i1$3.ActivatedRoute }]; }, { tabs: [{
+        args: [{ selector: 'mrd-tab-group', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-tab-group-tabs-container\" [ngStyle]=\"{'height': headerHeight+'px'}\" *ngIf=\"!noHeader\">\n  <div class=\"mrd-tab-group-tab\" #mrdTabHeader *ngFor=\"let tab of tabs\"\n    [ngClass]=\"{'tab-active': tab.active, 'tabs-rounded': rounded, 'fit-labels': labelsFit}\" (click)=\"activateTab(tab.index)\">\n    {{tab.label}}\n    <div class=\"mrd-tab-group-tab-indicator\"></div>\n  </div>\n  <div class=\"mrd-tab-underline\" [style.left.px]=\"tabUnderlineLeft\" [style.width.px]=\"tabUnderlineWidth\"></div>\n</div>\n<div class=\"mrd-tab-group-content-container\">\n  <!-- <ng-content></ng-content> -->\n  <ng-container *ngFor=\"let tab of tabs\">\n    <mrd-tab-body\n      [content]=\"tab.content\"\n      [active]=\"tab.active\"\n      [index]=\"tab.index\"\n      [preserveContent]=\"tab.preserveContent\"\n      >\n    </mrd-tab-body>\n  </ng-container>\n</div>\n", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container .mrd-tab-underline{position:absolute;bottom:0;height:2px;background-color:#00f;transition:left .3s,width .3s}.mrd-tab-group-tabs-container .mrd-tab-group-tab{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container .mrd-tab-group-tab.fit-labels{max-width:fit-content}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded,.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded .mrd-tab-group-tab-indicator{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active .mrd-tab-group-tab-indicator:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator{position:absolute;inset:0}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:active{pointer-events:none}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }, { type: i1$3.Router }, { type: i1$3.ActivatedRoute }], { tabs: [{
             type: ContentChildren,
             args: [MrdTabComponent]
         }], tabBodys: [{
@@ -3265,13 +3267,14 @@ class MrdTabGroupComponent extends BaseObject {
         }], selectedTabIndexChanged: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdTabGroupComponent, { className: "MrdTabGroupComponent", filePath: "lib/modules/mrd-tabs/components/mrd-tab-group/mrd-tab-group.component.ts", lineNumber: 14 }); })();
 
 class MrdTabsModule {
-    /** @nocollapse */ static ɵfac = function MrdTabsModule_Factory(t) { return new (t || MrdTabsModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdTabsModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTabsModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdTabsModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabsModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabsModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -3297,8 +3300,8 @@ class MrdTabsModule {
         MrdTabComponent,
         MrdTabBodyComponent] }); })();
 
-const _c0$j = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
-const _c1$d = function (a0, a1) { return { "selected": a0, "over": a1 }; };
+const _c0$j = (a0, a1, a2) => ({ "selected": a0, "main": a1, "back": a2 });
+const _c1$d = (a0, a1) => ({ "selected": a0, "over": a1 });
 /**
  * Komponente für die Darstellung von Geo-Icons (Schlagzeichnungen).
  *
@@ -3564,8 +3567,8 @@ class MrdGeoIconComponent {
         var y = (h / 2) - (w * mercN / (2 * Math.PI));
         return [x, y];
     }
-    /** @nocollapse */ static ɵfac = function MrdGeoIconComponent_Factory(t) { return new (t || MrdGeoIconComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdGeoIconComponent, selectors: [["mrd-geo-icon"]], inputs: { width: ["width", "width", (value) => sizeAttribute(value, MrdGeoIconComponent._config.width)], height: ["height", "height", (value) => sizeAttribute(value, MrdGeoIconComponent._config.height)], margin: ["margin", "margin", (value) => sizeAttribute(value, MrdGeoIconComponent._config.margin)], transitionTime: ["transitionTime", "transitionTime", (value) => timeAttribute(value, MrdGeoIconComponent._config.transitionTime)], mainColor: ["mainColor", "mainColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.mainColor)], mainSelectedColor: ["mainSelectedColor", "mainSelectedColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.mainSelectedColor)], mainOpacity: ["mainOpacity", "mainOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.mainOpacity)], mainSelectedOpacity: ["mainSelectedOpacity", "mainSelectedOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.mainSelectedOpacity)], overlayColor: ["overlayColor", "overlayColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.overlayColor)], overlaySelectedColor: ["overlaySelectedColor", "overlaySelectedColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.overlaySelectedColor)], overlayOpacity: ["overlayOpacity", "overlayOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.overlayOpacity)], overlaySelectedOpacity: ["overlaySelectedOpacity", "overlaySelectedOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.overlaySelectedOpacity)], backColor: ["backColor", "backColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.backColor)], backSelectedColor: ["backSelectedColor", "backSelectedColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.backSelectedColor)], backOpacity: ["backOpacity", "backOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.backOpacity)], backSelectedOpacity: ["backSelectedOpacity", "backSelectedOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.backSelectedOpacity)], isSelected: ["isSelected", "isSelected", booleanAttribute], baseData: "baseData", overlayData: "overlayData" }, features: [i0.ɵɵInputTransformsFeature], decls: 4, vars: 44, consts: [[1, "geoicon"], [3, "ngClass"]], template: function MrdGeoIconComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdGeoIconComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdGeoIconComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdGeoIconComponent, selectors: [["mrd-geo-icon"]], inputs: { width: [2, "width", "width", (value) => sizeAttribute(value, MrdGeoIconComponent._config.width)], height: [2, "height", "height", (value) => sizeAttribute(value, MrdGeoIconComponent._config.height)], margin: [2, "margin", "margin", (value) => sizeAttribute(value, MrdGeoIconComponent._config.margin)], transitionTime: [2, "transitionTime", "transitionTime", (value) => timeAttribute(value, MrdGeoIconComponent._config.transitionTime)], mainColor: [2, "mainColor", "mainColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.mainColor)], mainSelectedColor: [2, "mainSelectedColor", "mainSelectedColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.mainSelectedColor)], mainOpacity: [2, "mainOpacity", "mainOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.mainOpacity)], mainSelectedOpacity: [2, "mainSelectedOpacity", "mainSelectedOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.mainSelectedOpacity)], overlayColor: [2, "overlayColor", "overlayColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.overlayColor)], overlaySelectedColor: [2, "overlaySelectedColor", "overlaySelectedColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.overlaySelectedColor)], overlayOpacity: [2, "overlayOpacity", "overlayOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.overlayOpacity)], overlaySelectedOpacity: [2, "overlaySelectedOpacity", "overlaySelectedOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.overlaySelectedOpacity)], backColor: [2, "backColor", "backColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.backColor)], backSelectedColor: [2, "backSelectedColor", "backSelectedColor", (value) => colorAttribute(value, MrdGeoIconComponent._config.backSelectedColor)], backOpacity: [2, "backOpacity", "backOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.backOpacity)], backSelectedOpacity: [2, "backSelectedOpacity", "backSelectedOpacity", (value) => numberAttribute(value, MrdGeoIconComponent._config.backSelectedOpacity)], isSelected: [2, "isSelected", "isSelected", booleanAttribute], baseData: "baseData", overlayData: "overlayData" }, standalone: false, decls: 4, vars: 44, consts: [[1, "geoicon"], [3, "ngClass"]], template: function MrdGeoIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵnamespaceSVG();
             i0.ɵɵelementStart(0, "svg", 0)(1, "g");
             i0.ɵɵelement(2, "path", 1)(3, "path", 1);
@@ -3576,14 +3579,14 @@ class MrdGeoIconComponent {
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$j, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.base);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$d, ctx.isSelected, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.overlay);
         } }, dependencies: [i1$1.NgClass], styles: [".geoicon[_ngcontent-%COMP%]{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .main.selected[_ngcontent-%COMP%]{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon[_ngcontent-%COMP%]   .back[_ngcontent-%COMP%]{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .back.selected[_ngcontent-%COMP%]{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon[_ngcontent-%COMP%]   .over[_ngcontent-%COMP%]{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .over.selected[_ngcontent-%COMP%]{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdGeoIconComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdGeoIconComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-geo-icon', template: "<svg class=\"geoicon\" [attr.viewBox]=\"viewBox\"\r\n  [style.--width]=\"width\"\r\n  [style.--height]=\"height\"\r\n  [style.--margin]=\"margin\"\r\n  [style.--transitionTime]=\"transitionTime\"\r\n  [style.--mainColor]=\"mainColor\"\r\n  [style.--mainSelectedColor]=\"mainSelectedColor\"\r\n  [style.--backColor]=\"backColor\"\r\n  [style.--backSelectedColor]=\"backSelectedColor\"\r\n  [style.--overColor]=\"overlayColor\"\r\n  [style.--overSelectedColor]=\"overlaySelectedColor\"\r\n  [style.--mainOpacity]=\"mainOpacity\"\r\n  [style.--mainSelectedOpacity]=\"mainSelectedOpacity\"\r\n  [style.--backOpacity]=\"backOpacity\"\r\n  [style.--backSelectedOpacity]=\"backSelectedOpacity\"\r\n  [style.--overOpacity]=\"overlayOpacity\"\r\n  [style.--overSelectedOpacity]=\"overlaySelectedOpacity\"\r\n  >\r\n  <g>\r\n    <path [attr.d]=\"base\" [ngClass]=\"{'selected': isSelected, 'main': !hasOverlay, 'back':hasOverlay}\" ></path>\r\n    <path [attr.d]=\"overlay\" [ngClass]=\"{'selected': isSelected, 'over': hasOverlay}\"></path>\r\n  </g>\r\n</svg>\r\n", styles: [".geoicon{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon .main{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon .main.selected{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon .back{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon .back.selected{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon .over{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon .over.selected{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}\n"] }]
+        args: [{ selector: 'mrd-geo-icon', standalone: false, template: "<svg class=\"geoicon\" [attr.viewBox]=\"viewBox\"\r\n  [style.--width]=\"width\"\r\n  [style.--height]=\"height\"\r\n  [style.--margin]=\"margin\"\r\n  [style.--transitionTime]=\"transitionTime\"\r\n  [style.--mainColor]=\"mainColor\"\r\n  [style.--mainSelectedColor]=\"mainSelectedColor\"\r\n  [style.--backColor]=\"backColor\"\r\n  [style.--backSelectedColor]=\"backSelectedColor\"\r\n  [style.--overColor]=\"overlayColor\"\r\n  [style.--overSelectedColor]=\"overlaySelectedColor\"\r\n  [style.--mainOpacity]=\"mainOpacity\"\r\n  [style.--mainSelectedOpacity]=\"mainSelectedOpacity\"\r\n  [style.--backOpacity]=\"backOpacity\"\r\n  [style.--backSelectedOpacity]=\"backSelectedOpacity\"\r\n  [style.--overOpacity]=\"overlayOpacity\"\r\n  [style.--overSelectedOpacity]=\"overlaySelectedOpacity\"\r\n  >\r\n  <g>\r\n    <path [attr.d]=\"base\" [ngClass]=\"{'selected': isSelected, 'main': !hasOverlay, 'back':hasOverlay}\" ></path>\r\n    <path [attr.d]=\"overlay\" [ngClass]=\"{'selected': isSelected, 'over': hasOverlay}\"></path>\r\n  </g>\r\n</svg>\r\n", styles: [".geoicon{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon .main{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon .main.selected{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon .back{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon .back.selected{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon .over{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon .over.selected{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}\n"] }]
     }], null, { width: [{
             type: Input,
             args: [{ transform: (value) => sizeAttribute(value, MrdGeoIconComponent._config.width) }]
@@ -3640,13 +3643,14 @@ class MrdGeoIconComponent {
         }], overlayData: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdGeoIconComponent, { className: "MrdGeoIconComponent", filePath: "lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component.ts", lineNumber: 19 }); })();
 
 class MrdGeoIconModule {
-    /** @nocollapse */ static ɵfac = function MrdGeoIconModule_Factory(t) { return new (t || MrdGeoIconModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdGeoIconModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdGeoIconModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdGeoIconModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdGeoIconModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdGeoIconModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -3763,15 +3767,15 @@ class FlyOutService {
             this.overlayMap.delete(id);
         }
     }
-    /** @nocollapse */ static ɵfac = function FlyOutService_Factory(t) { return new (t || FlyOutService)(i0.ɵɵinject(i1$2.Overlay), i0.ɵɵinject(i0.Injector)); };
+    /** @nocollapse */ static ɵfac = function FlyOutService_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || FlyOutService)(i0.ɵɵinject(i1$2.Overlay), i0.ɵɵinject(i0.Injector)); };
     /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: FlyOutService, factory: FlyOutService.ɵfac, providedIn: 'root' });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(FlyOutService, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(FlyOutService, [{
         type: Injectable,
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: i1$2.Overlay }, { type: i0.Injector }]; }, null); })();
+    }], () => [{ type: i1$2.Overlay }, { type: i0.Injector }], null); })();
 /**
  * Der Service, um Daten an ein FlyOut zu übergeben.
  *
@@ -3779,10 +3783,10 @@ class FlyOutService {
  */
 class FlyOutData {
     data = {};
-    /** @nocollapse */ static ɵfac = function FlyOutData_Factory(t) { return new (t || FlyOutData)(); };
+    /** @nocollapse */ static ɵfac = function FlyOutData_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || FlyOutData)(); };
     /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: FlyOutData, factory: FlyOutData.ɵfac, providedIn: 'root' });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(FlyOutData, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(FlyOutData, [{
         type: Injectable,
         args: [{
                 providedIn: 'root'
@@ -3791,17 +3795,17 @@ class FlyOutData {
 
 const _c0$i = ["container"];
 const _c1$c = ["content"];
+const _c2$9 = a0 => ({ "open": a0 });
+const _c3$8 = (a0, a1, a2, a3, a4, a5) => ({ "open": a0, "centered": a1, "topDown": a2, "bottomUp": a3, "leftRight": a4, "rightLeft": a5 });
 function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
-    const _r4 = i0.ɵɵgetCurrentView();
+    const _r1 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
-    i0.ɵɵlistener("click", function MrdFlyOutComponent_mrd_button_5_Template_mrd_button_click_0_listener() { i0.ɵɵrestoreView(_r4); const ctx_r3 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r3.close()); });
+    i0.ɵɵlistener("click", function MrdFlyOutComponent_mrd_button_5_Template_mrd_button_click_0_listener() { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.close()); });
     i0.ɵɵnamespaceSVG();
     i0.ɵɵelementStart(1, "svg", 8);
     i0.ɵɵelement(2, "path", 9)(3, "path", 10);
     i0.ɵɵelementEnd()();
 } }
-const _c2$9 = function (a0) { return { "open": a0 }; };
-const _c3$8 = function (a0, a1, a2, a3, a4, a5) { return { "open": a0, "centered": a1, "topDown": a2, "bottomUp": a3, "leftRight": a4, "rightLeft": a5 }; };
 /**
  * Diese Komponente stellt ein FlyOut dar, das von oben nach unten, von unten nach oben, von links nach rechts oder von rechts nach links einfliegt.
  *
@@ -4087,43 +4091,43 @@ class MrdFlyOutComponent extends BaseObject {
     get containerWidth() {
         return this.container?.nativeElement.offsetWidth + 'px';
     }
-    /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(t) { return new (t || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
+    /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFlyOutComponent, selectors: [["mrd-fly-out"]], viewQuery: function MrdFlyOutComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$i, 5);
-            i0.ɵɵviewQuery(_c1$c, 7, ViewContainerRef);
+            i0.ɵɵviewQuery(_c0$i, 5)(_c1$c, 7, ViewContainerRef);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.container = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.content = _t.first);
-        } }, features: [i0.ɵɵInheritDefinitionFeature], decls: 8, vars: 36, consts: [[1, "backdrop", 3, "ngClass", "click"], [1, "mrd-fly-out"], [1, "mrd-fly-out__container", 3, "ngClass"], ["container", ""], [1, "mrd-fly-out__content"], ["icon-button", "", "iconSize", "2em", "class", "mrd-fly-out__close", 3, "click", 4, "ngIf"], ["content", ""], ["icon-button", "", "iconSize", "2em", 1, "mrd-fly-out__close", 3, "click"], ["mrd-icon", "", "width", "48", "height", "48", "viewBox", "0 0 48 48", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M43.1253 20.1956C42.3728 16.4129 40.5155 12.9384 37.7883 10.2113C34.1313 6.55443 29.1715 4.5 24 4.5C18.8285 4.5 13.8687 6.55443 10.2117 10.2113C7.48449 12.9384 5.62722 16.4129 4.87475 20.1956C4.12228 23.9782 4.5084 27.899 5.98429 31.4622C7.46017 35.0253 9.95953 38.0709 13.1663 40.2136C16.3731 42.3563 20.1432 43.5 24 43.5C27.8568 43.5 31.6269 42.3563 34.8337 40.2136C38.0405 38.0709 40.5398 35.0253 42.0157 31.4622C43.4916 27.899 43.8777 23.9782 43.1253 20.1956ZM47.5388 19.3176C46.6127 14.6621 44.3268 10.3857 40.9702 7.02923C36.4694 2.52855 30.365 0 24 0C17.635 0 11.5306 2.52855 7.02976 7.02923C3.67321 10.3857 1.38735 14.6621 0.461228 19.3176C-0.464888 23.9732 0.0103406 28.7987 1.82682 33.1842C3.64329 37.5697 6.71943 41.318 10.6662 43.9552C14.613 46.5924 19.2532 48 24 48C28.7468 48 33.387 46.5924 37.3338 43.9552C41.2806 41.318 44.3567 37.5697 46.1732 33.1842C47.9897 28.7987 48.4649 23.9732 47.5388 19.3176Z", "fill", "#949EA7"], ["d", "M27.9366 30.9242L23.9998 26.9867L20.0631 30.9242C19.867 31.1204 19.6341 31.276 19.3777 31.3821C19.1213 31.4881 18.8465 31.5425 18.5691 31.5422C18.2918 31.5424 18.0171 31.488 17.7609 31.3819C17.5047 31.2759 17.2719 31.1203 17.0758 30.9242C16.6798 30.528 16.4573 29.9907 16.4573 29.4305C16.4573 28.8704 16.6798 28.3331 17.0758 27.9369L21.0126 24.0002L17.0758 20.0634C16.8797 19.8673 16.724 19.6344 16.6179 19.3782C16.5117 19.1219 16.457 18.8472 16.457 18.5698C16.457 18.2924 16.5117 18.0177 16.6179 17.7614C16.724 17.5051 16.8797 17.2723 17.0758 17.0762C17.4719 16.6802 18.009 16.4577 18.5691 16.4577C19.1291 16.4577 19.6663 16.6802 20.0623 17.0762L23.9991 21.0129L27.9358 17.0762C28.3319 16.6802 28.869 16.4577 29.4291 16.4577C29.9891 16.4577 30.5263 16.6802 30.9223 17.0762C31.1185 17.2723 31.2741 17.5051 31.3803 17.7614C31.4865 18.0177 31.5411 18.2924 31.5411 18.5698C31.5411 18.8472 31.4865 19.1219 31.3803 19.3782C31.2741 19.6344 31.1185 19.8673 30.9223 20.0634L26.9856 24.0002L30.9223 27.9369C31.3184 28.3331 31.5408 28.8704 31.5408 29.4305C31.5408 29.9907 31.3184 30.528 30.9223 30.9242C30.7264 31.1204 30.4936 31.276 30.2373 31.3821C29.9811 31.4882 29.7064 31.5425 29.4291 31.5422C29.1519 31.5425 28.8773 31.4881 28.6212 31.382C28.3651 31.276 28.1324 31.1204 27.9366 30.9242Z", "fill", "#949EA7"]], template: function MrdFlyOutComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 0);
+        } }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], decls: 8, vars: 36, consts: [["container", ""], ["content", ""], [1, "backdrop", 3, "click", "ngClass"], [1, "mrd-fly-out"], [1, "mrd-fly-out__container", 3, "ngClass"], [1, "mrd-fly-out__content"], ["icon-button", "", "iconSize", "2em", "class", "mrd-fly-out__close", 3, "click", 4, "ngIf"], ["icon-button", "", "iconSize", "2em", 1, "mrd-fly-out__close", 3, "click"], ["mrd-icon", "", "width", "48", "height", "48", "viewBox", "0 0 48 48", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M43.1253 20.1956C42.3728 16.4129 40.5155 12.9384 37.7883 10.2113C34.1313 6.55443 29.1715 4.5 24 4.5C18.8285 4.5 13.8687 6.55443 10.2117 10.2113C7.48449 12.9384 5.62722 16.4129 4.87475 20.1956C4.12228 23.9782 4.5084 27.899 5.98429 31.4622C7.46017 35.0253 9.95953 38.0709 13.1663 40.2136C16.3731 42.3563 20.1432 43.5 24 43.5C27.8568 43.5 31.6269 42.3563 34.8337 40.2136C38.0405 38.0709 40.5398 35.0253 42.0157 31.4622C43.4916 27.899 43.8777 23.9782 43.1253 20.1956ZM47.5388 19.3176C46.6127 14.6621 44.3268 10.3857 40.9702 7.02923C36.4694 2.52855 30.365 0 24 0C17.635 0 11.5306 2.52855 7.02976 7.02923C3.67321 10.3857 1.38735 14.6621 0.461228 19.3176C-0.464888 23.9732 0.0103406 28.7987 1.82682 33.1842C3.64329 37.5697 6.71943 41.318 10.6662 43.9552C14.613 46.5924 19.2532 48 24 48C28.7468 48 33.387 46.5924 37.3338 43.9552C41.2806 41.318 44.3567 37.5697 46.1732 33.1842C47.9897 28.7987 48.4649 23.9732 47.5388 19.3176Z", "fill", "#949EA7"], ["d", "M27.9366 30.9242L23.9998 26.9867L20.0631 30.9242C19.867 31.1204 19.6341 31.276 19.3777 31.3821C19.1213 31.4881 18.8465 31.5425 18.5691 31.5422C18.2918 31.5424 18.0171 31.488 17.7609 31.3819C17.5047 31.2759 17.2719 31.1203 17.0758 30.9242C16.6798 30.528 16.4573 29.9907 16.4573 29.4305C16.4573 28.8704 16.6798 28.3331 17.0758 27.9369L21.0126 24.0002L17.0758 20.0634C16.8797 19.8673 16.724 19.6344 16.6179 19.3782C16.5117 19.1219 16.457 18.8472 16.457 18.5698C16.457 18.2924 16.5117 18.0177 16.6179 17.7614C16.724 17.5051 16.8797 17.2723 17.0758 17.0762C17.4719 16.6802 18.009 16.4577 18.5691 16.4577C19.1291 16.4577 19.6663 16.6802 20.0623 17.0762L23.9991 21.0129L27.9358 17.0762C28.3319 16.6802 28.869 16.4577 29.4291 16.4577C29.9891 16.4577 30.5263 16.6802 30.9223 17.0762C31.1185 17.2723 31.2741 17.5051 31.3803 17.7614C31.4865 18.0177 31.5411 18.2924 31.5411 18.5698C31.5411 18.8472 31.4865 19.1219 31.3803 19.3782C31.2741 19.6344 31.1185 19.8673 30.9223 20.0634L26.9856 24.0002L30.9223 27.9369C31.3184 28.3331 31.5408 28.8704 31.5408 29.4305C31.5408 29.9907 31.3184 30.528 30.9223 30.9242C30.7264 31.1204 30.4936 31.276 30.2373 31.3821C29.9811 31.4882 29.7064 31.5425 29.4291 31.5422C29.1519 31.5425 28.8773 31.4881 28.6212 31.382C28.3651 31.276 28.1324 31.1204 27.9366 30.9242Z", "fill", "#949EA7"]], template: function MrdFlyOutComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 2);
             i0.ɵɵlistener("click", function MrdFlyOutComponent_Template_div_click_0_listener() { return ctx.backdropClicked(); });
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(1, "div", 1)(2, "div", 2, 3)(4, "div", 4);
-            i0.ɵɵtemplate(5, MrdFlyOutComponent_mrd_button_5_Template, 4, 0, "mrd-button", 5);
-            i0.ɵɵelement(6, "div", null, 6);
+            i0.ɵɵelementStart(1, "div", 3)(2, "div", 4, 0)(4, "div", 5);
+            i0.ɵɵtemplate(5, MrdFlyOutComponent_mrd_button_5_Template, 4, 0, "mrd-button", 6);
+            i0.ɵɵelement(6, "div", null, 1);
             i0.ɵɵelementEnd()()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--bd-color", ctx.backdropColor)("--bd-transition-time", ctx.transitionTime);
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(27, _c2$9, ctx.stateToggle.value));
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵstyleProp("--fo-width", ctx.width)("--fo-max-width", ctx.maxWidth)("--fo-height", ctx.height)("--fo-max-height", ctx.maxHeight)("--fo-bg-color", ctx.backgroundColor)("--fo-padding", ctx.padding)("--fo-border-radius", ctx.borderRadius)("--fo-transition-time", ctx.transitionTime)("--fo-container-height", ctx.containerHeight)("--fo-container-width", ctx.containerWidth);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(29, _c3$8, ctx.stateToggle.value, ctx.centered, ctx.topDown, ctx.bottomUp, ctx.leftRight, ctx.rightLeft));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", !ctx.hideDefaultCloseButton);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdButtonComponent], styles: ["[_nghost-%COMP%]{width:100vw;height:100vh;position:absolute;inset:0}.backdrop[_ngcontent-%COMP%]{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open[_ngcontent-%COMP%]{display:block;background-color:var(--bd-color)}.mrd-fly-out[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]   .mrd-fly-out__content[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown[_ngcontent-%COMP%]{padding-top:3.5em;top:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown.centered[_ngcontent-%COMP%]{padding-top:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp[_ngcontent-%COMP%]{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp.centered[_ngcontent-%COMP%]{padding-bottom:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight[_ngcontent-%COMP%]{padding-left:3.5em;left:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight.centered[_ngcontent-%COMP%]{padding-left:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft[_ngcontent-%COMP%]{padding-right:3.5em;right:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft.centered[_ngcontent-%COMP%]{padding-right:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown[_ngcontent-%COMP%]{top:-3em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown.centered[_ngcontent-%COMP%]{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp[_ngcontent-%COMP%]{bottom:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp.centered[_ngcontent-%COMP%]{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight[_ngcontent-%COMP%]{left:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight.centered[_ngcontent-%COMP%]{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft[_ngcontent-%COMP%]{right:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft.centered[_ngcontent-%COMP%]{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__close[_ngcontent-%COMP%]{position:absolute;top:0;right:0;z-index:10000}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-fly-out', changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der Hintergrund des FlyOuts -->\r\n<div class=\"backdrop\" [ngClass]=\"{'open': stateToggle.value}\" (click)=\"backdropClicked()\"\r\n  [style.--bd-color]=\"backdropColor\"\r\n  [style.--bd-transition-time]=\"transitionTime\"\r\n  ></div>\r\n<!-- Die \u00E4u\u00DFerste Komponente des FlyOuts, das den Container zentriert -->\r\n<div class=\"mrd-fly-out\"\r\n  [style.--fo-width]=\"width\"\r\n  [style.--fo-max-width]=\"maxWidth\"\r\n  [style.--fo-height]=\"height\"\r\n  [style.--fo-max-height]=\"maxHeight\"\r\n  [style.--fo-bg-color]=\"backgroundColor\"\r\n  [style.--fo-padding]=\"padding\"\r\n  [style.--fo-border-radius]=\"borderRadius\"\r\n  [style.--fo-transition-time]=\"transitionTime\"\r\n  [style.--fo-container-height]=\"containerHeight\"\r\n  [style.--fo-container-width]=\"containerWidth\"\r\n  >\r\n  <!-- Der Container, der das Grundlayout des FlyOuts bereitstellt -->\r\n  <div #container class=\"mrd-fly-out__container\" [ngClass]=\"{'open': stateToggle.value, 'centered': centered,\r\n    'topDown': topDown, 'bottomUp': bottomUp, 'leftRight': leftRight, 'rightLeft': rightLeft}\">\r\n    <!-- Der Inhalt des FlyOuts -->\r\n    <div class=\"mrd-fly-out__content\">\r\n      <!-- Der Standard Schlie\u00DFen-Button des FlyOuts -->\r\n      <mrd-button icon-button iconSize=\"2em\" (click)=\"close()\" class=\"mrd-fly-out__close\" *ngIf=\"!hideDefaultCloseButton\">\r\n        <svg mrd-icon width=\"48\" height=\"48\" viewBox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M43.1253 20.1956C42.3728 16.4129 40.5155 12.9384 37.7883 10.2113C34.1313 6.55443 29.1715 4.5 24 4.5C18.8285 4.5 13.8687 6.55443 10.2117 10.2113C7.48449 12.9384 5.62722 16.4129 4.87475 20.1956C4.12228 23.9782 4.5084 27.899 5.98429 31.4622C7.46017 35.0253 9.95953 38.0709 13.1663 40.2136C16.3731 42.3563 20.1432 43.5 24 43.5C27.8568 43.5 31.6269 42.3563 34.8337 40.2136C38.0405 38.0709 40.5398 35.0253 42.0157 31.4622C43.4916 27.899 43.8777 23.9782 43.1253 20.1956ZM47.5388 19.3176C46.6127 14.6621 44.3268 10.3857 40.9702 7.02923C36.4694 2.52855 30.365 0 24 0C17.635 0 11.5306 2.52855 7.02976 7.02923C3.67321 10.3857 1.38735 14.6621 0.461228 19.3176C-0.464888 23.9732 0.0103406 28.7987 1.82682 33.1842C3.64329 37.5697 6.71943 41.318 10.6662 43.9552C14.613 46.5924 19.2532 48 24 48C28.7468 48 33.387 46.5924 37.3338 43.9552C41.2806 41.318 44.3567 37.5697 46.1732 33.1842C47.9897 28.7987 48.4649 23.9732 47.5388 19.3176Z\" fill=\"#949EA7\"/>\r\n          <path d=\"M27.9366 30.9242L23.9998 26.9867L20.0631 30.9242C19.867 31.1204 19.6341 31.276 19.3777 31.3821C19.1213 31.4881 18.8465 31.5425 18.5691 31.5422C18.2918 31.5424 18.0171 31.488 17.7609 31.3819C17.5047 31.2759 17.2719 31.1203 17.0758 30.9242C16.6798 30.528 16.4573 29.9907 16.4573 29.4305C16.4573 28.8704 16.6798 28.3331 17.0758 27.9369L21.0126 24.0002L17.0758 20.0634C16.8797 19.8673 16.724 19.6344 16.6179 19.3782C16.5117 19.1219 16.457 18.8472 16.457 18.5698C16.457 18.2924 16.5117 18.0177 16.6179 17.7614C16.724 17.5051 16.8797 17.2723 17.0758 17.0762C17.4719 16.6802 18.009 16.4577 18.5691 16.4577C19.1291 16.4577 19.6663 16.6802 20.0623 17.0762L23.9991 21.0129L27.9358 17.0762C28.3319 16.6802 28.869 16.4577 29.4291 16.4577C29.9891 16.4577 30.5263 16.6802 30.9223 17.0762C31.1185 17.2723 31.2741 17.5051 31.3803 17.7614C31.4865 18.0177 31.5411 18.2924 31.5411 18.5698C31.5411 18.8472 31.4865 19.1219 31.3803 19.3782C31.2741 19.6344 31.1185 19.8673 30.9223 20.0634L26.9856 24.0002L30.9223 27.9369C31.3184 28.3331 31.5408 28.8704 31.5408 29.4305C31.5408 29.9907 31.3184 30.528 30.9223 30.9242C30.7264 31.1204 30.4936 31.276 30.2373 31.3821C29.9811 31.4882 29.7064 31.5425 29.4291 31.5422C29.1519 31.5425 28.8773 31.4881 28.6212 31.382C28.3651 31.276 28.1324 31.1204 27.9366 30.9242Z\" fill=\"#949EA7\"/>\r\n        </svg>\r\n      </mrd-button>\r\n      <!-- Der Inhalt des FlyOuts (die eingebettete Komponente wird hier reingealden) -->\r\n      <div #content></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n", styles: [":host{width:100vw;height:100vh;position:absolute;inset:0}.backdrop{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open{display:block;background-color:var(--bd-color)}.mrd-fly-out{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out .mrd-fly-out__container{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out .mrd-fly-out__container .mrd-fly-out__content{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-fly-out .mrd-fly-out__container.topDown{padding-top:3.5em;top:-100%}.mrd-fly-out .mrd-fly-out__container.topDown.centered{padding-top:1em}.mrd-fly-out .mrd-fly-out__container.bottomUp{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out .mrd-fly-out__container.bottomUp.centered{padding-bottom:1em}.mrd-fly-out .mrd-fly-out__container.leftRight{padding-left:3.5em;left:-100%}.mrd-fly-out .mrd-fly-out__container.leftRight.centered{padding-left:1em}.mrd-fly-out .mrd-fly-out__container.rightLeft{padding-right:3.5em;right:-100%}.mrd-fly-out .mrd-fly-out__container.rightLeft.centered{padding-right:1em}.mrd-fly-out .mrd-fly-out__container.open.topDown{top:-3em}.mrd-fly-out .mrd-fly-out__container.open.topDown.centered{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.bottomUp{bottom:-2em}.mrd-fly-out .mrd-fly-out__container.open.bottomUp.centered{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.leftRight{left:-2em}.mrd-fly-out .mrd-fly-out__container.open.leftRight.centered{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__container.open.rightLeft{right:-2em}.mrd-fly-out .mrd-fly-out__container.open.rightLeft.centered{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__close{position:absolute;top:0;right:0;z-index:10000}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: FlyOutService }]; }, { container: [{
+        args: [{ selector: 'mrd-fly-out', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<!-- Der Hintergrund des FlyOuts -->\n<div class=\"backdrop\" [ngClass]=\"{'open': stateToggle.value}\" (click)=\"backdropClicked()\"\n  [style.--bd-color]=\"backdropColor\"\n  [style.--bd-transition-time]=\"transitionTime\"\n></div>\n<!-- Die \u00E4u\u00DFerste Komponente des FlyOuts, das den Container zentriert -->\n<div class=\"mrd-fly-out\"\n  [style.--fo-width]=\"width\"\n  [style.--fo-max-width]=\"maxWidth\"\n  [style.--fo-height]=\"height\"\n  [style.--fo-max-height]=\"maxHeight\"\n  [style.--fo-bg-color]=\"backgroundColor\"\n  [style.--fo-padding]=\"padding\"\n  [style.--fo-border-radius]=\"borderRadius\"\n  [style.--fo-transition-time]=\"transitionTime\"\n  [style.--fo-container-height]=\"containerHeight\"\n  [style.--fo-container-width]=\"containerWidth\"\n  >\n  <!-- Der Container, der das Grundlayout des FlyOuts bereitstellt -->\n  <div #container class=\"mrd-fly-out__container\" [ngClass]=\"{'open': stateToggle.value, 'centered': centered,\n    'topDown': topDown, 'bottomUp': bottomUp, 'leftRight': leftRight, 'rightLeft': rightLeft}\">\n    <!-- Der Inhalt des FlyOuts -->\n    <div class=\"mrd-fly-out__content\">\n      <!-- Der Standard Schlie\u00DFen-Button des FlyOuts -->\n      <mrd-button icon-button iconSize=\"2em\" (click)=\"close()\" class=\"mrd-fly-out__close\" *ngIf=\"!hideDefaultCloseButton\">\n        <svg mrd-icon width=\"48\" height=\"48\" viewBox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M43.1253 20.1956C42.3728 16.4129 40.5155 12.9384 37.7883 10.2113C34.1313 6.55443 29.1715 4.5 24 4.5C18.8285 4.5 13.8687 6.55443 10.2117 10.2113C7.48449 12.9384 5.62722 16.4129 4.87475 20.1956C4.12228 23.9782 4.5084 27.899 5.98429 31.4622C7.46017 35.0253 9.95953 38.0709 13.1663 40.2136C16.3731 42.3563 20.1432 43.5 24 43.5C27.8568 43.5 31.6269 42.3563 34.8337 40.2136C38.0405 38.0709 40.5398 35.0253 42.0157 31.4622C43.4916 27.899 43.8777 23.9782 43.1253 20.1956ZM47.5388 19.3176C46.6127 14.6621 44.3268 10.3857 40.9702 7.02923C36.4694 2.52855 30.365 0 24 0C17.635 0 11.5306 2.52855 7.02976 7.02923C3.67321 10.3857 1.38735 14.6621 0.461228 19.3176C-0.464888 23.9732 0.0103406 28.7987 1.82682 33.1842C3.64329 37.5697 6.71943 41.318 10.6662 43.9552C14.613 46.5924 19.2532 48 24 48C28.7468 48 33.387 46.5924 37.3338 43.9552C41.2806 41.318 44.3567 37.5697 46.1732 33.1842C47.9897 28.7987 48.4649 23.9732 47.5388 19.3176Z\" fill=\"#949EA7\"/>\n          <path d=\"M27.9366 30.9242L23.9998 26.9867L20.0631 30.9242C19.867 31.1204 19.6341 31.276 19.3777 31.3821C19.1213 31.4881 18.8465 31.5425 18.5691 31.5422C18.2918 31.5424 18.0171 31.488 17.7609 31.3819C17.5047 31.2759 17.2719 31.1203 17.0758 30.9242C16.6798 30.528 16.4573 29.9907 16.4573 29.4305C16.4573 28.8704 16.6798 28.3331 17.0758 27.9369L21.0126 24.0002L17.0758 20.0634C16.8797 19.8673 16.724 19.6344 16.6179 19.3782C16.5117 19.1219 16.457 18.8472 16.457 18.5698C16.457 18.2924 16.5117 18.0177 16.6179 17.7614C16.724 17.5051 16.8797 17.2723 17.0758 17.0762C17.4719 16.6802 18.009 16.4577 18.5691 16.4577C19.1291 16.4577 19.6663 16.6802 20.0623 17.0762L23.9991 21.0129L27.9358 17.0762C28.3319 16.6802 28.869 16.4577 29.4291 16.4577C29.9891 16.4577 30.5263 16.6802 30.9223 17.0762C31.1185 17.2723 31.2741 17.5051 31.3803 17.7614C31.4865 18.0177 31.5411 18.2924 31.5411 18.5698C31.5411 18.8472 31.4865 19.1219 31.3803 19.3782C31.2741 19.6344 31.1185 19.8673 30.9223 20.0634L26.9856 24.0002L30.9223 27.9369C31.3184 28.3331 31.5408 28.8704 31.5408 29.4305C31.5408 29.9907 31.3184 30.528 30.9223 30.9242C30.7264 31.1204 30.4936 31.276 30.2373 31.3821C29.9811 31.4882 29.7064 31.5425 29.4291 31.5422C29.1519 31.5425 28.8773 31.4881 28.6212 31.382C28.3651 31.276 28.1324 31.1204 27.9366 30.9242Z\" fill=\"#949EA7\"/>\n        </svg>\n      </mrd-button>\n      <!-- Der Inhalt des FlyOuts (die eingebettete Komponente wird hier reingealden) -->\n      <div #content></div>\n    </div>\n  </div>\n</div>\n\n", styles: [":host{width:100vw;height:100vh;position:absolute;inset:0}.backdrop{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open{display:block;background-color:var(--bd-color)}.mrd-fly-out{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out .mrd-fly-out__container{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out .mrd-fly-out__container .mrd-fly-out__content{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-fly-out .mrd-fly-out__container.topDown{padding-top:3.5em;top:-100%}.mrd-fly-out .mrd-fly-out__container.topDown.centered{padding-top:1em}.mrd-fly-out .mrd-fly-out__container.bottomUp{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out .mrd-fly-out__container.bottomUp.centered{padding-bottom:1em}.mrd-fly-out .mrd-fly-out__container.leftRight{padding-left:3.5em;left:-100%}.mrd-fly-out .mrd-fly-out__container.leftRight.centered{padding-left:1em}.mrd-fly-out .mrd-fly-out__container.rightLeft{padding-right:3.5em;right:-100%}.mrd-fly-out .mrd-fly-out__container.rightLeft.centered{padding-right:1em}.mrd-fly-out .mrd-fly-out__container.open.topDown{top:-3em}.mrd-fly-out .mrd-fly-out__container.open.topDown.centered{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.bottomUp{bottom:-2em}.mrd-fly-out .mrd-fly-out__container.open.bottomUp.centered{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.leftRight{left:-2em}.mrd-fly-out .mrd-fly-out__container.open.leftRight.centered{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__container.open.rightLeft{right:-2em}.mrd-fly-out .mrd-fly-out__container.open.rightLeft.centered{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__close{position:absolute;top:0;right:0;z-index:10000}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }, { type: FlyOutService }], { container: [{
             type: ViewChild,
             args: ['container']
         }], content: [{
             type: ViewChild,
             args: ['content', { read: ViewContainerRef, static: true }]
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdFlyOutComponent, { className: "MrdFlyOutComponent", filePath: "lib/modules/mrd-fly-out/components/mrd-fly-out/mrd-fly-out.component.ts", lineNumber: 21 }); })();
 
 /**
  * Diese Directive kann verwendet werden, um das, die Komponente umgebende, FlyOut zu schließen.
@@ -4164,33 +4168,34 @@ class MrdFlyOutCloseDirective {
         this.componentRef?.instance.closeDirectiveClicked(this.value);
     }
     ;
-    /** @nocollapse */ static ɵfac = function MrdFlyOutCloseDirective_Factory(t) { return new (t || MrdFlyOutCloseDirective)(i0.ɵɵdirectiveInject((ComponentRef))); };
+    /** @nocollapse */ static ɵfac = function MrdFlyOutCloseDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdFlyOutCloseDirective)(i0.ɵɵdirectiveInject((ComponentRef))); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdFlyOutCloseDirective, selectors: [["", "mrdFlyOutClose", ""]], hostBindings: function MrdFlyOutCloseDirective_HostBindings(rf, ctx) { if (rf & 1) {
-            i0.ɵɵlistener("click", function MrdFlyOutCloseDirective_click_HostBindingHandler($event) { return ctx.onClick($event); });
-        } }, inputs: { mrdFlyOutClose: "mrdFlyOutClose" } });
+            i0.ɵɵlistener("click", function MrdFlyOutCloseDirective_click_HostBindingHandler() { return ctx.onClick(); });
+        } }, inputs: { mrdFlyOutClose: "mrdFlyOutClose" }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutCloseDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutCloseDirective, [{
         type: Directive,
         args: [{
-                selector: '[mrdFlyOutClose]'
+                selector: '[mrdFlyOutClose]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ComponentRef, decorators: [{
+    }], () => [{ type: i0.ComponentRef, decorators: [{
                 type: Inject,
                 args: [(ComponentRef)]
-            }] }]; }, { mrdFlyOutClose: [{
+            }] }], { mrdFlyOutClose: [{
             type: Input
         }], onClick: [{
             type: HostListener,
-            args: ['click', ['$event']]
+            args: ['click']
         }] }); })();
 
 class MrdFlyOutModule {
-    /** @nocollapse */ static ɵfac = function MrdFlyOutModule_Factory(t) { return new (t || MrdFlyOutModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdFlyOutModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdFlyOutModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdFlyOutModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             MrdButtonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -4444,23 +4449,23 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         });
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdButtonToggleGroupComponent_Factory(t) { return new (t || MrdButtonToggleGroupComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdButtonToggleGroupComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdButtonToggleGroupComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonToggleGroupComponent, selectors: [["mrd-button-toggle-group"]], contentQueries: function MrdButtonToggleGroupComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdButtonComponent, 4);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$h, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: [2, "rounded", "rounded", booleanAttribute], disabled: [2, "disabled", "disabled", booleanAttribute], multiple: [2, "multiple", "multiple", booleanAttribute], index: [2, "index", "index", numberAttribute], primary: [2, "primary", "primary", booleanAttribute], accent: [2, "accent", "accent", booleanAttribute], warn: [2, "warn", "warn", booleanAttribute], customTextColor: [2, "color", "customTextColor", colorThemeAttribute], customBgColor: [2, "backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: [2, "keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: [2, "keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: [2, "unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: [2, "unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: [2, "selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: [2, "selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: [2, "minHeight", "minHeight", sizeAttribute], fontSize: [2, "fontSize", "fontSize", sizeAttribute], borderRadius: [2, "borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$h, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
             i0.ɵɵelementEnd();
         } }, styles: ["[_nghost-%COMP%]{width:calc(100% - 48px);margin:8px 24px}[_nghost-%COMP%]     mrd-button[toggle-button]:first-of-type{margin:0 -16px 0 -32px!important}[_nghost-%COMP%]     mrd-button[toggle-button]:last-of-type{margin:0 -32px 0 -16px!important}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonToggleGroupComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonToggleGroupComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-button-toggle-group', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"flex flex-row justify-center\">\r\n  <ng-content></ng-content>\r\n</div>\r\n", styles: [":host{width:calc(100% - 48px);margin:8px 24px}:host ::ng-deep mrd-button[toggle-button]:first-of-type{margin:0 -16px 0 -32px!important}:host ::ng-deep mrd-button[toggle-button]:last-of-type{margin:0 -32px 0 -16px!important}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { buttons: [{
+        args: [{ selector: 'mrd-button-toggle-group', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"flex flex-row justify-center\">\r\n  <ng-content></ng-content>\r\n</div>\r\n", styles: [":host{width:calc(100% - 48px);margin:8px 24px}:host ::ng-deep mrd-button[toggle-button]:first-of-type{margin:0 -16px 0 -32px!important}:host ::ng-deep mrd-button[toggle-button]:last-of-type{margin:0 -32px 0 -16px!important}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { buttons: [{
             type: ContentChildren,
             args: [MrdButtonComponent]
         }], rounded: [{
@@ -4524,14 +4529,15 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         }], indexChange: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdButtonToggleGroupComponent, { className: "MrdButtonToggleGroupComponent", filePath: "lib/modules/mrd-button-toggle/components/mrd-button-toggle-group/mrd-button-toggle-group.component.ts", lineNumber: 17 }); })();
 
 class MrdButtonToggleModule {
-    /** @nocollapse */ static ɵfac = function MrdButtonToggleModule_Factory(t) { return new (t || MrdButtonToggleModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdButtonToggleModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdButtonToggleModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdButtonToggleModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             MrdButtonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonToggleModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdButtonToggleModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -4550,6 +4556,10 @@ class MrdButtonToggleModule {
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
 const _c0$g = ["checkboxlabel"];
+const _c1$b = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
+const _c2$8 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
+const _c3$7 = a0 => ({ "mrd-checkbox-disabled": a0 });
+const _c4$3 = a0 => ({ "isHover": a0 });
 function MrdCheckboxComponent_span_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵnamespaceSVG();
@@ -4568,7 +4578,7 @@ function MrdCheckboxComponent_span_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
+    i0.ɵɵadvance();
     i0.ɵɵproperty("ngIf", ctx_r0.checked);
 } }
 function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1) {
@@ -4577,19 +4587,17 @@ function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1)
 function MrdCheckboxComponent_div_2_ng_content_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 2, ["*ngIf", "!checked"]);
 } }
-const _c1$b = function (a0) { return { "isHover": a0 }; };
 function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 13);
-    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 7);
-    i0.ɵɵtemplate(2, MrdCheckboxComponent_div_2_ng_content_2_Template, 1, 0, "ng-content", 7);
+    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 7)(2, MrdCheckboxComponent_div_2_ng_content_2_Template, 1, 0, "ng-content", 7);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$b, !ctx_r1.customHoverIcons));
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r1.checked);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", !ctx_r1.checked);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c4$3, !ctx_r0.customHoverIcons));
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r0.checked);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", !ctx_r0.checked);
 } }
 function MrdCheckboxComponent_div_3_ng_content_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 3, ["*ngIf", "checked"]);
@@ -4599,19 +4607,15 @@ function MrdCheckboxComponent_div_3_ng_content_2_Template(rf, ctx) { if (rf & 1)
 } }
 function MrdCheckboxComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 14);
-    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_3_ng_content_1_Template, 1, 0, "ng-content", 7);
-    i0.ɵɵtemplate(2, MrdCheckboxComponent_div_3_ng_content_2_Template, 1, 0, "ng-content", 7);
+    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_3_ng_content_1_Template, 1, 0, "ng-content", 7)(2, MrdCheckboxComponent_div_3_ng_content_2_Template, 1, 0, "ng-content", 7);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r2 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r2.checked);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", !ctx_r2.checked);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r0.checked);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", !ctx_r0.checked);
 } }
-const _c2$8 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
-const _c3$7 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
-const _c4$3 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
 class MrdCheckboxComponent {
     cdr;
     label;
@@ -4713,7 +4717,7 @@ class MrdCheckboxComponent {
         this.checkedChange.emit(this.checked);
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], viewQuery: function MrdCheckboxComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$g, 5);
         } if (rf & 2) {
@@ -4721,37 +4725,35 @@ class MrdCheckboxComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
         } }, hostVars: 2, hostBindings: function MrdCheckboxComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("max-width", ctx.fitContent ? "fit-content" : "100%");
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c4$3, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2$8);
-            i0.ɵɵelementStart(0, "div", 0);
+        } }, inputs: { formControl: [0, "mrdFormControl", "formControl"], rounded: [2, "rounded", "rounded", booleanAttribute], color: [2, "color", "color", colorAttribute], colorHover: [2, "colorHover", "colorHover", colorAttribute], colorChecked: [2, "colorChecked", "colorChecked", colorAttribute], colorCheckedHover: [2, "colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: [2, "bgColor", "bgColor", colorAttribute], bgColorHover: [2, "bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: [2, "bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: [2, "bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: [2, "checked", "checked", booleanAttribute], disabled: [2, "disabled", "disabled", booleanAttribute], customIcons: [2, "customIcons", "customIcons", booleanAttribute], customHoverIcons: [2, "customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: [2, "checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: [2, "checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: [2, "checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: [2, "single-line", "singleLine", booleanAttribute], fitContent: [2, "fit-content", "fitContent", booleanAttribute], ellipsis: [2, "ellipsis", "ellipsis", booleanAttribute], tooltip: [2, "tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: [2, "tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: [2, "tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, standalone: false, ngContentSelectors: _c2$8, decls: 7, vars: 46, consts: [["checkboxlabel", ""], [1, "mrd-checkbox-container", 3, "click", "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$b);
+            i0.ɵɵelementStart(0, "div", 1);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener() { return ctx.toggle(); });
-            i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 2, 1, "span", 1);
-            i0.ɵɵtemplate(2, MrdCheckboxComponent_div_2_Template, 3, 5, "div", 2);
-            i0.ɵɵtemplate(3, MrdCheckboxComponent_div_3_Template, 3, 2, "div", 3);
-            i0.ɵɵelementStart(4, "span", 4, 5);
+            i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 2, 1, "span", 2)(2, MrdCheckboxComponent_div_2_Template, 3, 5, "div", 3)(3, MrdCheckboxComponent_div_3_Template, 3, 2, "div", 4);
+            i0.ɵɵelementStart(4, "span", 5, 0);
             i0.ɵɵprojection(6);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            const _r3 = i0.ɵɵreference(5);
+            const checkboxlabel_r2 = i0.ɵɵreference(5);
             i0.ɵɵstyleProp("--box-height", ctx.checkboxHeight)("--box-width", ctx.checkboxWidth)("--bg-color", ctx.bgColor)("--bg-color-hover", ctx.bgColorHover)("--bg-color-checked", ctx.bgColorChecked)("--bg-color-checked-hover", ctx.bgColorCheckedHover)("--color", ctx.color)("--color-hover", ctx.colorHover)("--color-checked", ctx.colorChecked)("--color-checked-hover", ctx.colorCheckedHover)("--border", ctx.border)("--border-hover", ctx.borderHover)("--border-checked", ctx.borderChecked)("--border-checked-hover", ctx.borderCheckedHover);
             i0.ɵɵclassProp("rounded", ctx.rounded)("checked", ctx.checked);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$7, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r3 : undefined);
-            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$7, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? checkboxlabel_r2 : undefined);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", !ctx.customIcons);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.customIcons);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.customHoverIcons);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵclassProp("singleLine", ctx.singleLine)("ellipsis", ctx.ellipsis);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded[_ngcontent-%COMP%]{border-radius:999999px}.mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked-hover], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked[_ngcontent-%COMP%]{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{background-color:#3faa49;border:none}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{overflow:hidden}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.singleLine[_ngcontent-%COMP%]{white-space:nowrap}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.ellipsis[_ngcontent-%COMP%]{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{color:#afa6a6}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom[_ngcontent-%COMP%]:not(.isHover){display:none}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:flex}.mrd-checkbox-custom[_ngcontent-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:none;flex-direction:column;justify-content:center;align-items:center}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:block;width:fit-content}.mrd-checkbox-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded[_ngcontent-%COMP%]{border-radius:999999px}.mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked-hover], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked[_ngcontent-%COMP%]{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{background-color:#3faa49;border:none}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{overflow:hidden}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.singleLine[_ngcontent-%COMP%]{white-space:nowrap}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.ellipsis[_ngcontent-%COMP%]{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{color:#afa6a6}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom[_ngcontent-%COMP%]:not(.isHover){display:none}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:flex}.mrd-checkbox-custom[_ngcontent-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:none;flex-direction:column;justify-content:center;align-items:center}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCheckboxComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCheckboxComponent, [{
         type: Component,
         args: [{ selector: 'mrd-checkbox', host: {
                     "[style.max-width]": "fitContent ? 'fit-content' : '100%'",
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle()\"\r\n  [mrdToolTip]=\"tooltipText\" [showToolTip]=\"tooltip && !tooltipDisabled\" [position]=\"tooltipPosition\" [showOnTruncatedElement]=\"tooltipIfTruncated ? checkboxlabel : undefined\"\r\n  [style.--box-height]=\"checkboxHeight\" \r\n  [style.--box-width]=\"checkboxWidth\"\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--bg-color-hover]=\"bgColorHover\"\r\n  [style.--bg-color-checked]=\"bgColorChecked\"\r\n  [style.--bg-color-checked-hover]=\"bgColorCheckedHover\"\r\n  [style.--color]=\"color\"\r\n  [style.--color-hover]=\"colorHover\"\r\n  [style.--color-checked]=\"colorChecked\"\r\n  [style.--color-checked-hover]=\"colorCheckedHover\"\r\n  [style.--border]=\"border\"\r\n  [style.--border-hover]=\"borderHover\"\r\n  [style.--border-checked]=\"borderChecked\"\r\n  [style.--border-checked-hover]=\"borderCheckedHover\"\r\n  [class.rounded]=\"rounded\"\r\n  [class.checked]=\"checked\"\r\n  >\r\n  <span class=\"mrd-checkbox-box\" *ngIf=\"!customIcons\">\r\n    <ng-container *ngIf=\"checked\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <div class=\"mrd-checkbox-custom\" [ngClass]=\"{'isHover': !customHoverIcons}\" *ngIf=\"customIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-checkbox-custom-hover\" *ngIf=\"customHoverIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked-hover]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked-hover]\"></ng-content>\r\n  </div>\r\n  \r\n  \r\n  <span #checkboxlabel class=\"mrd-checkbox-label\"\r\n    [class.singleLine]=\"singleLine\"\r\n    [class.ellipsis]=\"ellipsis\"\r\n  ><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded{border-radius:999999px}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked],.mrd-checkbox-container ::ng-deep [icon-checked-hover],.mrd-checkbox-container ::ng-deep [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked .mrd-checkbox-box{background-color:#3faa49;border:none}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-label{overflow:hidden}.mrd-checkbox-container .mrd-checkbox-label.singleLine{white-space:nowrap}.mrd-checkbox-container .mrd-checkbox-label.ellipsis{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom:not(.isHover){display:none}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom-hover{display:flex}.mrd-checkbox-custom{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover{display:none;flex-direction:column;justify-content:center;align-items:center}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { label: [{
+                }, changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle()\"\n  [mrdToolTip]=\"tooltipText\" [showToolTip]=\"tooltip && !tooltipDisabled\" [position]=\"tooltipPosition\" [showOnTruncatedElement]=\"tooltipIfTruncated ? checkboxlabel : undefined\"\n  [style.--box-height]=\"checkboxHeight\"\n  [style.--box-width]=\"checkboxWidth\"\n  [style.--bg-color]=\"bgColor\"\n  [style.--bg-color-hover]=\"bgColorHover\"\n  [style.--bg-color-checked]=\"bgColorChecked\"\n  [style.--bg-color-checked-hover]=\"bgColorCheckedHover\"\n  [style.--color]=\"color\"\n  [style.--color-hover]=\"colorHover\"\n  [style.--color-checked]=\"colorChecked\"\n  [style.--color-checked-hover]=\"colorCheckedHover\"\n  [style.--border]=\"border\"\n  [style.--border-hover]=\"borderHover\"\n  [style.--border-checked]=\"borderChecked\"\n  [style.--border-checked-hover]=\"borderCheckedHover\"\n  [class.rounded]=\"rounded\"\n  [class.checked]=\"checked\"\n  >\n  <span class=\"mrd-checkbox-box\" *ngIf=\"!customIcons\">\n    <ng-container *ngIf=\"checked\">\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\n      </svg>\n    </ng-container>\n  </span>\n  <div class=\"mrd-checkbox-custom\" [ngClass]=\"{'isHover': !customHoverIcons}\" *ngIf=\"customIcons\">\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\n  </div>\n  <div class=\"mrd-checkbox-custom-hover\" *ngIf=\"customHoverIcons\">\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked-hover]\"></ng-content>\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked-hover]\"></ng-content>\n  </div>\n  \n  \n  <span #checkboxlabel class=\"mrd-checkbox-label\"\n    [class.singleLine]=\"singleLine\"\n    [class.ellipsis]=\"ellipsis\"\n    ><ng-content></ng-content></span>\n  </div>\n", styles: [":host{display:block;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded{border-radius:999999px}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked],.mrd-checkbox-container ::ng-deep [icon-checked-hover],.mrd-checkbox-container ::ng-deep [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked .mrd-checkbox-box{background-color:#3faa49;border:none}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-label{overflow:hidden}.mrd-checkbox-container .mrd-checkbox-label.singleLine{white-space:nowrap}.mrd-checkbox-container .mrd-checkbox-label.ellipsis{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom:not(.isHover){display:none}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom-hover{display:flex}.mrd-checkbox-custom{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover{display:none;flex-direction:column;justify-content:center;align-items:center}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { label: [{
             type: ViewChild,
             args: ['checkboxlabel']
         }], formControl: [{
@@ -4838,6 +4840,7 @@ class MrdCheckboxComponent {
         }], checkedChange: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdCheckboxComponent, { className: "MrdCheckboxComponent", filePath: "lib/modules/mrd-checkbox/components/mrd-checkbox/mrd-checkbox.component.ts", lineNumber: 19 }); })();
 
 /**
  * Dieses Modul stellt den Mrd-Checkbox zur Verfügung.
@@ -4846,12 +4849,12 @@ class MrdCheckboxComponent {
  * @class MrdCheckboxModule
  */
 class MrdCheckboxModule {
-    /** @nocollapse */ static ɵfac = function MrdCheckboxModule_Factory(t) { return new (t || MrdCheckboxModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdCheckboxModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdCheckboxModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdCheckboxModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             MrdTooltipModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCheckboxModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCheckboxModule, [{
         type: NgModule,
         args: [{
                 declarations: [MrdCheckboxComponent],
@@ -4866,6 +4869,9 @@ class MrdCheckboxModule {
         MrdTooltipModule], exports: [MrdCheckboxComponent] }); })();
 
 const _c0$f = ["chipText"];
+const _c1$a = ["*"];
+const _c2$7 = a0 => ({ "cursor": a0 });
+const _c3$6 = a0 => ({ "pointer-events": a0 });
 function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
@@ -4875,27 +4881,24 @@ function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
 function MrdChipComponent_mrd_icon_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
-    const ctx_r2 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("svgIcon", ctx_r2.suffixIcon);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("svgIcon", ctx_r0.suffixIcon);
 } }
 function MrdChipComponent_mrd_button_7_Template(rf, ctx) { if (rf & 1) {
-    const _r5 = i0.ɵɵgetCurrentView();
+    const _r2 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
-    i0.ɵɵlistener("click", function MrdChipComponent_mrd_button_7_Template_mrd_button_click_0_listener($event) { i0.ɵɵrestoreView(_r5); const ctx_r4 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r4.closeClicked($event)); });
+    i0.ɵɵlistener("click", function MrdChipComponent_mrd_button_7_Template_mrd_button_click_0_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r0 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r0.closeClicked($event)); });
     i0.ɵɵelementStart(1, "span", 8);
     i0.ɵɵnamespaceSVG();
     i0.ɵɵelementStart(2, "svg", 9)(3, "g", 10)(4, "g", 11);
     i0.ɵɵelement(5, "path", 12)(6, "path", 13);
     i0.ɵɵelementEnd()()()()();
 } if (rf & 2) {
-    const ctx_r3 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("disabled", ctx_r3.disabled);
-    i0.ɵɵadvance(1);
-    i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r3.closeIconColor)("--chip-close-icon-cross-color", ctx_r3.closeIconCrossColor);
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("disabled", ctx_r0.disabled);
+    i0.ɵɵadvance();
+    i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r0.closeIconColor)("--chip-close-icon-cross-color", ctx_r0.closeIconCrossColor);
 } }
-const _c1$a = function (a0) { return { "cursor": a0 }; };
-const _c2$7 = function (a0) { return { "pointer-events": a0 }; };
-const _c3$6 = ["*"];
 class MrdChipComponent {
     cdr;
     chipText;
@@ -4973,42 +4976,42 @@ class MrdChipComponent {
             this.close.emit();
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(t) { return new (t || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdChipComponent, selectors: [["mrd-chip"]], viewQuery: function MrdChipComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$f, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
-        } }, inputs: { primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], color: ["color", "color", colorThemeAttribute], backgroundColor: ["backgroundColor", "backgroundColor", colorAttribute], clickable: ["clickable", "clickable", booleanAttribute], closeable: ["closeable", "closeable", booleanAttribute], prefixIcon: "prefixIcon", suffixIcon: "suffixIcon", disabled: ["disabled", "disabled", booleanAttribute], closeIconColor: ["closeIconColor", "closeIconColor", colorAttribute], closeIconCrossColor: ["closeIconCrossColor", "closeIconCrossColor", colorAttribute] }, outputs: { close: "close" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$6, decls: 8, vars: 14, consts: [[1, "mrd-chip-container", 3, "ngStyle"], [1, "mrd-chip-content", 3, "ngStyle"], [3, "svgIcon", 4, "ngIf"], ["showIfTruncated", "", 1, "mrd-chip-text", 3, "mrdToolTip"], ["chipText", ""], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click", 4, "ngIf"], [3, "svgIcon"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click"], ["mrd-icon", "", 1, "chip-close-icon"], ["xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 36 36", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["transform", "translate(0 0.001)"], ["id", "X-gross-hellgrau", "transform", "translate(0 -0.001)"], ["d", "M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z", "transform", "translate(-164.994 -2778)", 1, "kreis"], ["d", "M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z", "transform", "translate(205.343 34.343)", 1, "x"]], template: function MrdChipComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { primary: [2, "primary", "primary", booleanAttribute], accent: [2, "accent", "accent", booleanAttribute], warn: [2, "warn", "warn", booleanAttribute], color: [2, "color", "color", colorThemeAttribute], backgroundColor: [2, "backgroundColor", "backgroundColor", colorAttribute], clickable: [2, "clickable", "clickable", booleanAttribute], closeable: [2, "closeable", "closeable", booleanAttribute], prefixIcon: "prefixIcon", suffixIcon: "suffixIcon", disabled: [2, "disabled", "disabled", booleanAttribute], closeIconColor: [2, "closeIconColor", "closeIconColor", colorAttribute], closeIconCrossColor: [2, "closeIconCrossColor", "closeIconCrossColor", colorAttribute] }, outputs: { close: "close" }, standalone: false, ngContentSelectors: _c1$a, decls: 8, vars: 14, consts: [["chipText", ""], [1, "mrd-chip-container", 3, "ngStyle"], [1, "mrd-chip-content", 3, "ngStyle"], [3, "svgIcon", 4, "ngIf"], ["showIfTruncated", "", 1, "mrd-chip-text", 3, "mrdToolTip"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click", 4, "ngIf"], [3, "svgIcon"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "click", "disabled"], ["mrd-icon", "", 1, "chip-close-icon"], ["xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 36 36", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["transform", "translate(0 0.001)"], ["id", "X-gross-hellgrau", "transform", "translate(0 -0.001)"], ["d", "M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z", "transform", "translate(-164.994 -2778)", 1, "kreis"], ["d", "M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z", "transform", "translate(205.343 34.343)", 1, "x"]], template: function MrdChipComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
-            i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
-            i0.ɵɵtemplate(2, MrdChipComponent_mrd_icon_2_Template, 1, 1, "mrd-icon", 2);
-            i0.ɵɵelementStart(3, "div", 3, 4);
+            i0.ɵɵelementStart(0, "div", 1)(1, "div", 2);
+            i0.ɵɵtemplate(2, MrdChipComponent_mrd_icon_2_Template, 1, 1, "mrd-icon", 3);
+            i0.ɵɵelementStart(3, "div", 4, 0);
             i0.ɵɵprojection(5);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(6, MrdChipComponent_mrd_icon_6_Template, 1, 1, "mrd-icon", 2);
+            i0.ɵɵtemplate(6, MrdChipComponent_mrd_icon_6_Template, 1, 1, "mrd-icon", 3);
             i0.ɵɵelementEnd();
             i0.ɵɵtemplate(7, MrdChipComponent_mrd_button_7_Template, 7, 5, "mrd-button", 5);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--chip-color", ctx.color)("--chip-background-color", ctx.backgroundColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$a, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$7, ctx.disabled ? "none" : "auto"));
-            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c2$7, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
+            i0.ɵɵadvance();
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c3$6, ctx.disabled ? "none" : "auto"));
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.prefixIcon);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("mrdToolTip", ctx.chipTextValue);
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.suffixIcon);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.closeable);
-        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, MrdIconComponent, MrdButtonComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]   .mrd-chip-text[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]{display:block;min-width:1em;width:1em;height:1em}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.kreis[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.kreis[_ngcontent-%COMP%]{fill:var(--chip-close-icon-color)}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.x[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.x[_ngcontent-%COMP%]{fill:var(--chip-close-icon-cross-color)}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, MrdIconComponent, MrdButtonComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center;width:fit-content;max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-content[_ngcontent-%COMP%]   .mrd-chip-text[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]{display:block;min-width:1em;width:1em;height:1em}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.kreis[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.kreis[_ngcontent-%COMP%]{fill:var(--chip-close-icon-color)}.mrd-chip-container[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.x[_ngcontent-%COMP%], .mrd-chip-container[_ngcontent-%COMP%]   span[mrd-icon].chip-close-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]   path.x[_ngcontent-%COMP%]{fill:var(--chip-close-icon-cross-color)}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdChipComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdChipComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-chip', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-chip-container\"\r\n  [ngStyle]=\"{ 'cursor': disabled || !clickable ? 'default' : 'pointer' }\"\r\n  [style.--chip-color]=\"color\"\r\n  [style.--chip-background-color]=\"backgroundColor\"\r\n>\r\n  <div class=\"mrd-chip-content\" [ngStyle]=\"{'pointer-events': disabled ? 'none' : 'auto'}\">\r\n    <mrd-icon *ngIf=\"prefixIcon\" [svgIcon]=\"prefixIcon\"></mrd-icon>\r\n    <div #chipText class=\"mrd-chip-text\" [mrdToolTip]=\"chipTextValue\" showIfTruncated>\r\n      <ng-content></ng-content>\r\n    </div>\r\n    <mrd-icon *ngIf=\"suffixIcon\" [svgIcon]=\"suffixIcon\"></mrd-icon>\r\n  </div>\r\n\r\n  <mrd-button icon-button fullIcon diameter=\"1em\" (click)=\"closeClicked($event)\" [disabled]=\"disabled\" *ngIf=\"closeable\">\r\n    <!-- <mrd-icon svgIcon=\"mrd_close_grey\"></mrd-icon> -->\r\n     <span mrd-icon [style.--chip-close-icon-color]=\"closeIconColor\" [style.--chip-close-icon-cross-color]=\"closeIconCrossColor\" class=\"chip-close-icon\">\r\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\r\n        <g transform=\"translate(0 0.001)\">\r\n          <g id=\"X-gross-hellgrau\" transform=\"translate(0 -0.001)\">\r\n            <path class=\"kreis\" d=\"M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z\" transform=\"translate(-164.994 -2778)\"></path>\r\n            <path class=\"x\" d=\"M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z\" transform=\"translate(205.343 34.343)\"></path>\r\n          </g>\r\n        </g>\r\n      </svg>\r\n     </span>\r\n  </mrd-button>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:100%}.mrd-chip-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container .mrd-chip-content{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container .mrd-chip-content .mrd-chip-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container mrd-icon,.mrd-chip-container span[mrd-icon].chip-close-icon{display:block;min-width:1em;width:1em;height:1em}.mrd-chip-container mrd-icon svg path.kreis,.mrd-chip-container span[mrd-icon].chip-close-icon svg path.kreis{fill:var(--chip-close-icon-color)}.mrd-chip-container mrd-icon svg path.x,.mrd-chip-container span[mrd-icon].chip-close-icon svg path.x{fill:var(--chip-close-icon-cross-color)}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { chipText: [{
+        args: [{ selector: 'mrd-chip', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-chip-container\"\n  [ngStyle]=\"{ 'cursor': disabled || !clickable ? 'default' : 'pointer' }\"\n  [style.--chip-color]=\"color\"\n  [style.--chip-background-color]=\"backgroundColor\"\n  >\n  <div class=\"mrd-chip-content\" [ngStyle]=\"{'pointer-events': disabled ? 'none' : 'auto'}\">\n    <mrd-icon *ngIf=\"prefixIcon\" [svgIcon]=\"prefixIcon\"></mrd-icon>\n    <div #chipText class=\"mrd-chip-text\" [mrdToolTip]=\"chipTextValue\" showIfTruncated>\n      <ng-content></ng-content>\n    </div>\n    <mrd-icon *ngIf=\"suffixIcon\" [svgIcon]=\"suffixIcon\"></mrd-icon>\n  </div>\n\n  <mrd-button icon-button fullIcon diameter=\"1em\" (click)=\"closeClicked($event)\" [disabled]=\"disabled\" *ngIf=\"closeable\">\n    <!-- <mrd-icon svgIcon=\"mrd_close_grey\"></mrd-icon> -->\n     <span mrd-icon [style.--chip-close-icon-color]=\"closeIconColor\" [style.--chip-close-icon-cross-color]=\"closeIconCrossColor\" class=\"chip-close-icon\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\n        <g transform=\"translate(0 0.001)\">\n          <g id=\"X-gross-hellgrau\" transform=\"translate(0 -0.001)\">\n            <path class=\"kreis\" d=\"M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z\" transform=\"translate(-164.994 -2778)\"></path>\n            <path class=\"x\" d=\"M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z\" transform=\"translate(205.343 34.343)\"></path>\n          </g>\n        </g>\n      </svg>\n     </span>\n  </mrd-button>\n</div>\n", styles: [":host{display:flex;flex-direction:column;justify-content:center;align-items:center;width:fit-content;max-width:100%}.mrd-chip-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding:.125em .7em;gap:1em;border-radius:2em;background-color:var(--chip-background-color);max-width:100%}.mrd-chip-container .mrd-chip-content{display:flex;flex-direction:row;align-items:center;width:100%;gap:.5em;line-height:1.5em;max-width:100%;min-width:calc(100% - 2em)}.mrd-chip-container .mrd-chip-content .mrd-chip-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--chip-color)}.mrd-chip-container mrd-icon,.mrd-chip-container span[mrd-icon].chip-close-icon{display:block;min-width:1em;width:1em;height:1em}.mrd-chip-container mrd-icon svg path.kreis,.mrd-chip-container span[mrd-icon].chip-close-icon svg path.kreis{fill:var(--chip-close-icon-color)}.mrd-chip-container mrd-icon svg path.x,.mrd-chip-container span[mrd-icon].chip-close-icon svg path.x{fill:var(--chip-close-icon-cross-color)}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { chipText: [{
             type: ViewChild,
             args: ['chipText']
         }], primary: [{
@@ -5050,6 +5053,7 @@ class MrdChipComponent {
         }], close: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdChipComponent, { className: "MrdChipComponent", filePath: "lib/modules/mrd-chip/components/mrd-chip/mrd-chip.component.ts", lineNumber: 14 }); })();
 
 /**
  * Dieses Modul stellt den Mrd-Chip zur Verfügung.
@@ -5058,14 +5062,14 @@ class MrdChipComponent {
  * @class MrdChipModule
  */
 class MrdChipModule {
-    /** @nocollapse */ static ɵfac = function MrdChipModule_Factory(t) { return new (t || MrdChipModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdChipModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdChipModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdChipModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             MrdIconModule,
             MrdButtonModule,
             MrdTooltipModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdChipModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdChipModule, [{
         type: NgModule,
         args: [{
                 declarations: [MrdChipComponent],
@@ -5083,53 +5087,54 @@ class MrdChipModule {
         MrdButtonModule,
         MrdTooltipModule], exports: [MrdChipComponent] }); })();
 
+const _c0$e = (a0, a1) => ({ "today": a0, "selected": a1 });
+const _c1$9 = a0 => ({ "selected": a0 });
 function MrdDatepickerComponent_ng_container_10_div_17_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 8);
 } }
-const _c0$e = function (a0, a1) { return { "today": a0, "selected": a1 }; };
 function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
-    const _r10 = i0.ɵɵgetCurrentView();
+    const _r1 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 12);
-    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template_mrd_button_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r10); const d_r8 = restoredCtx.$implicit; const ctx_r9 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r9.dateSelected(d_r8)); });
+    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template_mrd_button_click_0_listener() { const d_r2 = i0.ɵɵrestoreView(_r1).$implicit; const ctx_r2 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r2.dateSelected(d_r2)); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const d_r8 = ctx.$implicit;
-    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$e, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", d_r8.day, " ");
+    const d_r2 = ctx.$implicit;
+    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$e, d_r2.isToday && !d_r2.isSelected.value, d_r2.isSelected.value));
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate1(" ", d_r2.day, " ");
 } }
 function MrdDatepickerComponent_ng_container_10_ng_container_18_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵtemplate(1, MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template, 2, 6, "mrd-button", 11);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r4 = i0.ɵɵnextContext(2);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r4.days);
+    const ctx_r2 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngForOf", ctx_r2.days);
 } }
 function MrdDatepickerComponent_ng_container_10_ng_container_19_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
-    const _r14 = i0.ɵɵgetCurrentView();
+    const _r4 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 14);
-    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_10_ng_container_19_mrd_button_1_Template_mrd_button_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r14); const d_r12 = restoredCtx.$implicit; const ctx_r13 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r13.dateSelected(d_r12)); })("isHovering", function MrdDatepickerComponent_ng_container_10_ng_container_19_mrd_button_1_Template_mrd_button_isHovering_0_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r15 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r15.endHoverDate = $event); });
+    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_10_ng_container_19_mrd_button_1_Template_mrd_button_click_0_listener() { const d_r5 = i0.ɵɵrestoreView(_r4).$implicit; const ctx_r2 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r2.dateSelected(d_r5)); })("isHovering", function MrdDatepickerComponent_ng_container_10_ng_container_19_mrd_button_1_Template_mrd_button_isHovering_0_listener($event) { i0.ɵɵrestoreView(_r4); const ctx_r2 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r2.endHoverDate = $event); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const d_r12 = ctx.$implicit;
-    const ctx_r11 = i0.ɵɵnextContext(3);
-    i0.ɵɵclassProp("today", d_r12.isToday && !d_r12.isSelected.value)("selected", d_r12.isSelected.value)("rangeSelected", d_r12.rangeSelected.value)("betweenRange", d_r12.betweenRange.value)("rangeHover", d_r12.rangeHover.value)("rangeHoverBetween", d_r12.rangeHoverBetween.value);
-    i0.ɵɵproperty("mrdDateRangeIndicator", d_r12)("startDate", ctx_r11.startDate)("endDate", ctx_r11.endDate)("hoverEndDate", ctx_r11.endHoverDate);
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", d_r12.day, " ");
+    const d_r5 = ctx.$implicit;
+    const ctx_r2 = i0.ɵɵnextContext(3);
+    i0.ɵɵclassProp("today", d_r5.isToday && !d_r5.isSelected.value)("selected", d_r5.isSelected.value)("rangeSelected", d_r5.rangeSelected.value)("betweenRange", d_r5.betweenRange.value)("rangeHover", d_r5.rangeHover.value)("rangeHoverBetween", d_r5.rangeHoverBetween.value);
+    i0.ɵɵproperty("mrdDateRangeIndicator", d_r5)("startDate", ctx_r2.startDate)("endDate", ctx_r2.endDate)("hoverEndDate", ctx_r2.endHoverDate);
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate1(" ", d_r5.day, " ");
 } }
 function MrdDatepickerComponent_ng_container_10_ng_container_19_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵtemplate(1, MrdDatepickerComponent_ng_container_10_ng_container_19_mrd_button_1_Template, 2, 17, "mrd-button", 13);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r5 = i0.ɵɵnextContext(2);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r5.days)("ngForTrackBy", ctx_r5.trackById);
+    const ctx_r2 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngForOf", ctx_r2.days)("ngForTrackBy", ctx_r2.trackById);
 } }
 function MrdDatepickerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
@@ -5155,33 +5160,30 @@ function MrdDatepickerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) 
     i0.ɵɵtext(15, "So");
     i0.ɵɵelementEnd()();
     i0.ɵɵelementStart(16, "div", 9);
-    i0.ɵɵtemplate(17, MrdDatepickerComponent_ng_container_10_div_17_Template, 1, 0, "div", 10);
-    i0.ɵɵtemplate(18, MrdDatepickerComponent_ng_container_10_ng_container_18_Template, 2, 1, "ng-container", 6);
-    i0.ɵɵtemplate(19, MrdDatepickerComponent_ng_container_10_ng_container_19_Template, 2, 2, "ng-container", 6);
+    i0.ɵɵtemplate(17, MrdDatepickerComponent_ng_container_10_div_17_Template, 1, 0, "div", 10)(18, MrdDatepickerComponent_ng_container_10_ng_container_18_Template, 2, 1, "ng-container", 6)(19, MrdDatepickerComponent_ng_container_10_ng_container_19_Template, 2, 2, "ng-container", 6);
     i0.ɵɵelementEnd();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r0 = i0.ɵɵnextContext();
+    const ctx_r2 = i0.ɵɵnextContext();
     i0.ɵɵadvance(17);
-    i0.ɵɵproperty("ngForOf", ctx_r0.placeholder);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", !ctx_r0.range);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r0.range);
+    i0.ɵɵproperty("ngForOf", ctx_r2.placeholder);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", !ctx_r2.range);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r2.range);
 } }
-const _c1$9 = function (a0) { return { "selected": a0 }; };
 function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) { if (rf & 1) {
-    const _r19 = i0.ɵɵgetCurrentView();
+    const _r6 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 17);
-    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template_mrd_button_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r19); const y_r17 = restoredCtx.$implicit; const ctx_r18 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r18.yearSelected(y_r17)); });
+    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template_mrd_button_click_0_listener() { const y_r7 = i0.ɵɵrestoreView(_r6).$implicit; const ctx_r2 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r2.yearSelected(y_r7)); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const y_r17 = ctx.$implicit;
-    const ctx_r16 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$9, y_r17 === ctx_r16.year));
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", y_r17, " ");
+    const y_r7 = ctx.$implicit;
+    const ctx_r2 = i0.ɵɵnextContext(2);
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$9, y_r7 === ctx_r2.year));
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate1(" ", y_r7, " ");
 } }
 function MrdDatepickerComponent_ng_container_11_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
@@ -5190,23 +5192,23 @@ function MrdDatepickerComponent_ng_container_11_Template(rf, ctx) { if (rf & 1) 
     i0.ɵɵelementEnd();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r1 = i0.ɵɵnextContext();
+    const ctx_r2 = i0.ɵɵnextContext();
     i0.ɵɵadvance(2);
-    i0.ɵɵproperty("ngForOf", ctx_r1.yearRange);
+    i0.ɵɵproperty("ngForOf", ctx_r2.yearRange);
 } }
 function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template(rf, ctx) { if (rf & 1) {
-    const _r24 = i0.ɵɵgetCurrentView();
+    const _r8 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 17);
-    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template_mrd_button_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r24); const i_r22 = restoredCtx.index; const ctx_r23 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r23.monthSelected(i_r22)); });
+    i0.ɵɵlistener("click", function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template_mrd_button_click_0_listener() { const i_r9 = i0.ɵɵrestoreView(_r8).index; const ctx_r2 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r2.monthSelected(i_r9)); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const m_r21 = ctx.$implicit;
-    const i_r22 = ctx.index;
-    const ctx_r20 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$9, i_r22 === ctx_r20.monthIndex));
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", m_r21, " ");
+    const m_r10 = ctx.$implicit;
+    const i_r9 = ctx.index;
+    const ctx_r2 = i0.ɵɵnextContext(2);
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$9, i_r9 === ctx_r2.monthIndex));
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate1(" ", m_r10, " ");
 } }
 function MrdDatepickerComponent_ng_container_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
@@ -5307,7 +5309,7 @@ class MrdDatepickerComponent {
                 isToday: dayMoment.isSame(this.today, 'day'),
                 isSelected: new ObservableValue(this.date && dayMoment.isSame(this.date, 'day')),
                 isWeekend: dayMoment.day() === 0 || dayMoment.day() === 6,
-                isDisabled: new ObservableValue(false),
+                isDisabled: new ObservableValue(false), // Placeholder for future logic
                 betweenRange: new ObservableValue(false),
                 rangeSelected: new ObservableValue(false),
                 rangeHover: new ObservableValue(false),
@@ -5460,8 +5462,8 @@ class MrdDatepickerComponent {
             this.cdr.markForCheck();
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdDatepickerComponent_Factory(t) { return new (t || MrdDatepickerComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDatepickerComponent, selectors: [["mrd-datepicker"]], inputs: { date: "date", range: ["range-picker", "range", booleanAttribute], startDate: "startDate", endDate: "endDate" }, outputs: { dateChanged: "dateChanged", dateRangeChanged: "dateRangeChanged" }, features: [i0.ɵɵInputTransformsFeature], decls: 13, vars: 5, consts: [[1, "mrd-datepicker-container"], [1, "mrd-datepicker-header"], [3, "click"], [1, "mrd-datepicker-header-navigation"], ["icon-button", "", 3, "click"], [1, "mrd-datepicker-content"], [4, "ngIf"], [1, "mrd-datepicker-weekdays"], [1, "mrd-datepicker-weekday"], [1, "mrd-datepicker-weekdays", "wrap"], ["class", "mrd-datepicker-weekday", 4, "ngFor", "ngForOf"], ["icon-button", "", "fullIcon", "", "diameter", "2em", "class", "mrd-datepicker-weekday", 3, "class", "click", 4, "ngFor", "ngForOf"], ["icon-button", "", "fullIcon", "", "diameter", "2em", 1, "mrd-datepicker-weekday", 3, "click"], ["icon-button", "", "fullIcon", "", "diameter", "2em", "class", "mrd-datepicker-weekday", 3, "today", "selected", "rangeSelected", "betweenRange", "rangeHover", "rangeHoverBetween", "mrdDateRangeIndicator", "startDate", "endDate", "hoverEndDate", "click", "isHovering", 4, "ngFor", "ngForOf", "ngForTrackBy"], ["icon-button", "", "fullIcon", "", "diameter", "2em", 1, "mrd-datepicker-weekday", 3, "mrdDateRangeIndicator", "startDate", "endDate", "hoverEndDate", "click", "isHovering"], [1, "mrd-datepicker-years"], ["outline-button", "", "diameter", "2em", 3, "class", "click", 4, "ngFor", "ngForOf"], ["outline-button", "", "diameter", "2em", 3, "click"], [1, "mrd-datepicker-months"]], template: function MrdDatepickerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdDatepickerComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDatepickerComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDatepickerComponent, selectors: [["mrd-datepicker"]], inputs: { date: "date", range: [2, "range-picker", "range", booleanAttribute], startDate: "startDate", endDate: "endDate" }, outputs: { dateChanged: "dateChanged", dateRangeChanged: "dateRangeChanged" }, standalone: false, decls: 13, vars: 5, consts: [[1, "mrd-datepicker-container"], [1, "mrd-datepicker-header"], [3, "click"], [1, "mrd-datepicker-header-navigation"], ["icon-button", "", 3, "click"], [1, "mrd-datepicker-content"], [4, "ngIf"], [1, "mrd-datepicker-weekdays"], [1, "mrd-datepicker-weekday"], [1, "mrd-datepicker-weekdays", "wrap"], ["class", "mrd-datepicker-weekday", 4, "ngFor", "ngForOf"], ["icon-button", "", "fullIcon", "", "diameter", "2em", "class", "mrd-datepicker-weekday", 3, "class", "click", 4, "ngFor", "ngForOf"], ["icon-button", "", "fullIcon", "", "diameter", "2em", 1, "mrd-datepicker-weekday", 3, "click"], ["icon-button", "", "fullIcon", "", "diameter", "2em", "class", "mrd-datepicker-weekday", 3, "today", "selected", "rangeSelected", "betweenRange", "rangeHover", "rangeHoverBetween", "mrdDateRangeIndicator", "startDate", "endDate", "hoverEndDate", "click", "isHovering", 4, "ngFor", "ngForOf", "ngForTrackBy"], ["icon-button", "", "fullIcon", "", "diameter", "2em", 1, "mrd-datepicker-weekday", 3, "click", "isHovering", "mrdDateRangeIndicator", "startDate", "endDate", "hoverEndDate"], [1, "mrd-datepicker-years"], ["outline-button", "", "diameter", "2em", 3, "class", "click", 4, "ngFor", "ngForOf"], ["outline-button", "", "diameter", "2em", 3, "click"], [1, "mrd-datepicker-months"]], template: function MrdDatepickerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1)(2, "mrd-button", 2);
             i0.ɵɵlistener("click", function MrdDatepickerComponent_Template_mrd_button_click_2_listener() { return ctx.changeView(); });
             i0.ɵɵtext(3);
@@ -5475,25 +5477,23 @@ class MrdDatepickerComponent {
             i0.ɵɵtext(8, ">");
             i0.ɵɵelementEnd()()();
             i0.ɵɵelementStart(9, "div", 5);
-            i0.ɵɵtemplate(10, MrdDatepickerComponent_ng_container_10_Template, 20, 3, "ng-container", 6);
-            i0.ɵɵtemplate(11, MrdDatepickerComponent_ng_container_11_Template, 3, 1, "ng-container", 6);
-            i0.ɵɵtemplate(12, MrdDatepickerComponent_ng_container_12_Template, 3, 1, "ng-container", 6);
+            i0.ɵɵtemplate(10, MrdDatepickerComponent_ng_container_10_Template, 20, 3, "ng-container", 6)(11, MrdDatepickerComponent_ng_container_11_Template, 3, 1, "ng-container", 6)(12, MrdDatepickerComponent_ng_container_12_Template, 3, 1, "ng-container", 6);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵadvance(3);
-            i0.ɵɵtextInterpolate2("", ctx.months[ctx.monthIndex], " ", ctx.year, "");
+            i0.ɵɵtextInterpolate2("", ctx.months[ctx.monthIndex], " ", ctx.year);
             i0.ɵɵadvance(7);
             i0.ɵɵproperty("ngIf", ctx.showDays);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.showYears);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.showMonths);
         } }, styles: ["[_nghost-%COMP%]{height:300px}.mrd-datepicker-container[_ngcontent-%COMP%]{width:275px;min-height:272px;max-height:312px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-header[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-header[_ngcontent-%COMP%]   .mrd-datepicker-header-navigation[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]{padding:12px}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]{display:flex;flex-direction:row;gap:4px}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays.wrap[_ngcontent-%COMP%]{flex-wrap:wrap}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday[_ngcontent-%COMP%]{width:30px;height:30px;text-align:center;font-weight:700;color:#666;border-radius:50%}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday.today[_ngcontent-%COMP%]{border:1px solid #000}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday.betweenRange[_ngcontent-%COMP%]{background:#69b02288}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday.rangeHover[_ngcontent-%COMP%]{border:1px dotted #666}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday.rangeHover.rangeHoverBetween[_ngcontent-%COMP%]{border-radius:0}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday.selected[_ngcontent-%COMP%], .mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]   .mrd-datepicker-weekday.rangeSelected[_ngcontent-%COMP%]{background:#68b022}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]     .mrd-datepicker-weekday.selected .mrd-button-text-content, .mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]     .mrd-datepicker-weekday.rangeSelected .mrd-button-text-content, .mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-weekdays[_ngcontent-%COMP%]     .mrd-datepicker-weekday.betweenRange .mrd-button-text-content{color:#fff}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-years[_ngcontent-%COMP%], .mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-months[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:8px}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]   .mrd-datepicker-months[_ngcontent-%COMP%]   mrd-button[_ngcontent-%COMP%]{width:105px}.mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]     .mrd-datepicker-years .selected .mrd-button-container, .mrd-datepicker-container[_ngcontent-%COMP%]   .mrd-datepicker-content[_ngcontent-%COMP%]     .mrd-datepicker-months .selected .mrd-button-container{border-color:#68b022;border-width:2px}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatepickerComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatepickerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-datepicker', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-datepicker-container\">\r\n    <div class=\"mrd-datepicker-header\">\r\n        <mrd-button (click)=\"changeView()\">{{months[monthIndex]}} {{year}}</mrd-button>\r\n        <div class=\"mrd-datepicker-header-navigation\">\r\n            <mrd-button icon-button (click)=\"previous()\"><</mrd-button>\r\n            <mrd-button icon-button (click)=\"next()\">></mrd-button>\r\n        </div>\r\n    </div>\r\n    <div class=\"mrd-datepicker-content\">\r\n        <ng-container *ngIf=\"showDays\">\r\n            <div class=\"mrd-datepicker-weekdays\">\r\n                <div class=\"mrd-datepicker-weekday\">Mo</div>\r\n                <div class=\"mrd-datepicker-weekday\">Di</div>\r\n                <div class=\"mrd-datepicker-weekday\">Mi</div>\r\n                <div class=\"mrd-datepicker-weekday\">Do</div>\r\n                <div class=\"mrd-datepicker-weekday\">Fr</div>\r\n                <div class=\"mrd-datepicker-weekday\">Sa</div>\r\n                <div class=\"mrd-datepicker-weekday\">So</div>\r\n            </div>\r\n            <div class=\"mrd-datepicker-weekdays wrap\">\r\n                <div class=\"mrd-datepicker-weekday\" *ngFor=\"let p of placeholder\"></div>\r\n                <ng-container *ngIf=\"!range\">\r\n                    <mrd-button icon-button fullIcon diameter=\"2em\" [class]=\"{'today': d.isToday && !d.isSelected.value, 'selected': d.isSelected.value}\"\r\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days\" (click)=\"dateSelected(d)\">\r\n                        {{d.day}}\r\n                    </mrd-button>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"range\">\r\n                    <mrd-button icon-button fullIcon diameter=\"2em\" \r\n                    [class.today]=\"d.isToday && !d.isSelected.value\" \r\n                    [class.selected]=\"d.isSelected.value\" \r\n                    [class.rangeSelected]=\"d.rangeSelected.value\"\r\n                    [class.betweenRange]=\"d.betweenRange.value\"\r\n                    [class.rangeHover]=\"d.rangeHover.value\"\r\n                    [class.rangeHoverBetween]=\"d.rangeHoverBetween.value\"\r\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days; trackBy: trackById\" (click)=\"dateSelected(d)\"\r\n                        [mrdDateRangeIndicator]=\"d\" [startDate]=\"startDate\" [endDate]=\"endDate\" [hoverEndDate]=\"endHoverDate\" (isHovering)=\"endHoverDate = $event\">\r\n                        {{d.day}}\r\n                    </mrd-button>\r\n                </ng-container>\r\n            </div>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"showYears\">\r\n            <div class=\"mrd-datepicker-years\">\r\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': y === year}\" *ngFor=\"let y of yearRange;\"\r\n                    (click)=\"yearSelected(y)\">\r\n                    {{y}}\r\n                </mrd-button>\r\n            </div>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"showMonths\">\r\n            <div class=\"mrd-datepicker-months\">\r\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': i === monthIndex}\" *ngFor=\"let m of fullMonths; let i = index\"\r\n                    (click)=\"monthSelected(i)\">\r\n                    {{m}}\r\n                </mrd-button>\r\n            </div>\r\n        </ng-container>\r\n    </div>\r\n</div>", styles: [":host{height:300px}.mrd-datepicker-container{width:275px;min-height:272px;max-height:312px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-datepicker-container .mrd-datepicker-header{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-datepicker-container .mrd-datepicker-header .mrd-datepicker-header-navigation{display:flex;flex-direction:row;align-items:center}.mrd-datepicker-container .mrd-datepicker-content{padding:12px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays{display:flex;flex-direction:row;gap:4px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays.wrap{flex-wrap:wrap}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday{width:30px;height:30px;text-align:center;font-weight:700;color:#666;border-radius:50%}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.today{border:1px solid #000}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.betweenRange{background:#69b02288}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover{border:1px dotted #666}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover.rangeHoverBetween{border-radius:0}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.selected,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeSelected{background:#68b022}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.selected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.rangeSelected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.betweenRange .mrd-button-text-content{color:#fff}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-years,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:8px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months mrd-button{width:105px}.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-years .selected .mrd-button-container,.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-months .selected .mrd-button-container{border-color:#68b022;border-width:2px}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { date: [{
+        args: [{ selector: 'mrd-datepicker', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-datepicker-container\">\n    <div class=\"mrd-datepicker-header\">\n        <mrd-button (click)=\"changeView()\">{{months[monthIndex]}} {{year}}</mrd-button>\n        <div class=\"mrd-datepicker-header-navigation\">\n            <mrd-button icon-button (click)=\"previous()\"><</mrd-button>\n            <mrd-button icon-button (click)=\"next()\">></mrd-button>\n        </div>\n    </div>\n    <div class=\"mrd-datepicker-content\">\n        <ng-container *ngIf=\"showDays\">\n            <div class=\"mrd-datepicker-weekdays\">\n                <div class=\"mrd-datepicker-weekday\">Mo</div>\n                <div class=\"mrd-datepicker-weekday\">Di</div>\n                <div class=\"mrd-datepicker-weekday\">Mi</div>\n                <div class=\"mrd-datepicker-weekday\">Do</div>\n                <div class=\"mrd-datepicker-weekday\">Fr</div>\n                <div class=\"mrd-datepicker-weekday\">Sa</div>\n                <div class=\"mrd-datepicker-weekday\">So</div>\n            </div>\n            <div class=\"mrd-datepicker-weekdays wrap\">\n                <div class=\"mrd-datepicker-weekday\" *ngFor=\"let p of placeholder\"></div>\n                <ng-container *ngIf=\"!range\">\n                    <mrd-button icon-button fullIcon diameter=\"2em\" [class]=\"{'today': d.isToday && !d.isSelected.value, 'selected': d.isSelected.value}\"\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days\" (click)=\"dateSelected(d)\">\n                        {{d.day}}\n                    </mrd-button>\n                </ng-container>\n                <ng-container *ngIf=\"range\">\n                    <mrd-button icon-button fullIcon diameter=\"2em\" \n                    [class.today]=\"d.isToday && !d.isSelected.value\" \n                    [class.selected]=\"d.isSelected.value\" \n                    [class.rangeSelected]=\"d.rangeSelected.value\"\n                    [class.betweenRange]=\"d.betweenRange.value\"\n                    [class.rangeHover]=\"d.rangeHover.value\"\n                    [class.rangeHoverBetween]=\"d.rangeHoverBetween.value\"\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days; trackBy: trackById\" (click)=\"dateSelected(d)\"\n                        [mrdDateRangeIndicator]=\"d\" [startDate]=\"startDate\" [endDate]=\"endDate\" [hoverEndDate]=\"endHoverDate\" (isHovering)=\"endHoverDate = $event\">\n                        {{d.day}}\n                    </mrd-button>\n                </ng-container>\n            </div>\n        </ng-container>\n        <ng-container *ngIf=\"showYears\">\n            <div class=\"mrd-datepicker-years\">\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': y === year}\" *ngFor=\"let y of yearRange;\"\n                    (click)=\"yearSelected(y)\">\n                    {{y}}\n                </mrd-button>\n            </div>\n        </ng-container>\n        <ng-container *ngIf=\"showMonths\">\n            <div class=\"mrd-datepicker-months\">\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': i === monthIndex}\" *ngFor=\"let m of fullMonths; let i = index\"\n                    (click)=\"monthSelected(i)\">\n                    {{m}}\n                </mrd-button>\n            </div>\n        </ng-container>\n    </div>\n</div>", styles: [":host{height:300px}.mrd-datepicker-container{width:275px;min-height:272px;max-height:312px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-datepicker-container .mrd-datepicker-header{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-datepicker-container .mrd-datepicker-header .mrd-datepicker-header-navigation{display:flex;flex-direction:row;align-items:center}.mrd-datepicker-container .mrd-datepicker-content{padding:12px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays{display:flex;flex-direction:row;gap:4px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays.wrap{flex-wrap:wrap}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday{width:30px;height:30px;text-align:center;font-weight:700;color:#666;border-radius:50%}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.today{border:1px solid #000}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.betweenRange{background:#69b02288}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover{border:1px dotted #666}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover.rangeHoverBetween{border-radius:0}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.selected,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeSelected{background:#68b022}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.selected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.rangeSelected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.betweenRange .mrd-button-text-content{color:#fff}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-years,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:8px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months mrd-button{width:105px}.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-years .selected .mrd-button-container,.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-months .selected .mrd-button-container{border-color:#68b022;border-width:2px}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { date: [{
             type: Input
         }], range: [{
             type: Input,
@@ -5507,26 +5507,27 @@ class MrdDatepickerComponent {
         }], dateRangeChanged: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdDatepickerComponent, { className: "MrdDatepickerComponent", filePath: "lib/modules/mrd-form-field/components/mrd-datepicker/mrd-datepicker.component.ts", lineNumber: 12 }); })();
 
 function MrdTimepickerComponent_mrd_select_option_9_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "mrd-select-option", 15);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const h_r2 = ctx.$implicit;
-    i0.ɵɵproperty("value", h_r2);
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(h_r2);
+    const h_r1 = ctx.$implicit;
+    i0.ɵɵproperty("value", h_r1);
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate(h_r1);
 } }
 function MrdTimepickerComponent_mrd_select_option_23_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "mrd-select-option", 15);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const m_r3 = ctx.$implicit;
-    i0.ɵɵproperty("value", m_r3);
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(m_r3);
+    const m_r2 = ctx.$implicit;
+    i0.ɵɵproperty("value", m_r2);
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate(m_r2);
 } }
 class MrdTimepickerComponent {
     time = null;
@@ -5569,8 +5570,8 @@ class MrdTimepickerComponent {
         const newTime = moment().year(2020).month(0).day(1).hour(this.hour).minute(this.minute).utc(true);
         this.timeChanged.emit(newTime);
     }
-    /** @nocollapse */ static ɵfac = function MrdTimepickerComponent_Factory(t) { return new (t || MrdTimepickerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTimepickerComponent, selectors: [["mrd-timepicker"]], inputs: { time: "time" }, outputs: { timeChanged: "timeChanged" }, decls: 33, vars: 4, consts: [[1, "mrd-timepicker-container"], [1, "mrd-timepicker-content"], [1, "mrd-timepicker-picker"], ["raised-button", "", 3, "click"], ["mrd-icon", "", 1, "mrd-timepicker-icon-add"], ["width", "24", "height", "25", "viewBox", "0 0 24 25", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z", "fill", "#000"], [3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], ["mrd-icon", "", 1, "mrd-timepicker-icon-sub"], ["width", "24", "height", "25", "viewBox", "0 0 24 25", "fill", "none", "transform", "rotate(180)", "xmlns", "http://www.w3.org/2000/svg"], [1, "mrd-timepicker-separator"], [1, "mrd-timepicker-actions"], ["flat-button", "", "warn", "", 3, "click"], ["flat-button", "", "primary", "", 3, "click"], [3, "value"]], template: function MrdTimepickerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdTimepickerComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdTimepickerComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTimepickerComponent, selectors: [["mrd-timepicker"]], inputs: { time: "time" }, outputs: { timeChanged: "timeChanged" }, standalone: false, decls: 33, vars: 4, consts: [[1, "mrd-timepicker-container"], [1, "mrd-timepicker-content"], [1, "mrd-timepicker-picker"], ["raised-button", "", 3, "click"], ["mrd-icon", "", 1, "mrd-timepicker-icon-add"], ["width", "24", "height", "25", "viewBox", "0 0 24 25", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z", "fill", "#000"], [3, "valueChange", "value"], [3, "value", 4, "ngFor", "ngForOf"], ["mrd-icon", "", 1, "mrd-timepicker-icon-sub"], ["width", "24", "height", "25", "viewBox", "0 0 24 25", "fill", "none", "transform", "rotate(180)", "xmlns", "http://www.w3.org/2000/svg"], [1, "mrd-timepicker-separator"], [1, "mrd-timepicker-actions"], ["flat-button", "", "warn", "", 3, "click"], ["flat-button", "", "primary", "", 3, "click"], [3, "value"]], template: function MrdTimepickerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "mrd-button", 3);
             i0.ɵɵlistener("click", function MrdTimepickerComponent_Template_mrd_button_click_3_listener() { return ctx.hour = (ctx.hour + 1) % 24; });
             i0.ɵɵelementStart(4, "span", 4);
@@ -5580,7 +5581,7 @@ class MrdTimepickerComponent {
             i0.ɵɵelementEnd()()();
             i0.ɵɵnamespaceHTML();
             i0.ɵɵelementStart(7, "mrd-form-field")(8, "mrd-select", 7);
-            i0.ɵɵlistener("valueChange", function MrdTimepickerComponent_Template_mrd_select_valueChange_8_listener($event) { return ctx.hour = $event; });
+            i0.ɵɵtwoWayListener("valueChange", function MrdTimepickerComponent_Template_mrd_select_valueChange_8_listener($event) { i0.ɵɵtwoWayBindingSet(ctx.hour, $event) || (ctx.hour = $event); return $event; });
             i0.ɵɵtemplate(9, MrdTimepickerComponent_mrd_select_option_9_Template, 2, 2, "mrd-select-option", 8);
             i0.ɵɵelementEnd()();
             i0.ɵɵelementStart(10, "mrd-button", 3);
@@ -5603,7 +5604,7 @@ class MrdTimepickerComponent {
             i0.ɵɵelementEnd()()();
             i0.ɵɵnamespaceHTML();
             i0.ɵɵelementStart(21, "mrd-form-field")(22, "mrd-select", 7);
-            i0.ɵɵlistener("valueChange", function MrdTimepickerComponent_Template_mrd_select_valueChange_22_listener($event) { return ctx.minute = $event; });
+            i0.ɵɵtwoWayListener("valueChange", function MrdTimepickerComponent_Template_mrd_select_valueChange_22_listener($event) { i0.ɵɵtwoWayBindingSet(ctx.minute, $event) || (ctx.minute = $event); return $event; });
             i0.ɵɵtemplate(23, MrdTimepickerComponent_mrd_select_option_23_Template, 2, 2, "mrd-select-option", 8);
             i0.ɵɵelementEnd()();
             i0.ɵɵelementStart(24, "mrd-button", 3);
@@ -5624,82 +5625,85 @@ class MrdTimepickerComponent {
             i0.ɵɵelementEnd()()();
         } if (rf & 2) {
             i0.ɵɵadvance(8);
-            i0.ɵɵproperty("value", ctx.hour);
-            i0.ɵɵadvance(1);
+            i0.ɵɵtwoWayProperty("value", ctx.hour);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngForOf", ctx.hours);
             i0.ɵɵadvance(13);
-            i0.ɵɵproperty("value", ctx.minute);
-            i0.ɵɵadvance(1);
+            i0.ɵɵtwoWayProperty("value", ctx.minute);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngForOf", ctx.minutes);
         } }, styles: ["[_nghost-%COMP%]{height:224px}.mrd-timepicker-container[_ngcontent-%COMP%]{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]   .mrd-timepicker-picker[_ngcontent-%COMP%]{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]   .mrd-timepicker-picker[_ngcontent-%COMP%]   mrd-form-field[_ngcontent-%COMP%]{width:100%}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-content[_ngcontent-%COMP%]   .mrd-timepicker-separator[_ngcontent-%COMP%]{font-size:24px}.mrd-timepicker-container[_ngcontent-%COMP%]   .mrd-timepicker-actions[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTimepickerComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTimepickerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-timepicker', template: "<div class=\"mrd-timepicker-container\">\r\n    <div class=\"mrd-timepicker-content\">\r\n        <div class=\"mrd-timepicker-picker\">\r\n            <mrd-button raised-button (click)=\"hour = (hour + 1) % 24\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n            <mrd-form-field>\r\n                <mrd-select [(value)]=\"hour\">\r\n                    <mrd-select-option *ngFor=\"let h of hours\" [value]=\"h\">{{h}}</mrd-select-option>\r\n                </mrd-select>\r\n            </mrd-form-field>\r\n            <mrd-button raised-button (click)=\"hour = (hour - 1 + 24) % 24\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n        </div>\r\n        <span class=\"mrd-timepicker-separator\">:</span>\r\n        <div class=\"mrd-timepicker-picker\">\r\n            <mrd-button raised-button (click)=\"minute = (minute + 1) % 60\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n            <mrd-form-field>\r\n                <mrd-select [(value)]=\"minute\">\r\n                    <mrd-select-option *ngFor=\"let m of minutes\" [value]=\"m\">{{m}}</mrd-select-option>\r\n                </mrd-select>\r\n            </mrd-form-field>\r\n            <mrd-button raised-button (click)=\"minute = (minute - 1 + 60) % 60\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n        </div>\r\n    </div>\r\n    <div class=\"mrd-timepicker-actions\">\r\n        <mrd-button flat-button warn (click)=\"timeChanged.emit(null)\">Abbrechen</mrd-button>\r\n        <mrd-button flat-button primary (click)=\"save()\">OK</mrd-button>\r\n    </div>\r\n</div>", styles: [":host{height:224px}.mrd-timepicker-container{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container .mrd-timepicker-content{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker mrd-form-field{width:100%}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-separator{font-size:24px}.mrd-timepicker-container .mrd-timepicker-actions{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}\n"] }]
-    }], function () { return []; }, { time: [{
+        args: [{ selector: 'mrd-timepicker', standalone: false, template: "<div class=\"mrd-timepicker-container\">\n    <div class=\"mrd-timepicker-content\">\n        <div class=\"mrd-timepicker-picker\">\n            <mrd-button raised-button (click)=\"hour = (hour + 1) % 24\">\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n            <mrd-form-field>\n                <mrd-select [(value)]=\"hour\">\n                    <mrd-select-option *ngFor=\"let h of hours\" [value]=\"h\">{{h}}</mrd-select-option>\n                </mrd-select>\n            </mrd-form-field>\n            <mrd-button raised-button (click)=\"hour = (hour - 1 + 24) % 24\">\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n        </div>\n        <span class=\"mrd-timepicker-separator\">:</span>\n        <div class=\"mrd-timepicker-picker\">\n            <mrd-button raised-button (click)=\"minute = (minute + 1) % 60\">\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n            <mrd-form-field>\n                <mrd-select [(value)]=\"minute\">\n                    <mrd-select-option *ngFor=\"let m of minutes\" [value]=\"m\">{{m}}</mrd-select-option>\n                </mrd-select>\n            </mrd-form-field>\n            <mrd-button raised-button (click)=\"minute = (minute - 1 + 60) % 60\">\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n        </div>\n    </div>\n    <div class=\"mrd-timepicker-actions\">\n        <mrd-button flat-button warn (click)=\"timeChanged.emit(null)\">Abbrechen</mrd-button>\n        <mrd-button flat-button primary (click)=\"save()\">OK</mrd-button>\n    </div>\n</div>", styles: [":host{height:224px}.mrd-timepicker-container{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container .mrd-timepicker-content{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker mrd-form-field{width:100%}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-separator{font-size:24px}.mrd-timepicker-container .mrd-timepicker-actions{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}\n"] }]
+    }], () => [], { time: [{
             type: Input
         }], timeChanged: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdTimepickerComponent, { className: "MrdTimepickerComponent", filePath: "lib/modules/mrd-form-field/components/mrd-timepicker/mrd-timepicker.component.ts", lineNumber: 11 }); })();
 
 const _c0$d = ["baseInput"];
 const _c1$8 = ["textArea"];
 const _c2$6 = ["dateInput"];
 const _c3$5 = ["timeInput"];
+const _c4$2 = [[["", "unfocusedOverlay", ""]]];
+const _c5 = ["[unfocusedOverlay]"];
+const _c6 = a0 => ({ "line-height": a0 });
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
-    const _r11 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "input", 5, 6);
-    i0.ɵɵlistener("click", function MrdInputComponent_input_0_Template_input_click_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r10 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r10.inputClicked($event)); })("focus", function MrdInputComponent_input_0_Template_input_focus_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r12 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r12.focus($event)); })("blur", function MrdInputComponent_input_0_Template_input_blur_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r13 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r13.blur($event)); })("input", function MrdInputComponent_input_0_Template_input_input_0_listener($event) { i0.ɵɵrestoreView(_r11); const ctx_r14 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r14.input($event)); });
+    const _r1 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "input", 9, 0);
+    i0.ɵɵlistener("click", function MrdInputComponent_input_0_Template_input_click_0_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.inputClicked($event)); })("focus", function MrdInputComponent_input_0_Template_input_focus_0_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.focus($event)); })("blur", function MrdInputComponent_input_0_Template_input_blur_0_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.blur($event)); })("input", function MrdInputComponent_input_0_Template_input_input_0_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.input($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵstyleProp("pointer-events", ctx_r0.readonly ? "none" : "auto")("text-align", ctx_r0.textEnd ? "end" : ctx_r0.centered ? "center" : "start")("color", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled ? ctx_r0.disabledColor : ctx_r0.color);
-    i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.maxDigits)("timeInput", ctx_r0.time);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto")("text-align", ctx_r1.textEnd ? "end" : ctx_r1.centered ? "center" : "start")("color", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled ? ctx_r1.disabledColor : ctx_r1.color);
+    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("decimalNumber", ctx_r1.maxDigits || ctx_r1.maxDigits === 0)("nachkommastellen", ctx_r1.maxDigits)("timeInput", ctx_r1.time);
 } }
-const _c4$2 = function (a0) { return { "line-height": a0 }; };
 function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
-    const _r17 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "textarea", 7, 8);
-    i0.ɵɵlistener("click", function MrdInputComponent_textarea_1_Template_textarea_click_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r16 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r16.inputClicked($event)); })("focus", function MrdInputComponent_textarea_1_Template_textarea_focus_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r18 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r18.focus($event)); })("blur", function MrdInputComponent_textarea_1_Template_textarea_blur_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r19 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r19.blur($event)); })("input", function MrdInputComponent_textarea_1_Template_textarea_input_0_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r20 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r20.input($event)); });
+    const _r3 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "textarea", 10, 1);
+    i0.ɵɵlistener("click", function MrdInputComponent_textarea_1_Template_textarea_click_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.inputClicked($event)); })("focus", function MrdInputComponent_textarea_1_Template_textarea_focus_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.focus($event)); })("blur", function MrdInputComponent_textarea_1_Template_textarea_blur_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.blur($event)); })("input", function MrdInputComponent_textarea_1_Template_textarea_input_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.input($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto")("color", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled ? ctx_r1.disabledColor : ctx_r1.color);
-    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c4$2, ctx_r1.lineHeight + "px"));
+    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c6, ctx_r1.lineHeight + "px"));
 } }
 function MrdInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelement(0, "div", null, 9);
+    i0.ɵɵelement(0, "div", null, 2);
 } }
 function MrdInputComponent_div_3_Template(rf, ctx) { if (rf & 1) {
-    const _r23 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "div")(1, "mrd-button", 10);
-    i0.ɵɵlistener("click", function MrdInputComponent_div_3_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r23); const ctx_r22 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r22.toggleClicked()); });
+    const _r4 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div")(1, "mrd-button", 11);
+    i0.ɵɵlistener("click", function MrdInputComponent_div_3_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r4); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.toggleClicked()); });
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(2, "svg", 11)(3, "defs")(4, "style");
+    i0.ɵɵelementStart(2, "svg", 12)(3, "defs")(4, "style");
     i0.ɵɵtext(5, ".a{fill:#494949;}");
     i0.ɵɵelementEnd()();
-    i0.ɵɵelement(6, "path", 12);
+    i0.ɵɵelement(6, "path", 13);
     i0.ɵɵelementEnd()()();
 } if (rf & 2) {
-    const ctx_r3 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("disabled", (ctx_r3.formControl == null ? null : ctx_r3.formControl.disabled) || ctx_r3.disabled);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled);
 } }
 function MrdInputComponent_div_4_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelement(0, "div", null, 13);
+    i0.ɵɵelement(0, "div", null, 3);
 } }
 function MrdInputComponent_div_5_Template(rf, ctx) { if (rf & 1) {
-    const _r26 = i0.ɵɵgetCurrentView();
+    const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div")(1, "mrd-button", 14);
-    i0.ɵɵlistener("click", function MrdInputComponent_div_5_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r26); const ctx_r25 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r25.toggleClicked()); });
+    i0.ɵɵlistener("click", function MrdInputComponent_div_5_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r5); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.toggleClicked()); });
     i0.ɵɵnamespaceSVG();
     i0.ɵɵelementStart(2, "svg", 15);
     i0.ɵɵelement(3, "path", 16)(4, "path", 17)(5, "path", 18);
     i0.ɵɵelementEnd()()();
 } if (rf & 2) {
-    const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("disabled", (ctx_r5.formControl == null ? null : ctx_r5.formControl.disabled) || ctx_r5.disabled);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled);
 } }
 function MrdInputComponent_span_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "span", 19);
@@ -5707,25 +5711,23 @@ function MrdInputComponent_span_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } }
 function MrdInputComponent_ng_template_7_Template(rf, ctx) { if (rf & 1) {
-    const _r28 = i0.ɵɵgetCurrentView();
+    const _r6 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 20);
-    i0.ɵɵlistener("dateChanged", function MrdInputComponent_ng_template_7_Template_mrd_datepicker_dateChanged_0_listener($event) { i0.ɵɵrestoreView(_r28); const ctx_r27 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r27.dateChanged($event)); });
+    i0.ɵɵlistener("dateChanged", function MrdInputComponent_ng_template_7_Template_mrd_datepicker_dateChanged_0_listener($event) { i0.ɵɵrestoreView(_r6); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.dateChanged($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r7 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("date", ctx_r7.value);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("date", ctx_r1.value);
 } }
 function MrdInputComponent_ng_template_8_Template(rf, ctx) { if (rf & 1) {
-    const _r30 = i0.ɵɵgetCurrentView();
+    const _r7 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-timepicker", 21);
-    i0.ɵɵlistener("timeChanged", function MrdInputComponent_ng_template_8_Template_mrd_timepicker_timeChanged_0_listener($event) { i0.ɵɵrestoreView(_r30); const ctx_r29 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r29.timeChanged($event)); });
+    i0.ɵɵlistener("timeChanged", function MrdInputComponent_ng_template_8_Template_mrd_timepicker_timeChanged_0_listener($event) { i0.ɵɵrestoreView(_r7); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.timeChanged($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r8 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("time", ctx_r8.value);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("time", ctx_r1.value);
 } }
-const _c5 = [[["", "unfocusedOverlay", ""]]];
-const _c6 = ["[unfocusedOverlay]"];
 class MrdInputComponent extends BaseObject {
     cdr;
     static DEFAULT_MAX_LENGTH = 512;
@@ -6041,55 +6043,45 @@ class MrdInputComponent extends BaseObject {
         }
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdInputComponent, selectors: [["mrd-input"]], viewQuery: function MrdInputComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$d, 5);
-            i0.ɵɵviewQuery(_c1$8, 5);
-            i0.ɵɵviewQuery(_c2$6, 5);
-            i0.ɵɵviewQuery(_c3$5, 5);
+            i0.ɵɵviewQuery(_c0$d, 5)(_c1$8, 5)(_c2$6, 5)(_c3$5, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.baseInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.timeInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c5);
-            i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 12, "input", 0);
-            i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 1);
-            i0.ɵɵtemplate(2, MrdInputComponent_div_2_Template, 2, 0, "div", 2);
-            i0.ɵɵtemplate(3, MrdInputComponent_div_3_Template, 7, 1, "div", 2);
-            i0.ɵɵtemplate(4, MrdInputComponent_div_4_Template, 2, 0, "div", 2);
-            i0.ɵɵtemplate(5, MrdInputComponent_div_5_Template, 6, 1, "div", 2);
-            i0.ɵɵtemplate(6, MrdInputComponent_span_6_Template, 2, 0, "span", 3);
-            i0.ɵɵtemplate(7, MrdInputComponent_ng_template_7_Template, 1, 1, "ng-template", 4);
+        } }, inputs: { formControl: [0, "mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: [2, "maxLength", "maxLength", numberAttribute], minRows: [2, "minRows", "minRows", numberAttribute], maxRows: [2, "maxRows", "maxRows", numberAttribute], lineHeight: [2, "lineHeight", "lineHeight", numberAttribute], disabled: [2, "disabled", "disabled", booleanAttribute], readonly: [2, "readonly", "readonly", booleanAttribute], required: [2, "required", "required", booleanAttribute], textarea: [2, "textarea", "textarea", booleanAttribute], date: [2, "date", "date", booleanAttribute], rangeStart: [2, "rangeStart", "rangeStart", booleanAttribute], rangeEnd: [2, "rangeEnd", "rangeEnd", booleanAttribute], time: [2, "time", "time", booleanAttribute], customDateTimeToggle: [2, "customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: [2, "validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: [2, "formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: [2, "color", "color", colorAttribute], centered: [2, "text-centered", "centered", booleanAttribute], textEnd: [2, "text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: [2, "autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 9, vars: 15, consts: [["baseInput", ""], ["textArea", ""], ["dateInput", ""], ["timeInput", ""], [3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "backdropClick", "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions"], [3, "click", "focus", "blur", "input", "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput"], ["rows", "1", 3, "click", "focus", "blur", "input", "value", "disabled", "placeholder", "ngStyle"], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click", "disabled"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "click", "disabled"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "dateChanged", "date"], [3, "timeChanged", "time"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c4$2);
+            i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 12, "input", 4)(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 5)(2, MrdInputComponent_div_2_Template, 2, 0, "div", 6)(3, MrdInputComponent_div_3_Template, 7, 1, "div", 6)(4, MrdInputComponent_div_4_Template, 2, 0, "div", 6)(5, MrdInputComponent_div_5_Template, 6, 1, "div", 6)(6, MrdInputComponent_span_6_Template, 2, 0, "span", 7)(7, MrdInputComponent_ng_template_7_Template, 1, 1, "ng-template", 8);
             i0.ɵɵlistener("backdropClick", function MrdInputComponent_Template_ng_template_backdropClick_7_listener() { return ctx.showDatepicker.value = false; });
-            i0.ɵɵtemplate(8, MrdInputComponent_ng_template_8_Template, 1, 1, "ng-template", 4);
+            i0.ɵɵtemplate(8, MrdInputComponent_ng_template_8_Template, 1, 1, "ng-template", 8);
             i0.ɵɵlistener("backdropClick", function MrdInputComponent_Template_ng_template_backdropClick_8_listener() { return ctx.showTimepicker.value = false; });
         } if (rf & 2) {
             i0.ɵɵproperty("ngIf", !ctx.textarea);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.textarea);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.date);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.date && !ctx.customDateTimeToggle && !ctx.rangeStart && !ctx.rangeEnd);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.time);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", ctx.time && !ctx.customDateTimeToggle);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", !ctx.isFocused);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.dateInputElement)("cdkConnectedOverlayOpen", ctx.showDatepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.timeInputElement)("cdkConnectedOverlayOpen", ctx.showTimepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
         } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, DecimalNumberDirective, TimeInputDirective, MrdDatepickerComponent, MrdTimepickerComponent], styles: ["[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdInputComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdInputComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  [decimalNumber]=\"maxDigits || maxDigits === 0\" [nachkommastellen]=\"maxDigits\"\r\n  [timeInput]=\"time\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 14.986 17.127\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\r\n      <defs><style>.a{fill:#494949;}</style></defs>\r\n      <path class=\"a\" d=\"M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z\" transform=\"translate(0 0)\"></path>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<div #timeInput *ngIf=\"time\"></div>\r\n<div *ngIf=\"time && !customDateTimeToggle\">  \r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M12 6V12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M16.24 16.24L12 12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false;\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showTimepicker.value = false;\"\r\n>\r\n  <mrd-timepicker\r\n    [time]=\"value\"\r\n    (timeChanged)=\"timeChanged($event)\"\r\n  ></mrd-timepicker>\r\n</ng-template>", styles: [":host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { baseInputElement: [{
+        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<input #baseInput\n  (click)=\"inputClicked($event)\"\n  (focus)=\"focus($event)\"\n  (blur)=\"blur($event)\"\n  [value]=\"value\"\n  (input)=\"input($event)\"\n  [disabled]=\"formControl?.disabled || disabled\"\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\n  [decimalNumber]=\"maxDigits || maxDigits === 0\" [nachkommastellen]=\"maxDigits\"\n  [timeInput]=\"time\"\n  *ngIf=\"!textarea\"\n  >\n\n<textarea #textArea\n  (click)=\"inputClicked($event)\"\n  (focus)=\"focus($event)\"\n  (blur)=\"blur($event)\"\n  [value]=\"value\"\n  (input)=\"input($event)\"\n  [disabled]=\"formControl?.disabled || disabled\"\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\n  *ngIf=\"textarea\"\n  rows=\"1\"\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\n></textarea>\n\n\n<div #dateInput *ngIf=\"date\"></div>\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\n    <svg mrd-icon xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 14.986 17.127\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\n      <defs><style>.a{fill:#494949;}</style></defs>\n      <path class=\"a\" d=\"M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z\" transform=\"translate(0 0)\"></path>\n    </svg>\n  </mrd-button>\n</div>\n\n<div #timeInput *ngIf=\"time\"></div>\n<div *ngIf=\"time && !customDateTimeToggle\">  \n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\n    <svg mrd-icon viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path d=\"M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      <path d=\"M12 6V12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      <path d=\"M16.24 16.24L12 12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n    </svg>\n  </mrd-button>\n</div>\n\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\n</span>\n\n<ng-template\n  cdk-connected-overlay\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  (backdropClick)=\"showDatepicker.value = false;\"\n  >\n  <mrd-datepicker\n    [date]=\"value\"\n    (dateChanged)=\"dateChanged($event)\"\n  ></mrd-datepicker>\n</ng-template>\n\n<ng-template\n  cdk-connected-overlay\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  (backdropClick)=\"showTimepicker.value = false;\"\n  >\n  <mrd-timepicker\n    [time]=\"value\"\n    (timeChanged)=\"timeChanged($event)\"\n  ></mrd-timepicker>\n</ng-template>", styles: [":host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { baseInputElement: [{
             type: ViewChild,
             args: ['baseInput']
         }], textAreaElement: [{
@@ -6180,6 +6172,7 @@ class MrdInputComponent extends BaseObject {
         }], inputChange: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdInputComponent, { className: "MrdInputComponent", filePath: "lib/modules/mrd-form-field/components/mrd-input/mrd-input.component.ts", lineNumber: 19 }); })();
 class MrdDatePickerToggle {
     elementRef;
     mrdDateTimePickerToggle;
@@ -6198,17 +6191,18 @@ class MrdDatePickerToggle {
             this.mrdDateTimePickerToggle.toggleClicked();
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdDatePickerToggle_Factory(t) { return new (t || MrdDatePickerToggle)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵfac = function MrdDatePickerToggle_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDatePickerToggle)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdDatePickerToggle, selectors: [["", "mrdDateTimePickerToggle", ""]], hostBindings: function MrdDatePickerToggle_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("click", function MrdDatePickerToggle_click_HostBindingHandler($event) { return ctx.onClick($event); });
-        } }, inputs: { mrdDateTimePickerToggle: "mrdDateTimePickerToggle" } });
+        } }, inputs: { mrdDateTimePickerToggle: "mrdDateTimePickerToggle" }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatePickerToggle, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatePickerToggle, [{
         type: Directive,
         args: [{
-                selector: '[mrdDateTimePickerToggle]'
+                selector: '[mrdDateTimePickerToggle]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ElementRef }]; }, { mrdDateTimePickerToggle: [{
+    }], () => [{ type: i0.ElementRef }], { mrdDateTimePickerToggle: [{
             type: Input,
             args: ['mrdDateTimePickerToggle']
         }], onClick: [{
@@ -6216,13 +6210,13 @@ class MrdDatePickerToggle {
             args: ['click', ['$event']]
         }] }); })();
 
+const _c0$c = ["*"];
+const _c1$7 = (a0, a1, a2) => ({ "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 });
 function MrdLabelComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵtext(1, "\u00A0*");
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$c = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
-const _c1$7 = ["*"];
 class MrdLabelComponent extends BasePushStrategyObject {
     cdr;
     set labelTop(value) {
@@ -6242,31 +6236,32 @@ class MrdLabelComponent extends BasePushStrategyObject {
         this.watch(this.required.changed, new SubscriptionHandler(() => this.cdr.detectChanges()));
         this.watch(this._labelTop.changed, new SubscriptionHandler(() => this.cdr.detectChanges()));
     }
-    /** @nocollapse */ static ɵfac = function MrdLabelComponent_Factory(t) { return new (t || MrdLabelComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$7, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdLabelComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdLabelComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: [2, "labelTop", "labelTop", booleanAttribute], float: "float" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$c, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵtemplate(3, MrdLabelComponent_ng_container_3_Template, 2, 0, "ng-container", 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$c, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$7, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.required.value);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdLabelComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdLabelComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-label', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-label-content\" [ngClass]=\"{'mrd-label-floating': float === 'always' || floating.value, 'mrd-label-hidden': float === 'never' && floating.value, 'mrd-label-top': labelTop}\">\r\n  <span class=\"mrd-label-text\"><ng-content></ng-content><ng-container *ngIf=\"required.value\">&nbsp;*</ng-container></span>\r\n</div>\r\n", styles: [".mrd-label-content{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content .mrd-label-text{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top{justify-content:flex-start}.mrd-label-content.mrd-label-floating{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden{display:none}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { labelTop: [{
+        args: [{ selector: 'mrd-label', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-label-content\" [ngClass]=\"{'mrd-label-floating': float === 'always' || floating.value, 'mrd-label-hidden': float === 'never' && floating.value, 'mrd-label-top': labelTop}\">\n  <span class=\"mrd-label-text\"><ng-content></ng-content><ng-container *ngIf=\"required.value\">&nbsp;*</ng-container></span>\n</div>\n", styles: [".mrd-label-content{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content .mrd-label-text{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top{justify-content:flex-start}.mrd-label-content.mrd-label-floating{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden{display:none}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { labelTop: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], float: [{
             type: Input
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdLabelComponent, { className: "MrdLabelComponent", filePath: "lib/modules/mrd-form-field/components/mrd-label/mrd-label.component.ts", lineNumber: 11 }); })();
 
-const _c0$b = function (a0) { return { "mrd-error-ellipsis": a0 }; };
-const _c1$6 = function (a0) { return { "-webkit-line-clamp": a0 }; };
+const _c0$b = a0 => ({ "mrd-error-ellipsis": a0 });
+const _c1$6 = a0 => ({ "-webkit-line-clamp": a0 });
 class MrdErrorComponent {
     cdr;
     ellipsis;
@@ -6287,38 +6282,39 @@ class MrdErrorComponent {
         }
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdErrorComponent_Factory(t) { return new (t || MrdErrorComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdErrorComponent, selectors: [["mrd-error"]], inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], decls: 2, vars: 8, consts: [["showIfTruncated", "", 1, "mrd-error-container", 3, "ngClass", "ngStyle", "mrdToolTip"]], template: function MrdErrorComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdErrorComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdErrorComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdErrorComponent, selectors: [["mrd-error"]], inputs: { ellipsis: [2, "ellipsis", "ellipsis", numberAttribute] }, standalone: false, decls: 2, vars: 8, consts: [["showIfTruncated", "", 1, "mrd-error-container", 3, "ngClass", "ngStyle", "mrdToolTip"]], template: function MrdErrorComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$b, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$6, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵtextInterpolate1(" ", ctx.error, "\n");
-        } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdErrorComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdErrorComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-error', changeDetection: ChangeDetectionStrategy.OnPush, template: "<span class=\"mrd-error-container\"\r\n  [ngClass]=\"{'mrd-error-ellipsis': ellipsis > 0}\"\r\n  [ngStyle]=\"{'-webkit-line-clamp': ellipsis > 0 ? ellipsis : ''}\"\r\n  [mrdToolTip]=\"error\" showIfTruncated>\r\n  {{error}}\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { ellipsis: [{
+        args: [{ selector: 'mrd-error', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<span class=\"mrd-error-container\"\r\n  [ngClass]=\"{'mrd-error-ellipsis': ellipsis > 0}\"\r\n  [ngStyle]=\"{'-webkit-line-clamp': ellipsis > 0 ? ellipsis : ''}\"\r\n  [mrdToolTip]=\"error\" showIfTruncated>\r\n  {{error}}\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { ellipsis: [{
             type: Input,
             args: [{ transform: numberAttribute }]
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdErrorComponent, { className: "MrdErrorComponent", filePath: "lib/modules/mrd-form-field/components/mrd-error/mrd-error.component.ts", lineNumber: 10 }); })();
 
 const _c0$a = ["optionValue"];
+const _c1$5 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$5 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
+const _c3$4 = (a0, a1, a2, a3) => ({ "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 });
 function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 4);
     i0.ɵɵelement(1, "mrd-checkbox", 5);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
+    i0.ɵɵadvance();
     i0.ɵɵproperty("checked", ctx_r0.selected);
 } }
-const _c1$5 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
-const _c2$5 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
-const _c3$4 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 class MrdSelectOptionComponent {
     elementRef;
     select;
@@ -6373,36 +6369,36 @@ class MrdSelectOptionComponent {
     get focused() {
         return this._focused;
     }
-    /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(t) { return new (t || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectOptionComponent, selectors: [["mrd-select-option"]], viewQuery: function MrdSelectOptionComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$a, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionValue = _t.first);
-        } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$4, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { value: "value", noCheckbox: [2, "noCheckbox", "noCheckbox", booleanAttribute], disabled: [2, "disabled", "disabled", booleanAttribute] }, outputs: { optionClicked: "optionClicked" }, standalone: false, ngContentSelectors: _c2$5, decls: 8, vars: 7, consts: [["optionValue", ""], [1, "mrd-select-option-item", 3, "click", "ngClass"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1$5);
-            i0.ɵɵelementStart(0, "div", 0);
+            i0.ɵɵelementStart(0, "div", 1);
             i0.ɵɵlistener("click", function MrdSelectOptionComponent_Template_div_click_0_listener() { return ctx.optionClick(); });
             i0.ɵɵelementStart(1, "span");
-            i0.ɵɵtemplate(2, MrdSelectOptionComponent_div_2_Template, 2, 1, "div", 1);
+            i0.ɵɵtemplate(2, MrdSelectOptionComponent_div_2_Template, 2, 1, "div", 2);
             i0.ɵɵprojection(3);
-            i0.ɵɵelementStart(4, "span", 2, 3);
+            i0.ɵɵelementStart(4, "span", 3, 0);
             i0.ɵɵprojection(6, 1);
             i0.ɵɵelementEnd();
             i0.ɵɵprojection(7, 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c2$5, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c3$4, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.multiple && !ctx.noCheckbox);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdCheckboxComponent], styles: ["[_nghost-%COMP%]{display:block;width:100%}.mrd-select-search-option[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:inherit}.mrd-select-option-item[_ngcontent-%COMP%]{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-value-text[_ngcontent-%COMP%]{display:flex;flex:1;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-checkbox-wrapper[_ngcontent-%COMP%]{display:flex;pointer-events:none}.mrd-select-option-item.selected[_ngcontent-%COMP%]{background-color:#3fb61a21}.mrd-select-option-item.filtered[_ngcontent-%COMP%]{display:none}.mrd-select-option-item.focused[_ngcontent-%COMP%], .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:#f0f0f0}.mrd-select-option-item[_ngcontent-%COMP%]:last-of-type{border-bottom:none}.mrd-select-option-item.disabled[_ngcontent-%COMP%]{pointer-events:none;opacity:.5}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectOptionComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectOptionComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused, 'disabled': disabled}\" (click)=\"optionClick()\">\r\n  <span>\r\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\r\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\r\n        <ng-container *ngIf=\"selected\">\r\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n          </svg>\r\n        </ng-container>\r\n      </span> -->\r\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\r\n    </div>\r\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\r\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n  </span>\r\n</div>\r\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1;align-items:center}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}.mrd-select-option-item.disabled{pointer-events:none;opacity:.5}\n"] }]
-    }], function () { return [{ type: i0.ElementRef }, { type: MrdSelectComponent, decorators: [{
+        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused, 'disabled': disabled}\" (click)=\"optionClick()\">\n  <span>\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\n        <ng-container *ngIf=\"selected\">\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\n          </svg>\n        </ng-container>\n      </span> -->\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\n    </div>\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\n  </span>\n</div>\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1;align-items:center}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}.mrd-select-option-item.disabled{pointer-events:none;opacity:.5}\n"] }]
+    }], () => [{ type: i0.ElementRef }, { type: MrdSelectComponent, decorators: [{
                 type: Host
-            }] }, { type: i0.ChangeDetectorRef }]; }, { optionValue: [{
+            }] }, { type: i0.ChangeDetectorRef }], { optionValue: [{
             type: ViewChild,
             args: ['optionValue']
         }], value: [{
@@ -6416,6 +6412,7 @@ class MrdSelectOptionComponent {
         }], optionClicked: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdSelectOptionComponent, { className: "MrdSelectOptionComponent", filePath: "lib/modules/mrd-form-field/components/mrd-select-option/mrd-select-option.component.ts", lineNumber: 11 }); })();
 
 const _c0$9 = ["*"];
 class MrdSelectCustomTriggerComponent {
@@ -6423,8 +6420,8 @@ class MrdSelectCustomTriggerComponent {
     triggerClicked() {
         this.triggerClick.emit();
     }
-    /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(t) { return new (t || MrdSelectCustomTriggerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$9, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdSelectCustomTriggerComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, standalone: false, ngContentSelectors: _c0$9, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵlistener("click", function MrdSelectCustomTriggerComponent_Template_span_click_0_listener() { return ctx.triggerClicked(); });
@@ -6432,25 +6429,29 @@ class MrdSelectCustomTriggerComponent {
             i0.ɵɵelementEnd();
         } }, styles: ["[_nghost-%COMP%]{display:block;height:1.5em;width:100%;cursor:pointer;padding-left:2px}[_nghost-%COMP%] > span[_ngcontent-%COMP%]{width:100%;height:100%;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectCustomTriggerComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectCustomTriggerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select-custom-trigger', template: "<span (click)=\"triggerClicked()\"><ng-content></ng-content></span>\r\n", styles: [":host{display:block;height:1.5em;width:100%;cursor:pointer;padding-left:2px}:host>span{width:100%;height:100%;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n"] }]
+        args: [{ selector: 'mrd-select-custom-trigger', standalone: false, template: "<span (click)=\"triggerClicked()\"><ng-content></ng-content></span>\r\n", styles: [":host{display:block;height:1.5em;width:100%;cursor:pointer;padding-left:2px}:host>span{width:100%;height:100%;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n"] }]
     }], null, { triggerClick: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdSelectCustomTriggerComponent, { className: "MrdSelectCustomTriggerComponent", filePath: "lib/modules/mrd-form-field/components/mrd-select-custom-trigger/mrd-select-custom-trigger.component.ts", lineNumber: 9 }); })();
 
 const _c0$8 = ["selectContainer"];
 const _c1$4 = ["searchSelectionInput"];
+const _c2$4 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
+const _c3$3 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
+const _c4$1 = a0 => ({ "mrd-select-disabled": a0 });
 function MrdSelectComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    const _r5 = i0.ɵɵgetCurrentView();
+    const _r1 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵelementStart(1, "input", 4);
-    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_2_Template_input_click_1_listener() { i0.ɵɵrestoreView(_r5); const ctx_r4 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r4.triggerClicked()); })("input", function MrdSelectComponent_ng_container_2_Template_input_input_1_listener($event) { i0.ɵɵrestoreView(_r5); const ctx_r6 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r6.autoCompleteInput($event)); })("keydown", function MrdSelectComponent_ng_container_2_Template_input_keydown_1_listener($event) { i0.ɵɵrestoreView(_r5); const ctx_r7 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r7.onKeyDown($event)); });
+    i0.ɵɵelementStart(1, "input", 5);
+    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_2_Template_input_click_1_listener() { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.triggerClicked()); })("input", function MrdSelectComponent_ng_container_2_Template_input_input_1_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.autoCompleteInput($event)); })("keydown", function MrdSelectComponent_ng_container_2_Template_input_keydown_1_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.onKeyDown($event)); });
     i0.ɵɵelementEnd();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
+    i0.ɵɵadvance();
     i0.ɵɵproperty("value", ctx_r1.showValue);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_1_Template(rf, ctx) { if (rf & 1) {
@@ -6459,124 +6460,122 @@ function MrdSelectComponent_ng_container_3_ng_container_1_Template(rf, ctx) { if
     i0.ɵɵelementContainerEnd();
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    const _r13 = i0.ɵɵgetCurrentView();
+    const _r3 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵelementStart(1, "div", 5);
-    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_1_Template_div_click_1_listener() { i0.ɵɵrestoreView(_r13); const ctx_r12 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r12.triggerClicked()); });
-    i0.ɵɵelementStart(2, "span", 6);
+    i0.ɵɵelementStart(1, "div", 6);
+    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_1_Template_div_click_1_listener() { i0.ɵɵrestoreView(_r3); const ctx_r1 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r1.triggerClicked()); });
+    i0.ɵɵelementStart(2, "span", 7);
     i0.ɵɵtext(3);
     i0.ɵɵelementEnd();
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(4, "svg", 7);
-    i0.ɵɵelement(5, "g", 8)(6, "g", 9);
-    i0.ɵɵelementStart(7, "g", 10);
-    i0.ɵɵelement(8, "path", 11);
+    i0.ɵɵelementStart(4, "svg", 8);
+    i0.ɵɵelement(5, "g", 9)(6, "g", 10);
+    i0.ɵɵelementStart(7, "g", 11);
+    i0.ɵɵelement(8, "path", 12);
     i0.ɵɵelementEnd()()();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r10 = i0.ɵɵnextContext(3);
+    const ctx_r1 = i0.ɵɵnextContext(3);
     i0.ɵɵadvance(2);
-    i0.ɵɵproperty("mrdToolTip", ctx_r10.showValue);
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(ctx_r10.showValue);
+    i0.ɵɵproperty("mrdToolTip", ctx_r1.showValue);
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate(ctx_r1.showValue);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template(rf, ctx) { if (rf & 1) {
-    const _r19 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-chip", 17);
-    i0.ɵɵlistener("close", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template_mrd_chip_close_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r19); const option_r17 = restoredCtx.$implicit; const ctx_r18 = i0.ɵɵnextContext(6); return i0.ɵɵresetView(ctx_r18.chipClosed(option_r17)); });
+    const _r5 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-chip", 18);
+    i0.ɵɵlistener("close", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template_mrd_chip_close_0_listener() { const option_r6 = i0.ɵɵrestoreView(_r5).$implicit; const ctx_r1 = i0.ɵɵnextContext(6); return i0.ɵɵresetView(ctx_r1.chipClosed(option_r6)); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const option_r17 = ctx.$implicit;
-    const ctx_r16 = i0.ɵɵnextContext(6);
-    i0.ɵɵproperty("prefixIcon", ctx_r16.chipPrefixIcon)("suffixIcon", ctx_r16.chipSuffixIcon)("disabled", (ctx_r16.formControl == null ? null : ctx_r16.formControl.disabled) || (ctx_r16.formArrayControl == null ? null : ctx_r16.formArrayControl.disabled) || ctx_r16.disabled);
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(option_r17.optionLabel);
+    const option_r6 = ctx.$implicit;
+    const ctx_r1 = i0.ɵɵnextContext(6);
+    i0.ɵɵproperty("prefixIcon", ctx_r1.chipPrefixIcon)("suffixIcon", ctx_r1.chipSuffixIcon)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || (ctx_r1.formArrayControl == null ? null : ctx_r1.formArrayControl.disabled) || ctx_r1.disabled);
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate(option_r6.optionLabel);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template, 2, 4, "mrd-chip", 16);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template, 2, 4, "mrd-chip", 17);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r15 = i0.ɵɵnextContext(5);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r15.selectedOptions);
+    const ctx_r1 = i0.ɵɵnextContext(5);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngForOf", ctx_r1.selectedOptions);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template(rf, ctx) { if (rf & 1) {
-    const _r21 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "div", 14);
-    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_Template, 2, 1, "ng-container", 2);
-    i0.ɵɵelementStart(2, "div", 15);
-    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_click_2_listener() { i0.ɵɵrestoreView(_r21); const ctx_r20 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r20.triggerClicked()); });
+    const _r4 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div", 15);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_Template, 2, 1, "ng-container", 3);
+    i0.ɵɵelementStart(2, "div", 16);
+    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_click_2_listener() { i0.ɵɵrestoreView(_r4); const ctx_r1 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r1.triggerClicked()); });
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(3, "svg", 7);
-    i0.ɵɵelement(4, "g", 8)(5, "g", 9);
-    i0.ɵɵelementStart(6, "g", 10);
-    i0.ɵɵelement(7, "path", 11);
+    i0.ɵɵelementStart(3, "svg", 8);
+    i0.ɵɵelement(4, "g", 9)(5, "g", 10);
+    i0.ɵɵelementStart(6, "g", 11);
+    i0.ɵɵelement(7, "path", 12);
     i0.ɵɵelementEnd()()()();
 } if (rf & 2) {
-    const ctx_r14 = i0.ɵɵnextContext(4);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r14.selectedOptions && ctx_r14.selectedOptions.length > 0);
+    const ctx_r1 = i0.ɵɵnextContext(4);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r1.selectedOptions && ctx_r1.selectedOptions.length > 0);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵelementStart(1, "div", 12);
-    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template, 8, 1, "div", 13);
+    i0.ɵɵelementStart(1, "div", 13);
+    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template, 8, 1, "div", 14);
     i0.ɵɵelementEnd();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r11 = i0.ɵɵnextContext(3);
+    const ctx_r1 = i0.ɵɵnextContext(3);
     i0.ɵɵadvance(2);
-    i0.ɵɵproperty("ngIf", ctx_r11.chipSelection);
+    i0.ɵɵproperty("ngIf", ctx_r1.chipSelection);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_1_Template, 9, 2, "ng-container", 2);
-    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_Template, 3, 1, "ng-container", 2);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_1_Template, 9, 2, "ng-container", 3)(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_Template, 3, 1, "ng-container", 3);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r9 = i0.ɵɵnextContext(2);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", !ctx_r9.chipSelection);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r9.chipSelection);
+    const ctx_r1 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", !ctx_r1.chipSelection);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r1.chipSelection);
 } }
 function MrdSelectComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_1_Template, 2, 0, "ng-container", 2);
-    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_Template, 3, 2, "ng-container", 2);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_1_Template, 2, 0, "ng-container", 3)(2, MrdSelectComponent_ng_container_3_ng_container_2_Template, 3, 2, "ng-container", 3);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r2 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r2.customTrigger);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", !ctx_r2.customTrigger);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r1.customTrigger);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", !ctx_r1.customTrigger);
 } }
 function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template(rf, ctx) { if (rf & 1) {
-    const _r27 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-select-option", 23)(1, "input", 24, 25);
-    i0.ɵɵlistener("input", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_input_1_listener($event) { i0.ɵɵrestoreView(_r27); const ctx_r26 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r26.searchInput($event)); })("click", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_click_1_listener($event) { return $event.stopPropagation(); })("keydown", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_keydown_1_listener($event) { i0.ɵɵrestoreView(_r27); const ctx_r29 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r29.onKeyDown($event)); });
+    const _r7 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-select-option", 24)(1, "input", 25, 1);
+    i0.ɵɵlistener("input", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_input_1_listener($event) { i0.ɵɵrestoreView(_r7); const ctx_r1 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r1.searchInput($event)); })("click", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_click_1_listener($event) { return $event.stopPropagation(); })("keydown", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_keydown_1_listener($event) { i0.ɵɵrestoreView(_r7); const ctx_r1 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r1.onKeyDown($event)); });
     i0.ɵɵelementEnd();
     i0.ɵɵprojection(3, 2);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r22 = i0.ɵɵnextContext(2);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("value", ctx_r22.searchText);
+    const ctx_r1 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("value", ctx_r1.searchText);
 } }
 function MrdSelectComponent_ng_template_4_mrd_select_option_3_Template(rf, ctx) { if (rf & 1) {
-    const _r31 = i0.ɵɵgetCurrentView();
+    const _r8 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-select-option", 26);
-    i0.ɵɵlistener("optionClicked", function MrdSelectComponent_ng_template_4_mrd_select_option_3_Template_mrd_select_option_optionClicked_0_listener() { i0.ɵɵrestoreView(_r31); const ctx_r30 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r30.removeSelected()); });
+    i0.ɵɵlistener("optionClicked", function MrdSelectComponent_ng_template_4_mrd_select_option_3_Template_mrd_select_option_optionClicked_0_listener() { i0.ɵɵrestoreView(_r8); const ctx_r1 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r1.removeSelected()); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r23 = i0.ɵɵnextContext(2);
+    const ctx_r1 = i0.ɵɵnextContext(2);
     i0.ɵɵproperty("value", null);
-    i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(ctx_r23.multiple ? "Auswahl l\u00F6schen" : "-");
+    i0.ɵɵadvance();
+    i0.ɵɵtextInterpolate(ctx_r1.multiple ? "Auswahl l\u00F6schen" : "-");
 } }
 function MrdSelectComponent_ng_template_4_mrd_select_option_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "mrd-select-option", 27);
@@ -6584,25 +6583,21 @@ function MrdSelectComponent_ng_template_4_mrd_select_option_4_Template(rf, ctx) 
     i0.ɵɵelementEnd();
 } }
 function MrdSelectComponent_ng_template_4_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "div", 18);
-    i0.ɵɵtemplate(1, MrdSelectComponent_ng_template_4_mrd_select_option_1_Template, 4, 1, "mrd-select-option", 19);
-    i0.ɵɵelementStart(2, "div", 20);
-    i0.ɵɵtemplate(3, MrdSelectComponent_ng_template_4_mrd_select_option_3_Template, 2, 2, "mrd-select-option", 21);
-    i0.ɵɵtemplate(4, MrdSelectComponent_ng_template_4_mrd_select_option_4_Template, 2, 0, "mrd-select-option", 22);
+    i0.ɵɵelementStart(0, "div", 19);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_template_4_mrd_select_option_1_Template, 4, 1, "mrd-select-option", 20);
+    i0.ɵɵelementStart(2, "div", 21);
+    i0.ɵɵtemplate(3, MrdSelectComponent_ng_template_4_mrd_select_option_3_Template, 2, 2, "mrd-select-option", 22)(4, MrdSelectComponent_ng_template_4_mrd_select_option_4_Template, 2, 0, "mrd-select-option", 23);
     i0.ɵɵprojection(5, 1);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
-    const ctx_r3 = i0.ɵɵnextContext();
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r3.searchSelection);
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r1.searchSelection);
     i0.ɵɵadvance(2);
-    i0.ɵɵproperty("ngIf", ctx_r3.nullable);
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r3.searchSelection && ctx_r3.searchText.length > 0 && ctx_r3.showNoOptionsOnSearch);
+    i0.ɵɵproperty("ngIf", ctx_r1.nullable);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", ctx_r1.searchSelection && ctx_r1.searchText.length > 0 && ctx_r1.showNoOptionsOnSearch);
 } }
-const _c2$4 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
-const _c3$3 = function (a0) { return { "mrd-select-disabled": a0 }; };
-const _c4$1 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
 class MrdSelectComponent extends BasePushStrategyObject {
     elementRef;
     cdr;
@@ -7138,44 +7133,41 @@ class MrdSelectComponent extends BasePushStrategyObject {
     get optionsMinWidth() {
         return this.selectContainer ? `${this.selectContainer.nativeElement.getBoundingClientRect().width}px` : 'auto';
     }
-    /** @nocollapse */ static ɵfac = function MrdSelectComponent_Factory(t) { return new (t || MrdSelectComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdSelectComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdSelectComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectComponent, selectors: [["mrd-select"]], contentQueries: function MrdSelectComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
-            i0.ɵɵcontentQuery(dirIndex, MrdSelectCustomTriggerComponent, 5);
-            i0.ɵɵcontentQuery(dirIndex, MrdSelectOptionComponent, 4);
+            i0.ɵɵcontentQuery(dirIndex, MrdSelectCustomTriggerComponent, 5)(dirIndex, MrdSelectOptionComponent, 4);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.customTrigger = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.options = _t);
         } }, viewQuery: function MrdSelectComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$8, 5);
-            i0.ɵɵviewQuery(_c1$4, 5);
+            i0.ɵɵviewQuery(_c0$8, 5)(_c1$4, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.selectContainer = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.searchSelectionInput = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$1, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: [0, "mrdFormControl", "formControl"], formArrayControl: [0, "mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", autoComplete: [2, "autoComplete", "autoComplete", booleanAttribute], searchSelection: [2, "searchSelection", "searchSelection", booleanAttribute], chipSelection: [2, "chipSelection", "chipSelection", booleanAttribute], nullable: [2, "nullable", "nullable", booleanAttribute], multiple: [2, "multiple", "multiple", booleanAttribute], closeOnSelect: [2, "closeOnSelect", "closeOnSelect", booleanAttribute], disabled: [2, "disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: [2, "smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: [2, "searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$3, decls: 5, vars: 10, consts: [["selectContainer", ""], ["searchSelectionInput", ""], [1, "mrd-select-container", 3, "ngClass"], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "backdropClick", "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth"], [3, "click", "input", "keydown", "value"], [1, "mrd-select-trigger", 3, "click"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "close", "prefixIcon", "suffixIcon", "disabled"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "input", "click", "keydown", "value"], ["noCheckbox", "", 3, "optionClicked", "value"], ["noCheckbox", ""]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c2$4);
-            i0.ɵɵelementStart(0, "div", 0, 1);
-            i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_2_Template, 2, 1, "ng-container", 2);
-            i0.ɵɵtemplate(3, MrdSelectComponent_ng_container_3_Template, 3, 2, "ng-container", 2);
+            i0.ɵɵelementStart(0, "div", 2, 0);
+            i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_2_Template, 2, 1, "ng-container", 3)(3, MrdSelectComponent_ng_container_3_Template, 3, 2, "ng-container", 3);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(4, MrdSelectComponent_ng_template_4_Template, 6, 3, "ng-template", 3);
+            i0.ɵɵtemplate(4, MrdSelectComponent_ng_template_4_Template, 6, 3, "ng-template", 4);
             i0.ɵɵlistener("backdropClick", function MrdSelectComponent_Template_ng_template_backdropClick_4_listener() { return ctx.showOptions.value = false; });
         } if (rf & 2) {
-            const _r0 = i0.ɵɵreference(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c3$3, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
+            const selectContainer_r9 = i0.ɵɵreference(1);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c4$1, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.autoComplete);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngIf", !ctx.autoComplete);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", _r0)("cdkConnectedOverlayOpen", ctx.showOptions.value)("cdkConnectedOverlayPositions", ctx._positions)("cdkConnectedOverlayMinWidth", ctx.optionsMinWidth);
+            i0.ɵɵadvance();
+            i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", selectContainer_r9)("cdkConnectedOverlayOpen", ctx.showOptions.value)("cdkConnectedOverlayPositions", ctx._positions)("cdkConnectedOverlayMinWidth", ctx.optionsMinWidth);
         } }, styles: ["[_nghost-%COMP%]{width:100%}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%]{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%] > svg[_ngcontent-%COMP%]{margin-right:8px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]{margin-top:4px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%]{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%] > svg[_ngcontent-%COMP%]{margin-right:8px}.mrd-select-container.mrd-select-disabled[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%], .mrd-select-container.mrd-select-disabled[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%]{color:#afa6a6;cursor:inherit}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div #selectContainer class=\"mrd-select-container\" [ngClass]=\"{'mrd-select-disabled': formControl?.disabled || formArrayControl?.disabled || disabled}\">\r\n  <ng-container *ngIf=\"autoComplete\">\r\n    <input\r\n    (click)=\"triggerClicked()\"\r\n    [value]=\"showValue\"\r\n    (input)=\"autoCompleteInput($event)\"\r\n    (keydown)=\"onKeyDown($event)\"\r\n  >\r\n  </ng-container>\r\n\r\n  <ng-container *ngIf=\"!autoComplete\">\r\n    <ng-container *ngIf=\"customTrigger\">\r\n      <ng-content select=\"mrd-select-custom-trigger\"></ng-content>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"!customTrigger\">\r\n      <ng-container *ngIf=\"!chipSelection\">\r\n        <div class=\"mrd-select-trigger\" (click)=\"triggerClicked()\">\r\n          <span [mrdToolTip]=\"showValue\" showIfTruncated>{{showValue}}</span>\r\n          <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\r\n            <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\r\n          </svg>\r\n        </div>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"chipSelection\">\r\n        <div class=\"mrd-chip-container\">\r\n          <div class=\"mrd-chip-values\" *ngIf=\"chipSelection\">\r\n            <ng-container *ngIf=\"selectedOptions && selectedOptions.length > 0\">\r\n              <mrd-chip *ngFor=\"let option of selectedOptions\"\r\n                (close)=\"chipClosed(option)\"\r\n                [prefixIcon]=\"chipPrefixIcon\"\r\n                [suffixIcon]=\"chipSuffixIcon\"\r\n                [disabled]=\"formControl?.disabled || formArrayControl?.disabled || disabled\"\r\n                >{{option.optionLabel}}</mrd-chip>\r\n            </ng-container>\r\n            <div class=\"mrd-select-trigger-chip\" (click)=\"triggerClicked()\">\r\n              <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n                <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\r\n                <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\r\n              </svg>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </ng-container>\r\n    </ng-container>\r\n  </ng-container>\r\n</div>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  cdkConnectedOverlayPanelClass=\"mrd-select-options-overlay\"\r\n  [cdkConnectedOverlayOrigin]=\"selectContainer\"\r\n  [cdkConnectedOverlayOpen]=\"showOptions.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  [cdkConnectedOverlayMinWidth]=\"optionsMinWidth\"\r\n  (backdropClick)=\"showOptions.value = false\"\r\n>\r\n  <div class=\"mrd-select-options-container\">\r\n    <mrd-select-option *ngIf=\"searchSelection\" class=\"mrd-select-search-option\" noCheckbox>\r\n      <input\r\n        placeholder=\"Suche\"\r\n        [value]=\"searchText\"\r\n        (input)=\"searchInput($event)\"\r\n        (click)=\"$event.stopPropagation()\"\r\n        (keydown)=\"onKeyDown($event)\"\r\n        #searchSelectionInput\r\n      >\r\n      <ng-content select=\"[addButton]\"></ng-content>\r\n    </mrd-select-option>\r\n    <div class=\"mrd-select-options-scroll\">\r\n      <mrd-select-option *ngIf=\"nullable\" noCheckbox [value]=\"null\" (optionClicked)=\"removeSelected()\">{{multiple ? 'Auswahl l\u00F6schen' : '-'}}</mrd-select-option>\r\n      <mrd-select-option *ngIf=\"searchSelection && searchText.length > 0 && showNoOptionsOnSearch\" noCheckbox>Keine Eintr\u00E4ge gefunden</mrd-select-option>\r\n      <ng-content select=\"mrd-select-option\"></ng-content>\r\n    </div>\r\n  </div>\r\n</ng-template>", styles: [":host{width:100%}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container .mrd-select-trigger{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container .mrd-select-trigger>span{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container .mrd-select-trigger>svg{margin-right:8px}.mrd-select-container .mrd-chip-container{margin-top:4px}.mrd-select-container .mrd-chip-container .mrd-chip-values{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip>svg{margin-right:8px}.mrd-select-container.mrd-select-disabled .mrd-select-trigger,.mrd-select-container.mrd-select-disabled .mrd-select-trigger-chip{color:#afa6a6;cursor:inherit}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}\n"] }]
-    }], function () { return [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }]; }, { selectContainer: [{
+        args: [{ selector: 'mrd-select', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div #selectContainer class=\"mrd-select-container\" [ngClass]=\"{'mrd-select-disabled': formControl?.disabled || formArrayControl?.disabled || disabled}\">\n  <ng-container *ngIf=\"autoComplete\">\n    <input\n    (click)=\"triggerClicked()\"\n    [value]=\"showValue\"\n    (input)=\"autoCompleteInput($event)\"\n    (keydown)=\"onKeyDown($event)\"\n  >\n  </ng-container>\n\n  <ng-container *ngIf=\"!autoComplete\">\n    <ng-container *ngIf=\"customTrigger\">\n      <ng-content select=\"mrd-select-custom-trigger\"></ng-content>\n    </ng-container>\n    <ng-container *ngIf=\"!customTrigger\">\n      <ng-container *ngIf=\"!chipSelection\">\n        <div class=\"mrd-select-trigger\" (click)=\"triggerClicked()\">\n          <span [mrdToolTip]=\"showValue\" showIfTruncated>{{showValue}}</span>\n          <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\n            <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\n          </svg>\n        </div>\n      </ng-container>\n      <ng-container *ngIf=\"chipSelection\">\n        <div class=\"mrd-chip-container\">\n          <div class=\"mrd-chip-values\" *ngIf=\"chipSelection\">\n            <ng-container *ngIf=\"selectedOptions && selectedOptions.length > 0\">\n              <mrd-chip *ngFor=\"let option of selectedOptions\"\n                (close)=\"chipClosed(option)\"\n                [prefixIcon]=\"chipPrefixIcon\"\n                [suffixIcon]=\"chipSuffixIcon\"\n                [disabled]=\"formControl?.disabled || formArrayControl?.disabled || disabled\"\n                >{{option.optionLabel}}</mrd-chip>\n            </ng-container>\n            <div class=\"mrd-select-trigger-chip\" (click)=\"triggerClicked()\">\n              <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n                <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n                <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\n                <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\n              </svg>\n            </div>\n          </div>\n        </div>\n      </ng-container>\n    </ng-container>\n  </ng-container>\n</div>\n\n<ng-template\n  cdk-connected-overlay\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  cdkConnectedOverlayPanelClass=\"mrd-select-options-overlay\"\n  [cdkConnectedOverlayOrigin]=\"selectContainer\"\n  [cdkConnectedOverlayOpen]=\"showOptions.value\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayMinWidth]=\"optionsMinWidth\"\n  (backdropClick)=\"showOptions.value = false\"\n>\n  <div class=\"mrd-select-options-container\">\n    <mrd-select-option *ngIf=\"searchSelection\" class=\"mrd-select-search-option\" noCheckbox>\n      <input\n        placeholder=\"Suche\"\n        [value]=\"searchText\"\n        (input)=\"searchInput($event)\"\n        (click)=\"$event.stopPropagation()\"\n        (keydown)=\"onKeyDown($event)\"\n        #searchSelectionInput\n      >\n      <ng-content select=\"[addButton]\"></ng-content>\n    </mrd-select-option>\n    <div class=\"mrd-select-options-scroll\">\n      <mrd-select-option *ngIf=\"nullable\" noCheckbox [value]=\"null\" (optionClicked)=\"removeSelected()\">{{multiple ? 'Auswahl l\u00F6schen' : '-'}}</mrd-select-option>\n      <mrd-select-option *ngIf=\"searchSelection && searchText.length > 0 && showNoOptionsOnSearch\" noCheckbox>Keine Eintr\u00E4ge gefunden</mrd-select-option>\n      <ng-content select=\"mrd-select-option\"></ng-content>\n    </div>\n  </div>\n</ng-template>", styles: [":host{width:100%}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container .mrd-select-trigger{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container .mrd-select-trigger>span{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container .mrd-select-trigger>svg{margin-right:8px}.mrd-select-container .mrd-chip-container{margin-top:4px}.mrd-select-container .mrd-chip-container .mrd-chip-values{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip>svg{margin-right:8px}.mrd-select-container.mrd-select-disabled .mrd-select-trigger,.mrd-select-container.mrd-select-disabled .mrd-select-trigger-chip{color:#afa6a6;cursor:inherit}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}\n"] }]
+    }], () => [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }], { selectContainer: [{
             type: ViewChild,
             args: ['selectContainer']
         }], searchSelectionInput: [{
@@ -7243,11 +7235,12 @@ class MrdSelectComponent extends BasePushStrategyObject {
         }], valueChange: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdSelectComponent, { className: "MrdSelectComponent", filePath: "lib/modules/mrd-form-field/components/mrd-select/mrd-select.component.ts", lineNumber: 15 }); })();
 
 const _c0$7 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
-const _c1$3 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
-const _c2$3 = function (a0, a1, a2, a3, a4, a5) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 }; };
-const _c3$2 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
+const _c1$3 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
+const _c2$3 = (a0, a1) => ({ "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 });
+const _c3$2 = (a0, a1, a2, a3, a4, a5) => ({ "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 });
 class MrdFormFieldComponent extends BaseObject {
     cdr;
     config = ConfigUtil.getConfig();
@@ -7558,12 +7551,9 @@ class MrdFormFieldComponent extends BaseObject {
         this.cdr.markForCheck();
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdFormFieldComponent_Factory(t) { return new (t || MrdFormFieldComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdFormFieldComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdFormFieldComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFormFieldComponent, selectors: [["mrd-form-field"]], contentQueries: function MrdFormFieldComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
-            i0.ɵɵcontentQuery(dirIndex, MrdInputComponent, 5);
-            i0.ɵɵcontentQuery(dirIndex, MrdSelectComponent, 5);
-            i0.ɵɵcontentQuery(dirIndex, MrdLabelComponent, 5);
-            i0.ɵɵcontentQuery(dirIndex, MrdErrorComponent, 5);
+            i0.ɵɵcontentQuery(dirIndex, MrdInputComponent, 5)(dirIndex, MrdSelectComponent, 5)(dirIndex, MrdLabelComponent, 5)(dirIndex, MrdErrorComponent, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.input = _t.first);
@@ -7572,7 +7562,7 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.error = _t.first);
         } }, hostVars: 2, hostBindings: function MrdFormFieldComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("font-family", ctx.config == null ? null : ctx.config.baseFont.family);
-        } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$2, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { outline: [2, "outline", "outline", booleanAttribute], fill: [2, "fill", "fill", booleanAttribute], dark: [2, "dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: [2, "rounded", "rounded", booleanAttribute], borderRadius: [2, "borderRadius", "borderRadius", sizeAttribute], centered: [2, "text-centered", "centered", booleanAttribute], textEnd: [2, "text-end", "textEnd", booleanAttribute], fillColor: [2, "fillColor", "fillColor", colorAttribute] }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$3, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c0$7);
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵprojection(2);
@@ -7590,17 +7580,17 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--focus-color", ctx.focusColor)("--error-color", ctx.errorColor)("--focus-color-dark", ctx.focusColorDark)("--error-color-dark", ctx.errorColorDark)("--focus-color-outline", ctx.focusColorOutline)("--error-color-outline", ctx.errorColorOutline)("--ff-border-radius", ctx.borderRadius)("--ff-fill-color", ctx.fillColor);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c1$3, ctx.fill, ctx.outline));
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(21, _c2$3, ctx.hasError, ctx.disabled, ctx.focused, ctx.outline, ctx.fill, ctx.dark));
-        } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:264px}.mrd-form-field-container[_ngcontent-%COMP%]{display:flex;flex-direction:column;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#bcbcbc}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#ebebeb}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]{border-bottom-style:dotted}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]{border-bottom-color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--focus-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-label-content{color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]{border-bottom-color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--error-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-label-content{color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}"], changeDetection: 0 });
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c2$3, ctx.fill, ctx.outline));
+            i0.ɵɵadvance();
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(21, _c3$2, ctx.hasError, ctx.disabled, ctx.focused, ctx.outline, ctx.fill, ctx.dark));
+        } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:264px}.mrd-form-field-container[_ngcontent-%COMP%]{display:flex;flex-direction:column;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#bcbcbc}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#ebebeb}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]{border-bottom-style:dotted}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--focus-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]{border-bottom-color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-label-content{color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--error-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]{border-bottom-color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-label-content{color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:fit-content;min-height:1em}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFormFieldComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFormFieldComponent, [{
         type: Component,
         args: [{ selector: 'mrd-form-field', host: {
                     "[style.font-family]": "config?.baseFont.family"
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-form-field-container\"\r\n  [ngClass]=\"{'mrd-form-field-container-fill': fill, 'mrd-form-field-container-outline': outline}\"\r\n  [style.--focus-color]=\"focusColor\"\r\n  [style.--error-color]=\"errorColor\"\r\n  [style.--focus-color-dark]=\"focusColorDark\"\r\n  [style.--error-color-dark]=\"errorColorDark\"\r\n  [style.--focus-color-outline]=\"focusColorOutline\"\r\n  [style.--error-color-outline]=\"errorColorOutline\"\r\n  [style.--ff-border-radius]=\"borderRadius\"\r\n  [style.--ff-fill-color]=\"fillColor\"\r\n>\r\n  <div class=\"mrd-form-field-content-container\"\r\n    [ngClass]=\"{'mrd-form-field-error': hasError, 'mrd-form-field-disabled': disabled, 'mrd-form-field-focused': focused,\r\n      'mrd-form-field-content-container-outline': outline, 'mrd-form-field-content-container-fill': fill, 'mrd-form-field-dark-theme': dark}\">\r\n    <ng-content select=\"mrd-prefix\"></ng-content>\r\n    <div class=\"mrd-form-field-input-content-container\">\r\n\r\n      <ng-content select=\"mrd-input\"></ng-content>\r\n      <ng-content select=\"mrd-select\"></ng-content>\r\n      <ng-content select=\"mrd-label\"></ng-content>\r\n      <ng-content select=\"mrd-date-range-picker\"></ng-content>\r\n\r\n    </div>\r\n    <ng-content select=\"mrd-suffix\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-form-field-subcontent-container\">\r\n    <ng-content select=\"mrd-hint\"></ng-content>\r\n    <ng-content select=\"mrd-error\"></ng-content>\r\n  </div>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:264px}.mrd-form-field-container{display:flex;flex-direction:column;position:relative}.mrd-form-field-container:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container .mrd-form-field-content-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293d4f}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme{background-color:#bcbcbc}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#ebebeb}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme{background-color:#fff}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#293d4f}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-disabled{border-bottom-style:dotted}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused{border-bottom-color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline{border-color:var(--focus-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused ::ng-deep .s-label-content{color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused ::ng-deep .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error{border-bottom-color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline{border-color:var(--error-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error ::ng-deep .s-label-content{color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error ::ng-deep .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-input-content-container{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container .mrd-form-field-subcontent-container{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { input: [{
+                }, changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-form-field-container\"\r\n  [ngClass]=\"{'mrd-form-field-container-fill': fill, 'mrd-form-field-container-outline': outline}\"\r\n  [style.--focus-color]=\"focusColor\"\r\n  [style.--error-color]=\"errorColor\"\r\n  [style.--focus-color-dark]=\"focusColorDark\"\r\n  [style.--error-color-dark]=\"errorColorDark\"\r\n  [style.--focus-color-outline]=\"focusColorOutline\"\r\n  [style.--error-color-outline]=\"errorColorOutline\"\r\n  [style.--ff-border-radius]=\"borderRadius\"\r\n  [style.--ff-fill-color]=\"fillColor\"\r\n>\r\n  <div class=\"mrd-form-field-content-container\"\r\n    [ngClass]=\"{'mrd-form-field-error': hasError, 'mrd-form-field-disabled': disabled, 'mrd-form-field-focused': focused,\r\n      'mrd-form-field-content-container-outline': outline, 'mrd-form-field-content-container-fill': fill, 'mrd-form-field-dark-theme': dark}\">\r\n    <ng-content select=\"mrd-prefix\"></ng-content>\r\n    <div class=\"mrd-form-field-input-content-container\">\r\n\r\n      <ng-content select=\"mrd-input\"></ng-content>\r\n      <ng-content select=\"mrd-select\"></ng-content>\r\n      <ng-content select=\"mrd-label\"></ng-content>\r\n      <ng-content select=\"mrd-date-range-picker\"></ng-content>\r\n\r\n    </div>\r\n    <ng-content select=\"mrd-suffix\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-form-field-subcontent-container\">\r\n    <ng-content select=\"mrd-hint\"></ng-content>\r\n    <ng-content select=\"mrd-error\"></ng-content>\r\n  </div>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:264px}.mrd-form-field-container{display:flex;flex-direction:column;position:relative}.mrd-form-field-container:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container .mrd-form-field-content-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme{background-color:#bcbcbc}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#ebebeb}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293d4f}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme{background-color:#fff}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#293d4f}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-disabled{border-bottom-style:dotted}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline{border-color:var(--focus-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused{border-bottom-color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused ::ng-deep .s-label-content{color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused ::ng-deep .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline{border-color:var(--error-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error{border-bottom-color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error ::ng-deep .s-label-content{color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error ::ng-deep .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-input-content-container{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container .mrd-form-field-subcontent-container{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:fit-content;min-height:1em}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { input: [{
             type: ContentChild,
             args: [MrdInputComponent]
         }], select: [{
@@ -7639,11 +7629,12 @@ class MrdFormFieldComponent extends BaseObject {
             type: Input,
             args: [{ transform: colorAttribute }]
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdFormFieldComponent, { className: "MrdFormFieldComponent", filePath: "lib/modules/mrd-form-field/components/mrd-form-field/mrd-form-field.component.ts", lineNumber: 23 }); })();
 
 const _c0$6 = ["hintContent"];
-const _c1$2 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
-const _c2$2 = function (a0) { return { "-webkit-line-clamp": a0 }; };
-const _c3$1 = ["*"];
+const _c1$2 = ["*"];
+const _c2$2 = a0 => ({ "mrd-hint-ellipsis": a0 });
+const _c3$1 = a0 => ({ "-webkit-line-clamp": a0 });
 class MrdHintComponent {
     cdr;
     hintContent;
@@ -7661,70 +7652,73 @@ class MrdHintComponent {
         }
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$6, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
-        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$1, decls: 3, vars: 7, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "ngStyle", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { ellipsis: [2, "ellipsis", "ellipsis", numberAttribute] }, standalone: false, ngContentSelectors: _c1$2, decls: 3, vars: 7, consts: [["hintContent", ""], ["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "ngStyle", "mrdToolTip"]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
-            i0.ɵɵelementStart(0, "span", 0, 1);
+            i0.ɵɵelementStart(0, "span", 1, 0);
             i0.ɵɵprojection(2);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$2, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(5, _c2$2, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.tootltipText);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c2$2, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(5, _c3$1, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.tootltipText);
+        } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-hint', changeDetection: ChangeDetectionStrategy.OnPush, template: "<span class=\"mrd-hint-container\"\r\n  [ngClass]=\"{'mrd-hint-ellipsis': ellipsis > 0}\"\r\n  [ngStyle]=\"{'-webkit-line-clamp': ellipsis > 0 ? ellipsis : ''}\"\r\n  [mrdToolTip]=\"tootltipText\" showIfTruncated #hintContent>\r\n  <ng-content></ng-content>\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { hintContent: [{
+        args: [{ selector: 'mrd-hint', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<span class=\"mrd-hint-container\"\r\n  [ngClass]=\"{'mrd-hint-ellipsis': ellipsis > 0}\"\r\n  [ngStyle]=\"{'-webkit-line-clamp': ellipsis > 0 ? ellipsis : ''}\"\r\n  [mrdToolTip]=\"tootltipText\" showIfTruncated #hintContent>\r\n  <ng-content></ng-content>\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { hintContent: [{
             type: ViewChild,
             args: ['hintContent']
         }], ellipsis: [{
             type: Input,
             args: [{ transform: numberAttribute }]
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdHintComponent, { className: "MrdHintComponent", filePath: "lib/modules/mrd-form-field/components/mrd-hint/mrd-hint.component.ts", lineNumber: 11 }); })();
 
 const _c0$5 = ["*"];
 class MrdPrefixComponent {
-    /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(t) { return new (t || MrdPrefixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$5, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdPrefixComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], standalone: false, ngContentSelectors: _c0$5, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
-        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
+        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdPrefixComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdPrefixComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
+        args: [{ selector: 'mrd-prefix', standalone: false, template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdPrefixComponent, { className: "MrdPrefixComponent", filePath: "lib/modules/mrd-form-field/components/mrd-prefix/mrd-prefix.component.ts", lineNumber: 9 }); })();
 
 const _c0$4 = ["*"];
 class MrdSuffixComponent {
-    /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(t) { return new (t || MrdSuffixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$4, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdSuffixComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], standalone: false, ngContentSelectors: _c0$4, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
-        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
+        } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSuffixComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSuffixComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
+        args: [{ selector: 'mrd-suffix', standalone: false, template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdSuffixComponent, { className: "MrdSuffixComponent", filePath: "lib/modules/mrd-form-field/components/mrd-suffix/mrd-suffix.component.ts", lineNumber: 9 }); })();
 
 const _c0$3 = ["dateInput"];
+const _c1$1 = [[["mrd-input"]]];
+const _c2$1 = ["mrd-input"];
 function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 1) {
-    const _r3 = i0.ɵɵgetCurrentView();
+    const _r1 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 5);
-    i0.ɵɵlistener("dateRangeChanged", function MrdDateRangePickerComponent_ng_template_6_Template_mrd_datepicker_dateRangeChanged_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r2 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r2.rangeChanged($event)); });
+    i0.ɵɵlistener("dateRangeChanged", function MrdDateRangePickerComponent_ng_template_6_Template_mrd_datepicker_dateRangeChanged_0_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.rangeChanged($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵproperty("startDate", ctx_r1.startValue)("endDate", ctx_r1.endValue);
 } }
-const _c1$1 = [[["mrd-input"]]];
-const _c2$1 = ["mrd-input"];
 class MrdDateRangePickerComponent {
     inputs;
     dateInputElement;
@@ -7789,7 +7783,7 @@ class MrdDateRangePickerComponent {
             this.showDatepicker.value = false;
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdDateRangePickerComponent_Factory(t) { return new (t || MrdDateRangePickerComponent)(); };
+    /** @nocollapse */ static ɵfac = function MrdDateRangePickerComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDateRangePickerComponent)(); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDateRangePickerComponent, selectors: [["mrd-date-range-picker"]], contentQueries: function MrdDateRangePickerComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdInputComponent, 4);
         } if (rf & 2) {
@@ -7800,11 +7794,11 @@ class MrdDateRangePickerComponent {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, ngContentSelectors: _c2$1, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, standalone: false, ngContentSelectors: _c2$1, decls: 7, vars: 4, consts: [["dateInput", ""], [1, "mrd-date-range-picker-container"], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "backdropClick", "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions"], ["range-picker", "", 3, "dateRangeChanged", "startDate", "endDate"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1$1);
-            i0.ɵɵelementStart(0, "div", 0);
+            i0.ɵɵelementStart(0, "div", 1);
             i0.ɵɵprojection(1);
-            i0.ɵɵelement(2, "div", null, 1);
+            i0.ɵɵelement(2, "div", null, 0);
             i0.ɵɵelementStart(4, "mrd-button", 2);
             i0.ɵɵlistener("click", function MrdDateRangePickerComponent_Template_mrd_button_click_4_listener() { return ctx.showDatepicker.value = !ctx.showDatepicker.value; });
             i0.ɵɵelement(5, "mrd-icon", 3);
@@ -7816,16 +7810,17 @@ class MrdDateRangePickerComponent {
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.dateInputElement)("cdkConnectedOverlayOpen", ctx.showDatepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
         } }, dependencies: [i1$2.CdkConnectedOverlay, MrdButtonComponent, MrdIconComponent, MrdDatepickerComponent], styles: [".mrd-date-range-picker-container[_ngcontent-%COMP%]{display:flex;flex-direction:row}"] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDateRangePickerComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDateRangePickerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-date-range-picker', template: "<div class=\"mrd-date-range-picker-container\">\r\n    <ng-content select=\"mrd-input\"></ng-content>\r\n    <div #dateInput></div>\r\n    <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"showDatepicker.value = !showDatepicker.value\"><mrd-icon svgIcon=\"mrd_calendar\"></mrd-icon></mrd-button>\r\n</div>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false\"\r\n>\r\n  <mrd-datepicker\r\n    range-picker\r\n    [startDate]=\"startValue\"\r\n    [endDate]=\"endValue\"\r\n    (dateRangeChanged)=\"rangeChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>", styles: [".mrd-date-range-picker-container{display:flex;flex-direction:row}\n"] }]
-    }], function () { return []; }, { inputs: [{
+        args: [{ selector: 'mrd-date-range-picker', standalone: false, template: "<div class=\"mrd-date-range-picker-container\">\r\n    <ng-content select=\"mrd-input\"></ng-content>\r\n    <div #dateInput></div>\r\n    <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"showDatepicker.value = !showDatepicker.value\"><mrd-icon svgIcon=\"mrd_calendar\"></mrd-icon></mrd-button>\r\n</div>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false\"\r\n>\r\n  <mrd-datepicker\r\n    range-picker\r\n    [startDate]=\"startValue\"\r\n    [endDate]=\"endValue\"\r\n    (dateRangeChanged)=\"rangeChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>", styles: [".mrd-date-range-picker-container{display:flex;flex-direction:row}\n"] }]
+    }], () => [], { inputs: [{
             type: ContentChildren,
             args: [MrdInputComponent]
         }], dateInputElement: [{
             type: ViewChild,
             args: ['dateInput']
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdDateRangePickerComponent, { className: "MrdDateRangePickerComponent", filePath: "lib/modules/mrd-form-field/components/mrd-date-range-picker/mrd-date-range-picker.component.ts", lineNumber: 13 }); })();
 
 class MrdDateRangeIndicatorDirective {
     _elementRef;
@@ -7890,15 +7885,16 @@ class MrdDateRangeIndicatorDirective {
         //   });
         // }, 500);
     }
-    /** @nocollapse */ static ɵfac = function MrdDateRangeIndicatorDirective_Factory(t) { return new (t || MrdDateRangeIndicatorDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdDateRangeIndicatorDirective, selectors: [["", "mrdDateRangeIndicator", ""]], inputs: { startDate: "startDate", buttonDate: ["mrdDateRangeIndicator", "buttonDate"], hoverEndDate: "hoverEndDate", endDate: "endDate" }, outputs: { isHovering: "isHovering" } });
+    /** @nocollapse */ static ɵfac = function MrdDateRangeIndicatorDirective_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDateRangeIndicatorDirective)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdDateRangeIndicatorDirective, selectors: [["", "mrdDateRangeIndicator", ""]], inputs: { startDate: "startDate", buttonDate: [0, "mrdDateRangeIndicator", "buttonDate"], hoverEndDate: "hoverEndDate", endDate: "endDate" }, outputs: { isHovering: "isHovering" }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDateRangeIndicatorDirective, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDateRangeIndicatorDirective, [{
         type: Directive,
         args: [{
-                selector: '[mrdDateRangeIndicator]'
+                selector: '[mrdDateRangeIndicator]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ElementRef }]; }, { startDate: [{
+    }], () => [{ type: i0.ElementRef }], { startDate: [{
             type: Input
         }], buttonDate: [{
             type: Input,
@@ -7913,7 +7909,7 @@ class MrdDateRangeIndicatorDirective {
 
 ;
 class MrdFormFieldModule {
-    /** @nocollapse */ static ɵfac = function MrdFormFieldModule_Factory(t) { return new (t || MrdFormFieldModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdFormFieldModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdFormFieldModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdFormFieldModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             OverlayModule,
@@ -7924,7 +7920,7 @@ class MrdFormFieldModule {
             MrdIconModule,
             MrdDirectiveModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFormFieldModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFormFieldModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -8009,7 +8005,7 @@ i0.ɵɵsetComponentScope(MrdTimepickerComponent, [i1$1.NgForOf, MrdButtonCompone
     MrdSelectComponent,
     MrdSelectOptionComponent], []);
 
-const _c0$2 = function (a0) { return { "small": a0 }; };
+const _c0$2 = a0 => ({ "small": a0 });
 class MrdDecimalComponent {
     cdr;
     set backgroundColor(value) {
@@ -8105,10 +8101,10 @@ class MrdDecimalComponent {
         }
         this.cdr.markForCheck();
     }
-    /** @nocollapse */ static ɵfac = function MrdDecimalComponent_Factory(t) { return new (t || MrdDecimalComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵfac = function MrdDecimalComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDecimalComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDecimalComponent, selectors: [["mrd-decimal"]], hostVars: 6, hostBindings: function MrdDecimalComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("align-items", ctx.textEnd ? "flex-end" : ctx.centered ? "center" : "flex-start")("background-color", ctx.backgroundColor)("color", ctx.color);
-        } }, inputs: { backgroundColor: "backgroundColor", color: "color", textEnd: ["text-end", "textEnd", booleanAttribute], centered: ["text-centered", "centered", booleanAttribute], value: "value", maxDigits: ["maxDigits", "maxDigits", numberAttribute], minDigits: ["minDigits", "minDigits", numberAttribute], tausendertrennpunkt: ["tausendertrennpunkt", "tausendertrennpunkt", booleanAttribute], smallDigits: ["smallDigits", "smallDigits", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], decls: 5, vars: 5, consts: [[1, "mrd-decimal-container"], [1, "mrd-decimal-content"], [1, "mrd-digits-content", 3, "ngClass"]], template: function MrdDecimalComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { backgroundColor: "backgroundColor", color: "color", textEnd: [2, "text-end", "textEnd", booleanAttribute], centered: [2, "text-centered", "centered", booleanAttribute], value: "value", maxDigits: [2, "maxDigits", "maxDigits", numberAttribute], minDigits: [2, "minDigits", "minDigits", numberAttribute], tausendertrennpunkt: [2, "tausendertrennpunkt", "tausendertrennpunkt", booleanAttribute], smallDigits: [2, "smallDigits", "smallDigits", booleanAttribute] }, standalone: false, decls: 5, vars: 5, consts: [[1, "mrd-decimal-container"], [1, "mrd-decimal-content"], [1, "mrd-digits-content", 3, "ngClass"]], template: function MrdDecimalComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵtext(2);
             i0.ɵɵelementEnd();
@@ -8118,20 +8114,20 @@ class MrdDecimalComponent {
         } if (rf & 2) {
             i0.ɵɵadvance(2);
             i0.ɵɵtextInterpolate(ctx.decimalValue);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$2, ctx.smallDigits));
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵtextInterpolate(ctx.digitsValue);
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container[_ngcontent-%COMP%]   .mrd-digits-content.small[_ngcontent-%COMP%]{font-size:.8em}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDecimalComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDecimalComponent, [{
         type: Component,
         args: [{ selector: 'mrd-decimal', host: {
                     '[style.align-items]': 'textEnd ? "flex-end" : centered ? "center" : "flex-start"',
                     '[style.background-color]': 'backgroundColor',
                     '[style.color]': 'color'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\n</div>\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { backgroundColor: [{
+                }, changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-decimal-container\">\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\n</div>\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { backgroundColor: [{
             type: Input
         }], color: [{
             type: Input
@@ -8156,13 +8152,14 @@ class MrdDecimalComponent {
             type: Input,
             args: [{ transform: booleanAttribute }]
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdDecimalComponent, { className: "MrdDecimalComponent", filePath: "lib/common/components/mrd-decimal/components/mrd-decimal/mrd-decimal.component.ts", lineNumber: 17 }); })();
 
 class MrdDecimalModule {
-    /** @nocollapse */ static ɵfac = function MrdDecimalModule_Factory(t) { return new (t || MrdDecimalModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdDecimalModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdDecimalModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdDecimalModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDecimalModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDecimalModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -8185,16 +8182,16 @@ var MrdToggleSwitchState;
     MrdToggleSwitchState["RIGHT"] = "right";
 })(MrdToggleSwitchState || (MrdToggleSwitchState = {}));
 
+const _c0$1 = (a0, a1, a2, a3) => ({ "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 });
 function MrdToggleSwitchComponent_div_3_Template(rf, ctx) { if (rf & 1) {
-    const _r2 = i0.ɵɵgetCurrentView();
+    const _r1 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 4)(1, "div", 5);
-    i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_1_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.toggle($event, ctx_r1.MrdToggleSwitchState.LEFT)); });
+    i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_1_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.toggle($event, ctx_r1.MrdToggleSwitchState.LEFT)); });
     i0.ɵɵelementEnd();
     i0.ɵɵelementStart(2, "div", 5);
-    i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r3 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r3.toggle($event, ctx_r3.MrdToggleSwitchState.RIGHT)); });
+    i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r1); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.toggle($event, ctx_r1.MrdToggleSwitchState.RIGHT)); });
     i0.ɵɵelementEnd()();
 } }
-const _c0$1 = function (a0, a1, a2, a3) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 }; };
 class MrdToggleSwitchComponent {
     cdr;
     MrdToggleSwitchState = MrdToggleSwitchState;
@@ -8262,8 +8259,8 @@ class MrdToggleSwitchComponent {
         }
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdToggleSwitchComponent_Factory(t) { return new (t || MrdToggleSwitchComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdToggleSwitchComponent, selectors: [["mrd-toggle-switch"]], inputs: { bgColor: ["bgColor", "bgColor", colorAttribute], bgNeutralColor: ["bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: ["knobColor", "knobColor", colorAttribute], knobNeutralColor: ["knobNeutralColor", "knobNeutralColor", colorAttribute], width: ["width", "width", sizeAttribute], height: ["height", "height", sizeAttribute], bgDisabledColor: ["bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: ["knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: ["disabled", "disabled", booleanAttribute], state: "state" }, outputs: { stateChange: "stateChange" }, features: [i0.ɵɵInputTransformsFeature], decls: 4, vars: 23, consts: [[1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "ngClass", "click"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵfac = function MrdToggleSwitchComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdToggleSwitchComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdToggleSwitchComponent, selectors: [["mrd-toggle-switch"]], inputs: { bgColor: [2, "bgColor", "bgColor", colorAttribute], bgNeutralColor: [2, "bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: [2, "knobColor", "knobColor", colorAttribute], knobNeutralColor: [2, "knobNeutralColor", "knobNeutralColor", colorAttribute], width: [2, "width", "width", sizeAttribute], height: [2, "height", "height", sizeAttribute], bgDisabledColor: [2, "bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: [2, "knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: [2, "disabled", "disabled", booleanAttribute], state: "state" }, outputs: { stateChange: "stateChange" }, standalone: false, decls: 4, vars: 23, consts: [[1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "click", "ngClass"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵlistener("click", function MrdToggleSwitchComponent_Template_div_click_1_listener($event) { return ctx.toggle($event); });
             i0.ɵɵelement(2, "div", 2);
@@ -8271,16 +8268,16 @@ class MrdToggleSwitchComponent {
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--knob-color", ctx.knobColor)("--bg-neutral-color", ctx.bgNeutralColor)("--knob-neutral-color", ctx.knobNeutralColor)("--bg-disabled-color", ctx.bgDisabledColor)("--knob-disabled-color", ctx.knobDisabledColor)("--width", ctx.width)("--height", ctx.height);
-            i0.ɵɵadvance(1);
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(18, _c0$1, ctx.disabled, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && ctx.state === ctx.MrdToggleSwitchState.NEUTRAL);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:-moz-fit-content;width:fit-content;height:-moz-fit-content;height:fit-content}.mrd-toggle-switch-container[_ngcontent-%COMP%]{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-left[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:2px}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-right[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]   .mrd-toggle-switch-neutral-clickarea[_ngcontent-%COMP%]{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-disabled-color)}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:fit-content;height:fit-content}.mrd-toggle-switch-container[_ngcontent-%COMP%]{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-left[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:2px}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-right[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]   .mrd-toggle-switch-neutral-clickarea[_ngcontent-%COMP%]{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-disabled-color)}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToggleSwitchComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToggleSwitchComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-toggle-switch', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div \r\n    [style.--bg-color]=\"bgColor\"\r\n    [style.--knob-color]=\"knobColor\"\r\n    [style.--bg-neutral-color]=\"bgNeutralColor\"\r\n    [style.--knob-neutral-color]=\"knobNeutralColor\"\r\n    [style.--bg-disabled-color]=\"bgDisabledColor\"\r\n    [style.--knob-disabled-color]=\"knobDisabledColor\"\r\n    [style.--width]=\"width\"\r\n    [style.--height]=\"height\"\r\n    class=\"mrd-toggle-switch-container\">\r\n    <div class=\"mrd-toggle-switch-background\" (click)=\"toggle($event)\"\r\n        [ngClass]=\"{'mrd-toggle-switch-disabled': disabled,\r\n                'mrd-toggle-switch-state-left': state === MrdToggleSwitchState.LEFT, \r\n                'mrd-toggle-switch-state-neutral': state === MrdToggleSwitchState.NEUTRAL,\r\n                'mrd-toggle-switch-state-right': state === MrdToggleSwitchState.RIGHT}\">\r\n        <div class=\"mrd-toggle-switch-knob\"></div>\r\n        <div class=\"mrd-toggle-swtich-neutral-clickareas\" *ngIf=\"!disabled && state === MrdToggleSwitchState.NEUTRAL\">\r\n            <div class=\"mrd-toggle-switch-neutral-clickarea\" (click)=\"toggle($event,MrdToggleSwitchState.LEFT)\"></div>\r\n            <div class=\"mrd-toggle-switch-neutral-clickarea\" (click)=\"toggle($event,MrdToggleSwitchState.RIGHT)\"></div>\r\n        </div>\r\n    </div>\r\n</div>", styles: [":host{width:-moz-fit-content;width:fit-content;height:-moz-fit-content;height:fit-content}.mrd-toggle-switch-container{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container .mrd-toggle-switch-background{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container .mrd-toggle-switch-background .mrd-toggle-switch-knob{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-left .mrd-toggle-switch-knob{left:2px}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-right .mrd-toggle-switch-knob{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral .mrd-toggle-switch-knob{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-switch-knob{background-color:var(--knob-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral .mrd-toggle-switch-knob{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-swtich-neutral-clickareas{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-swtich-neutral-clickareas .mrd-toggle-switch-neutral-clickarea{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-disabled{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-disabled .mrd-toggle-switch-knob{background-color:var(--knob-disabled-color)}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { bgColor: [{
+        args: [{ selector: 'mrd-toggle-switch', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div\n  [style.--bg-color]=\"bgColor\"\n  [style.--knob-color]=\"knobColor\"\n  [style.--bg-neutral-color]=\"bgNeutralColor\"\n  [style.--knob-neutral-color]=\"knobNeutralColor\"\n  [style.--bg-disabled-color]=\"bgDisabledColor\"\n  [style.--knob-disabled-color]=\"knobDisabledColor\"\n  [style.--width]=\"width\"\n  [style.--height]=\"height\"\n  class=\"mrd-toggle-switch-container\">\n  <div class=\"mrd-toggle-switch-background\" (click)=\"toggle($event)\"\n        [ngClass]=\"{'mrd-toggle-switch-disabled': disabled,\n                'mrd-toggle-switch-state-left': state === MrdToggleSwitchState.LEFT, \n                'mrd-toggle-switch-state-neutral': state === MrdToggleSwitchState.NEUTRAL,\n                'mrd-toggle-switch-state-right': state === MrdToggleSwitchState.RIGHT}\">\n        <div class=\"mrd-toggle-switch-knob\"></div>\n        <div class=\"mrd-toggle-swtich-neutral-clickareas\" *ngIf=\"!disabled && state === MrdToggleSwitchState.NEUTRAL\">\n            <div class=\"mrd-toggle-switch-neutral-clickarea\" (click)=\"toggle($event,MrdToggleSwitchState.LEFT)\"></div>\n            <div class=\"mrd-toggle-switch-neutral-clickarea\" (click)=\"toggle($event,MrdToggleSwitchState.RIGHT)\"></div>\n        </div>\n    </div>\n</div>", styles: [":host{width:fit-content;height:fit-content}.mrd-toggle-switch-container{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container .mrd-toggle-switch-background{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container .mrd-toggle-switch-background .mrd-toggle-switch-knob{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-left .mrd-toggle-switch-knob{left:2px}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-right .mrd-toggle-switch-knob{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral .mrd-toggle-switch-knob{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-switch-knob{background-color:var(--knob-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral .mrd-toggle-switch-knob{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-swtich-neutral-clickareas{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container .mrd-toggle-switch-background:not(.mrd-toggle-switch-disabled) .mrd-toggle-swtich-neutral-clickareas .mrd-toggle-switch-neutral-clickarea{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-disabled{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container .mrd-toggle-switch-background.mrd-toggle-switch-disabled .mrd-toggle-switch-knob{background-color:var(--knob-disabled-color)}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }], { bgColor: [{
             type: Input,
             args: [{ transform: colorAttribute }]
         }], bgNeutralColor: [{
@@ -8312,13 +8309,14 @@ class MrdToggleSwitchComponent {
         }], stateChange: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdToggleSwitchComponent, { className: "MrdToggleSwitchComponent", filePath: "lib/modules/mrd-toggle-switch/components/mrd-toggle-switch/mrd-toggle-switch.component.ts", lineNumber: 15 }); })();
 
 class MrdToggleSwitchModule {
-    /** @nocollapse */ static ɵfac = function MrdToggleSwitchModule_Factory(t) { return new (t || MrdToggleSwitchModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdToggleSwitchModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdToggleSwitchModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdToggleSwitchModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToggleSwitchModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToggleSwitchModule, [{
         type: NgModule,
         args: [{
                 declarations: [
@@ -8389,20 +8387,21 @@ class MrdStepComponent {
         this.cdr = cdr;
         this.tr = tr;
     }
-    /** @nocollapse */ static ɵfac = function MrdStepComponent_Factory(t) { return new (t || MrdStepComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.TemplateRef)); };
+    /** @nocollapse */ static ɵfac = function MrdStepComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdStepComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.TemplateRef)); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdStepComponent, selectors: [["", "mrdStep", ""]], viewQuery: function MrdStepComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(TemplateRef, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx._implicitContent = _t.first);
-        } }, inputs: { label: ["mrdStep", "label"], mrdStepControl: "mrdStepControl" } });
+        } }, inputs: { label: [0, "mrdStep", "label"], mrdStepControl: "mrdStepControl" }, standalone: false });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdStepComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdStepComponent, [{
         type: Directive,
         args: [{
-                selector: '[mrdStep]'
+                selector: '[mrdStep]',
+                standalone: false
             }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.TemplateRef }]; }, { _implicitContent: [{
+    }], () => [{ type: i0.ChangeDetectorRef }, { type: i0.TemplateRef }], { _implicitContent: [{
             type: ViewChild,
             args: [TemplateRef, { static: true }]
         }], label: [{
@@ -8413,20 +8412,21 @@ class MrdStepComponent {
         }] }); })();
 
 const _c0 = ["mrdStepHeader"];
-const _c1 = function (a0) { return { "next-step-active": a0 }; };
+const _c1 = a0 => ({ "height": a0 });
+const _c2 = a0 => ({ "last-step": a0 });
+const _c3 = (a0, a1, a2, a3, a4, a5) => ({ "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 });
+const _c4 = a0 => ({ "next-step-active": a0 });
 function MrdStepperComponent_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 10);
 } if (rf & 2) {
-    const i_r3 = i0.ɵɵnextContext().index;
-    const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1, ctx_r5.activeIndex > i_r3));
+    const i_r4 = i0.ɵɵnextContext().index;
+    const ctx_r2 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c4, ctx_r2.activeIndex > i_r4));
 } }
-const _c2 = function (a0) { return { "last-step": a0 }; };
-const _c3 = function (a0, a1, a2, a3, a4, a5) { return { "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 }; };
 function MrdStepperComponent_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r8 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "div", 4)(1, "div", 5, 6);
-    i0.ɵɵlistener("click", function MrdStepperComponent_div_1_Template_div_click_1_listener() { const restoredCtx = i0.ɵɵrestoreView(_r8); const step_r2 = restoredCtx.$implicit; const ctx_r7 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r7.activateStep(step_r2.index)); });
+    const _r1 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div", 5)(1, "div", 6, 0);
+    i0.ɵɵlistener("click", function MrdStepperComponent_div_1_Template_div_click_1_listener() { const step_r2 = i0.ɵɵrestoreView(_r1).$implicit; const ctx_r2 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r2.activateStep(step_r2.index)); });
     i0.ɵɵelementStart(3, "div", 7)(4, "span");
     i0.ɵɵtext(5);
     i0.ɵɵelementEnd()();
@@ -8437,28 +8437,27 @@ function MrdStepperComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const step_r2 = ctx.$implicit;
-    const i_r3 = ctx.index;
-    const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c2, i_r3 === ctx_r0.steps.length - 1));
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(7, _c3, step_r2.active, step_r2.touched && step_r2.mrdStepControl && !step_r2.mrdStepControl.valid, ctx_r0.labelposition === "top", ctx_r0.labelposition === "bottom", ctx_r0.labelposition === "left", ctx_r0.labelposition === "right"));
+    const i_r4 = ctx.index;
+    const ctx_r2 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c2, i_r4 === ctx_r2.steps.length - 1));
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(7, _c3, step_r2.active, step_r2.touched && step_r2.mrdStepControl && !step_r2.mrdStepControl.valid, ctx_r2.labelposition === "top", ctx_r2.labelposition === "bottom", ctx_r2.labelposition === "left", ctx_r2.labelposition === "right"));
     i0.ɵɵadvance(4);
     i0.ɵɵtextInterpolate(step_r2.index + 1);
     i0.ɵɵadvance(2);
     i0.ɵɵtextInterpolate1(" ", step_r2.label, " ");
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", i_r3 < ctx_r0.steps.length - 1);
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("ngIf", i_r4 < ctx_r2.steps.length - 1);
 } }
 function MrdStepperComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵelement(1, "mrd-tab-body", 11);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const tab_r9 = ctx.$implicit;
-    i0.ɵɵadvance(1);
-    i0.ɵɵproperty("content", tab_r9.content)("active", tab_r9.active)("index", tab_r9.index)("preserveContent", tab_r9.preserveContent);
+    const tab_r5 = ctx.$implicit;
+    i0.ɵɵadvance();
+    i0.ɵɵproperty("content", tab_r5.content)("active", tab_r5.active)("index", tab_r5.index)("preserveContent", tab_r5.preserveContent);
 } }
-const _c4 = function (a0) { return { "height": a0 }; };
 class MrdStepperComponent extends BaseObject {
     cdr;
     router;
@@ -8581,38 +8580,37 @@ class MrdStepperComponent extends BaseObject {
         }
         this.cdr.detectChanges();
     }
-    /** @nocollapse */ static ɵfac = function MrdStepperComponent_Factory(t) { return new (t || MrdStepperComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i1$3.Router), i0.ɵɵdirectiveInject(i1$3.ActivatedRoute)); };
+    /** @nocollapse */ static ɵfac = function MrdStepperComponent_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdStepperComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i1$3.Router), i0.ɵɵdirectiveInject(i1$3.ActivatedRoute)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdStepperComponent, selectors: [["mrd-stepper"]], contentQueries: function MrdStepperComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdStepComponent, 4);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.steps = _t);
         } }, viewQuery: function MrdStepperComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0, 5);
+            i0.ɵɵviewQuery(MrdTabBodyComponent, 5)(_c0, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.stepBodys = _t);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.stepHeader = _t);
-        } }, inputs: { labelposition: "labelposition", headerHeight: "headerHeight", selectedIndex: "selectedIndex", changeStep: "changeStep", linear: ["linear", "linear", booleanAttribute] }, outputs: { selectedStepChanged: "selectedStepChanged", selectedStepIndexChanged: "selectedStepIndexChanged" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], decls: 4, vars: 5, consts: [[1, "mrd-stepper-steps-container", 3, "ngStyle"], ["class", "mrd-stepper-step-container", 3, "ngClass", 4, "ngFor", "ngForOf"], [1, "mrd-stepper-content-container"], [4, "ngFor", "ngForOf"], [1, "mrd-stepper-step-container", 3, "ngClass"], [1, "mrd-stepper-step", 3, "ngClass", "click"], ["mrdStepHeader", ""], [1, "mrd-stepper-step-icon"], [1, "mrd-stepper-step-label"], ["class", "mrd-stepper-step-separator", 3, "ngClass", 4, "ngIf"], [1, "mrd-stepper-step-separator", 3, "ngClass"], [3, "content", "active", "index", "preserveContent"]], template: function MrdStepperComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 0);
-            i0.ɵɵtemplate(1, MrdStepperComponent_div_1_Template, 9, 14, "div", 1);
+        } }, inputs: { labelposition: "labelposition", headerHeight: "headerHeight", selectedIndex: "selectedIndex", changeStep: "changeStep", linear: [2, "linear", "linear", booleanAttribute] }, outputs: { selectedStepChanged: "selectedStepChanged", selectedStepIndexChanged: "selectedStepIndexChanged" }, standalone: false, features: [i0.ɵɵInheritDefinitionFeature], decls: 4, vars: 5, consts: [["mrdStepHeader", ""], [1, "mrd-stepper-steps-container", 3, "ngStyle"], ["class", "mrd-stepper-step-container", 3, "ngClass", 4, "ngFor", "ngForOf"], [1, "mrd-stepper-content-container"], [4, "ngFor", "ngForOf"], [1, "mrd-stepper-step-container", 3, "ngClass"], [1, "mrd-stepper-step", 3, "click", "ngClass"], [1, "mrd-stepper-step-icon"], [1, "mrd-stepper-step-label"], ["class", "mrd-stepper-step-separator", 3, "ngClass", 4, "ngIf"], [1, "mrd-stepper-step-separator", 3, "ngClass"], [3, "content", "active", "index", "preserveContent"]], template: function MrdStepperComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 1);
+            i0.ɵɵtemplate(1, MrdStepperComponent_div_1_Template, 9, 14, "div", 2);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(2, "div", 2);
-            i0.ɵɵtemplate(3, MrdStepperComponent_ng_container_3_Template, 2, 4, "ng-container", 3);
+            i0.ɵɵelementStart(2, "div", 3);
+            i0.ɵɵtemplate(3, MrdStepperComponent_ng_container_3_Template, 2, 4, "ng-container", 4);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c4, ctx.headerHeight + "px"));
-            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c1, ctx.headerHeight + "px"));
+            i0.ɵɵadvance();
             i0.ɵɵproperty("ngForOf", ctx.steps);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngForOf", ctx.steps);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgStyle, MrdTabBodyComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-stepper-steps-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;flex:1 1 100%}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container.last-step[_ngcontent-%COMP%]{flex:1 0 fit-content}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container[_ngcontent-%COMP%]   .mrd-stepper-step-separator[_ngcontent-%COMP%]{border-bottom:1px solid #000;width:100%;margin-right:-16px;margin-left:-16px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container[_ngcontent-%COMP%]   .mrd-stepper-step-separator.next-step-active[_ngcontent-%COMP%]{border-color:#68b022;border-bottom-width:2px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]{display:flex;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;color:gray;font-weight:700;cursor:pointer}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-active[_ngcontent-%COMP%]:not(.step-invalid){color:#68b022}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-active[_ngcontent-%COMP%]:not(.step-invalid)   .mrd-stepper-step-icon[_ngcontent-%COMP%]{background-color:#68b022}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-active[_ngcontent-%COMP%]:not(.step-invalid)   .mrd-stepper-step-label[_ngcontent-%COMP%]{font-size:16px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-invalid[_ngcontent-%COMP%]{color:#be1212}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-invalid[_ngcontent-%COMP%]   .mrd-stepper-step-icon[_ngcontent-%COMP%]{background-color:#be1212}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-icon[_ngcontent-%COMP%]{border-radius:50%;background-color:gray;color:#fff;min-width:24px;max-width:24px;min-height:24px;max-height:24px;display:flex;flex-direction:column;align-items:center;justify-content:center}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-icon[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{margin-bottom:1px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.topLabel[_ngcontent-%COMP%]{flex-direction:column-reverse}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.bottomLabel[_ngcontent-%COMP%]{flex-direction:column}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.leftLabel[_ngcontent-%COMP%]{flex-direction:row-reverse}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.leftLabel[_ngcontent-%COMP%]   .mrd-stepper-step-label[_ngcontent-%COMP%]{margin-right:8px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.rightLabel[_ngcontent-%COMP%]{flex-direction:row}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.rightLabel[_ngcontent-%COMP%]   .mrd-stepper-step-label[_ngcontent-%COMP%]{margin-left:8px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-label[_ngcontent-%COMP%]{transition:font-size .3s;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-label.label-fit[_ngcontent-%COMP%]{width:-moz-fit-content;width:fit-content}.mrd-stepper-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgStyle, MrdTabBodyComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-stepper-steps-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;flex:1 1 100%}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container.last-step[_ngcontent-%COMP%]{flex:1 0 fit-content}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container[_ngcontent-%COMP%]   .mrd-stepper-step-separator[_ngcontent-%COMP%]{border-bottom:1px solid #000;width:100%;margin-right:-16px;margin-left:-16px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step-container[_ngcontent-%COMP%]   .mrd-stepper-step-separator.next-step-active[_ngcontent-%COMP%]{border-color:#68b022;border-bottom-width:2px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]{display:flex;align-items:center;justify-content:center;min-width:fit-content;height:100%;padding:12px 32px;color:gray;font-weight:700;cursor:pointer}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-active[_ngcontent-%COMP%]:not(.step-invalid){color:#68b022}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-active[_ngcontent-%COMP%]:not(.step-invalid)   .mrd-stepper-step-icon[_ngcontent-%COMP%]{background-color:#68b022}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-active[_ngcontent-%COMP%]:not(.step-invalid)   .mrd-stepper-step-label[_ngcontent-%COMP%]{font-size:16px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-invalid[_ngcontent-%COMP%]{color:#be1212}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.step-invalid[_ngcontent-%COMP%]   .mrd-stepper-step-icon[_ngcontent-%COMP%]{background-color:#be1212}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-icon[_ngcontent-%COMP%]{border-radius:50%;background-color:gray;color:#fff;min-width:24px;max-width:24px;min-height:24px;max-height:24px;display:flex;flex-direction:column;align-items:center;justify-content:center}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-icon[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{margin-bottom:1px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.topLabel[_ngcontent-%COMP%]{flex-direction:column-reverse}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.bottomLabel[_ngcontent-%COMP%]{flex-direction:column}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.leftLabel[_ngcontent-%COMP%]{flex-direction:row-reverse}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.leftLabel[_ngcontent-%COMP%]   .mrd-stepper-step-label[_ngcontent-%COMP%]{margin-right:8px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.rightLabel[_ngcontent-%COMP%]{flex-direction:row}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step.rightLabel[_ngcontent-%COMP%]   .mrd-stepper-step-label[_ngcontent-%COMP%]{margin-left:8px}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-label[_ngcontent-%COMP%]{transition:font-size .3s;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mrd-stepper-steps-container[_ngcontent-%COMP%]   .mrd-stepper-step[_ngcontent-%COMP%]   .mrd-stepper-step-label.label-fit[_ngcontent-%COMP%]{width:fit-content}.mrd-stepper-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}"], changeDetection: 0 });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdStepperComponent, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdStepperComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-stepper', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-stepper-steps-container\" [ngStyle]=\"{'height': headerHeight+'px'}\">\r\n  <div class=\"mrd-stepper-step-container\" [ngClass]=\"{'last-step': i === steps.length - 1}\" *ngFor=\"let step of steps; let i = index;\">\r\n    <div class=\"mrd-stepper-step\" #mrdStepHeader \r\n      [ngClass]=\"{'step-active': step.active, 'step-invalid': step.touched && step.mrdStepControl && !step.mrdStepControl.valid,\r\n        'topLabel': labelposition === 'top', 'bottomLabel': labelposition === 'bottom', 'leftLabel': labelposition === 'left', 'rightLabel': labelposition === 'right'}\" \r\n      (click)=\"activateStep(step.index)\">\r\n      <div class=\"mrd-stepper-step-icon\">\r\n        <span>{{step.index + 1}}</span>\r\n      </div>\r\n      <div class=\"mrd-stepper-step-label\">\r\n        {{step.label}}\r\n      </div>\r\n    </div>\r\n    <div class=\"mrd-stepper-step-separator\" [ngClass]=\"{'next-step-active': activeIndex > i}\" *ngIf=\"i < steps.length - 1\"></div>\r\n  </div>\r\n</div>\r\n<div class=\"mrd-stepper-content-container\">\r\n  <!-- <ng-content></ng-content> -->\r\n  <ng-container *ngFor=\"let tab of steps\">\r\n    <mrd-tab-body\r\n      [content]=\"tab.content\"\r\n      [active]=\"tab.active\"\r\n      [index]=\"tab.index\"\r\n      [preserveContent]=\"tab.preserveContent\"\r\n    >\r\n\r\n    </mrd-tab-body>\r\n  </ng-container>\r\n</div>", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-stepper-steps-container{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-stepper-steps-container .mrd-stepper-step-container{display:flex;flex-direction:row;align-items:center;flex:1 1 100%}.mrd-stepper-steps-container .mrd-stepper-step-container.last-step{flex:1 0 fit-content}.mrd-stepper-steps-container .mrd-stepper-step-container .mrd-stepper-step-separator{border-bottom:1px solid #000;width:100%;margin-right:-16px;margin-left:-16px}.mrd-stepper-steps-container .mrd-stepper-step-container .mrd-stepper-step-separator.next-step-active{border-color:#68b022;border-bottom-width:2px}.mrd-stepper-steps-container .mrd-stepper-step{display:flex;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;color:gray;font-weight:700;cursor:pointer}.mrd-stepper-steps-container .mrd-stepper-step.step-active:not(.step-invalid){color:#68b022}.mrd-stepper-steps-container .mrd-stepper-step.step-active:not(.step-invalid) .mrd-stepper-step-icon{background-color:#68b022}.mrd-stepper-steps-container .mrd-stepper-step.step-active:not(.step-invalid) .mrd-stepper-step-label{font-size:16px}.mrd-stepper-steps-container .mrd-stepper-step.step-invalid{color:#be1212}.mrd-stepper-steps-container .mrd-stepper-step.step-invalid .mrd-stepper-step-icon{background-color:#be1212}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-icon{border-radius:50%;background-color:gray;color:#fff;min-width:24px;max-width:24px;min-height:24px;max-height:24px;display:flex;flex-direction:column;align-items:center;justify-content:center}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-icon>span{margin-bottom:1px}.mrd-stepper-steps-container .mrd-stepper-step.topLabel{flex-direction:column-reverse}.mrd-stepper-steps-container .mrd-stepper-step.bottomLabel{flex-direction:column}.mrd-stepper-steps-container .mrd-stepper-step.leftLabel{flex-direction:row-reverse}.mrd-stepper-steps-container .mrd-stepper-step.leftLabel .mrd-stepper-step-label{margin-right:8px}.mrd-stepper-steps-container .mrd-stepper-step.rightLabel{flex-direction:row}.mrd-stepper-steps-container .mrd-stepper-step.rightLabel .mrd-stepper-step-label{margin-left:8px}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-label{transition:font-size .3s;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-label.label-fit{width:-moz-fit-content;width:fit-content}.mrd-stepper-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i1$3.Router }, { type: i1$3.ActivatedRoute }]; }, { steps: [{
+        args: [{ selector: 'mrd-stepper', changeDetection: ChangeDetectionStrategy.OnPush, standalone: false, template: "<div class=\"mrd-stepper-steps-container\" [ngStyle]=\"{'height': headerHeight+'px'}\">\n  <div class=\"mrd-stepper-step-container\" [ngClass]=\"{'last-step': i === steps.length - 1}\" *ngFor=\"let step of steps; let i = index;\">\n    <div class=\"mrd-stepper-step\" #mrdStepHeader \n      [ngClass]=\"{'step-active': step.active, 'step-invalid': step.touched && step.mrdStepControl && !step.mrdStepControl.valid,\n        'topLabel': labelposition === 'top', 'bottomLabel': labelposition === 'bottom', 'leftLabel': labelposition === 'left', 'rightLabel': labelposition === 'right'}\" \n      (click)=\"activateStep(step.index)\">\n      <div class=\"mrd-stepper-step-icon\">\n        <span>{{step.index + 1}}</span>\n      </div>\n      <div class=\"mrd-stepper-step-label\">\n        {{step.label}}\n      </div>\n    </div>\n    <div class=\"mrd-stepper-step-separator\" [ngClass]=\"{'next-step-active': activeIndex > i}\" *ngIf=\"i < steps.length - 1\"></div>\n  </div>\n</div>\n<div class=\"mrd-stepper-content-container\">\n  <!-- <ng-content></ng-content> -->\n  <ng-container *ngFor=\"let tab of steps\">\n    <mrd-tab-body\n      [content]=\"tab.content\"\n      [active]=\"tab.active\"\n      [index]=\"tab.index\"\n      [preserveContent]=\"tab.preserveContent\"\n      >\n    </mrd-tab-body>\n  </ng-container>\n</div>", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-stepper-steps-container{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-stepper-steps-container .mrd-stepper-step-container{display:flex;flex-direction:row;align-items:center;flex:1 1 100%}.mrd-stepper-steps-container .mrd-stepper-step-container.last-step{flex:1 0 fit-content}.mrd-stepper-steps-container .mrd-stepper-step-container .mrd-stepper-step-separator{border-bottom:1px solid #000;width:100%;margin-right:-16px;margin-left:-16px}.mrd-stepper-steps-container .mrd-stepper-step-container .mrd-stepper-step-separator.next-step-active{border-color:#68b022;border-bottom-width:2px}.mrd-stepper-steps-container .mrd-stepper-step{display:flex;align-items:center;justify-content:center;min-width:fit-content;height:100%;padding:12px 32px;color:gray;font-weight:700;cursor:pointer}.mrd-stepper-steps-container .mrd-stepper-step.step-active:not(.step-invalid){color:#68b022}.mrd-stepper-steps-container .mrd-stepper-step.step-active:not(.step-invalid) .mrd-stepper-step-icon{background-color:#68b022}.mrd-stepper-steps-container .mrd-stepper-step.step-active:not(.step-invalid) .mrd-stepper-step-label{font-size:16px}.mrd-stepper-steps-container .mrd-stepper-step.step-invalid{color:#be1212}.mrd-stepper-steps-container .mrd-stepper-step.step-invalid .mrd-stepper-step-icon{background-color:#be1212}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-icon{border-radius:50%;background-color:gray;color:#fff;min-width:24px;max-width:24px;min-height:24px;max-height:24px;display:flex;flex-direction:column;align-items:center;justify-content:center}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-icon>span{margin-bottom:1px}.mrd-stepper-steps-container .mrd-stepper-step.topLabel{flex-direction:column-reverse}.mrd-stepper-steps-container .mrd-stepper-step.bottomLabel{flex-direction:column}.mrd-stepper-steps-container .mrd-stepper-step.leftLabel{flex-direction:row-reverse}.mrd-stepper-steps-container .mrd-stepper-step.leftLabel .mrd-stepper-step-label{margin-right:8px}.mrd-stepper-steps-container .mrd-stepper-step.rightLabel{flex-direction:row}.mrd-stepper-steps-container .mrd-stepper-step.rightLabel .mrd-stepper-step-label{margin-left:8px}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-label{transition:font-size .3s;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mrd-stepper-steps-container .mrd-stepper-step .mrd-stepper-step-label.label-fit{width:fit-content}.mrd-stepper-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
+    }], () => [{ type: i0.ChangeDetectorRef }, { type: i1$3.Router }, { type: i1$3.ActivatedRoute }], { steps: [{
             type: ContentChildren,
             args: [MrdStepComponent]
         }], stepBodys: [{
@@ -8637,14 +8635,15 @@ class MrdStepperComponent extends BaseObject {
         }], selectedStepIndexChanged: [{
             type: Output
         }] }); })();
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassDebugInfo(MrdStepperComponent, { className: "MrdStepperComponent", filePath: "lib/modules/mrd-stepper/components/mrd-stepper/mrd-stepper.component.ts", lineNumber: 15 }); })();
 
 class MrdStepperModule {
-    /** @nocollapse */ static ɵfac = function MrdStepperModule_Factory(t) { return new (t || MrdStepperModule)(); };
+    /** @nocollapse */ static ɵfac = function MrdStepperModule_Factory(__ngFactoryType__) { return new (__ngFactoryType__ || MrdStepperModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdStepperModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             MrdTabsModule] });
 }
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdStepperModule, [{
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdStepperModule, [{
         type: NgModule,
         args: [{
                 declarations: [
