@@ -14,6 +14,24 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import * as i1$3 from '@angular/router';
 import moment, { isMoment } from 'moment';
 
+var MrdSButtonType;
+(function (MrdSButtonType) {
+    MrdSButtonType["PRIMARY"] = "primary";
+    MrdSButtonType["SECONDARY"] = "secondary";
+    MrdSButtonType["NEGATIVE"] = "negative";
+    MrdSButtonType["NEUTRAL_LIGHT"] = "neutralLight";
+    MrdSButtonType["NEUTRAL_HARD"] = "neutralHard";
+    MrdSButtonType["TEXT_ONLY"] = "textOnly";
+    MrdSButtonType["TEXT_ONLY_DARK_HOVER"] = "textOnlyDarkHover";
+})(MrdSButtonType || (MrdSButtonType = {}));
+var MrdSButtonSizeType;
+(function (MrdSButtonSizeType) {
+    MrdSButtonSizeType["SMALL"] = "small";
+    MrdSButtonSizeType["BIG"] = "big";
+    MrdSButtonSizeType["ICON"] = "icon";
+    MrdSButtonSizeType["FULL_ICON"] = "fullIcon";
+})(MrdSButtonSizeType || (MrdSButtonSizeType = {}));
+
 var MrdColor;
 (function (MrdColor) {
     MrdColor["WEISS"] = "#FFFFFF";
@@ -32,24 +50,6 @@ var MrdColor;
     MrdColor["WARNROT_DARK"] = "#AE0000";
     MrdColor["WARNROT_LIGHT"] = "#E78080";
 })(MrdColor || (MrdColor = {}));
-
-var MrdSButtonType;
-(function (MrdSButtonType) {
-    MrdSButtonType["PRIMARY"] = "primary";
-    MrdSButtonType["SECONDARY"] = "secondary";
-    MrdSButtonType["NEGATIVE"] = "negative";
-    MrdSButtonType["NEUTRAL_LIGHT"] = "neutralLight";
-    MrdSButtonType["NEUTRAL_HARD"] = "neutralHard";
-    MrdSButtonType["TEXT_ONLY"] = "textOnly";
-    MrdSButtonType["TEXT_ONLY_DARK_HOVER"] = "textOnlyDarkHover";
-})(MrdSButtonType || (MrdSButtonType = {}));
-var MrdSButtonSizeType;
-(function (MrdSButtonSizeType) {
-    MrdSButtonSizeType["SMALL"] = "small";
-    MrdSButtonSizeType["BIG"] = "big";
-    MrdSButtonSizeType["ICON"] = "icon";
-    MrdSButtonSizeType["FULL_ICON"] = "fullIcon";
-})(MrdSButtonSizeType || (MrdSButtonSizeType = {}));
 
 const DIRECTION_DEGREES = {
     right: 0,
@@ -9974,5 +9974,5 @@ class MrdSButtonModule {
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

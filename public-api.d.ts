@@ -1,4 +1,4 @@
-export { MrdConfigModel } from './lib/common/model/config.model';
+export { MrdConfigModel, MrdSButtonType, MrdSButtonSizeType } from './lib/common/model/config.model';
 export { ConfigUtil } from './lib/common/util/config.util';
 export { ColorUtil } from './lib/common/util/color.util';
 export { colorAttribute, colorThemeAttribute } from './lib/common/transforms/color-transform';
@@ -59,6 +59,9 @@ export * from './lib/modules/mrd-geo-icon/mrd-geo-icon.module';
 export * from './lib/modules/mrd-geo-icon/components/mrd-geo-icon/mrd-geo-icon.component';
 export * from './lib/common/components/mrd-decimal/mrd-decimal.module';
 export * from './lib/common/components/mrd-decimal/components/mrd-decimal/mrd-decimal.component';
+export { SvgState, SvgStateMap } from './lib/common/components/mrd-icon-group/mrd-icon-group.component';
+export { IconName } from './lib/common/util/icon-lib';
+export { MrdColor } from './lib/common/enum/color.enum';
 export * from './lib/modules/mrd-toggle-switch/mrd-toggle-switch.module';
 export * from './lib/modules/mrd-toggle-switch/common/enum/mrd-toggle-switch-state.enum';
 export * from './lib/modules/mrd-toggle-switch/components/mrd-toggle-switch/mrd-toggle-switch.component';
