@@ -2,6 +2,7 @@ export interface MrdConfigModel {
     baseFont?: MrdBaseFont;
     baseColors: MrdBaseColor;
     button?: MrdButton;
+    sButton?: MrdSButton;
     geoIcon?: MrdGeoIcon;
     formField?: {
         focusColor?: string;
@@ -26,7 +27,8 @@ export interface MrdConfigModel {
 }
 export interface MrdBaseFont {
     size?: string;
-    family: string;
+    family?: string;
+    weight?: string;
 }
 export interface MrdBaseColor {
     primary?: string | MrdBaseColorTheme;
@@ -70,10 +72,69 @@ export interface MrdButtonAppearance extends MrdBaseColorButton {
     diameter?: string;
     iconSize?: string;
 }
+export interface MrdSButton extends MrdSButtonTheme, MrdSButtonSize {
+    primary?: MrdSButtonTheme;
+    secondary?: MrdSButtonTheme;
+    negative?: MrdSButtonTheme;
+    neutralLight?: MrdSButtonTheme;
+    neutralHard?: MrdSButtonTheme;
+    textOnlyDarkHover?: MrdSButtonTheme;
+    small?: MrdSButtonSize;
+    icon?: MrdSButtonSize;
+    fullIcon?: MrdSButtonSize;
+    definedButtons?: {
+        bearbeiten: MrdDefinedButton;
+        speichern: MrdDefinedButton;
+        abbrechen: MrdDefinedButton;
+        schliessenIcon: MrdDefinedButton;
+        loeschen: MrdDefinedButton;
+        hinzufuegen: MrdDefinedButton;
+    };
+}
+export interface MrdSButtonTheme {
+    text?: MrdSButtonStateColor;
+    background?: MrdSButtonStateColor;
+    progress?: MrdSButtonStateColor;
+    border?: MrdSButtonStateColor | string;
+}
+export interface MrdSButtonStateColor {
+    default?: string;
+    hover?: string;
+    disabled?: string;
+    active?: string;
+}
+export interface MrdSButtonSize {
+    padding?: string;
+    borderRadius?: string;
+    font?: MrdBaseFont;
+    minHeight?: string;
+    diameter?: string;
+    iconSize?: string;
+    iconSizeNumber?: number;
+    textIconGap?: string;
+}
+export interface MrdPadding {
+    top: string;
+    right: string;
+    bottom: string;
+    left: string;
+}
 export interface MrdBorder {
     width: string;
     style: string;
     color: string;
+}
+export interface MrdDefinedButton {
+    text?: string;
+    theme?: MrdSButtonType;
+    iconEnd?: boolean;
+    iconGroup?: MrdDefinedButtonIconGroup;
+}
+export interface MrdDefinedButtonIconGroup {
+    default?: (size: number) => string;
+    disabled?: (size: number) => string;
+    hover?: (size: number) => string;
+    active?: (size: number) => string;
 }
 export interface MrdGeoIcon {
     width?: string;
@@ -113,4 +174,19 @@ export interface MrdToggleSwitch {
     knobNeutralColor?: string;
     bgDisabledColor?: string;
     knobDisabledColor?: string;
+}
+export declare enum MrdSButtonType {
+    PRIMARY = "primary",
+    SECONDARY = "secondary",
+    NEGATIVE = "negative",
+    NEUTRAL_LIGHT = "neutralLight",
+    NEUTRAL_HARD = "neutralHard",
+    TEXT_ONLY = "textOnly",
+    TEXT_ONLY_DARK_HOVER = "textOnlyDarkHover"
+}
+export declare enum MrdSButtonSizeType {
+    SMALL = "small",
+    BIG = "big",
+    ICON = "icon",
+    FULL_ICON = "fullIcon"
 }

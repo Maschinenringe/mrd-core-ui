@@ -1,9 +1,9 @@
 import * as _ from 'underscore';
+import * as i0 from '@angular/core';
+import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
 import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, ValidatorFloat } from 'mrd-core';
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import * as i0 from '@angular/core';
-import { SecurityContext, Injectable, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
 import { of, tap, map, finalize, share, Subscription, take, startWith, Subject, defer, switchMap, merge } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
@@ -12,6 +12,264 @@ import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
 import * as i1$3 from '@angular/router';
 import moment, { isMoment } from 'moment';
+
+var MrdColor;
+(function (MrdColor) {
+    MrdColor["WEISS"] = "#FFFFFF";
+    MrdColor["SCHWARZ"] = "#000000";
+    MrdColor["TRANSPARENT"] = "transparent";
+    MrdColor["MR_GRUEN"] = "#65B32E";
+    MrdColor["MR_GRUEN_DARK"] = "#518F25";
+    MrdColor["MR_GRUEN_LIGHT"] = "#84CB4A";
+    MrdColor["MR_GRUEN_TRANSPARENT"] = "#E0F0D4";
+    MrdColor["GRAU_BLAU"] = "#293D4F";
+    MrdColor["GRAU_BLAU_DARK"] = "#16222E";
+    MrdColor["GRAU_BLAU_LIGHT"] = "#949EA7";
+    MrdColor["HELLBLAU"] = "#D8DFE8";
+    MrdColor["HELLBLAU_LIGHT"] = "#EBEFF3";
+    MrdColor["WARNROT"] = "#DA0000";
+    MrdColor["WARNROT_DARK"] = "#AE0000";
+    MrdColor["WARNROT_LIGHT"] = "#E78080";
+})(MrdColor || (MrdColor = {}));
+
+var MrdSButtonType;
+(function (MrdSButtonType) {
+    MrdSButtonType["PRIMARY"] = "primary";
+    MrdSButtonType["SECONDARY"] = "secondary";
+    MrdSButtonType["NEGATIVE"] = "negative";
+    MrdSButtonType["NEUTRAL_LIGHT"] = "neutralLight";
+    MrdSButtonType["NEUTRAL_HARD"] = "neutralHard";
+    MrdSButtonType["TEXT_ONLY"] = "textOnly";
+    MrdSButtonType["TEXT_ONLY_DARK_HOVER"] = "textOnlyDarkHover";
+})(MrdSButtonType || (MrdSButtonType = {}));
+var MrdSButtonSizeType;
+(function (MrdSButtonSizeType) {
+    MrdSButtonSizeType["SMALL"] = "small";
+    MrdSButtonSizeType["BIG"] = "big";
+    MrdSButtonSizeType["ICON"] = "icon";
+    MrdSButtonSizeType["FULL_ICON"] = "fullIcon";
+})(MrdSButtonSizeType || (MrdSButtonSizeType = {}));
+
+const DIRECTION_DEGREES = {
+    right: 0,
+    down: 90,
+    left: 180,
+    up: 270,
+};
+class IconFactoryService {
+    static INNER_SCALE = 0.65;
+    static build(config) {
+        debugger;
+        const resolvedOuterColor = config.outerColor ?? config.color;
+        const resolvedInnerColor = config.innerColor ?? config.color;
+        const parts = [];
+        if (config.outer) {
+            let content = IconFactoryService.extractSvgContent(config.outer);
+            if (resolvedOuterColor)
+                content = IconFactoryService.applyFillColor(content, resolvedOuterColor);
+            parts.push(`<g>${content}</g>`);
+        }
+        if (config.inner) {
+            let content = IconFactoryService.extractSvgContent(config.inner);
+            if (resolvedInnerColor)
+                content = IconFactoryService.applyFillColor(content, resolvedInnerColor);
+            const deg = IconFactoryService.resolveDirection(config.innerDirection);
+            const rotation = deg !== 0 ? ` rotate(${deg}, 32, 32)` : '';
+            // if (config.outer && (config.scaleInner ?? true)) {
+            //   const s = config.innerScale ?? IconFactoryService.INNER_SCALE;
+            //   const o = IconFactoryService.innerOffset(64, s);
+            //   parts.push(`<g transform="translate(${o}, ${o}) scale(${s})${rotation}">${content}</g>`);
+            // } else {
+            parts.push(rotation ? `<g transform="${rotation.trim()}">${content}</g>` : `<g>${content}</g>`);
+            // }
+        }
+        const s = config.size ?? 64;
+        return `<svg width="${s}" height="${s}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">\n${parts.join('\n')}\n</svg>`;
+    }
+    static innerOffset(size, scale) {
+        // (64 * (1 - 0.6)) / 2 = 12.8 — centers the scaled inner icon within the 64x64 canvas
+        return (size * (1 - scale)) / 2;
+    }
+    static resolveDirection(direction) {
+        if (direction == null)
+            return 0;
+        return (typeof direction === 'number' ? direction : DIRECTION_DEGREES[direction]) ?? 0;
+    }
+    static extractSvgContent(svg) {
+        return svg.replace(/<svg[^>]*>/, '').replace(/<\/svg>/, '').trim();
+    }
+    static applyFillColor(svgContent, color) {
+        return svgContent.replace(/fill="(?!none)[^"]*"/g, `fill="${color}"`);
+    }
+    /** @nocollapse */ static ɵfac = function IconFactoryService_Factory(t) { return new (t || IconFactoryService)(); };
+    /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: IconFactoryService, factory: IconFactoryService.ɵfac, providedIn: 'root' });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(IconFactoryService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], null, null); })();
+
+var IconName;
+(function (IconName) {
+    IconName["OUTLINE"] = "outline";
+    IconName["FULL"] = "full";
+    IconName["DASHED"] = "dashed";
+    IconName["BEARBEITEN"] = "bearbeiten";
+    IconName["LOESCHEN"] = "loeschen";
+    IconName["CHECK"] = "check";
+    IconName["PFEIL"] = "pfeil";
+    IconName["SCHLIESSEN"] = "schliessen";
+    IconName["PLUS"] = "plus";
+})(IconName || (IconName = {}));
+class IconLib {
+    // Outer Icons
+    static KREIS_OUTLINE = `<path fill-rule="evenodd" clip-rule="evenodd" d="M57.5004 26.9275C56.4971 21.8839 54.0207 17.2512 50.3844 13.615C45.5085 8.73924 38.8954 6 32 6C25.1046 6 18.4915 8.73924 13.6156 13.615C9.97932 17.2512 7.50296 21.8839 6.49967 26.9275C5.49638 31.971 6.0112 37.1986 7.97906 41.9496C9.9469 46.7005 13.2794 50.7612 17.5551 53.6181C21.8308 56.4751 26.8577 58 32 58C37.1424 58 42.1692 56.4751 46.4449 53.6181C50.7206 50.7612 54.0531 46.7005 56.021 41.9496C57.9888 37.1986 58.5036 31.971 57.5004 26.9275ZM63.3851 25.7568C62.1502 19.5494 59.1024 13.8475 54.627 9.37231C48.6259 3.37141 40.4867 0 32 0C23.5133 0 15.3741 3.37141 9.37301 9.37231C4.89761 13.8475 1.84979 19.5494 0.614972 25.7568C-0.619851 31.9643 0.0137875 38.3983 2.43576 44.2456C4.85773 50.0929 8.95925 55.0907 14.2216 58.6069C19.484 62.1232 25.671 64 32 64C38.3291 64 44.516 62.1232 49.7784 58.6069C55.0408 55.0907 59.1423 50.0929 61.5643 44.2456C63.9862 38.3983 64.6199 31.9643 63.3851 25.7568Z" fill="#293D4F"/>`;
+    static KREIS_FULL = `<path d="M54.627 9.37231C59.1024 13.8475 62.1502 19.5494 63.3851 25.7568C64.6199 31.9643 63.9862 38.3983 61.5643 44.2456C59.1423 50.0929 55.0408 55.0907 49.7784 58.6069C44.516 62.1232 38.3291 64 32 64C25.671 64 19.484 62.1232 14.2216 58.6069C8.95925 55.0907 4.85773 50.0929 2.43576 44.2456C0.0137875 38.3983 -0.619851 31.9643 0.614972 25.7568C1.84979 19.5494 4.89761 13.8475 9.37301 9.37231C15.3741 3.37141 23.5133 0 32 0C40.4867 0 48.6259 3.37141 54.627 9.37231Z" fill="#293D4F"/>`;
+    static KREIS_DASHED = `<path d="M38.334 59.2812C39.4102 59.0325 40.4846 59.7031 40.7334 60.7793C40.982 61.8553 40.3113 62.9298 39.2354 63.1787C36.9085 63.7166 34.486 64 32 64C29.514 64 27.0915 63.7166 24.7646 63.1787C23.6887 62.9298 23.018 61.8553 23.2666 60.7793C23.5154 59.7031 24.5898 59.0325 25.666 59.2812C27.6994 59.7513 29.8194 60 32 60C34.1806 60 36.3006 59.7513 38.334 59.2812ZM5.47754 46.1748C6.41438 45.5896 7.64824 45.8747 8.2334 46.8115C10.4964 50.4346 13.5654 53.5036 17.1885 55.7666C18.1253 56.3518 18.4104 57.5856 17.8252 58.5225C17.24 59.4592 16.0061 59.7443 15.0693 59.1592C10.9305 56.574 7.42601 53.0695 4.84082 48.9307C4.25569 47.9939 4.54082 46.76 5.47754 46.1748ZM55.7666 46.8115C56.3518 45.8747 57.5856 45.5896 58.5225 46.1748C59.4592 46.76 59.7443 47.9939 59.1592 48.9307C56.574 53.0695 53.0695 56.574 48.9307 59.1592C47.9939 59.7443 46.76 59.4592 46.1748 58.5225C45.5896 57.5856 45.8747 56.3518 46.8115 55.7666C50.4346 53.5036 53.5036 50.4346 55.7666 46.8115ZM0 32C0 29.514 0.284348 27.0915 0.822266 24.7646C1.07123 23.6888 2.14473 23.018 3.2207 23.2666C4.29689 23.5154 4.96754 24.5898 4.71875 25.666C4.24867 27.6994 4 29.8194 4 32C4 34.1806 4.24867 36.3006 4.71875 38.334C4.96754 39.4102 4.29689 40.4846 3.2207 40.7334C2.14473 40.982 1.07123 40.3112 0.822266 39.2354C0.284348 36.9085 0 34.486 0 32ZM60 32C60 29.8194 59.7513 27.6994 59.2812 25.666C59.0325 24.5898 59.7031 23.5154 60.7793 23.2666C61.8553 23.018 62.9298 23.6887 63.1787 24.7646C63.7166 27.0915 64 29.514 64 32C64 34.486 63.7166 36.9085 63.1787 39.2354C62.9298 40.3113 61.8553 40.982 60.7793 40.7334C59.7031 40.4846 59.0325 39.4102 59.2812 38.334C59.7513 36.3006 60 34.1806 60 32ZM15.0693 4.84082C16.0061 4.25569 17.24 4.54082 17.8252 5.47754C18.4104 6.41438 18.1253 7.64824 17.1885 8.2334C13.5654 10.4964 10.4964 13.5654 8.2334 17.1885C7.64824 18.1253 6.41438 18.4104 5.47754 17.8252C4.54082 17.24 4.25569 16.0061 4.84082 15.0693C7.42601 10.9305 10.9305 7.42601 15.0693 4.84082ZM46.1748 5.47754C46.76 4.54082 47.9939 4.25569 48.9307 4.84082C53.0695 7.42601 56.574 10.9305 59.1592 15.0693C59.7443 16.0061 59.4592 17.24 58.5225 17.8252C57.5856 18.4104 56.3518 18.1253 55.7666 17.1885C53.5036 13.5654 50.4346 10.4964 46.8115 8.2334C45.8747 7.64824 45.5896 6.41438 46.1748 5.47754ZM32 0C34.486 0 36.9085 0.284348 39.2354 0.822266C40.3112 1.07123 40.982 2.14473 40.7334 3.2207C40.4846 4.29689 39.4102 4.96754 38.334 4.71875C36.3006 4.24867 34.1806 4 32 4C29.8194 4 27.6994 4.24867 25.666 4.71875C24.5898 4.96754 23.5154 4.29689 23.2666 3.2207C23.018 2.14473 23.6888 1.07123 24.7646 0.822266C27.0915 0.284348 29.514 0 32 0Z" fill="#949EA7"/>`;
+    // Inner Icons
+    static LOESCHEN = `<path d="M26.8202 43.658C26.1331 43.658 25.4742 43.3851 24.9885 42.8993C24.5027 42.4135 24.2298 41.7546 24.2298 41.0676V25.5236H39.772V41.0658C39.7721 41.4059 39.7052 41.7427 39.5751 42.057C39.445 42.3713 39.2543 42.6568 39.0138 42.8974C38.7734 43.1379 38.4879 43.3287 38.1737 43.4589C37.8595 43.5891 37.5226 43.6561 37.1825 43.6561L26.8202 43.658ZM34.5903 28.7638V40.4214C34.5903 40.5933 34.6586 40.7581 34.7801 40.8796C34.9016 41.0012 35.0665 41.0694 35.2384 41.0694C35.4103 41.0694 35.575 41.0012 35.6966 40.8796C35.8181 40.7581 35.8864 40.5933 35.8864 40.4214V28.7638C35.8864 28.5919 35.8181 28.4271 35.6966 28.3056C35.575 28.184 35.4103 28.1158 35.2384 28.1158C35.0673 28.1163 34.9033 28.1844 34.7822 28.3052C34.6612 28.4261 34.5928 28.59 34.5921 28.7611L34.5903 28.7638ZM28.1143 28.7638V40.4214C28.1143 40.5933 28.1826 40.7581 28.3042 40.8796C28.4257 41.0012 28.5906 41.0694 28.7624 41.0694C28.9343 41.0694 29.0992 41.0012 29.2207 40.8796C29.3423 40.7581 29.4105 40.5933 29.4105 40.4214V28.7638C29.4105 28.5919 29.3423 28.4271 29.2207 28.3056C29.0992 28.184 28.9343 28.1158 28.7624 28.1158C28.5912 28.116 28.427 28.184 28.3057 28.3049C28.1845 28.4258 28.1161 28.5898 28.1153 28.7611L28.1143 28.7638ZM24.2289 24.2311C24.0586 24.231 23.89 24.1973 23.7328 24.132C23.5756 24.0667 23.4328 23.971 23.3126 23.8505C23.1924 23.7299 23.0972 23.5869 23.0323 23.4295C22.9674 23.2721 22.9342 23.1034 22.9346 22.9332C22.9346 22.7632 22.9681 22.5948 23.0332 22.4377C23.0983 22.2806 23.1937 22.1379 23.314 22.0177C23.4343 21.8975 23.577 21.8022 23.7342 21.7372C23.8913 21.6722 24.0597 21.6388 24.2298 21.6389H26.8202C26.8202 21.2956 26.9564 20.9663 27.1991 20.7234C27.4418 20.4806 27.771 20.344 28.1143 20.3438H35.8855C36.229 20.3438 36.5584 20.4802 36.8013 20.7231C37.0442 20.966 37.1807 21.2954 37.1807 21.6389H39.7701C39.9401 21.6388 40.1085 21.6722 40.2657 21.7372C40.4228 21.8022 40.5656 21.8975 40.6859 22.0177C40.8061 22.1379 40.9016 22.2806 40.9667 22.4377C41.0318 22.5948 41.0653 22.7632 41.0653 22.9332C41.0653 23.2767 40.9289 23.6061 40.686 23.849C40.4431 24.0919 40.1136 24.2284 39.7701 24.2284L24.2289 24.2311Z" fill="white"/>`;
+    static CHECK = `<path d="M29.3233 44.8174C28.4296 44.8175 27.5644 44.5026 26.8799 43.9279L15.851 34.7198C15.4665 34.399 15.149 34.0055 14.9167 33.5619C14.6843 33.1183 14.5416 32.6332 14.4968 32.1345C14.4519 31.6357 14.5058 31.1329 14.6553 30.655C14.8049 30.1771 15.0471 29.7333 15.3682 29.349C15.6891 28.9641 16.0827 28.6463 16.5266 28.4137C16.9704 28.1811 17.4557 28.0383 17.9548 27.9934C18.4539 27.9486 18.9569 28.0026 19.4351 28.1523C19.9133 28.3021 20.3573 28.5447 20.7416 28.8662L28.9637 35.7274L42.8845 20.4306C43.2207 20.0591 43.6271 19.7577 44.0802 19.5438C44.5333 19.3298 45.0242 19.2075 45.5247 19.1839C46.0252 19.1603 46.5255 19.2358 46.9967 19.4062C47.4679 19.5765 47.9008 19.8383 48.2706 20.1765C48.641 20.5134 48.9415 20.92 49.1547 21.373C49.368 21.8261 49.4899 22.3167 49.5135 22.8169C49.5371 23.317 49.462 23.817 49.2923 24.2881C49.1226 24.7592 48.8618 25.1923 48.5247 25.5626L32.1453 43.5645C31.7886 43.959 31.3532 44.2743 30.8671 44.4901C30.381 44.7059 29.8551 44.8174 29.3233 44.8174Z" fill="white"/>`;
+    static PFEIL_RECHTS = `<path fill-rule="evenodd" clip-rule="evenodd" d="M34.4141 17.9776C34.8174 17.9671 35.2191 18.0361 35.5957 18.1807C35.9723 18.3254 36.3168 18.5427 36.6094 18.8204L48.1191 29.7676C48.3022 29.9431 48.4633 30.1405 48.5977 30.3555V30.3624C48.6476 30.4423 48.6943 30.5245 48.7363 30.6075L48.7471 30.6309C48.786 30.7088 48.8225 30.7884 48.8545 30.8692L48.8701 30.9122C48.8991 30.9872 48.9262 31.0637 48.9482 31.1417L48.9639 31.2071C48.9828 31.278 49.0016 31.35 49.0156 31.4219C49.0216 31.4568 49.0293 31.4897 49.0293 31.5216C49.0393 31.5846 49.0466 31.643 49.0566 31.711C49.0666 31.7789 49.0664 31.8482 49.0664 31.9161V32.0831C49.0644 32.1508 49.0616 32.2244 49.0566 32.2872C49.0516 32.3502 49.0403 32.4127 49.0303 32.4757C49.0243 32.5105 49.0216 32.5434 49.0156 32.5753C49.0016 32.6473 48.9829 32.7201 48.9639 32.7911L48.9482 32.8565C48.9252 32.9335 48.8981 33.01 48.8701 33.086L48.8545 33.129C48.8225 33.2098 48.786 33.2884 48.7471 33.3673L48.7354 33.3917C48.6964 33.4747 48.6467 33.5558 48.5967 33.6358V33.6436C48.4622 33.8583 48.3012 34.0554 48.1182 34.2305L36.6084 45.1778C36.018 45.7392 35.2285 46.043 34.4141 46.0225C33.5997 46.002 32.827 45.6587 32.2656 45.0684C31.7043 44.4782 31.3996 43.6894 31.4199 42.8751C31.4404 42.0607 31.7838 41.2871 32.374 40.7257L38.3945 35.0001H17.9336C16.2767 35.0001 14.9336 33.6569 14.9336 32.0001C14.9336 30.3432 16.2768 29.0001 17.9336 29.0001H38.3906L32.374 23.2774C31.7839 22.716 31.4404 21.9432 31.4199 21.129C31.3995 20.3145 31.7042 19.525 32.2656 18.9346C32.5433 18.6419 32.8756 18.4064 33.2441 18.2423C33.6128 18.0781 34.0107 17.9882 34.4141 17.9776Z" fill="white"/>`;
+    static BEARBEITEN = `<path fill-rule="evenodd" clip-rule="evenodd" d="M43.5805 27.0028C43.3051 27.3121 42.9958 27.5895 42.6585 27.8298C42.3152 28.0351 41.9226 28.1435 41.5225 28.1435C41.1225 28.1435 40.7299 28.0351 40.3865 27.8298C40.0493 27.5894 39.7401 27.312 39.4645 27.0028L36.9995 24.5338C36.6904 24.2583 36.413 23.9491 36.1725 23.6118C35.9673 23.2685 35.8589 22.8759 35.8589 22.4758C35.8589 22.0758 35.9673 21.6832 36.1725 21.3398C36.413 21.0026 36.6904 20.6934 36.9995 20.4178C37.2751 20.1086 37.5843 19.8312 37.9215 19.5908C38.265 19.3857 38.6575 19.2773 39.0575 19.2773C39.4576 19.2773 39.8501 19.3857 40.1935 19.5908C40.5308 19.8313 40.84 20.1086 41.1155 20.4178L43.5805 22.8878C43.8898 23.1633 44.1671 23.4726 44.4075 23.8098C44.6128 24.1532 44.7212 24.5458 44.7212 24.9458C44.7212 25.3459 44.6128 25.7385 44.4075 26.0818C44.1671 26.4187 43.8897 26.7276 43.5805 27.0028ZM23.7285 44.6998C21.6405 44.6998 20.5965 44.6998 19.9485 44.0508C19.3005 43.4018 19.2995 42.3578 19.2995 40.2698V39.9488C19.2437 39.3551 19.301 38.7562 19.4685 38.1838C19.7557 37.661 20.1395 37.1975 20.5995 36.8178L30.1625 27.2548C31.6385 25.7788 32.3775 25.0398 33.2945 25.0398C34.2115 25.0398 34.9495 25.7778 36.4265 27.2548L36.7475 27.5758C38.2235 29.0518 38.9625 29.7908 38.9625 30.7078C38.9625 31.6248 38.2245 32.3628 36.7475 33.8398L27.1815 43.4018C26.8013 43.8612 26.3375 44.2443 25.8145 44.5308C25.2422 44.6983 24.6433 44.7557 24.0495 44.6998H23.7285Z" fill="white"/>`;
+    static SCHLIESSEN = `<path xmlns="http://www.w3.org/2000/svg" d="M37.2489 41.2322L32 35.9822L26.7509 41.2322C26.4895 41.4939 26.1789 41.7014 25.8371 41.8428C25.4953 41.9842 25.1289 42.0567 24.7589 42.0562C24.3892 42.0566 24.023 41.984 23.6814 41.8426C23.3397 41.7012 23.0293 41.4938 22.7679 41.2322C22.2399 40.704 21.9433 39.9876 21.9433 39.2407C21.9433 38.4938 22.2399 37.7775 22.7679 37.2492L28.017 32.0002L22.7679 26.7512C22.5064 26.4897 22.2989 26.1793 22.1573 25.8376C22.0157 25.4959 21.9429 25.1296 21.9429 24.7597C21.9429 24.3899 22.0157 24.0236 22.1573 23.6819C22.2989 23.3402 22.5064 23.0297 22.7679 22.7682C23.296 22.2403 24.0122 21.9437 24.7589 21.9437C25.5057 21.9437 26.2219 22.2403 26.75 22.7682L31.9989 28.0172L37.2479 22.7682C37.776 22.2403 38.4922 21.9437 39.2389 21.9437C39.9857 21.9437 40.7019 22.2403 41.2299 22.7682C41.4915 23.0297 41.699 23.3402 41.8406 23.6819C41.9822 24.0236 42.055 24.3899 42.055 24.7597C42.055 25.1296 41.9822 25.4959 41.8406 25.8376C41.699 26.1793 41.4915 26.4897 41.2299 26.7512L35.9809 32.0002L41.2299 37.2492C41.758 37.7775 42.0546 38.4938 42.0546 39.2407C42.0546 39.9876 41.758 40.704 41.2299 41.2322C40.9687 41.4939 40.6583 41.7014 40.3166 41.8428C39.975 41.9842 39.6087 42.0567 39.2389 42.0562C38.8693 42.0567 38.5033 41.9841 38.1618 41.8427C37.8203 41.7013 37.5101 41.4938 37.2489 41.2322Z" fill="#293D4F"/>`;
+    static PLUS = `<path d="M29.0438 41.6774V34.9324H22.2988C21.9105 34.9324 21.526 34.8559 21.1672 34.7073C20.8084 34.5587 20.4825 34.3409 20.2079 34.0663C19.9333 33.7918 19.7155 33.4658 19.5669 33.107C19.4183 32.7483 19.3418 32.3638 19.3418 31.9754C19.3418 31.5871 19.4183 31.2026 19.5669 30.8438C19.7155 30.4851 19.9333 30.1591 20.2079 29.8845C20.4825 29.6099 20.8084 29.3921 21.1672 29.2435C21.526 29.0949 21.9105 29.0184 22.2988 29.0184H29.0438V22.2734C29.0437 21.8851 29.12 21.5007 29.2685 21.1419C29.417 20.7832 29.6347 20.4572 29.9092 20.1826C30.1837 19.908 30.5096 19.6901 30.8683 19.5415C31.2271 19.3929 31.6115 19.3164 31.9998 19.3164C32.7838 19.3164 33.5356 19.6279 34.09 20.1822C34.6444 20.7366 34.9558 21.4885 34.9558 22.2724V29.0174H41.7008C42.485 29.0174 43.2372 29.329 43.7917 29.8835C44.3463 30.4381 44.6578 31.1902 44.6578 31.9744C44.6578 32.7587 44.3463 33.5108 43.7917 34.0653C43.2372 34.6199 42.485 34.9314 41.7008 34.9314H34.9558V41.6754C34.963 42.0682 34.8919 42.4586 34.7466 42.8236C34.6012 43.1886 34.3846 43.521 34.1093 43.8014C33.8341 44.0818 33.5057 44.3045 33.1434 44.4565C32.7811 44.6085 32.3922 44.6868 31.9993 44.6868C31.6064 44.6868 31.2174 44.6085 30.8551 44.4565C30.4929 44.3045 30.1645 44.0818 29.8892 43.8014C29.614 43.521 29.3974 43.1886 29.252 42.8236C29.1067 42.4586 29.0356 42.0682 29.0428 41.6754L29.0438 41.6774Z" fill="white"/>`;
+    static IconMap = {
+        [IconName.OUTLINE]: IconLib.KREIS_OUTLINE,
+        [IconName.FULL]: IconLib.KREIS_FULL,
+        [IconName.DASHED]: IconLib.KREIS_DASHED,
+        [IconName.BEARBEITEN]: IconLib.BEARBEITEN,
+        [IconName.LOESCHEN]: IconLib.LOESCHEN,
+        [IconName.CHECK]: IconLib.CHECK,
+        [IconName.PFEIL]: IconLib.PFEIL_RECHTS,
+        [IconName.SCHLIESSEN]: IconLib.SCHLIESSEN,
+        [IconName.PLUS]: IconLib.PLUS
+    };
+}
+
+class PredefinedIconsService {
+    static GenerateIcon(outer, inner, color, size = 24, innerDirection = 'right') {
+        return IconFactoryService.build({
+            outer: outer != null ? IconLib.IconMap[outer] : undefined,
+            inner: inner != null ? IconLib.IconMap[inner] : undefined,
+            color: typeof color === 'string' ? color : undefined,
+            outerColor: typeof color === 'object' ? color.outer : undefined,
+            innerColor: typeof color === 'object' ? color.inner : undefined,
+            size,
+            innerDirection
+        });
+    }
+    // public static GenerateIcon(outer: IconName|undefined, inner: IconName|undefined, color: , size: number = 24, innerDirection: number | IconDirection = 'right'): string {
+    //   return IconFactoryService.build({
+    //     outer: outer != null ? IconLib.IconMap[outer] : undefined,
+    //     inner: inner != null ? IconLib.IconMap[inner] : undefined,
+    //     innerColor: color.inner,
+    //     outerColor: color.outer,
+    //     size,
+    //     innerDirection
+    //   });
+    // }
+    static BearbeitenOutlineBlau(size) {
+        return IconFactoryService.build({
+            inner: IconLib.BEARBEITEN,
+            outer: IconLib.KREIS_OUTLINE,
+            color: MrdColor.GRAU_BLAU,
+            size
+        });
+    }
+    static BearbeitenOutlineMrGruen(size) {
+        return IconFactoryService.build({
+            inner: IconLib.BEARBEITEN,
+            outer: IconLib.KREIS_OUTLINE,
+            color: MrdColor.MR_GRUEN,
+            size
+        });
+    }
+    static BearbeitenOutlineGrauBlauLight(size) {
+        return IconFactoryService.build({
+            inner: IconLib.BEARBEITEN,
+            outer: IconLib.KREIS_OUTLINE,
+            color: MrdColor.GRAU_BLAU_LIGHT,
+            size
+        });
+    }
+    static SpeichernOutlineWeiss(size) {
+        return IconFactoryService.build({
+            inner: IconLib.CHECK,
+            outer: IconLib.KREIS_OUTLINE,
+            color: MrdColor.WEISS,
+            size
+        });
+    }
+    static SpeichernOutlineGrauBlauLight(size) {
+        return IconFactoryService.build({
+            inner: IconLib.CHECK,
+            outer: IconLib.KREIS_OUTLINE,
+            color: MrdColor.GRAU_BLAU_LIGHT,
+            size
+        });
+    }
+    static SchliessenOutlineBlau(size) {
+        return IconFactoryService.build({
+            outer: IconLib.KREIS_OUTLINE,
+            inner: IconLib.SCHLIESSEN,
+            color: MrdColor.GRAU_BLAU,
+            size,
+            innerScale: 0.75
+        });
+    }
+    static SchliessenOutlineGrauBlauLight(size) {
+        return IconFactoryService.build({
+            outer: IconLib.KREIS_OUTLINE,
+            inner: IconLib.SCHLIESSEN,
+            color: MrdColor.GRAU_BLAU_LIGHT,
+            size,
+            innerScale: 0.75
+        });
+    }
+    static SchliessenOutlineHellblau(size) {
+        return IconFactoryService.build({
+            outer: IconLib.KREIS_OUTLINE,
+            inner: IconLib.SCHLIESSEN,
+            color: MrdColor.HELLBLAU,
+            size,
+            innerScale: 0.75
+        });
+    }
+    static LoeschenOutlineWeiss(size) {
+        return IconFactoryService.build({
+            outer: IconLib.KREIS_OUTLINE,
+            inner: IconLib.LOESCHEN,
+            color: MrdColor.WEISS,
+            size
+        });
+    }
+    static HinzufuegenOutlineBlau(size) {
+        return IconFactoryService.build({
+            outer: IconLib.KREIS_OUTLINE,
+            inner: IconLib.PLUS,
+            color: MrdColor.GRAU_BLAU,
+            size
+        });
+    }
+    static HinzufuegenOutlineGrauBlauLight(size) {
+        return IconFactoryService.build({
+            outer: IconLib.KREIS_OUTLINE,
+            inner: IconLib.PLUS,
+            color: MrdColor.GRAU_BLAU_LIGHT,
+            size
+        });
+    }
+    /** @nocollapse */ static ɵfac = function PredefinedIconsService_Factory(t) { return new (t || PredefinedIconsService)(); };
+    /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: PredefinedIconsService, factory: PredefinedIconsService.ɵfac, providedIn: 'root' });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(PredefinedIconsService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], null, null); })();
 
 class ConfigUtil {
     static config;
@@ -46,14 +304,16 @@ class ConfigUtil {
     }
     static getMostSpecificValue(entry) {
         let tree = entry.slice();
-        while (tree.length > 0 && _.isObject(this.config[tree[0]])) {
+        const config = this.config;
+        while (tree.length > 0 && _.isObject(config[tree[0]])) {
             tree = tree.slice(1);
         }
     }
     static get baseConfig() {
         return {
             baseFont: {
-                // size: "16px",
+                size: "16px",
+                weight: "400",
                 family: "Lato,sans-serif"
             },
             baseColors: {
@@ -135,6 +395,186 @@ class ConfigUtil {
                     disabled: {
                         text: "#a6a6a6",
                         background: "#d3d3d3"
+                    }
+                }
+            },
+            sButton: {
+                text: {
+                    default: MrdColor.GRAU_BLAU,
+                    hover: MrdColor.GRAU_BLAU,
+                    disabled: MrdColor.HELLBLAU
+                },
+                background: {
+                    default: MrdColor.TRANSPARENT,
+                    hover: MrdColor.HELLBLAU,
+                    disabled: MrdColor.TRANSPARENT
+                },
+                progress: {
+                    default: MrdColor.MR_GRUEN,
+                    hover: MrdColor.MR_GRUEN,
+                    disabled: MrdColor.GRAU_BLAU_LIGHT
+                },
+                border: "unset",
+                padding: "16px 30px",
+                borderRadius: "10px",
+                font: {
+                    weight: "900"
+                },
+                minHeight: "56px",
+                iconSize: "24px",
+                iconSizeNumber: 24,
+                diameter: "unset",
+                textIconGap: "10px",
+                primary: {
+                    text: {
+                        default: MrdColor.WEISS,
+                        hover: MrdColor.WEISS,
+                        disabled: MrdColor.GRAU_BLAU_LIGHT
+                    },
+                    background: {
+                        default: MrdColor.MR_GRUEN,
+                        hover: MrdColor.MR_GRUEN_DARK,
+                        disabled: MrdColor.HELLBLAU
+                    },
+                    progress: {
+                        default: MrdColor.MR_GRUEN_LIGHT
+                    }
+                },
+                secondary: {
+                    text: {
+                        default: MrdColor.MR_GRUEN,
+                        hover: MrdColor.MR_GRUEN,
+                        disabled: MrdColor.HELLBLAU
+                    },
+                    background: {
+                        default: MrdColor.TRANSPARENT,
+                        hover: MrdColor.MR_GRUEN_TRANSPARENT,
+                        disabled: MrdColor.TRANSPARENT
+                    },
+                    border: {
+                        default: "2px solid " + MrdColor.MR_GRUEN,
+                        hover: "2px solid " + MrdColor.MR_GRUEN,
+                        disabled: "2px solid " + MrdColor.HELLBLAU
+                    }
+                },
+                negative: {
+                    text: {
+                        default: MrdColor.WEISS,
+                        hover: MrdColor.WEISS,
+                        disabled: MrdColor.WEISS
+                    },
+                    background: {
+                        default: MrdColor.WARNROT,
+                        hover: MrdColor.WARNROT_DARK,
+                        disabled: MrdColor.WARNROT_LIGHT
+                    },
+                    progress: {
+                        default: MrdColor.WARNROT_LIGHT
+                    }
+                },
+                neutralLight: {
+                    text: {
+                        disabled: MrdColor.GRAU_BLAU_LIGHT
+                    },
+                    background: {
+                        default: MrdColor.HELLBLAU,
+                        hover: MrdColor.GRAU_BLAU_LIGHT,
+                        disabled: MrdColor.HELLBLAU
+                    }
+                },
+                neutralHard: {
+                    text: {
+                        disabled: MrdColor.GRAU_BLAU_LIGHT
+                    },
+                    border: {
+                        default: "2px solid " + MrdColor.GRAU_BLAU,
+                        hover: "2px solid " + MrdColor.GRAU_BLAU,
+                        disabled: "2px solid " + MrdColor.GRAU_BLAU_LIGHT
+                    }
+                },
+                textOnlyDarkHover: {
+                    text: {
+                        hover: MrdColor.WEISS
+                    },
+                    background: {
+                        hover: MrdColor.GRAU_BLAU_LIGHT
+                    }
+                },
+                small: {
+                    padding: "8px 16px",
+                    borderRadius: "5px",
+                    minHeight: "38px",
+                    textIconGap: "7px",
+                    font: {
+                        weight: "400"
+                    },
+                    iconSize: "16px",
+                    iconSizeNumber: 16
+                },
+                icon: {
+                    padding: "4px",
+                    borderRadius: "50%",
+                    minHeight: "32px",
+                    iconSize: "24px",
+                    iconSizeNumber: 24,
+                    diameter: "32px"
+                },
+                fullIcon: {
+                    padding: "0",
+                    borderRadius: "50%",
+                    minHeight: "32px",
+                    iconSize: "32px",
+                    iconSizeNumber: 32,
+                    diameter: "32px"
+                },
+                definedButtons: {
+                    bearbeiten: {
+                        text: 'Bearbeiten',
+                        theme: MrdSButtonType.NEUTRAL_HARD,
+                        iconGroup: {
+                            default: PredefinedIconsService.BearbeitenOutlineBlau,
+                            disabled: PredefinedIconsService.BearbeitenOutlineGrauBlauLight
+                        }
+                    },
+                    speichern: {
+                        text: 'Speichern',
+                        theme: MrdSButtonType.PRIMARY,
+                        iconGroup: {
+                            default: PredefinedIconsService.SpeichernOutlineWeiss,
+                            disabled: PredefinedIconsService.SpeichernOutlineGrauBlauLight
+                        }
+                    },
+                    abbrechen: {
+                        text: 'Abbrechen',
+                        theme: MrdSButtonType.NEUTRAL_LIGHT,
+                        iconGroup: {
+                            default: PredefinedIconsService.SchliessenOutlineBlau,
+                            disabled: PredefinedIconsService.SchliessenOutlineGrauBlauLight
+                        }
+                    },
+                    schliessenIcon: {
+                        theme: MrdSButtonType.TEXT_ONLY,
+                        iconGroup: {
+                            default: PredefinedIconsService.SchliessenOutlineBlau,
+                            disabled: PredefinedIconsService.SchliessenOutlineHellblau
+                        }
+                    },
+                    loeschen: {
+                        text: 'Löschen',
+                        theme: MrdSButtonType.NEGATIVE,
+                        iconGroup: {
+                            default: PredefinedIconsService.LoeschenOutlineWeiss,
+                            disabled: PredefinedIconsService.LoeschenOutlineWeiss
+                        }
+                    },
+                    hinzufuegen: {
+                        text: 'Hinzufügen',
+                        theme: MrdSButtonType.NEUTRAL_HARD,
+                        iconEnd: false,
+                        iconGroup: {
+                            default: PredefinedIconsService.HinzufuegenOutlineBlau,
+                            disabled: PredefinedIconsService.HinzufuegenOutlineGrauBlauLight
+                        }
                     }
                 }
             },
@@ -1077,7 +1517,7 @@ class MrdProgressBarComponent {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdProgressBarComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-progress-bar', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-progressbar-container\"\r\n  [style.--progress-bar-color]=\"color\" [style.--progress-bar-bg-color]=\"bgColor\">\r\n  <div class=\"mrd-progressbar indeterminate\" *ngIf=\"mode === 'indeterminate'\"></div>\r\n  <div class=\"mrd-progressbar determinate\" *ngIf=\"mode === 'determinate'\" [ngStyle]=\"{'transform': 'translateX(' + value + '%)'}\"></div>\r\n</div>\r\n", styles: [":host{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;flex:1;max-width:100%;min-height:5px;height:100%}.mrd-progressbar-container{position:relative;display:flex;flex:1;width:100%;height:100%;overflow:hidden;background-color:var(--progress-bar-bg-color)}.mrd-progressbar-container .mrd-progressbar{position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--progress-bar-color)}.mrd-progressbar-container .mrd-progressbar.indeterminate{animation:mrd-progressbar-indeterminate-animation 1s infinite linear}.mrd-progressbar-container .mrd-progressbar.determinate{transform:translate(-100%);transition:transform .3s linear}@keyframes mrd-progressbar-indeterminate-animation{0%{width:100%;transform:translate(-100%)}50%{width:70%;transform:translate(0)}to{width:100%;transform:translate(100%)}}\n"] }]
+        args: [{ selector: 'mrd-progress-bar', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-progressbar-container\"\n  [style.--progress-bar-color]=\"color\" [style.--progress-bar-bg-color]=\"bgColor\">\n  <div class=\"mrd-progressbar indeterminate\" *ngIf=\"mode === 'indeterminate'\"></div>\n  <div class=\"mrd-progressbar determinate\" *ngIf=\"mode === 'determinate'\" [ngStyle]=\"{'transform': 'translateX(' + value + '%)'}\"></div>\n</div>\n", styles: [":host{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;flex:1;max-width:100%;min-height:5px;height:100%}.mrd-progressbar-container{position:relative;display:flex;flex:1;width:100%;height:100%;overflow:hidden;background-color:var(--progress-bar-bg-color)}.mrd-progressbar-container .mrd-progressbar{position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--progress-bar-color)}.mrd-progressbar-container .mrd-progressbar.indeterminate{animation:mrd-progressbar-indeterminate-animation 1s infinite linear}.mrd-progressbar-container .mrd-progressbar.determinate{transform:translate(-100%);transition:transform .3s linear}@keyframes mrd-progressbar-indeterminate-animation{0%{width:100%;transform:translate(-100%)}50%{width:70%;transform:translate(0)}to{width:100%;transform:translate(100%)}}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { mode: [{
             type: Input
         }], value: [{
@@ -5492,7 +5932,7 @@ class MrdDatepickerComponent {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatepickerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-datepicker', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-datepicker-container\">\r\n    <div class=\"mrd-datepicker-header\">\r\n        <mrd-button (click)=\"changeView()\">{{months[monthIndex]}} {{year}}</mrd-button>\r\n        <div class=\"mrd-datepicker-header-navigation\">\r\n            <mrd-button icon-button (click)=\"previous()\"><</mrd-button>\r\n            <mrd-button icon-button (click)=\"next()\">></mrd-button>\r\n        </div>\r\n    </div>\r\n    <div class=\"mrd-datepicker-content\">\r\n        <ng-container *ngIf=\"showDays\">\r\n            <div class=\"mrd-datepicker-weekdays\">\r\n                <div class=\"mrd-datepicker-weekday\">Mo</div>\r\n                <div class=\"mrd-datepicker-weekday\">Di</div>\r\n                <div class=\"mrd-datepicker-weekday\">Mi</div>\r\n                <div class=\"mrd-datepicker-weekday\">Do</div>\r\n                <div class=\"mrd-datepicker-weekday\">Fr</div>\r\n                <div class=\"mrd-datepicker-weekday\">Sa</div>\r\n                <div class=\"mrd-datepicker-weekday\">So</div>\r\n            </div>\r\n            <div class=\"mrd-datepicker-weekdays wrap\">\r\n                <div class=\"mrd-datepicker-weekday\" *ngFor=\"let p of placeholder\"></div>\r\n                <ng-container *ngIf=\"!range\">\r\n                    <mrd-button icon-button fullIcon diameter=\"2em\" [class]=\"{'today': d.isToday && !d.isSelected.value, 'selected': d.isSelected.value}\"\r\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days\" (click)=\"dateSelected(d)\">\r\n                        {{d.day}}\r\n                    </mrd-button>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"range\">\r\n                    <mrd-button icon-button fullIcon diameter=\"2em\" \r\n                    [class.today]=\"d.isToday && !d.isSelected.value\" \r\n                    [class.selected]=\"d.isSelected.value\" \r\n                    [class.rangeSelected]=\"d.rangeSelected.value\"\r\n                    [class.betweenRange]=\"d.betweenRange.value\"\r\n                    [class.rangeHover]=\"d.rangeHover.value\"\r\n                    [class.rangeHoverBetween]=\"d.rangeHoverBetween.value\"\r\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days; trackBy: trackById\" (click)=\"dateSelected(d)\"\r\n                        [mrdDateRangeIndicator]=\"d\" [startDate]=\"startDate\" [endDate]=\"endDate\" [hoverEndDate]=\"endHoverDate\" (isHovering)=\"endHoverDate = $event\">\r\n                        {{d.day}}\r\n                    </mrd-button>\r\n                </ng-container>\r\n            </div>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"showYears\">\r\n            <div class=\"mrd-datepicker-years\">\r\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': y === year}\" *ngFor=\"let y of yearRange;\"\r\n                    (click)=\"yearSelected(y)\">\r\n                    {{y}}\r\n                </mrd-button>\r\n            </div>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"showMonths\">\r\n            <div class=\"mrd-datepicker-months\">\r\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': i === monthIndex}\" *ngFor=\"let m of fullMonths; let i = index\"\r\n                    (click)=\"monthSelected(i)\">\r\n                    {{m}}\r\n                </mrd-button>\r\n            </div>\r\n        </ng-container>\r\n    </div>\r\n</div>", styles: [":host{height:300px}.mrd-datepicker-container{width:275px;min-height:272px;max-height:312px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-datepicker-container .mrd-datepicker-header{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-datepicker-container .mrd-datepicker-header .mrd-datepicker-header-navigation{display:flex;flex-direction:row;align-items:center}.mrd-datepicker-container .mrd-datepicker-content{padding:12px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays{display:flex;flex-direction:row;gap:4px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays.wrap{flex-wrap:wrap}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday{width:30px;height:30px;text-align:center;font-weight:700;color:#666;border-radius:50%}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.today{border:1px solid #000}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.betweenRange{background:#69b02288}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover{border:1px dotted #666}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover.rangeHoverBetween{border-radius:0}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.selected,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeSelected{background:#68b022}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.selected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.rangeSelected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.betweenRange .mrd-button-text-content{color:#fff}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-years,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:8px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months mrd-button{width:105px}.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-years .selected .mrd-button-container,.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-months .selected .mrd-button-container{border-color:#68b022;border-width:2px}\n"] }]
+        args: [{ selector: 'mrd-datepicker', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-datepicker-container\">\n    <div class=\"mrd-datepicker-header\">\n        <mrd-button (click)=\"changeView()\">{{months[monthIndex]}} {{year}}</mrd-button>\n        <div class=\"mrd-datepicker-header-navigation\">\n            <mrd-button icon-button (click)=\"previous()\"><</mrd-button>\n            <mrd-button icon-button (click)=\"next()\">></mrd-button>\n        </div>\n    </div>\n    <div class=\"mrd-datepicker-content\">\n        <ng-container *ngIf=\"showDays\">\n            <div class=\"mrd-datepicker-weekdays\">\n                <div class=\"mrd-datepicker-weekday\">Mo</div>\n                <div class=\"mrd-datepicker-weekday\">Di</div>\n                <div class=\"mrd-datepicker-weekday\">Mi</div>\n                <div class=\"mrd-datepicker-weekday\">Do</div>\n                <div class=\"mrd-datepicker-weekday\">Fr</div>\n                <div class=\"mrd-datepicker-weekday\">Sa</div>\n                <div class=\"mrd-datepicker-weekday\">So</div>\n            </div>\n            <div class=\"mrd-datepicker-weekdays wrap\">\n                <div class=\"mrd-datepicker-weekday\" *ngFor=\"let p of placeholder\"></div>\n                <ng-container *ngIf=\"!range\">\n                    <mrd-button icon-button fullIcon diameter=\"2em\" [class]=\"{'today': d.isToday && !d.isSelected.value, 'selected': d.isSelected.value}\"\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days\" (click)=\"dateSelected(d)\">\n                        {{d.day}}\n                    </mrd-button>\n                </ng-container>\n                <ng-container *ngIf=\"range\">\n                    <mrd-button icon-button fullIcon diameter=\"2em\" \n                    [class.today]=\"d.isToday && !d.isSelected.value\" \n                    [class.selected]=\"d.isSelected.value\" \n                    [class.rangeSelected]=\"d.rangeSelected.value\"\n                    [class.betweenRange]=\"d.betweenRange.value\"\n                    [class.rangeHover]=\"d.rangeHover.value\"\n                    [class.rangeHoverBetween]=\"d.rangeHoverBetween.value\"\n                        class=\"mrd-datepicker-weekday\" *ngFor=\"let d of days; trackBy: trackById\" (click)=\"dateSelected(d)\"\n                        [mrdDateRangeIndicator]=\"d\" [startDate]=\"startDate\" [endDate]=\"endDate\" [hoverEndDate]=\"endHoverDate\" (isHovering)=\"endHoverDate = $event\">\n                        {{d.day}}\n                    </mrd-button>\n                </ng-container>\n            </div>\n        </ng-container>\n        <ng-container *ngIf=\"showYears\">\n            <div class=\"mrd-datepicker-years\">\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': y === year}\" *ngFor=\"let y of yearRange;\"\n                    (click)=\"yearSelected(y)\">\n                    {{y}}\n                </mrd-button>\n            </div>\n        </ng-container>\n        <ng-container *ngIf=\"showMonths\">\n            <div class=\"mrd-datepicker-months\">\n                <mrd-button outline-button diameter=\"2em\" [class]=\"{'selected': i === monthIndex}\" *ngFor=\"let m of fullMonths; let i = index\"\n                    (click)=\"monthSelected(i)\">\n                    {{m}}\n                </mrd-button>\n            </div>\n        </ng-container>\n    </div>\n</div>", styles: [":host{height:300px}.mrd-datepicker-container{width:275px;min-height:272px;max-height:312px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-datepicker-container .mrd-datepicker-header{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.mrd-datepicker-container .mrd-datepicker-header .mrd-datepicker-header-navigation{display:flex;flex-direction:row;align-items:center}.mrd-datepicker-container .mrd-datepicker-content{padding:12px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays{display:flex;flex-direction:row;gap:4px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays.wrap{flex-wrap:wrap}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday{width:30px;height:30px;text-align:center;font-weight:700;color:#666;border-radius:50%}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.today{border:1px solid #000}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.betweenRange{background:#69b02288}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover{border:1px dotted #666}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeHover.rangeHoverBetween{border-radius:0}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.selected,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays .mrd-datepicker-weekday.rangeSelected{background:#68b022}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.selected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.rangeSelected .mrd-button-text-content,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-weekdays ::ng-deep .mrd-datepicker-weekday.betweenRange .mrd-button-text-content{color:#fff}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-years,.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:8px}.mrd-datepicker-container .mrd-datepicker-content .mrd-datepicker-months mrd-button{width:105px}.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-years .selected .mrd-button-container,.mrd-datepicker-container .mrd-datepicker-content ::ng-deep .mrd-datepicker-months .selected .mrd-button-container{border-color:#68b022;border-width:2px}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { date: [{
             type: Input
         }], range: [{
@@ -5635,7 +6075,7 @@ class MrdTimepickerComponent {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTimepickerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-timepicker', template: "<div class=\"mrd-timepicker-container\">\r\n    <div class=\"mrd-timepicker-content\">\r\n        <div class=\"mrd-timepicker-picker\">\r\n            <mrd-button raised-button (click)=\"hour = (hour + 1) % 24\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n            <mrd-form-field>\r\n                <mrd-select [(value)]=\"hour\">\r\n                    <mrd-select-option *ngFor=\"let h of hours\" [value]=\"h\">{{h}}</mrd-select-option>\r\n                </mrd-select>\r\n            </mrd-form-field>\r\n            <mrd-button raised-button (click)=\"hour = (hour - 1 + 24) % 24\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n        </div>\r\n        <span class=\"mrd-timepicker-separator\">:</span>\r\n        <div class=\"mrd-timepicker-picker\">\r\n            <mrd-button raised-button (click)=\"minute = (minute + 1) % 60\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n            <mrd-form-field>\r\n                <mrd-select [(value)]=\"minute\">\r\n                    <mrd-select-option *ngFor=\"let m of minutes\" [value]=\"m\">{{m}}</mrd-select-option>\r\n                </mrd-select>\r\n            </mrd-form-field>\r\n            <mrd-button raised-button (click)=\"minute = (minute - 1 + 60) % 60\">\r\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\r\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\r\n                    </svg>\r\n                </span>\r\n            </mrd-button>\r\n        </div>\r\n    </div>\r\n    <div class=\"mrd-timepicker-actions\">\r\n        <mrd-button flat-button warn (click)=\"timeChanged.emit(null)\">Abbrechen</mrd-button>\r\n        <mrd-button flat-button primary (click)=\"save()\">OK</mrd-button>\r\n    </div>\r\n</div>", styles: [":host{height:224px}.mrd-timepicker-container{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container .mrd-timepicker-content{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker mrd-form-field{width:100%}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-separator{font-size:24px}.mrd-timepicker-container .mrd-timepicker-actions{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}\n"] }]
+        args: [{ selector: 'mrd-timepicker', template: "<div class=\"mrd-timepicker-container\">\n    <div class=\"mrd-timepicker-content\">\n        <div class=\"mrd-timepicker-picker\">\n            <mrd-button raised-button (click)=\"hour = (hour + 1) % 24\">\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n            <mrd-form-field>\n                <mrd-select [(value)]=\"hour\">\n                    <mrd-select-option *ngFor=\"let h of hours\" [value]=\"h\">{{h}}</mrd-select-option>\n                </mrd-select>\n            </mrd-form-field>\n            <mrd-button raised-button (click)=\"hour = (hour - 1 + 24) % 24\">\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n        </div>\n        <span class=\"mrd-timepicker-separator\">:</span>\n        <div class=\"mrd-timepicker-picker\">\n            <mrd-button raised-button (click)=\"minute = (minute + 1) % 60\">\n                <span mrd-icon class=\"mrd-timepicker-icon-add\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n            <mrd-form-field>\n                <mrd-select [(value)]=\"minute\">\n                    <mrd-select-option *ngFor=\"let m of minutes\" [value]=\"m\">{{m}}</mrd-select-option>\n                </mrd-select>\n            </mrd-form-field>\n            <mrd-button raised-button (click)=\"minute = (minute - 1 + 60) % 60\">\n                <span mrd-icon class=\"mrd-timepicker-icon-sub\">\n                    <svg width=\"24\" height=\"25\" viewBox=\"0 0 24 25\" fill=\"none\" transform=\"rotate(180)\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M7.10045 15.4855C7.32184 15.696 7.61781 15.81 7.92323 15.8024C8.22866 15.7947 8.51853 15.666 8.72908 15.4446L12.0006 12.0048L15.2721 15.4446C15.4826 15.666 15.7725 15.7947 16.0779 15.8024C16.3833 15.81 16.6793 15.696 16.9007 15.4855C17.1221 15.275 17.2508 14.9851 17.2584 14.6797C17.2661 14.3742 17.1521 14.0783 16.9416 13.8569L12.8364 9.54065C12.7708 9.47202 12.6968 9.4118 12.6163 9.36139H12.6133C12.5833 9.34264 12.5529 9.32389 12.5218 9.30927L12.5128 9.30476C12.4832 9.29014 12.4536 9.27664 12.4232 9.26464L12.4071 9.25864C12.3786 9.24814 12.3501 9.23802 12.3212 9.22939L12.2965 9.22339C12.2698 9.21627 12.2428 9.20951 12.2158 9.20426C12.2038 9.20201 12.1915 9.20088 12.1783 9.19863C12.1547 9.19488 12.1314 9.19075 12.1078 9.18888C12.0842 9.187 12.0564 9.18587 12.0309 9.18512C12.0208 9.18512 12.0107 9.18512 12.0006 9.18512H11.9987C11.9886 9.18512 11.9785 9.18512 11.9683 9.18512C11.9428 9.18512 11.9169 9.18513 11.8914 9.18888C11.8659 9.19263 11.8442 9.19527 11.8206 9.19902C11.8086 9.19902 11.7962 9.20201 11.7831 9.20426C11.7561 9.20951 11.7291 9.21627 11.7024 9.22339L11.6781 9.22939C11.6488 9.23764 11.6203 9.24777 11.5922 9.25864L11.5761 9.26464C11.5457 9.27664 11.5157 9.29014 11.4865 9.30476L11.4778 9.30888C11.4467 9.32463 11.4159 9.34227 11.3859 9.36102H11.3833C11.3027 9.41141 11.2286 9.47161 11.1628 9.54026L7.0577 13.8565C6.95352 13.9663 6.87197 14.0955 6.81773 14.2367C6.76349 14.378 6.73761 14.5286 6.74158 14.6799C6.74555 14.8311 6.77929 14.9801 6.84086 15.1184C6.90244 15.2566 6.99065 15.3814 7.10045 15.4855Z\" fill=\"#000\"/>\n                    </svg>\n                </span>\n            </mrd-button>\n        </div>\n    </div>\n    <div class=\"mrd-timepicker-actions\">\n        <mrd-button flat-button warn (click)=\"timeChanged.emit(null)\">Abbrechen</mrd-button>\n        <mrd-button flat-button primary (click)=\"save()\">OK</mrd-button>\n    </div>\n</div>", styles: [":host{height:224px}.mrd-timepicker-container{width:200px;min-height:224px;max-height:224px;background:#fff;border-radius:12px;padding:8px;box-shadow:5px 5px 20px -5px #00000052;-webkit-box-shadow:5px 5px 20px -5px rgba(0,0,0,.3215686275)}.mrd-timepicker-container .mrd-timepicker-content{padding:12px;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:8px}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker{width:50%;display:flex;flex-direction:column}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-picker mrd-form-field{width:100%}.mrd-timepicker-container .mrd-timepicker-content .mrd-timepicker-separator{font-size:24px}.mrd-timepicker-container .mrd-timepicker-actions{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:8px;padding:8px}\n"] }]
     }], function () { return []; }, { time: [{
             type: Input
         }], timeChanged: [{
@@ -6257,7 +6697,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdLabelComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-label', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-label-content\" [ngClass]=\"{'mrd-label-floating': float === 'always' || floating.value, 'mrd-label-hidden': float === 'never' && floating.value, 'mrd-label-top': labelTop}\">\r\n  <span class=\"mrd-label-text\"><ng-content></ng-content><ng-container *ngIf=\"required.value\">&nbsp;*</ng-container></span>\r\n</div>\r\n", styles: [".mrd-label-content{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content .mrd-label-text{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top{justify-content:flex-start}.mrd-label-content.mrd-label-floating{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden{display:none}\n"] }]
+        args: [{ selector: 'mrd-label', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-label-content\" [ngClass]=\"{'mrd-label-floating': float === 'always' || floating.value, 'mrd-label-hidden': float === 'never' && floating.value, 'mrd-label-top': labelTop}\">\n  <span class=\"mrd-label-text\"><ng-content></ng-content><ng-container *ngIf=\"required.value\">&nbsp;*</ng-container></span>\n</div>\n", styles: [".mrd-label-content{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content .mrd-label-text{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top{justify-content:flex-start}.mrd-label-content.mrd-label-floating{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden{display:none}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { labelTop: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
@@ -6399,7 +6839,7 @@ class MrdSelectOptionComponent {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectOptionComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused, 'disabled': disabled}\" (click)=\"optionClick()\">\r\n  <span>\r\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\r\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\r\n        <ng-container *ngIf=\"selected\">\r\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n          </svg>\r\n        </ng-container>\r\n      </span> -->\r\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\r\n    </div>\r\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\r\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n  </span>\r\n</div>\r\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1;align-items:center}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}.mrd-select-option-item.disabled{pointer-events:none;opacity:.5}\n"] }]
+        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused, 'disabled': disabled}\" (click)=\"optionClick()\">\n  <span>\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\n        <ng-container *ngIf=\"selected\">\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\n          </svg>\n        </ng-container>\n      </span> -->\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\n    </div>\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\n  </span>\n</div>\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1;align-items:center}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}.mrd-select-option-item.disabled{pointer-events:none;opacity:.5}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: MrdSelectComponent, decorators: [{
                 type: Host
             }] }, { type: i0.ChangeDetectorRef }]; }, { optionValue: [{
@@ -8136,7 +8576,7 @@ class MrdDecimalComponent {
                     '[style.align-items]': 'textEnd ? "flex-end" : centered ? "center" : "flex-start"',
                     '[style.background-color]': 'backgroundColor',
                     '[style.color]': 'color'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\r\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\r\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\r\n</div>\r\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-decimal-container\">\n    <div class=\"mrd-decimal-content\">{{decimalValue}}</div>\n    <div class=\"mrd-digits-content\" [ngClass]=\"{'small': smallDigits}\">{{digitsValue}}</div>\n</div>\n", styles: [":host{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container .mrd-digits-content.small{font-size:.8em}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { backgroundColor: [{
             type: Input
         }], color: [{
