@@ -1,12 +1,13 @@
 import * as _ from 'underscore';
 import * as i0 from '@angular/core';
-import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild } from '@angular/core';
+import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef } from '@angular/core';
 import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, ValidatorFloat } from 'mrd-core';
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { of, tap, map, finalize, share, Subscription, take, startWith, Subject, defer, switchMap, merge } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentPortal } from '@angular/cdk/portal';
 import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -59,7 +60,6 @@ const DIRECTION_DEGREES = {
 class IconFactoryService {
     static INNER_SCALE = 0.65;
     static build(config) {
-        debugger;
         const resolvedOuterColor = config.outerColor ?? config.color;
         const resolvedInnerColor = config.innerColor ?? config.color;
         const parts = [];
@@ -1450,12 +1450,12 @@ class MrdDirectiveModule {
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
 } }
-const _c0$p = function (a0) { return { "transform": a0 }; };
+const _c0$q = function (a0) { return { "transform": a0 }; };
 function MrdProgressBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 4);
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$p, "translateX(" + ctx_r1.value + "%)"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$q, "translateX(" + ctx_r1.value + "%)"));
 } }
 class MrdProgressBarComponent {
     cdr;
@@ -1730,7 +1730,7 @@ function MrdTooltipComponent_ng_template_2_Template(rf, ctx) { if (rf & 1) {
 function MrdTooltipComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$o = function (a0) { return { "mrd-tooltip-container": a0 }; };
+const _c0$p = function (a0) { return { "mrd-tooltip-container": a0 }; };
 class MrdTooltipComponent {
     /**
      * This is simple text which is to be shown in the tooltip
@@ -1757,7 +1757,7 @@ class MrdTooltipComponent {
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$o, ctx.defaultStyle));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$p, ctx.defaultStyle));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || _r0);
         } }, dependencies: [i1$1.NgClass, i1$1.NgTemplateOutlet], styles: [".mrd-tooltip-container[_ngcontent-%COMP%]{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}"] });
@@ -2068,7 +2068,7 @@ class ToolTipRendererDirective {
             args: ['mouseleave', ['$event']]
         }] }); })();
 
-const _c0$n = ["mrdButtonTextContent"];
+const _c0$o = ["mrdButtonTextContent"];
 function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
@@ -2081,11 +2081,11 @@ function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf &
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵproperty("value", ctx_r3.loadingProgress == null ? null : ctx_r3.loadingProgress.value)("mode", ctx_r3.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r3.progressColor);
 } }
-const _c1$f = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
-const _c2$b = function (a0) { return { "min-width": a0 }; };
-const _c3$9 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
-const _c4$4 = function (a0) { return { "isCollapsed": a0 }; };
-const _c5$1 = function (a0) { return { "full-icon": a0 }; };
+const _c1$g = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$c = function (a0) { return { "min-width": a0 }; };
+const _c3$a = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
+const _c4$5 = function (a0) { return { "isCollapsed": a0 }; };
+const _c5$2 = function (a0) { return { "full-icon": a0 }; };
 const _c6$1 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -2751,7 +2751,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
     }
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$n, 7);
+            i0.ɵɵviewQuery(_c0$o, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -2761,7 +2761,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
             i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
         } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$f);
+            i0.ɵɵprojectionDef(_c1$g);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
             i0.ɵɵelementEnd();
@@ -2781,17 +2781,17 @@ class MrdButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             const _r1 = i0.ɵɵreference(8);
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--text-color", ctx.textColor)("--hover-text-color", ctx.hoverTextColor)("--disabled-text-color", ctx.disabledTextColor)("--disabled-bg-color", ctx.disabledBgColor)("--border-width", ctx.borderWidth)("--border-color", ctx.borderColor)("--border-style", ctx.borderStyle)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--font-weight", ctx.fontWeight)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--unselected-color", ctx.toggleUnselectedColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c2$b, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c3$9, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c2$c, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c3$a, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
             i0.ɵɵadvance(3);
             i0.ɵɵstyleProp("--hover-color", ctx.hoverColor)("--active-color", ctx.activeColor);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(66, _c4$4, ctx.isCollapsed));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(66, _c4$5, ctx.isCollapsed));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$2, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("hideIfTruncated", ctx.collapse)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c5$1, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c5$2, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && !ctx.icon && !ctx.fab && !ctx.miniFab && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
             i0.ɵɵadvance(1);
@@ -3042,7 +3042,7 @@ class MrdButtonModule {
         MrdTooltipModule,
         MrdDirectiveModule], exports: [MrdButtonComponent] }); })();
 
-const _c0$m = ["*"];
+const _c0$n = ["*"];
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -3232,7 +3232,7 @@ class MrdIconComponent {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$m, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$n, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } } });
@@ -3340,7 +3340,7 @@ class MrdTabComponent {
         }] }); })();
 
 function MrdTabBodyComponent_ng_template_1_Template(rf, ctx) { }
-const _c0$l = function (a0, a1) { return { "transform": a0, "display": a1 }; };
+const _c0$m = function (a0, a1) { return { "transform": a0, "display": a1 }; };
 class MatTabBodyPortal {
     viewContainerRef;
     _host;
@@ -3457,7 +3457,7 @@ class MrdTabBodyComponent {
             i0.ɵɵtemplate(1, MrdTabBodyComponent_ng_template_1_Template, 0, 0, "ng-template", 1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$l, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$m, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
         } }, dependencies: [i1$1.NgStyle, MatTabBodyPortal], styles: [".mrd-tab-content[_ngcontent-%COMP%]{display:block;position:absolute;inset:0;transition:transform 1s ease-out}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
@@ -3481,8 +3481,8 @@ class MrdTabBodyComponent {
             type: Input
         }] }); })();
 
-const _c0$k = ["mrdTabHeader"];
-const _c1$e = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
+const _c0$l = ["mrdTabHeader"];
+const _c1$f = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
 function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r6 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 6, 7);
@@ -3493,11 +3493,11 @@ function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const tab_r3 = ctx.$implicit;
     const ctx_r2 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$e, tab_r3.active, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$f, tab_r3.active, ctx_r2.rounded, ctx_r2.labelsFit));
     i0.ɵɵadvance(2);
     i0.ɵɵtextInterpolate1(" ", tab_r3.label, " ");
 } }
-const _c2$a = function (a0) { return { "height": a0 }; };
+const _c2$b = function (a0) { return { "height": a0 }; };
 function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 3);
     i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 6, "div", 4);
@@ -3505,7 +3505,7 @@ function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(6, _c2$a, ctx_r0.headerHeight + "px"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(6, _c2$b, ctx_r0.headerHeight + "px"));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngForOf", ctx_r0.tabs);
     i0.ɵɵadvance(1);
@@ -3655,7 +3655,7 @@ class MrdTabGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabs = _t);
         } }, viewQuery: function MrdTabGroupComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$k, 5);
+            i0.ɵɵviewQuery(_c0$l, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabBodys = _t);
@@ -3737,8 +3737,8 @@ class MrdTabsModule {
         MrdTabComponent,
         MrdTabBodyComponent] }); })();
 
-const _c0$j = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
-const _c1$d = function (a0, a1) { return { "selected": a0, "over": a1 }; };
+const _c0$k = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
+const _c1$e = function (a0, a1) { return { "selected": a0, "over": a1 }; };
 /**
  * Komponente für die Darstellung von Geo-Icons (Schlagzeichnungen).
  *
@@ -4014,10 +4014,10 @@ class MrdGeoIconComponent {
             i0.ɵɵstyleProp("--width", ctx.width)("--height", ctx.height)("--margin", ctx.margin)("--transitionTime", ctx.transitionTime)("--mainColor", ctx.mainColor)("--mainSelectedColor", ctx.mainSelectedColor)("--backColor", ctx.backColor)("--backSelectedColor", ctx.backSelectedColor)("--overColor", ctx.overlayColor)("--overSelectedColor", ctx.overlaySelectedColor)("--mainOpacity", ctx.mainOpacity)("--mainSelectedOpacity", ctx.mainSelectedOpacity)("--backOpacity", ctx.backOpacity)("--backSelectedOpacity", ctx.backSelectedOpacity)("--overOpacity", ctx.overlayOpacity)("--overSelectedOpacity", ctx.overlaySelectedOpacity);
             i0.ɵɵattribute("viewBox", ctx.viewBox);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$j, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$k, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.base);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$d, ctx.isSelected, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$e, ctx.isSelected, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.overlay);
         } }, dependencies: [i1$1.NgClass], styles: [".geoicon[_ngcontent-%COMP%]{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .main.selected[_ngcontent-%COMP%]{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon[_ngcontent-%COMP%]   .back[_ngcontent-%COMP%]{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .back.selected[_ngcontent-%COMP%]{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon[_ngcontent-%COMP%]   .over[_ngcontent-%COMP%]{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .over.selected[_ngcontent-%COMP%]{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}"] });
 }
@@ -4229,8 +4229,8 @@ class FlyOutData {
             }]
     }], null, null); })();
 
-const _c0$i = ["container"];
-const _c1$c = ["content"];
+const _c0$j = ["container"];
+const _c1$d = ["content"];
 function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     const _r4 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
@@ -4240,8 +4240,8 @@ function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(2, "path", 9)(3, "path", 10);
     i0.ɵɵelementEnd()();
 } }
-const _c2$9 = function (a0) { return { "open": a0 }; };
-const _c3$8 = function (a0, a1, a2, a3, a4, a5) { return { "open": a0, "centered": a1, "topDown": a2, "bottomUp": a3, "leftRight": a4, "rightLeft": a5 }; };
+const _c2$a = function (a0) { return { "open": a0 }; };
+const _c3$9 = function (a0, a1, a2, a3, a4, a5) { return { "open": a0, "centered": a1, "topDown": a2, "bottomUp": a3, "leftRight": a4, "rightLeft": a5 }; };
 /**
  * Diese Komponente stellt ein FlyOut dar, das von oben nach unten, von unten nach oben, von links nach rechts oder von rechts nach links einfliegt.
  *
@@ -4529,8 +4529,8 @@ class MrdFlyOutComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(t) { return new (t || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFlyOutComponent, selectors: [["mrd-fly-out"]], viewQuery: function MrdFlyOutComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$i, 5);
-            i0.ɵɵviewQuery(_c1$c, 7, ViewContainerRef);
+            i0.ɵɵviewQuery(_c0$j, 5);
+            i0.ɵɵviewQuery(_c1$d, 7, ViewContainerRef);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.container = _t.first);
@@ -4545,11 +4545,11 @@ class MrdFlyOutComponent extends BaseObject {
             i0.ɵɵelementEnd()()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--bd-color", ctx.backdropColor)("--bd-transition-time", ctx.transitionTime);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(27, _c2$9, ctx.stateToggle.value));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(27, _c2$a, ctx.stateToggle.value));
             i0.ɵɵadvance(1);
             i0.ɵɵstyleProp("--fo-width", ctx.width)("--fo-max-width", ctx.maxWidth)("--fo-height", ctx.height)("--fo-max-height", ctx.maxHeight)("--fo-bg-color", ctx.backgroundColor)("--fo-padding", ctx.padding)("--fo-border-radius", ctx.borderRadius)("--fo-transition-time", ctx.transitionTime)("--fo-container-height", ctx.containerHeight)("--fo-container-width", ctx.containerWidth);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(29, _c3$8, ctx.stateToggle.value, ctx.centered, ctx.topDown, ctx.bottomUp, ctx.leftRight, ctx.rightLeft));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(29, _c3$9, ctx.stateToggle.value, ctx.centered, ctx.topDown, ctx.bottomUp, ctx.leftRight, ctx.rightLeft));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", !ctx.hideDefaultCloseButton);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdButtonComponent], styles: ["[_nghost-%COMP%]{width:100vw;height:100vh;position:absolute;inset:0}.backdrop[_ngcontent-%COMP%]{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open[_ngcontent-%COMP%]{display:block;background-color:var(--bd-color)}.mrd-fly-out[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]   .mrd-fly-out__content[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown[_ngcontent-%COMP%]{padding-top:3.5em;top:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown.centered[_ngcontent-%COMP%]{padding-top:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp[_ngcontent-%COMP%]{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp.centered[_ngcontent-%COMP%]{padding-bottom:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight[_ngcontent-%COMP%]{padding-left:3.5em;left:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight.centered[_ngcontent-%COMP%]{padding-left:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft[_ngcontent-%COMP%]{padding-right:3.5em;right:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft.centered[_ngcontent-%COMP%]{padding-right:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown[_ngcontent-%COMP%]{top:-3em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown.centered[_ngcontent-%COMP%]{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp[_ngcontent-%COMP%]{bottom:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp.centered[_ngcontent-%COMP%]{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight[_ngcontent-%COMP%]{left:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight.centered[_ngcontent-%COMP%]{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft[_ngcontent-%COMP%]{right:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft.centered[_ngcontent-%COMP%]{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__close[_ngcontent-%COMP%]{position:absolute;top:0;right:0;z-index:10000}"], changeDetection: 0 });
@@ -4652,7 +4652,7 @@ class MrdFlyOutModule {
         MrdButtonModule], exports: [MrdFlyOutComponent,
         MrdFlyOutCloseDirective] }); })();
 
-const _c0$h = ["*"];
+const _c0$i = ["*"];
 class MrdButtonToggleGroupComponent extends BaseObject {
     cdr;
     buttons;
@@ -4890,7 +4890,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$h, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$i, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -4989,7 +4989,7 @@ class MrdButtonToggleModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdButtonToggleModule, { declarations: [MrdButtonToggleGroupComponent], imports: [CommonModule,
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
-const _c0$g = ["checkboxlabel"];
+const _c0$h = ["checkboxlabel"];
 function MrdCheckboxComponent_span_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵnamespaceSVG();
@@ -5017,7 +5017,7 @@ function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1)
 function MrdCheckboxComponent_div_2_ng_content_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 2, ["*ngIf", "!checked"]);
 } }
-const _c1$b = function (a0) { return { "isHover": a0 }; };
+const _c1$c = function (a0) { return { "isHover": a0 }; };
 function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 13);
     i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 7);
@@ -5025,7 +5025,7 @@ function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$b, !ctx_r1.customHoverIcons));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$c, !ctx_r1.customHoverIcons));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r1.checked);
     i0.ɵɵadvance(1);
@@ -5049,9 +5049,9 @@ function MrdCheckboxComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", !ctx_r2.checked);
 } }
-const _c2$8 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
-const _c3$7 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
-const _c4$3 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
+const _c2$9 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
+const _c3$8 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
+const _c4$4 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
 class MrdCheckboxComponent {
     cdr;
     label;
@@ -5155,14 +5155,14 @@ class MrdCheckboxComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], viewQuery: function MrdCheckboxComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$g, 5);
+            i0.ɵɵviewQuery(_c0$h, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
         } }, hostVars: 2, hostBindings: function MrdCheckboxComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("max-width", ctx.fitContent ? "fit-content" : "100%");
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c4$3, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2$8);
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c4$4, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c2$9);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener() { return ctx.toggle(); });
             i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 2, 1, "span", 1);
@@ -5175,7 +5175,7 @@ class MrdCheckboxComponent {
             const _r3 = i0.ɵɵreference(5);
             i0.ɵɵstyleProp("--box-height", ctx.checkboxHeight)("--box-width", ctx.checkboxWidth)("--bg-color", ctx.bgColor)("--bg-color-hover", ctx.bgColorHover)("--bg-color-checked", ctx.bgColorChecked)("--bg-color-checked-hover", ctx.bgColorCheckedHover)("--color", ctx.color)("--color-hover", ctx.colorHover)("--color-checked", ctx.colorChecked)("--color-checked-hover", ctx.colorCheckedHover)("--border", ctx.border)("--border-hover", ctx.borderHover)("--border-checked", ctx.borderChecked)("--border-checked-hover", ctx.borderCheckedHover);
             i0.ɵɵclassProp("rounded", ctx.rounded)("checked", ctx.checked);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$7, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r3 : undefined);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$8, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r3 : undefined);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.customIcons);
             i0.ɵɵadvance(1);
@@ -5305,7 +5305,7 @@ class MrdCheckboxModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdCheckboxModule, { declarations: [MrdCheckboxComponent], imports: [CommonModule,
         MrdTooltipModule], exports: [MrdCheckboxComponent] }); })();
 
-const _c0$f = ["chipText"];
+const _c0$g = ["chipText"];
 function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
@@ -5333,9 +5333,9 @@ function MrdChipComponent_mrd_button_7_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r3.closeIconColor)("--chip-close-icon-cross-color", ctx_r3.closeIconCrossColor);
 } }
-const _c1$a = function (a0) { return { "cursor": a0 }; };
-const _c2$7 = function (a0) { return { "pointer-events": a0 }; };
-const _c3$6 = ["*"];
+const _c1$b = function (a0) { return { "cursor": a0 }; };
+const _c2$8 = function (a0) { return { "pointer-events": a0 }; };
+const _c3$7 = ["*"];
 class MrdChipComponent {
     cdr;
     chipText;
@@ -5415,11 +5415,11 @@ class MrdChipComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(t) { return new (t || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdChipComponent, selectors: [["mrd-chip"]], viewQuery: function MrdChipComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$f, 5);
+            i0.ɵɵviewQuery(_c0$g, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
-        } }, inputs: { primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], color: ["color", "color", colorThemeAttribute], backgroundColor: ["backgroundColor", "backgroundColor", colorAttribute], clickable: ["clickable", "clickable", booleanAttribute], closeable: ["closeable", "closeable", booleanAttribute], prefixIcon: "prefixIcon", suffixIcon: "suffixIcon", disabled: ["disabled", "disabled", booleanAttribute], closeIconColor: ["closeIconColor", "closeIconColor", colorAttribute], closeIconCrossColor: ["closeIconCrossColor", "closeIconCrossColor", colorAttribute] }, outputs: { close: "close" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$6, decls: 8, vars: 14, consts: [[1, "mrd-chip-container", 3, "ngStyle"], [1, "mrd-chip-content", 3, "ngStyle"], [3, "svgIcon", 4, "ngIf"], ["showIfTruncated", "", 1, "mrd-chip-text", 3, "mrdToolTip"], ["chipText", ""], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click", 4, "ngIf"], [3, "svgIcon"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click"], ["mrd-icon", "", 1, "chip-close-icon"], ["xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 36 36", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["transform", "translate(0 0.001)"], ["id", "X-gross-hellgrau", "transform", "translate(0 -0.001)"], ["d", "M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z", "transform", "translate(-164.994 -2778)", 1, "kreis"], ["d", "M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z", "transform", "translate(205.343 34.343)", 1, "x"]], template: function MrdChipComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], color: ["color", "color", colorThemeAttribute], backgroundColor: ["backgroundColor", "backgroundColor", colorAttribute], clickable: ["clickable", "clickable", booleanAttribute], closeable: ["closeable", "closeable", booleanAttribute], prefixIcon: "prefixIcon", suffixIcon: "suffixIcon", disabled: ["disabled", "disabled", booleanAttribute], closeIconColor: ["closeIconColor", "closeIconColor", colorAttribute], closeIconCrossColor: ["closeIconCrossColor", "closeIconCrossColor", colorAttribute] }, outputs: { close: "close" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$7, decls: 8, vars: 14, consts: [[1, "mrd-chip-container", 3, "ngStyle"], [1, "mrd-chip-content", 3, "ngStyle"], [3, "svgIcon", 4, "ngIf"], ["showIfTruncated", "", 1, "mrd-chip-text", 3, "mrdToolTip"], ["chipText", ""], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click", 4, "ngIf"], [3, "svgIcon"], ["icon-button", "", "fullIcon", "", "diameter", "1em", 3, "disabled", "click"], ["mrd-icon", "", 1, "chip-close-icon"], ["xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 36 36", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["transform", "translate(0 0.001)"], ["id", "X-gross-hellgrau", "transform", "translate(0 -0.001)"], ["d", "M195.722,2783.271a18,18,0,1,1-25.456,0A18,18,0,0,1,195.722,2783.271Z", "transform", "translate(-164.994 -2778)", 1, "kreis"], ["d", "M-184.391-11.15l-2.953-2.953L-190.3-11.15a1.581,1.581,0,0,1-1.12.464,1.581,1.581,0,0,1-1.12-.464,1.585,1.585,0,0,1,0-2.241l2.953-2.953-2.953-2.953a1.584,1.584,0,0,1,0-2.24,1.584,1.584,0,0,1,2.24,0l2.953,2.953,2.953-2.953a1.584,1.584,0,0,1,2.24,0,1.584,1.584,0,0,1,0,2.24l-2.953,2.953,2.953,2.953a1.585,1.585,0,0,1,0,2.241,1.579,1.579,0,0,1-1.12.464A1.579,1.579,0,0,1-184.391-11.15Z", "transform", "translate(205.343 34.343)", 1, "x"]], template: function MrdChipComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵtemplate(2, MrdChipComponent_mrd_icon_2_Template, 1, 1, "mrd-icon", 2);
@@ -5432,9 +5432,9 @@ class MrdChipComponent {
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--chip-color", ctx.color)("--chip-background-color", ctx.backgroundColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$a, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$b, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$7, ctx.disabled ? "none" : "auto"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$8, ctx.disabled ? "none" : "auto"));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.prefixIcon);
             i0.ɵɵadvance(1);
@@ -5526,7 +5526,7 @@ class MrdChipModule {
 function MrdDatepickerComponent_ng_container_10_div_17_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 8);
 } }
-const _c0$e = function (a0, a1) { return { "today": a0, "selected": a1 }; };
+const _c0$f = function (a0, a1) { return { "today": a0, "selected": a1 }; };
 function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
     const _r10 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 12);
@@ -5535,7 +5535,7 @@ function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Tem
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const d_r8 = ctx.$implicit;
-    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$e, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$f, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", d_r8.day, " ");
 } }
@@ -5609,7 +5609,7 @@ function MrdDatepickerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) 
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r0.range);
 } }
-const _c1$9 = function (a0) { return { "selected": a0 }; };
+const _c1$a = function (a0) { return { "selected": a0 }; };
 function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) { if (rf & 1) {
     const _r19 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 17);
@@ -5619,7 +5619,7 @@ function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) {
 } if (rf & 2) {
     const y_r17 = ctx.$implicit;
     const ctx_r16 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$9, y_r17 === ctx_r16.year));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$a, y_r17 === ctx_r16.year));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", y_r17, " ");
 } }
@@ -5644,7 +5644,7 @@ function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template(rf, ctx) {
     const m_r21 = ctx.$implicit;
     const i_r22 = ctx.index;
     const ctx_r20 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$9, i_r22 === ctx_r20.monthIndex));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$a, i_r22 === ctx_r20.monthIndex));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", m_r21, " ");
 } }
@@ -6082,10 +6082,10 @@ class MrdTimepickerComponent {
             type: Output
         }] }); })();
 
-const _c0$d = ["baseInput"];
-const _c1$8 = ["textArea"];
-const _c2$6 = ["dateInput"];
-const _c3$5 = ["timeInput"];
+const _c0$e = ["baseInput"];
+const _c1$9 = ["textArea"];
+const _c2$7 = ["dateInput"];
+const _c3$6 = ["timeInput"];
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
     const _r11 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "input", 5, 6);
@@ -6096,7 +6096,7 @@ function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵstyleProp("pointer-events", ctx_r0.readonly ? "none" : "auto")("text-align", ctx_r0.textEnd ? "end" : ctx_r0.centered ? "center" : "start")("color", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled ? ctx_r0.disabledColor : ctx_r0.color);
     i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.maxDigits)("timeInput", ctx_r0.time);
 } }
-const _c4$2 = function (a0) { return { "line-height": a0 }; };
+const _c4$3 = function (a0) { return { "line-height": a0 }; };
 function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
     const _r17 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "textarea", 7, 8);
@@ -6105,7 +6105,7 @@ function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto")("color", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled ? ctx_r1.disabledColor : ctx_r1.color);
-    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c4$2, ctx_r1.lineHeight + "px"));
+    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c4$3, ctx_r1.lineHeight + "px"));
 } }
 function MrdInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", null, 9);
@@ -6164,7 +6164,7 @@ function MrdInputComponent_ng_template_8_Template(rf, ctx) { if (rf & 1) {
     const ctx_r8 = i0.ɵɵnextContext();
     i0.ɵɵproperty("time", ctx_r8.value);
 } }
-const _c5 = [[["", "unfocusedOverlay", ""]]];
+const _c5$1 = [[["", "unfocusedOverlay", ""]]];
 const _c6 = ["[unfocusedOverlay]"];
 class MrdInputComponent extends BaseObject {
     cdr;
@@ -6483,10 +6483,10 @@ class MrdInputComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdInputComponent, selectors: [["mrd-input"]], viewQuery: function MrdInputComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$d, 5);
-            i0.ɵɵviewQuery(_c1$8, 5);
-            i0.ɵɵviewQuery(_c2$6, 5);
-            i0.ɵɵviewQuery(_c3$5, 5);
+            i0.ɵɵviewQuery(_c0$e, 5);
+            i0.ɵɵviewQuery(_c1$9, 5);
+            i0.ɵɵviewQuery(_c2$7, 5);
+            i0.ɵɵviewQuery(_c3$6, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.baseInputElement = _t.first);
@@ -6494,7 +6494,7 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.timeInputElement = _t.first);
         } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c5);
+            i0.ɵɵprojectionDef(_c5$1);
             i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 12, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 1);
             i0.ɵɵtemplate(2, MrdInputComponent_div_2_Template, 2, 0, "div", 2);
@@ -6661,8 +6661,8 @@ function MrdLabelComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(1, "\u00A0*");
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$c = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
-const _c1$7 = ["*"];
+const _c0$d = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
+const _c1$8 = ["*"];
 class MrdLabelComponent extends BasePushStrategyObject {
     cdr;
     set labelTop(value) {
@@ -6683,14 +6683,14 @@ class MrdLabelComponent extends BasePushStrategyObject {
         this.watch(this._labelTop.changed, new SubscriptionHandler(() => this.cdr.detectChanges()));
     }
     /** @nocollapse */ static ɵfac = function MrdLabelComponent_Factory(t) { return new (t || MrdLabelComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$7, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$8, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵtemplate(3, MrdLabelComponent_ng_container_3_Template, 2, 0, "ng-container", 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$c, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$d, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.required.value);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
@@ -6705,8 +6705,8 @@ class MrdLabelComponent extends BasePushStrategyObject {
             type: Input
         }] }); })();
 
-const _c0$b = function (a0) { return { "mrd-error-ellipsis": a0 }; };
-const _c1$6 = function (a0) { return { "-webkit-line-clamp": a0 }; };
+const _c0$c = function (a0) { return { "mrd-error-ellipsis": a0 }; };
+const _c1$7 = function (a0) { return { "-webkit-line-clamp": a0 }; };
 class MrdErrorComponent {
     cdr;
     ellipsis;
@@ -6733,7 +6733,7 @@ class MrdErrorComponent {
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$b, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$6, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$c, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$7, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate1(" ", ctx.error, "\n");
         } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
@@ -6746,7 +6746,7 @@ class MrdErrorComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$a = ["optionValue"];
+const _c0$b = ["optionValue"];
 function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 4);
     i0.ɵɵelement(1, "mrd-checkbox", 5);
@@ -6756,9 +6756,9 @@ function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("checked", ctx_r0.selected);
 } }
-const _c1$5 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
-const _c2$5 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
-const _c3$4 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
+const _c1$6 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$6 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
+const _c3$5 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 class MrdSelectOptionComponent {
     elementRef;
     select;
@@ -6815,12 +6815,12 @@ class MrdSelectOptionComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(t) { return new (t || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectOptionComponent, selectors: [["mrd-select-option"]], viewQuery: function MrdSelectOptionComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$a, 5);
+            i0.ɵɵviewQuery(_c0$b, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionValue = _t.first);
-        } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$4, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$5);
+        } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$5, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$6);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdSelectOptionComponent_Template_div_click_0_listener() { return ctx.optionClick(); });
             i0.ɵɵelementStart(1, "span");
@@ -6832,7 +6832,7 @@ class MrdSelectOptionComponent {
             i0.ɵɵprojection(7, 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c2$5, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c2$6, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.multiple && !ctx.noCheckbox);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdCheckboxComponent], styles: ["[_nghost-%COMP%]{display:block;width:100%}.mrd-select-search-option[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:inherit}.mrd-select-option-item[_ngcontent-%COMP%]{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-value-text[_ngcontent-%COMP%]{display:flex;flex:1;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-checkbox-wrapper[_ngcontent-%COMP%]{display:flex;pointer-events:none}.mrd-select-option-item.selected[_ngcontent-%COMP%]{background-color:#3fb61a21}.mrd-select-option-item.filtered[_ngcontent-%COMP%]{display:none}.mrd-select-option-item.focused[_ngcontent-%COMP%], .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:#f0f0f0}.mrd-select-option-item[_ngcontent-%COMP%]:last-of-type{border-bottom:none}.mrd-select-option-item.disabled[_ngcontent-%COMP%]{pointer-events:none;opacity:.5}"], changeDetection: 0 });
@@ -6857,14 +6857,14 @@ class MrdSelectOptionComponent {
             type: Output
         }] }); })();
 
-const _c0$9 = ["*"];
+const _c0$a = ["*"];
 class MrdSelectCustomTriggerComponent {
     triggerClick = new EventEmitter();
     triggerClicked() {
         this.triggerClick.emit();
     }
     /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(t) { return new (t || MrdSelectCustomTriggerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$9, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$a, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵlistener("click", function MrdSelectCustomTriggerComponent_Template_span_click_0_listener() { return ctx.triggerClicked(); });
@@ -6879,8 +6879,8 @@ class MrdSelectCustomTriggerComponent {
             type: Output
         }] }); })();
 
-const _c0$8 = ["selectContainer"];
-const _c1$4 = ["searchSelectionInput"];
+const _c0$9 = ["selectContainer"];
+const _c1$5 = ["searchSelectionInput"];
 function MrdSelectComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
@@ -7040,9 +7040,9 @@ function MrdSelectComponent_ng_template_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r3.searchSelection && ctx_r3.searchText.length > 0 && ctx_r3.showNoOptionsOnSearch);
 } }
-const _c2$4 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
-const _c3$3 = function (a0) { return { "mrd-select-disabled": a0 }; };
-const _c4$1 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
+const _c2$5 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
+const _c3$4 = function (a0) { return { "mrd-select-disabled": a0 }; };
+const _c4$2 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
 class MrdSelectComponent extends BasePushStrategyObject {
     elementRef;
     cdr;
@@ -7593,14 +7593,14 @@ class MrdSelectComponent extends BasePushStrategyObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.customTrigger = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.options = _t);
         } }, viewQuery: function MrdSelectComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$8, 5);
-            i0.ɵɵviewQuery(_c1$4, 5);
+            i0.ɵɵviewQuery(_c0$9, 5);
+            i0.ɵɵviewQuery(_c1$5, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.selectContainer = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.searchSelectionInput = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$1, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2$4);
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$2, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c2$5);
             i0.ɵɵelementStart(0, "div", 0, 1);
             i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_2_Template, 2, 1, "ng-container", 2);
             i0.ɵɵtemplate(3, MrdSelectComponent_ng_container_3_Template, 3, 2, "ng-container", 2);
@@ -7609,7 +7609,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             i0.ɵɵlistener("backdropClick", function MrdSelectComponent_Template_ng_template_backdropClick_4_listener() { return ctx.showOptions.value = false; });
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c3$3, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c3$4, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.autoComplete);
             i0.ɵɵadvance(1);
@@ -7690,10 +7690,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
             type: Output
         }] }); })();
 
-const _c0$7 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
-const _c1$3 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
-const _c2$3 = function (a0, a1, a2, a3, a4, a5) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 }; };
-const _c3$2 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
+const _c0$8 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
+const _c1$4 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
+const _c2$4 = function (a0, a1, a2, a3, a4, a5) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 }; };
+const _c3$3 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
 class MrdFormFieldComponent extends BaseObject {
     cdr;
     config = ConfigUtil.getConfig();
@@ -8018,8 +8018,8 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.error = _t.first);
         } }, hostVars: 2, hostBindings: function MrdFormFieldComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("font-family", ctx.config == null ? null : ctx.config.baseFont.family);
-        } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$2, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$7);
+        } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$3, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0$8);
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵelementStart(3, "div", 2);
@@ -8036,9 +8036,9 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--focus-color", ctx.focusColor)("--error-color", ctx.errorColor)("--focus-color-dark", ctx.focusColorDark)("--error-color-dark", ctx.errorColorDark)("--focus-color-outline", ctx.focusColorOutline)("--error-color-outline", ctx.errorColorOutline)("--ff-border-radius", ctx.borderRadius)("--ff-fill-color", ctx.fillColor);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c1$3, ctx.fill, ctx.outline));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c1$4, ctx.fill, ctx.outline));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(21, _c2$3, ctx.hasError, ctx.disabled, ctx.focused, ctx.outline, ctx.fill, ctx.dark));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(21, _c2$4, ctx.hasError, ctx.disabled, ctx.focused, ctx.outline, ctx.fill, ctx.dark));
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:264px}.mrd-form-field-container[_ngcontent-%COMP%]{display:flex;flex-direction:column;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#bcbcbc}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#ebebeb}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]{border-bottom-style:dotted}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]{border-bottom-color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--focus-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-label-content{color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]{border-bottom-color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--error-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-label-content{color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFormFieldComponent, [{
@@ -8086,10 +8086,10 @@ class MrdFormFieldComponent extends BaseObject {
             args: [{ transform: colorAttribute }]
         }] }); })();
 
-const _c0$6 = ["hintContent"];
-const _c1$2 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
-const _c2$2 = function (a0) { return { "-webkit-line-clamp": a0 }; };
-const _c3$1 = ["*"];
+const _c0$7 = ["hintContent"];
+const _c1$3 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
+const _c2$3 = function (a0) { return { "-webkit-line-clamp": a0 }; };
+const _c3$2 = ["*"];
 class MrdHintComponent {
     cdr;
     hintContent;
@@ -8109,17 +8109,17 @@ class MrdHintComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$6, 5);
+            i0.ɵɵviewQuery(_c0$7, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
-        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$1, decls: 3, vars: 7, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "ngStyle", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$2, decls: 3, vars: 7, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "ngStyle", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0, 1);
             i0.ɵɵprojection(2);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$2, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(5, _c2$2, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.tootltipText);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$3, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(5, _c2$3, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.tootltipText);
         } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
@@ -8133,10 +8133,10 @@ class MrdHintComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$5 = ["*"];
+const _c0$6 = ["*"];
 class MrdPrefixComponent {
     /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(t) { return new (t || MrdPrefixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$5, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$6, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
@@ -8146,10 +8146,10 @@ class MrdPrefixComponent {
         args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$4 = ["*"];
+const _c0$5 = ["*"];
 class MrdSuffixComponent {
     /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(t) { return new (t || MrdSuffixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$4, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$5, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
@@ -8159,7 +8159,7 @@ class MrdSuffixComponent {
         args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$3 = ["dateInput"];
+const _c0$4 = ["dateInput"];
 function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 1) {
     const _r3 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 5);
@@ -8169,8 +8169,8 @@ function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵproperty("startDate", ctx_r1.startValue)("endDate", ctx_r1.endValue);
 } }
-const _c1$1 = [[["mrd-input"]]];
-const _c2$1 = ["mrd-input"];
+const _c1$2 = [[["mrd-input"]]];
+const _c2$2 = ["mrd-input"];
 class MrdDateRangePickerComponent {
     inputs;
     dateInputElement;
@@ -8242,12 +8242,12 @@ class MrdDateRangePickerComponent {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.inputs = _t);
         } }, viewQuery: function MrdDateRangePickerComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$3, 5);
+            i0.ɵɵviewQuery(_c0$4, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, ngContentSelectors: _c2$1, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$1);
+        } }, ngContentSelectors: _c2$2, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$2);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
             i0.ɵɵelement(2, "div", null, 1);
@@ -8455,7 +8455,7 @@ i0.ɵɵsetComponentScope(MrdTimepickerComponent, [i1$1.NgForOf, MrdButtonCompone
     MrdSelectComponent,
     MrdSelectOptionComponent], []);
 
-const _c0$2 = function (a0) { return { "small": a0 }; };
+const _c0$3 = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
     cdr;
     set backgroundColor(value) {
@@ -8565,7 +8565,7 @@ class MrdDecimalComponent {
             i0.ɵɵadvance(2);
             i0.ɵɵtextInterpolate(ctx.decimalValue);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$2, ctx.smallDigits));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$3, ctx.smallDigits));
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate(ctx.digitsValue);
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container[_ngcontent-%COMP%]   .mrd-digits-content.small[_ngcontent-%COMP%]{font-size:.8em}"], changeDetection: 0 });
@@ -8640,7 +8640,7 @@ function MrdToggleSwitchComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r3 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r3.toggle($event, ctx_r3.MrdToggleSwitchState.RIGHT)); });
     i0.ɵɵelementEnd()();
 } }
-const _c0$1 = function (a0, a1, a2, a3) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 }; };
+const _c0$2 = function (a0, a1, a2, a3) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 }; };
 class MrdToggleSwitchComponent {
     cdr;
     MrdToggleSwitchState = MrdToggleSwitchState;
@@ -8718,7 +8718,7 @@ class MrdToggleSwitchComponent {
         } if (rf & 2) {
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--knob-color", ctx.knobColor)("--bg-neutral-color", ctx.bgNeutralColor)("--knob-neutral-color", ctx.knobNeutralColor)("--bg-disabled-color", ctx.bgDisabledColor)("--knob-disabled-color", ctx.knobDisabledColor)("--width", ctx.width)("--height", ctx.height);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(18, _c0$1, ctx.disabled, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(18, _c0$2, ctx.disabled, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && ctx.state === ctx.MrdToggleSwitchState.NEUTRAL);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:-moz-fit-content;width:fit-content;height:-moz-fit-content;height:fit-content}.mrd-toggle-switch-container[_ngcontent-%COMP%]{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-left[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:2px}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-right[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]   .mrd-toggle-switch-neutral-clickarea[_ngcontent-%COMP%]{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-disabled-color)}"], changeDetection: 0 });
@@ -8858,17 +8858,17 @@ class MrdStepComponent {
             type: Input
         }] }); })();
 
-const _c0 = ["mrdStepHeader"];
-const _c1 = function (a0) { return { "next-step-active": a0 }; };
+const _c0$1 = ["mrdStepHeader"];
+const _c1$1 = function (a0) { return { "next-step-active": a0 }; };
 function MrdStepperComponent_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 10);
 } if (rf & 2) {
     const i_r3 = i0.ɵɵnextContext().index;
     const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1, ctx_r5.activeIndex > i_r3));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$1, ctx_r5.activeIndex > i_r3));
 } }
-const _c2 = function (a0) { return { "last-step": a0 }; };
-const _c3 = function (a0, a1, a2, a3, a4, a5) { return { "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 }; };
+const _c2$1 = function (a0) { return { "last-step": a0 }; };
+const _c3$1 = function (a0, a1, a2, a3, a4, a5) { return { "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 }; };
 function MrdStepperComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r8 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 4)(1, "div", 5, 6);
@@ -8885,9 +8885,9 @@ function MrdStepperComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     const step_r2 = ctx.$implicit;
     const i_r3 = ctx.index;
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c2, i_r3 === ctx_r0.steps.length - 1));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c2$1, i_r3 === ctx_r0.steps.length - 1));
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(7, _c3, step_r2.active, step_r2.touched && step_r2.mrdStepControl && !step_r2.mrdStepControl.valid, ctx_r0.labelposition === "top", ctx_r0.labelposition === "bottom", ctx_r0.labelposition === "left", ctx_r0.labelposition === "right"));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(7, _c3$1, step_r2.active, step_r2.touched && step_r2.mrdStepControl && !step_r2.mrdStepControl.valid, ctx_r0.labelposition === "top", ctx_r0.labelposition === "bottom", ctx_r0.labelposition === "left", ctx_r0.labelposition === "right"));
     i0.ɵɵadvance(4);
     i0.ɵɵtextInterpolate(step_r2.index + 1);
     i0.ɵɵadvance(2);
@@ -8904,7 +8904,7 @@ function MrdStepperComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("content", tab_r9.content)("active", tab_r9.active)("index", tab_r9.index)("preserveContent", tab_r9.preserveContent);
 } }
-const _c4 = function (a0) { return { "height": a0 }; };
+const _c4$1 = function (a0) { return { "height": a0 }; };
 class MrdStepperComponent extends BaseObject {
     cdr;
     router;
@@ -9035,7 +9035,7 @@ class MrdStepperComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.steps = _t);
         } }, viewQuery: function MrdStepperComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0, 5);
+            i0.ɵɵviewQuery(_c0$1, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.stepBodys = _t);
@@ -9048,7 +9048,7 @@ class MrdStepperComponent extends BaseObject {
             i0.ɵɵtemplate(3, MrdStepperComponent_ng_container_3_Template, 2, 4, "ng-container", 3);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c4, ctx.headerHeight + "px"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c4$1, ctx.headerHeight + "px"));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngForOf", ctx.steps);
             i0.ɵɵadvance(2);
@@ -9112,9 +9112,867 @@ class MrdStepperModule {
         MrdTabsModule], exports: [MrdStepComponent,
         MrdStepperComponent] }); })();
 
+class MrdIconGroupComponent {
+    _svgs = {};
+    set svgs(value) {
+        this._svgs = this.sanitize(value);
+        this.cdr.markForCheck();
+    }
+    get svgs() {
+        return this._svgs;
+    }
+    state = 'default';
+    disabled = false;
+    hovered = false;
+    loading = false;
+    size = 32;
+    // Externes Element das die Zustände treibt
+    hostElement;
+    cdr = inject(ChangeDetectorRef);
+    sanitizer = inject(DomSanitizer);
+    _hovered = false;
+    _active = false;
+    _focused = false;
+    _loading = false;
+    // Listener-Referenzen für späteres Cleanup
+    _listeners = [];
+    get activeSvg() {
+        return this.svgs[this.effectiveState] ?? this.svgs['default'] ?? '';
+    }
+    get effectiveState() {
+        if (this.disabled)
+            return 'disabled';
+        if (this._active)
+            return 'active';
+        if (this._hovered)
+            return 'hover';
+        if (this._focused)
+            return 'focus';
+        if (this.loading)
+            return 'loading';
+        return this.state;
+    }
+    ngOnInit() {
+        if (this.hostElement)
+            this._bindToElement(this.hostElement);
+        this._hovered = this.hovered;
+    }
+    // ngOnChanges(): void {
+    //   // Wenn hostElement zur Laufzeit ausgetauscht wird
+    //   this._unbindListeners();
+    //   if (this.hostElement) this._bindToElement(this.hostElement);
+    //   this.cdr.markForCheck();
+    // }
+    ngOnDestroy() {
+        this._unbindListeners();
+    }
+    // Wenn kein hostElement → Komponente hört auf sich selbst
+    onMouseEnter() {
+        if (this.hostElement || this.disabled)
+            return;
+        this._hovered = true;
+        this.cdr.markForCheck();
+    }
+    onMouseLeave() {
+        if (this.hostElement)
+            return;
+        this._hovered = this.hovered;
+        this._active = false;
+        this.cdr.markForCheck();
+    }
+    onMouseDown() {
+        if (this.hostElement || this.disabled)
+            return;
+        this._active = true;
+        this.cdr.markForCheck();
+    }
+    onMouseUp() {
+        if (this.hostElement)
+            return;
+        this._active = false;
+        this.cdr.markForCheck();
+    }
+    onFocus() {
+        if (this.hostElement || this.disabled)
+            return;
+        this._focused = true;
+        this.cdr.markForCheck();
+    }
+    onBlur() {
+        if (this.hostElement)
+            return;
+        this._focused = false;
+        this.cdr.markForCheck();
+    }
+    _bindToElement(el) {
+        const on = (event, fn) => {
+            el.addEventListener(event, fn);
+            this._listeners.push({ event, fn });
+        };
+        on('mouseenter', () => { if (!this.disabled) {
+            this._hovered = true;
+            this.cdr.markForCheck();
+        } });
+        on('mouseleave', () => { this._hovered = this.hovered; this._active = false; this.cdr.markForCheck(); });
+        on('mousedown', () => { if (!this.disabled) {
+            this._active = true;
+            this.cdr.markForCheck();
+        } });
+        on('mouseup', () => { this._active = false; this.cdr.markForCheck(); });
+        on('focus', () => { if (!this.disabled) {
+            this._focused = true;
+            this.cdr.markForCheck();
+        } });
+        on('blur', () => { this._focused = false; this.cdr.markForCheck(); });
+    }
+    _unbindListeners() {
+        if (!this.hostElement)
+            return;
+        this._listeners.forEach(({ event, fn }) => this.hostElement.removeEventListener(event, fn));
+        this._listeners = [];
+    }
+    sanitize(svgs) {
+        const result = {};
+        for (const [state, svgString] of Object.entries(svgs)) {
+            result[state] = Util.isDefined(svgString) ? this.sanitizer.bypassSecurityTrustHtml(svgString) : null;
+        }
+        return result;
+    }
+    /** @nocollapse */ static ɵfac = function MrdIconGroupComponent_Factory(t) { return new (t || MrdIconGroupComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconGroupComponent, selectors: [["mrd-icon-group"]], hostVars: 4, hostBindings: function MrdIconGroupComponent_HostBindings(rf, ctx) { if (rf & 1) {
+            i0.ɵɵlistener("mouseenter", function MrdIconGroupComponent_mouseenter_HostBindingHandler() { return ctx.onMouseEnter(); })("mouseleave", function MrdIconGroupComponent_mouseleave_HostBindingHandler() { return ctx.onMouseLeave(); })("mousedown", function MrdIconGroupComponent_mousedown_HostBindingHandler() { return ctx.onMouseDown(); })("mouseup", function MrdIconGroupComponent_mouseup_HostBindingHandler() { return ctx.onMouseUp(); })("focus", function MrdIconGroupComponent_focus_HostBindingHandler() { return ctx.onFocus(); })("blur", function MrdIconGroupComponent_blur_HostBindingHandler() { return ctx.onBlur(); });
+        } if (rf & 2) {
+            i0.ɵɵstyleProp("display", "inline-flex")("pointer-events", ctx.hostElement ? "none" : "auto");
+        } }, inputs: { svgs: "svgs", state: "state", disabled: "disabled", hovered: "hovered", loading: "loading", size: "size", hostElement: "hostElement" }, standalone: true, features: [i0.ɵɵStandaloneFeature], decls: 1, vars: 7, consts: [[3, "innerHTML"]], template: function MrdIconGroupComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelement(0, "div", 0);
+        } if (rf & 2) {
+            i0.ɵɵstyleProp("width", ctx.size, "px")("height", ctx.size, "px")("display", "flex");
+            i0.ɵɵproperty("innerHTML", ctx.activeSvg, i0.ɵɵsanitizeHtml);
+        } }, encapsulation: 2, changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconGroupComponent, [{
+        type: Component,
+        args: [{
+                selector: 'mrd-icon-group',
+                standalone: true,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                host: {
+                    '[style.display]': '"inline-flex"',
+                    '[style.pointer-events]': 'hostElement ? "none" : "auto"'
+                },
+                template: `
+    <div
+      [style.width.px]="size"
+      [style.height.px]="size"
+      [style.display]="'flex'"
+      [innerHTML]="activeSvg">
+    </div>
+  `,
+            }]
+    }], null, { svgs: [{
+            type: Input
+        }], state: [{
+            type: Input
+        }], disabled: [{
+            type: Input
+        }], hovered: [{
+            type: Input
+        }], loading: [{
+            type: Input
+        }], size: [{
+            type: Input
+        }], hostElement: [{
+            type: Input
+        }], onMouseEnter: [{
+            type: HostListener,
+            args: ['mouseenter']
+        }], onMouseLeave: [{
+            type: HostListener,
+            args: ['mouseleave']
+        }], onMouseDown: [{
+            type: HostListener,
+            args: ['mousedown']
+        }], onMouseUp: [{
+            type: HostListener,
+            args: ['mouseup']
+        }], onFocus: [{
+            type: HostListener,
+            args: ['focus']
+        }], onBlur: [{
+            type: HostListener,
+            args: ['blur']
+        }] }); })();
+
+const _c0 = ["mrdButtonTextContent"];
+const _c1 = ["buttonTouchArea"];
+function MrdSButtonComponent_span_6_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 14);
+    i0.ɵɵprojection(1, 1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r2 = i0.ɵɵnextContext();
+    const _r4 = i0.ɵɵreference(9);
+    i0.ɵɵclassProp("full-icon", ctx_r2.isFullIcon);
+    i0.ɵɵproperty("hideIfTruncated", ctx_r2.collapse)("hideOnTruncatedElement", _r4)("parentResizeElement", ctx_r2.elementRef.nativeElement);
+} }
+function MrdSButtonComponent_span_7_mrd_icon_group_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-icon-group", 16);
+} if (rf & 2) {
+    const ctx_r10 = i0.ɵɵnextContext(2);
+    const _r0 = i0.ɵɵreference(1);
+    i0.ɵɵproperty("svgs", ctx_r10.iconStateMap)("hostElement", _r0)("disabled", ctx_r10.disabled)("hovered", ctx_r10.hovered)("loading", ctx_r10.isLoading)("size", ctx_r10.iconSizeNumber);
+} }
+function MrdSButtonComponent_span_7_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 14);
+    i0.ɵɵtemplate(1, MrdSButtonComponent_span_7_mrd_icon_group_1_Template, 1, 6, "mrd-icon-group", 15);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r3 = i0.ɵɵnextContext();
+    const _r4 = i0.ɵɵreference(9);
+    i0.ɵɵstyleProp("margin-right", !ctx_r3.isIconButton ? "6px" : "0px");
+    i0.ɵɵclassProp("full-icon", ctx_r3.isFullIcon);
+    i0.ɵɵproperty("hideIfTruncated", ctx_r3.collapse)("hideOnTruncatedElement", _r4)("parentResizeElement", ctx_r3.elementRef.nativeElement);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r3.iconStateMap);
+} }
+function MrdSButtonComponent_span_11_Template(rf, ctx) { if (rf & 1) {
+    const _r12 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "span", 8);
+    i0.ɵɵlistener("hiddenChanged", function MrdSButtonComponent_span_11_Template_span_hiddenChanged_0_listener($event) { i0.ɵɵrestoreView(_r12); const ctx_r11 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r11.buttonCollapsed($event)); });
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r5 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("hideIfTruncated", ctx_r5.collapse)("parentResizeElement", ctx_r5.elementRef.nativeElement);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate1(" ", ctx_r5.defaultButtonText, " ");
+} }
+function MrdSButtonComponent_span_12_mrd_icon_group_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-icon-group", 16);
+} if (rf & 2) {
+    const ctx_r13 = i0.ɵɵnextContext(2);
+    const _r0 = i0.ɵɵreference(1);
+    i0.ɵɵproperty("svgs", ctx_r13.iconStateMap)("hostElement", _r0)("disabled", ctx_r13.disabled)("hovered", ctx_r13.hovered)("loading", ctx_r13.isLoading)("size", ctx_r13.iconSizeNumber);
+} }
+function MrdSButtonComponent_span_12_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 14);
+    i0.ɵɵtemplate(1, MrdSButtonComponent_span_12_mrd_icon_group_1_Template, 1, 6, "mrd-icon-group", 15);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r6 = i0.ɵɵnextContext();
+    const _r4 = i0.ɵɵreference(9);
+    i0.ɵɵstyleProp("margin-left", !ctx_r6.isIconButton ? "6px" : "0px");
+    i0.ɵɵclassProp("full-icon", ctx_r6.isFullIcon);
+    i0.ɵɵproperty("hideIfTruncated", ctx_r6.collapse)("hideOnTruncatedElement", _r4)("parentResizeElement", ctx_r6.elementRef.nativeElement);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r6.iconStateMap);
+} }
+function MrdSButtonComponent_span_13_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 14);
+    i0.ɵɵprojection(1, 2);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r7 = i0.ɵɵnextContext();
+    const _r4 = i0.ɵɵreference(9);
+    i0.ɵɵclassProp("full-icon", ctx_r7.isFullIcon);
+    i0.ɵɵproperty("hideIfTruncated", ctx_r7.collapse)("hideOnTruncatedElement", _r4)("parentResizeElement", ctx_r7.elementRef.nativeElement);
+} }
+function MrdSButtonComponent_mrd_progress_bar_14_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-progress-bar", 17);
+} if (rf & 2) {
+    const ctx_r8 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("value", ctx_r8.loadingProgress == null ? null : ctx_r8.loadingProgress.value)("mode", ctx_r8.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r8.progressColor);
+} }
+function MrdSButtonComponent_mrd_progress_spinner_15_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-progress-spinner", 18);
+} if (rf & 2) {
+    const ctx_r9 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("value", ctx_r9.loadingProgress == null ? null : ctx_r9.loadingProgress.value)("mode", ctx_r9.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r9.progressColor);
+} }
+const _c2 = [[["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c3 = function (a0) { return { "min-width": a0 }; };
+const _c4 = function (a0) { return { "isCollapsed": a0 }; };
+const _c5 = [":not([mrd-icon]):not(mrd-icon)", "mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
+/**
+ * Dieses Komponente stellt den Mrd-Button zur Verfügung.
+ *
+ * Der Button kann mittels der entsprechenden Attribute in folgenden Stilen dargestellt werden:
+ * - Standard-Button (default)
+ * - Icon-Button (Attributname: icon-button)
+ * - Raised-Button (Attributname: raised-button)
+ * - Outline-Button (Attributname: outline-button)
+ * - Flat-Button (Attributname: flat-button)
+ * - Fab-Button (Attributname: fab-button)
+ * - MiniFab-Button (Attributname: miniFab-button)
+ *
+ * Weiterhin können die standard Themes (primary, accent, warn) für die Hintergrund- bzw. Textfarbe festgelegt werden (je nach Style).
+ *
+ * Für weitere Anpassungen siehe die Informationen der einzelnen Attribute oder die Dokumentation.
+ *
+ * @class MrdSButtonComponent
+ * @extends {BasePushStrategyObject}
+ * @implements {AfterViewInit}
+ */
+class MrdSButtonComponent extends BasePushStrategyObject {
+    cdr;
+    renderer;
+    elementRef;
+    /**
+     * Referenz auf das Text-Element des Buttons.
+     *
+     * @type {ElementRef<HTMLElement>}
+     * @memberof MrdSButtonComponent
+     */
+    mrdButtonTextContent;
+    /**
+     * Referenz auf das Touch-Area-Element des Buttons.
+     *
+     * @type {ElementRef<HTMLElement>}
+     * @memberof MrdSButtonComponent
+     */
+    buttonTouchArea;
+    /**
+     * Gibt an, welches Theme der Button hat.
+     *
+     * @memberof MrdSButtonComponent
+     */
+    theme;
+    /**
+     * Gibt an, ob der Button ein Edit-Button ist.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    editButton = false;
+    saveButton = false;
+    cancelButton = false;
+    closeIconButton = false;
+    deleteButton = false;
+    addButton = false;
+    /**
+     * Gibt an, ob der Button ein Toggle-Button ist.
+     *
+     * Toggle-Buttons sollten immer innerhalb einer Toggle-Button-Group verwendet werden.
+     * Standardmäßig haben sie einen weißen Hintergrund und die Textfarbe ist schwarz, außerdem besitzen sie im selektierten Zustand einen Schatten.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    toggle = false;
+    /**
+     * Gibt an, ob der Button, als Toggle-Button, selektiert ist.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    toggleSelected = false;
+    /**
+     * Gibt an, ob der Button deaktiviert ist.
+     *
+     * @memberof MrdSButtonComponent
+     */
+    disabled = false;
+    /**
+     * Gibt an, ob der Button deaktiviert ist.
+     *
+     * @memberof MrdSButtonComponent
+     */
+    hovered = false;
+    /**
+     * Eine ObservableValue, die übergeben werden kann, um zu bestimmen,
+     * ob der Button einen Ladebalken/Ladespinner anzeigen soll.
+     *
+     * @memberof MrdSButtonComponent
+     */
+    loading;
+    /**
+     * Ein boolean, der bestimmt, ob der Button einen Ladebalken/Ladespinner anzeigen soll.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    isLoading = false;
+    /**
+     * Eine ObservableValue, die übergeben werden kann, um den Fortschritt des Ladebalkens/Ladespinners zu bestimmen.
+     *
+     * @type {ObservableValue<number>}
+     * @memberof MrdSButtonComponent
+     */
+    loadingProgress;
+    /**
+     * Gibt an, ob der Button-Text verschwindet, wenn er zu lang ist und ausgepunktet werden würde.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    /*@Input({transform: booleanAttribute})*/ collapse = false;
+    _collapseTo = MrdSButtonSizeType.ICON;
+    /**
+     * Gibt an, ob der Button einen Tooltip anzeigen soll.
+     *
+     * Der Tooltip-Text wird standardmäßig aus dem Inhalt des Buttons ohne durch [mrd-icon] gekennzeichnete Icons generiert.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    showTooltip = false;
+    /**
+     * Der Text des Tooltips.
+     *
+     * @type {string}
+     * @memberof MrdSButtonComponent
+     */
+    tooltipText;
+    /**
+     * Gibt an, ob der Tooltip nur angezeigt werden soll, wenn der Button-Text ausgepunktet wird.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    set tooltipIfTruncated(value) {
+        this.showTooltip = value || this.showTooltip;
+        this._tooltipIfTruncated = value;
+    }
+    get tooltipIfTruncated() {
+        return this._tooltipIfTruncated;
+    }
+    _tooltipIfTruncated = false;
+    /**
+     * Gibt an, ob der Tooltip nur angezeigt werden soll, wenn der Button collabiert ist.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    tooltipIfCollapsed = false;
+    /**
+     * Gibt an, ob Icon des Buttons die volle Größe des Buttons einnehmen soll.
+     *
+     * @type {boolean}
+     * @memberof MrdSButtonComponent
+     */
+    size = MrdSButtonSizeType.BIG;
+    /**
+     * Der Wert des Buttons als Toggle-Button.
+     *
+     * @type {any}
+     * @memberof MrdSButtonComponent
+     */
+    value;
+    iconStateMap;
+    iconEnd = true;
+    /**
+     * Das Klick-Event durch den Nutzer.
+     *
+     * @type {EventEmitter<Event>}
+     * @memberof MrdSButtonComponent
+     */
+    click = new EventEmitter();
+    /**
+     * Die Konfiguration des Mrd-Buttons.
+     *
+     * @private
+     * @type {MrdConfigModel}
+     * @memberof MrdSButtonComponent
+     */
+    _config = ConfigUtil.getConfig();
+    mouseEnterListener;
+    mouseLeaveListener;
+    uncollapsedAppearance;
+    buttonConfig;
+    themeConfig;
+    sizeConfig;
+    textColor;
+    hoverTextColor;
+    disabledTextColor;
+    activeTextColor;
+    bgColor;
+    hoverBgColor;
+    disabledBgColor;
+    activeBgColor;
+    border;
+    hoverBorder;
+    disabledBorder;
+    activeBorder;
+    progressColor;
+    hoverProgressColor;
+    disabledProgressColor;
+    activeProgressColor;
+    toggleUnselectedColor;
+    borderRadius;
+    minHeight;
+    fontSize;
+    fontFamily;
+    fontWeight;
+    diameter;
+    iconSize;
+    iconSizeNumber;
+    textIconGap;
+    padding;
+    isIconButton = false;
+    isFullIcon = false;
+    isCollapsed = false;
+    isHovered = false;
+    isSpecificButton = false;
+    isTouchHovered = false;
+    isTouchActive = false;
+    buttonText = '';
+    defaultButtonText = '';
+    // public iconStateMap?: SvgStateMap;
+    constructor(cdr, renderer, elementRef) {
+        super();
+        this.cdr = cdr;
+        this.renderer = renderer;
+        this.elementRef = elementRef;
+    }
+    ngOnInit() {
+        // Hier sorgen wir dafür, dass der Standard Click-Handler von Angular entfernt wird
+        const host = this.elementRef.nativeElement;
+        const button = host.querySelector('button');
+        const newHost = host.cloneNode();
+        newHost.appendChild(button);
+        Array.from(host.attributes).forEach(attr => newHost.setAttribute(attr.name, attr.value));
+        host.parentNode.replaceChild(newHost, host);
+        newHost.style.minWidth = !this.collapse ? 'fit-content' : 'unset';
+        newHost.style.margin = this.toggle ? '0 -16px' : 'unset';
+        newHost.style.transition = this.toggle ? 'transform 0.2s' : 'unset';
+        if (this.toggle && this.toggleSelected) {
+            newHost.classList.add('active');
+        }
+        newHost.addEventListener('click', (event) => this.onClick(event));
+        this.elementRef.nativeElement = newHost;
+    }
+    ngAfterViewInit() {
+        if (Util.isDefined(this.loading)) {
+            this.markForCheckIf(this.loading.changed);
+        }
+        if (Util.isDefined(this.loadingProgress)) {
+            this.markForCheckIf(this.loadingProgress.changed);
+        }
+        this.updateStyle();
+        this.isHovered = this.hovered;
+        // Manuelles Anhängen der Mouseenter- und Mouseleave-Listener mit Renderer2
+        this.mouseEnterListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', () => {
+            this.isHovered = true;
+            this.cdr.markForCheck();
+        });
+        this.mouseLeaveListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', () => {
+            this.isHovered = this.hovered;
+            this.cdr.markForCheck();
+        });
+        this.cdr.detectChanges();
+    }
+    ngOnDestroy() {
+        if (this.mouseEnterListener) {
+            this.mouseEnterListener();
+        }
+        if (this.mouseLeaveListener) {
+            this.mouseLeaveListener();
+        }
+        this.elementRef.nativeElement.removeEventListener('click', (event) => this.onClick(event));
+        if (this.elementRef.nativeElement.parentNode) {
+            this.elementRef.nativeElement.parentNode.removeChild(this.elementRef.nativeElement);
+        }
+    }
+    updateStyle() {
+        let specificButtonConfig;
+        if (this.editButton) {
+            this.isSpecificButton = true;
+            specificButtonConfig = this._config.sButton?.definedButtons?.bearbeiten;
+        }
+        if (this.saveButton) {
+            this.isSpecificButton = true;
+            specificButtonConfig = this._config.sButton?.definedButtons?.speichern;
+        }
+        if (this.cancelButton) {
+            this.isSpecificButton = true;
+            specificButtonConfig = this._config.sButton?.definedButtons?.abbrechen;
+        }
+        if (this.closeIconButton) {
+            this.isSpecificButton = true;
+            specificButtonConfig = this._config.sButton?.definedButtons?.schliessenIcon;
+            this.size = MrdSButtonSizeType.FULL_ICON;
+        }
+        if (this.deleteButton) {
+            this.isSpecificButton = true;
+            specificButtonConfig = this._config.sButton?.definedButtons?.loeschen;
+        }
+        if (this.addButton) {
+            this.isSpecificButton = true;
+            specificButtonConfig = this._config.sButton?.definedButtons?.hinzufuegen;
+        }
+        if (Util.isDefined(specificButtonConfig)) {
+            this.theme ??= specificButtonConfig.theme;
+            this.defaultButtonText = specificButtonConfig.text ?? '';
+        }
+        this.theme ??= MrdSButtonType.TEXT_ONLY;
+        this.buttonConfig = this._config.sButton;
+        this.themeConfig = this.theme !== MrdSButtonType.TEXT_ONLY ? this.buttonConfig[this.theme] : this.buttonConfig;
+        this.sizeConfig = this.size !== MrdSButtonSizeType.BIG ? this.buttonConfig[this.size] : this.buttonConfig;
+        this.isIconButton = this.size === MrdSButtonSizeType.ICON || this.size === MrdSButtonSizeType.FULL_ICON;
+        this.isFullIcon = this.size === MrdSButtonSizeType.FULL_ICON;
+        this.textColor = this.themeConfig.text?.default || this.buttonConfig.text?.default;
+        this.hoverTextColor = this.themeConfig.text?.hover || this.buttonConfig.text?.hover;
+        this.disabledTextColor = this.themeConfig.text?.disabled || this.buttonConfig.text?.disabled;
+        this.activeTextColor = this.themeConfig.text?.active || this.buttonConfig.text?.active;
+        this.bgColor = this.themeConfig.background?.default || this.buttonConfig.background?.default;
+        this.hoverBgColor = this.themeConfig.background?.hover || this.buttonConfig.background?.hover;
+        this.disabledBgColor = this.themeConfig.background?.disabled || this.buttonConfig.background?.disabled;
+        this.activeBgColor = this.themeConfig.background?.active || this.buttonConfig.background?.active;
+        this.progressColor = this.themeConfig.progress?.default || this.buttonConfig.progress?.default;
+        this.hoverProgressColor = this.themeConfig.progress?.hover || this.buttonConfig.progress?.hover;
+        this.disabledProgressColor = this.themeConfig.progress?.disabled || this.buttonConfig.progress?.disabled;
+        this.activeProgressColor = this.themeConfig.progress?.active || this.buttonConfig.progress?.active;
+        // this.toggleUnselectedColor = this.themeConfig.unselectedBgColor || this.buttonConfig.unselectedBgColor;
+        this.border = _.isObject(this.themeConfig.border) ? this.themeConfig.border?.default : this.themeConfig.border || this.buttonConfig.border;
+        this.hoverBorder = _.isObject(this.themeConfig.border) ? this.themeConfig.border?.hover : this.themeConfig.border || this.buttonConfig.border;
+        this.disabledBorder = _.isObject(this.themeConfig.border) ? this.themeConfig.border?.disabled : this.themeConfig.border || this.buttonConfig.border;
+        this.activeBorder = _.isObject(this.themeConfig.border) ? this.themeConfig.border?.active : this.themeConfig.border || this.buttonConfig.border;
+        this.borderRadius = this.sizeConfig.borderRadius || this.buttonConfig.borderRadius;
+        this.fontFamily = this.sizeConfig.font?.family || this.buttonConfig.font?.family || this._config.baseFont.family;
+        this.fontSize = this.sizeConfig.font?.size || this.buttonConfig.font?.size || this._config.baseFont.size;
+        this.fontWeight = this.sizeConfig.font?.weight || this.buttonConfig.font?.weight || this._config.baseFont.weight;
+        this.minHeight = this.sizeConfig.minHeight || this.buttonConfig.minHeight;
+        this.diameter = this.sizeConfig.diameter || this.buttonConfig.diameter;
+        this.iconSize = this.sizeConfig.iconSize || this.buttonConfig.iconSize;
+        this.iconSizeNumber = this.sizeConfig.iconSizeNumber || this.buttonConfig.iconSizeNumber;
+        this.textIconGap = this.sizeConfig.textIconGap || this.buttonConfig.textIconGap;
+        this.padding = this.sizeConfig.padding || this.buttonConfig.padding;
+        this.iconEnd = specificButtonConfig?.iconEnd ?? this.iconEnd;
+        if (Util.isDefined(specificButtonConfig) && Util.isDefined(specificButtonConfig.iconGroup)) {
+            this.iconStateMap = {
+                default: specificButtonConfig.iconGroup?.default ? specificButtonConfig.iconGroup.default(this.iconSizeNumber) : null,
+                disabled: specificButtonConfig.iconGroup?.disabled ? specificButtonConfig.iconGroup.disabled(this.iconSizeNumber) : null,
+                hover: specificButtonConfig.iconGroup?.hover ? specificButtonConfig.iconGroup.hover(this.iconSizeNumber) : null
+            };
+        }
+        if (this.mrdButtonTextContent) {
+            this.buttonText = this.mrdButtonTextContent.nativeElement.textContent.trim();
+        }
+        // Falls kein explizieter 'tooltipText' gesetzt ist, wird der Text des Buttons als Tooltip-Text verwendet
+        if (!this.tooltipText) {
+            this.tooltipText = this.buttonText;
+        }
+        if (this.toggle && this.toggleSelected) {
+            this.elementRef.nativeElement.classList.add('active');
+        }
+        else {
+            this.elementRef.nativeElement.classList.remove('active');
+        }
+        this.cdr.detectChanges();
+    }
+    /**
+     * Callback, wenn sich der Collabs-Status des Buttons ändert.
+     *
+     * @param isCollapsed Gibt an, ob der Button kollabiert ist.
+     */
+    buttonCollapsed(isCollapsed) {
+        // Wir reagieren nur, wenn sich der Status ändert
+        if (this.isCollapsed !== isCollapsed) {
+            this.isCollapsed = isCollapsed;
+            // Wenn 'collapseTo' gesetzt ist, wird der Button entsprechend umgestylt
+            if (Util.isDefined(this._collapseTo)) {
+                // Diese Werte müssen zurückgesetzt werden, da sie für den neuen Style neu gesetzt werden müssen
+                this.borderRadius = undefined;
+                this.fontSize = undefined;
+                this.minHeight = undefined;
+                this.diameter = undefined;
+                this.iconSize = undefined;
+                if (isCollapsed) {
+                    this.uncollapsedAppearance = this.size;
+                    this.size = this._collapseTo;
+                    this.ngAfterViewInit();
+                }
+                else {
+                    this.size = this.uncollapsedAppearance || this.size;
+                    this.ngAfterViewInit();
+                }
+            }
+        }
+    }
+    onClick(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        if (!this.disabled) {
+            this.click.emit(event);
+        }
+    }
+    /** @nocollapse */ static ɵfac = function MrdSButtonComponent_Factory(t) { return new (t || MrdSButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSButtonComponent, selectors: [["mrd-s-button"]], viewQuery: function MrdSButtonComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0, 7);
+            i0.ɵɵviewQuery(_c1, 7);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttonTouchArea = _t.first);
+        } }, hostVars: 8, hostBindings: function MrdSButtonComponent_HostBindings(rf, ctx) { if (rf & 1) {
+            i0.ɵɵlistener("mouseenter", function MrdSButtonComponent_mouseenter_HostBindingHandler() { return ctx.onMouseEnter(); })("mouseleave", function MrdSButtonComponent_mouseleave_HostBindingHandler() { return ctx.onMouseLeave(); });
+        } if (rf & 2) {
+            i0.ɵɵstyleProp("min-width", !ctx.collapse ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
+            i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
+        } }, inputs: { theme: "theme", editButton: ["edit-button", "editButton", booleanAttribute], saveButton: ["save-button", "saveButton", booleanAttribute], cancelButton: ["cancel-button", "cancelButton", booleanAttribute], closeIconButton: ["close-icon-button", "closeIconButton", booleanAttribute], deleteButton: ["delete-button", "deleteButton", booleanAttribute], addButton: ["add-button", "addButton", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hovered: ["hovered", "hovered", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], size: "size", value: "value", iconStateMap: "iconStateMap", iconEnd: ["iconEnd", "iconEnd", booleanAttribute] }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 16, vars: 70, consts: [[1, "mrd-button-container", 3, "ngStyle", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-touch-area", 3, "mouseenter", "mouseleave", "mousedown", "mouseup"], ["buttonTouchArea", ""], [1, "mrd-button-content", 3, "ngClass"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-right", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-left", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size", 4, "ngIf"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdSButtonComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c2);
+            i0.ɵɵelementStart(0, "button", 0, 1);
+            i0.ɵɵelement(2, "div", 2);
+            i0.ɵɵelementStart(3, "div", 3, 4);
+            i0.ɵɵlistener("mouseenter", function MrdSButtonComponent_Template_div_mouseenter_3_listener() { return ctx.isTouchHovered = true; })("mouseleave", function MrdSButtonComponent_Template_div_mouseleave_3_listener() { ctx.isTouchHovered = false; return ctx.isTouchActive = false; })("mousedown", function MrdSButtonComponent_Template_div_mousedown_3_listener() { return ctx.isTouchActive = true; })("mouseup", function MrdSButtonComponent_Template_div_mouseup_3_listener() { return ctx.isTouchActive = false; });
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(5, "span", 5);
+            i0.ɵɵtemplate(6, MrdSButtonComponent_span_6_Template, 2, 5, "span", 6);
+            i0.ɵɵtemplate(7, MrdSButtonComponent_span_7_Template, 2, 8, "span", 7);
+            i0.ɵɵelementStart(8, "span", 8, 9);
+            i0.ɵɵlistener("hiddenChanged", function MrdSButtonComponent_Template_span_hiddenChanged_8_listener($event) { return ctx.buttonCollapsed($event); });
+            i0.ɵɵprojection(10);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtemplate(11, MrdSButtonComponent_span_11_Template, 2, 3, "span", 10);
+            i0.ɵɵtemplate(12, MrdSButtonComponent_span_12_Template, 2, 8, "span", 11);
+            i0.ɵɵtemplate(13, MrdSButtonComponent_span_13_Template, 2, 5, "span", 6);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtemplate(14, MrdSButtonComponent_mrd_progress_bar_14_Template, 1, 3, "mrd-progress-bar", 12);
+            i0.ɵɵtemplate(15, MrdSButtonComponent_mrd_progress_spinner_15_Template, 1, 3, "mrd-progress-spinner", 13);
+            i0.ɵɵelementEnd();
+        } if (rf & 2) {
+            const _r4 = i0.ɵɵreference(9);
+            i0.ɵɵstyleProp("--text-color", ctx.textColor)("--hover-text-color", ctx.hoverTextColor)("--disabled-text-color", ctx.disabledTextColor)("--active-text-color", ctx.activeTextColor)("--bg-color", ctx.bgColor)("--hover-bg-color", ctx.hoverBgColor)("--disabled-bg-color", ctx.disabledBgColor)("--active-bg-color", ctx.activeBgColor)("--border", ctx.border)("--hover-border", ctx.hoverBorder)("--disabled-border", ctx.disabledBorder)("--active-border", ctx.activeBorder)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--font-weight", ctx.fontWeight)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--padding", ctx.padding)("--unselected-color", ctx.toggleUnselectedColor);
+            i0.ɵɵclassProp("hovered", ctx.hovered)("touch-hovered", ctx.isTouchHovered)("touch-active", ctx.isTouchActive)("disabled", ctx.disabled)("mrd-icon-button", ctx.isIconButton);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(66, _c3, !ctx.collapse ? "fit-content" : "unset"))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r4 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
+            i0.ɵɵadvance(5);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c4, ctx.isCollapsed));
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", !ctx.isSpecificButton && !ctx.iconStateMap);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.iconStateMap && !ctx.iconEnd);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("hideIfTruncated", ctx.collapse)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵadvance(3);
+            i0.ɵɵproperty("ngIf", !ctx.isIconButton && !(ctx.buttonText == null ? null : ctx.buttonText.length));
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.iconStateMap && ctx.iconEnd);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", !ctx.isSpecificButton && !ctx.iconStateMap);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", !ctx.isIconButton && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.isIconButton && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, i1$1.NgStyle, ToolTipRendererDirective, HideIfTruncatedDirective, MrdProgressBarComponent, MrdProgressSpinnerComponent, MrdIconGroupComponent], styles: ["[_nghost-%COMP%]{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}.active[_nghost-%COMP%]{z-index:10}.mrd-button-container[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:var(--padding);font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-icon-content[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]     mrd-icon{margin:0 2px}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-content.isCollapsed[_ngcontent-%COMP%]   .mrd-button-text-content[_ngcontent-%COMP%]{padding:0 16px}.mrd-button-container.disabled[_ngcontent-%COMP%]{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{border:var(--disabled-border);background-color:var(--disabled-bg-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled), .mrd-button-container.hovered[_ngcontent-%COMP%]:not(.disabled), .mrd-button-container.touch-hovered[_ngcontent-%COMP%]:not(.disabled){color:var(--hover-text-color)}.mrd-button-container[_ngcontent-%COMP%]:hover:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.hovered[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.touch-hovered[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]{border:var(--hover-border);background-color:var(--hover-bg-color)}.mrd-button-container[_ngcontent-%COMP%]:active:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%], .mrd-button-container.touch-active[_ngcontent-%COMP%]:not(.disabled)   .mrd-button-background[_ngcontent-%COMP%]{border:var(--active-border, var(--hover-border));background-color:var(--active-bg-color, var(--hover-bg-color))}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{position:absolute;inset:0;border:var(--border);border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container[_ngcontent-%COMP%]   .mrd-button-touch-area[_ngcontent-%COMP%]{position:absolute;inset:-8px}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]{min-width:var(--diameter)!important;height:var(--diameter)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]     mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container.mrd-icon-button[_ngcontent-%COMP%]   .mrd-button-icon-content.full-icon[_ngcontent-%COMP%]     mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected[_ngcontent-%COMP%]{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:hover{z-index:5}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]   .mrd-button-background[_ngcontent-%COMP%]{transition:background-color .2s}.mrd-button-container.mrd-toggle-button[_ngcontent-%COMP%]:not(.mrd-toggle-selected)   .mrd-button-background[_ngcontent-%COMP%]{background-color:var(--unselected-color)}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container[_ngcontent-%COMP%]     [mrd-icon][icon-end], .mrd-button-container[_ngcontent-%COMP%]     mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar[_ngcontent-%COMP%]{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner[_ngcontent-%COMP%]{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSButtonComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-s-button', host: {
+                    '[style.min-width]': '!collapse ? "fit-content" : "unset"',
+                    '[style.margin]': 'toggle ? "0 -16px" : "unset"',
+                    '[style.transition]': 'toggle ? "transform 0.2s" : "unset"',
+                    '[class.active]': 'toggle && toggleSelected',
+                    '(mouseenter)': 'onMouseEnter()',
+                    '(mouseleave)': 'onMouseLeave()'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der eigentlich HTML-Button -->\r\n<button class=\"mrd-button-container\"\r\n  #buttonContainer\r\n  [style.--text-color]=\"textColor\"\r\n  [style.--hover-text-color]=\"hoverTextColor\"\r\n  [style.--disabled-text-color]=\"disabledTextColor\"\r\n  [style.--active-text-color]=\"activeTextColor\"\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--hover-bg-color]=\"hoverBgColor\"\r\n  [style.--disabled-bg-color]=\"disabledBgColor\"\r\n  [style.--active-bg-color]=\"activeBgColor\"\r\n  [style.--border]=\"border\"\r\n  [style.--hover-border]=\"hoverBorder\"\r\n  [style.--disabled-border]=\"disabledBorder\"\r\n  [style.--active-border]=\"activeBorder\"\r\n\r\n  [style.--border-radius]=\"borderRadius\"\r\n  [style.--min-height]=\"minHeight\"\r\n  [style.--font-size]=\"fontSize\"\r\n  [style.--font-family]=\"fontFamily\"\r\n  [style.--font-weight]=\"fontWeight\"\r\n  [style.--diameter]=\"diameter\"\r\n  [style.--icon-size]=\"iconSize\"\r\n  [style.--padding]=\"padding\"\r\n  [style.--unselected-color]=\"toggleUnselectedColor\"\r\n\r\n  [ngStyle]=\"{'min-width': !collapse ? 'fit-content' : 'unset'}\"\r\n  [class.hovered]=\"hovered\"\r\n  [class.touch-hovered]=\"isTouchHovered\"\r\n  [class.touch-active]=\"isTouchActive\"\r\n  [class.disabled]=\"disabled\"\r\n  [class.mrd-icon-button]=\"isIconButton\"\r\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\r\n  <div class=\"mrd-button-background\"></div>\r\n  <div class=\"mrd-button-touch-area\" #buttonTouchArea\r\n    (mouseenter)=\"isTouchHovered = true\"\r\n    (mouseleave)=\"isTouchHovered = false; isTouchActive = false\"\r\n    (mousedown)=\"isTouchActive = true\"\r\n    (mouseup)=\"isTouchActive = false\"></div>\r\n  <!-- Der Content des Buttons -->\r\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\r\n    <!-- Linker Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" *ngIf=\"!isSpecificButton && !iconStateMap\"\r\n          [class.full-icon]=\"isFullIcon\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    </span>\r\n\r\n    <span class=\"mrd-button-icon-content\" *ngIf=\"iconStateMap && !iconEnd\"\r\n          [style.margin-right]=\"!isIconButton ? '6px' : '0px'\"\r\n          [class.full-icon]=\"isFullIcon\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n        <mrd-icon-group *ngIf=\"iconStateMap\" [svgs]=\"iconStateMap\" [hostElement]=\"buttonContainer\" [disabled]=\"disabled\" [hovered]=\"hovered\" [loading]=\"isLoading\" [size]=\"iconSizeNumber\"></mrd-icon-group>\r\n    </span>\r\n    \r\n    <!-- Der Text des Buttons -->\r\n    <span class=\"mrd-button-text-content\" \r\n          (hiddenChanged)=\"buttonCollapsed($event)\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          #mrdButtonTextContent \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\r\n    </span>\r\n    <span class=\"mrd-button-text-content\" *ngIf=\"!isIconButton && !buttonText?.length\"\r\n      (hiddenChanged)=\"buttonCollapsed($event)\" \r\n      [hideIfTruncated]=\"collapse\" \r\n      [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n        {{defaultButtonText}}\r\n      </span>\r\n\r\n    <span class=\"mrd-button-icon-content\" *ngIf=\"iconStateMap && iconEnd\"\r\n          [style.margin-left]=\"!isIconButton ? '6px' : '0px'\"\r\n          [class.full-icon]=\"isFullIcon\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n        <mrd-icon-group *ngIf=\"iconStateMap\" [svgs]=\"iconStateMap\" [hostElement]=\"buttonContainer\" [disabled]=\"disabled\" [hovered]=\"hovered\" [loading]=\"isLoading\" [size]=\"iconSizeNumber\"></mrd-icon-group>\r\n    </span>\r\n\r\n\r\n   \r\n    <!-- Rechter Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" *ngIf=\"!isSpecificButton && !iconStateMap\" \r\n          [class.full-icon]=\"isFullIcon\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n    </span>\r\n  </span>\r\n\r\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\r\n    *ngIf=\"!isIconButton && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\r\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\r\n    *ngIf=\"isIconButton && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\r\n</button>\r\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:var(--padding);font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{border:var(--disabled-border);background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled),.mrd-button-container.hovered:not(.disabled),.mrd-button-container.touch-hovered:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-background,.mrd-button-container.hovered:not(.disabled) .mrd-button-background,.mrd-button-container.touch-hovered:not(.disabled) .mrd-button-background{border:var(--hover-border);background-color:var(--hover-bg-color)}.mrd-button-container:active:not(.disabled) .mrd-button-background,.mrd-button-container.touch-active:not(.disabled) .mrd-button-background{border:var(--active-border, var(--hover-border));background-color:var(--active-bg-color, var(--hover-bg-color))}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border:var(--border);border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container .mrd-button-touch-area{position:absolute;inset:-8px}.mrd-button-container.mrd-icon-button{min-width:var(--diameter)!important;height:var(--diameter)}.mrd-button-container.mrd-icon-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
+            type: ViewChild,
+            args: ['mrdButtonTextContent', { static: true }]
+        }], buttonTouchArea: [{
+            type: ViewChild,
+            args: ['buttonTouchArea', { static: true }]
+        }], theme: [{
+            type: Input
+        }], editButton: [{
+            type: Input,
+            args: [{ alias: 'edit-button', transform: booleanAttribute }]
+        }], saveButton: [{
+            type: Input,
+            args: [{ alias: 'save-button', transform: booleanAttribute }]
+        }], cancelButton: [{
+            type: Input,
+            args: [{ alias: 'cancel-button', transform: booleanAttribute }]
+        }], closeIconButton: [{
+            type: Input,
+            args: [{ alias: 'close-icon-button', transform: booleanAttribute }]
+        }], deleteButton: [{
+            type: Input,
+            args: [{ alias: 'delete-button', transform: booleanAttribute }]
+        }], addButton: [{
+            type: Input,
+            args: [{ alias: 'add-button', transform: booleanAttribute }]
+        }], toggle: [{
+            type: Input,
+            args: [{ alias: 'toggle-button', transform: booleanAttribute }]
+        }], toggleSelected: [{
+            type: Input,
+            args: [{ alias: 'selected', transform: booleanAttribute }]
+        }], disabled: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], hovered: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], loading: [{
+            type: Input
+        }], isLoading: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], loadingProgress: [{
+            type: Input
+        }], showTooltip: [{
+            type: Input,
+            args: [{ alias: 'tooltip', transform: booleanAttribute }]
+        }], tooltipText: [{
+            type: Input
+        }], tooltipIfTruncated: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], tooltipIfCollapsed: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], size: [{
+            type: Input
+        }], value: [{
+            type: Input
+        }], iconStateMap: [{
+            type: Input
+        }], iconEnd: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], click: [{
+            type: Output
+        }] }); })();
+
+class MrdSButtonModule {
+    /** @nocollapse */ static ɵfac = function MrdSButtonModule_Factory(t) { return new (t || MrdSButtonModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdSButtonModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            MrdTooltipModule,
+            MrdDirectiveModule,
+            MrdProgressBarModule,
+            MrdProgressSpinnerModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSButtonModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdSButtonComponent
+                ],
+                imports: [
+                    CommonModule,
+                    MrdTooltipModule,
+                    MrdDirectiveModule,
+                    MrdProgressBarModule,
+                    MrdProgressSpinnerModule,
+                    MrdIconGroupComponent
+                ],
+                exports: [
+                    MrdSButtonComponent
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdSButtonModule, { declarations: [MrdSButtonComponent], imports: [CommonModule,
+        MrdTooltipModule,
+        MrdDirectiveModule,
+        MrdProgressBarModule,
+        MrdProgressSpinnerModule,
+        MrdIconGroupComponent], exports: [MrdSButtonComponent] }); })();
+
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

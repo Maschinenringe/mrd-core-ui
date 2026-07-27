@@ -5,6 +5,8 @@ export { colorAttribute, colorThemeAttribute } from './lib/common/transforms/col
 export { sizeAttribute } from './lib/common/transforms/size-transform';
 export { timeAttribute } from './lib/common/transforms/time-transform';
 export { MrdIconRegistryService } from './lib/common/service/mrd-icon-registry.service';
+export { PredefinedIconsService } from './lib/common/service/predefined-icons.service';
+export { IconFactoryService, IconBuildConfig, IconDirection } from './lib/common/service/icon-factory.service';
 export * from './lib/common/directive/mrd-directive.module';
 export * from './lib/common/directive/hide-if-truncated/hide-if-truncated.directive';
 export * from './lib/common/directive/toggle-on-hover/toggle-on-hover.directive';
@@ -63,3 +65,5 @@ export * from './lib/modules/mrd-toggle-switch/components/mrd-toggle-switch/mrd-
 export * from './lib/modules/mrd-stepper/mrd-stepper.module';
 export * from './lib/modules/mrd-stepper/components/mrd-stepper/mrd-stepper.component';
 export * from './lib/modules/mrd-stepper/components/mrd-step/mrd-step.component';
+export * from './lib/s-modules/mrd-s-button/mrd-s-button.module';
+export * from './lib/s-modules/mrd-s-button/components/mrd-s-button/mrd-s-button.component';

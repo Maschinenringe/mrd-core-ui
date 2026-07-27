@@ -1,0 +1,38 @@
+import { OnDestroy, OnInit } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
+import * as i0 from "@angular/core";
+export type SvgState = 'default' | 'hover' | 'active' | 'focus' | 'disabled' | 'loading' | 'error' | 'success';
+export type SvgStateMap = Partial<Record<SvgState, SafeHtml | string | null>>;
+export declare class MrdIconGroupComponent implements OnInit, OnDestroy {
+    private _svgs;
+    set svgs(value: SvgStateMap);
+    get svgs(): SvgStateMap;
+    state: SvgState;
+    disabled: boolean;
+    hovered: boolean;
+    loading: boolean;
+    size: number;
+    hostElement?: HTMLElement;
+    private cdr;
+    private sanitizer;
+    private _hovered;
+    private _active;
+    private _focused;
+    private _loading;
+    private _listeners;
+    get activeSvg(): SafeHtml;
+    private get effectiveState();
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    onMouseEnter(): void;
+    onMouseLeave(): void;
+    onMouseDown(): void;
+    onMouseUp(): void;
+    onFocus(): void;
+    onBlur(): void;
+    private _bindToElement;
+    private _unbindListeners;
+    private sanitize;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MrdIconGroupComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdIconGroupComponent, "mrd-icon-group", never, { "svgs": { "alias": "svgs"; "required": false; }; "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "hovered": { "alias": "hovered"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "size": { "alias": "size"; "required": false; }; "hostElement": { "alias": "hostElement"; "required": false; }; }, {}, never, never, true, never>;
+}
