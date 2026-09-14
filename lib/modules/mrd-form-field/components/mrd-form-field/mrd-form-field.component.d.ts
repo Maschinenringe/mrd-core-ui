@@ -34,6 +34,7 @@ export declare class MrdFormFieldComponent extends BaseObject implements AfterVi
     constructor(cdr: ChangeDetectorRef);
     ngOnDestroy(): void;
     ngAfterViewInit(): void;
+    private inputHasRawValue;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFormFieldComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MrdFormFieldComponent, "mrd-form-field", never, { "outline": { "alias": "outline"; "required": false; }; "fill": { "alias": "fill"; "required": false; }; "dark": { "alias": "dark"; "required": false; }; "requiredAsterisk": { "alias": "requiredAsterisk"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "fillColor": { "alias": "fillColor"; "required": false; }; }, {}, ["input", "select", "label", "error"], ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"], false, never>;
     static ngAcceptInputType_outline: unknown;

@@ -9,8 +9,8 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     private static readonly DEFAULT_MIN_ROWS;
     private static readonly DEFAULT_MAX_ROWS;
     private static readonly DEFAULT_LINE_HEIGHT;
-    private static readonly DATE_REGEX;
     private static readonly DATE_REGEX_INPUT;
+    private static readonly DATE_FORMATS_STRICT;
     baseInputElement: ElementRef<HTMLInputElement>;
     textAreaElement: ElementRef<HTMLTextAreaElement>;
     dateInputElement: ElementRef<HTMLInputElement>;
@@ -30,6 +30,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     rangeStart: boolean;
     rangeEnd: boolean;
     time: boolean;
+    number: boolean;
     customDateTimeToggle: boolean;
     validateOnBlur: boolean;
     formControlChangeOnBlur: boolean;
@@ -51,7 +52,9 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     valueChange: EventEmitter<string>;
     inputChange: EventEmitter<string>;
     disabledColor: string;
-    labelPresent: boolean;
+    set labelPresent(value: boolean);
+    get labelPresent(): boolean;
+    private _labelPresent;
     isFocused: boolean;
     showDatepicker: ObservableValue<boolean>;
     showTimepicker: ObservableValue<boolean>;
@@ -63,13 +66,14 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     input(event: InputEvent): void;
     dateChanged(event: Moment): void;
     timeChanged(event: Moment): void;
+    get nachkommastellen(): number;
     private calculateTextAreaHeight;
     inputClicked(event: MouseEvent): void;
     focus(event: FocusEvent): void;
     blur(event: FocusEvent): void;
     toggleClicked(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdInputComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "rangeStart": { "alias": "rangeStart"; "required": false; }; "rangeEnd": { "alias": "rangeEnd"; "required": false; }; "time": { "alias": "time"; "required": false; }; "customDateTimeToggle": { "alias": "customDateTimeToggle"; "required": false; }; "validateOnBlur": { "alias": "validateOnBlur"; "required": false; }; "formControlChangeOnBlur": { "alias": "formControlChangeOnBlur"; "required": false; }; "color": { "alias": "color"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "autofocus": { "alias": "autofocus"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdInputComponent, "mrd-input", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "value": { "alias": "value"; "required": false; }; "maxLength": { "alias": "maxLength"; "required": false; }; "minRows": { "alias": "minRows"; "required": false; }; "maxRows": { "alias": "maxRows"; "required": false; }; "lineHeight": { "alias": "lineHeight"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "required": { "alias": "required"; "required": false; }; "textarea": { "alias": "textarea"; "required": false; }; "date": { "alias": "date"; "required": false; }; "rangeStart": { "alias": "rangeStart"; "required": false; }; "rangeEnd": { "alias": "rangeEnd"; "required": false; }; "time": { "alias": "time"; "required": false; }; "number": { "alias": "number"; "required": false; }; "customDateTimeToggle": { "alias": "customDateTimeToggle"; "required": false; }; "validateOnBlur": { "alias": "validateOnBlur"; "required": false; }; "formControlChangeOnBlur": { "alias": "formControlChangeOnBlur"; "required": false; }; "color": { "alias": "color"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "datePickerToggle": { "alias": "datePickerToggle"; "required": false; }; "maxDigits": { "alias": "maxDigits"; "required": false; }; "autofocus": { "alias": "autofocus"; "required": false; }; }, { "touched": "touched"; "focused": "focused"; "blurred": "blurred"; "valueChange": "valueChange"; "inputChange": "inputChange"; }, never, ["[unfocusedOverlay]"], false, never>;
     static ngAcceptInputType_maxLength: unknown;
     static ngAcceptInputType_minRows: unknown;
     static ngAcceptInputType_maxRows: unknown;
@@ -82,6 +86,7 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     static ngAcceptInputType_rangeStart: unknown;
     static ngAcceptInputType_rangeEnd: unknown;
     static ngAcceptInputType_time: unknown;
+    static ngAcceptInputType_number: unknown;
     static ngAcceptInputType_customDateTimeToggle: unknown;
     static ngAcceptInputType_validateOnBlur: unknown;
     static ngAcceptInputType_formControlChangeOnBlur: unknown;

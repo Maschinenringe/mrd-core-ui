@@ -197,6 +197,7 @@ export declare class MrdFlyOutComponent extends BaseObject implements AfterViewI
      * @memberof MrdFlyOutComponent
      */
     stateToggle: ObservableValue<boolean>;
+    private resizeObserver;
     constructor(cdr: ChangeDetectorRef, flyOutService: FlyOutService);
     /**
      * Initialisiert das Einfahren des FlyOut.
@@ -204,6 +205,8 @@ export declare class MrdFlyOutComponent extends BaseObject implements AfterViewI
      * @memberof MrdFlyOutComponent
      */
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    private updateContainerSize;
     /**
      * Wird aufgerufen, wenn auf den Hintergrund geklickt wurde.
      *

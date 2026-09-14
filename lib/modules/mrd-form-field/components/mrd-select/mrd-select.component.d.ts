@@ -74,6 +74,10 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     get showNoOptionsOnSearch(): boolean;
     focus(event: FocusEvent): void;
     blur(event: FocusEvent): void;
+    get triggerTabIndex(): number;
+    onTriggerFocus(): void;
+    onTriggerBlur(): void;
+    onTriggerKeyDown(event: KeyboardEvent): void;
     chipCloseClicked(value: any): void;
     get optionsMinWidth(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectComponent, never>;
