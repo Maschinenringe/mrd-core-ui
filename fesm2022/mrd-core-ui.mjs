@@ -1313,7 +1313,7 @@ class DecimalNumberDirective {
     decimalNumber = true;
     nachkommastellen = 2;
     regex = new RegExp(/^\d*\,?\d{0,2}$/g);
-    specialKeys = ['Backspace', 'Tab', 'End', 'Home', '-', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
+    specialKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
     constructor(el) {
         this.el = el;
         this.regex = new RegExp(`^\\d*\\,?\\d{0,${this.nachkommastellen}}$`);
@@ -1323,7 +1323,7 @@ class DecimalNumberDirective {
             return;
         }
         // Allow Backspace, tab, end, and home keys
-        if (this.specialKeys.indexOf(event.key) !== -1) {
+        if (event.ctrlKey || event.metaKey || this.specialKeys.indexOf(event.key) !== -1) {
             return;
         }
         let current = this.el.nativeElement.value;
@@ -7950,7 +7950,7 @@ class MrdFormFieldComponent extends BaseObject {
                     if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formControl.required) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
                     }
-                    else {
+                    else if (Util.isDefined(this.label)) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
                     }
                     this.disabled = this.select.formControl.disabled;
@@ -7993,7 +7993,7 @@ class MrdFormFieldComponent extends BaseObject {
                     if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formArrayControl.required) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
                     }
-                    else {
+                    else if (Util.isDefined(this.label)) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
                     }
                     this.disabled = this.select.formArrayControl.control.disabled;
