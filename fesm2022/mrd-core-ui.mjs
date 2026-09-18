@@ -1,6 +1,7 @@
 import * as _ from 'underscore';
 import * as i0 from '@angular/core';
 import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef } from '@angular/core';
+import moment, { isMoment } from 'moment';
 import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, TypeConverter, ValidatorFloat } from 'mrd-core';
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
@@ -12,7 +13,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
 import * as i1$3 from '@angular/router';
-import moment, { isMoment } from 'moment';
 
 var MrdSButtonType;
 (function (MrdSButtonType) {
@@ -769,6 +769,120 @@ class ColorUtil {
             return ColorUtil.rgbToHex(Math.min(255, Math.max(0, Math.round(rgba.r * (1 + percent / 100)))), Math.min(255, Math.max(0, Math.round(rgba.g * (1 + percent / 100)))), Math.min(255, Math.max(0, Math.round(rgba.b * (1 + percent / 100)))), rgba.a);
         }
         return color;
+    }
+}
+
+/**
+ * Zentrale Datumserkennung fuer alle Datumsfelder der Bibliothek.
+ *
+ * Unterstuetzte Schreibweisen (Trennzeichen beliebig, z.B. . - + / , Leerzeichen):
+ *   dd.mm.yyyy   dd.mm.yy   d.m.yyyy   d.m.yy   (auch gemischt: d.mm.yyyy, dd.m.yy)
+ *   ddmmyyyy     ddmmyy     ddmm       dd
+ *   yyyy-mm-dd   (EURO-Datum, erkannt am vierstelligen ersten Block)
+ *
+ * Fehlende Bestandteile werden vom heutigen Datum ergaenzt (dd -> heutiger Monat und heutiges Jahr).
+ * Ein zweistelliges Jahr wird nach der moment-Regel aufgeloest: 00-68 -> 2000er, 69-99 -> 1900er.
+ *
+ * yy-mm-dd wird bewusst NICHT unterstuetzt, weil es nicht von dd-mm-yy unterscheidbar ist;
+ * eine solche Eingabe wird als dd-mm-yy gelesen.
+ */
+class MrdDatumUtil {
+    static ANZEIGE_FORMAT = 'DD.MM.YYYY';
+    static ZIFFERNBLOECKE = /\d+/g;
+    /** Liefert das erkannte Datum oder null, wenn die Eingabe kein gueltiges Datum ergibt. */
+    static parse(wert) {
+        if (moment.isMoment(wert)) {
+            return wert.isValid() ? wert.utc(true) : null;
+        }
+        if (_.isDate(wert)) {
+            const ausDate = moment(wert).utc(true);
+            return ausDate.isValid() ? ausDate : null;
+        }
+        if (!_.isString(wert)) {
+            return null;
+        }
+        const bloecke = wert.trim().match(MrdDatumUtil.ZIFFERNBLOECKE);
+        if (!bloecke || bloecke.length > 3) {
+            return null;
+        }
+        if (bloecke.length === 3) {
+            return bloecke[0].length === 4
+                ? MrdDatumUtil.bauen(bloecke[2], bloecke[1], bloecke[0])
+                : MrdDatumUtil.bauen(bloecke[0], bloecke[1], bloecke[2]);
+        }
+        if (bloecke.length === 2) {
+            return MrdDatumUtil.bauen(bloecke[0], bloecke[1], null);
+        }
+        const ziffern = bloecke[0];
+        switch (ziffern.length) {
+            case 8:
+            case 6:
+                return MrdDatumUtil.bauen(ziffern.substring(0, 2), ziffern.substring(2, 4), ziffern.substring(4));
+            case 4:
+                return MrdDatumUtil.bauen(ziffern.substring(0, 2), ziffern.substring(2, 4), null);
+            case 2:
+            case 1:
+                return MrdDatumUtil.bauen(ziffern, null, null);
+            default:
+                return null;
+        }
+    }
+    /** True, wenn der Wert leer ist oder ein gueltiges Datum ergibt. */
+    static istGueltig(wert) {
+        if (!_.isString(wert)) {
+            return !Boolean(wert) || MrdDatumUtil.parse(wert) !== null;
+        }
+        return wert.trim() === '' || MrdDatumUtil.parse(wert) !== null;
+    }
+    static bauen(tag, monat, jahr) {
+        if (tag.length > 2 || (monat !== null && monat.length > 2) || (jahr !== null && jahr.length > 4)) {
+            return null;
+        }
+        const heute = moment();
+        const monatZahl = monat === null ? heute.month() + 1 : Number(monat);
+        let jahrZahl;
+        if (jahr === null) {
+            jahrZahl = heute.year();
+        }
+        else if (jahr.length === 2) {
+            jahrZahl = moment.parseTwoDigitYear(jahr);
+        }
+        else {
+            jahrZahl = Number(jahr);
+        }
+        const text = `${MrdDatumUtil.fuellen(Number(tag), 2)}.${MrdDatumUtil.fuellen(monatZahl, 2)}.${MrdDatumUtil.fuellen(jahrZahl, 4)}`;
+        const datum = moment.utc(text, MrdDatumUtil.ANZEIGE_FORMAT, true);
+        return datum.isValid() ? datum : null;
+    }
+    static fuellen(wert, stellen) {
+        return String(wert).padStart(stellen, '0');
+    }
+}
+
+/** Meldet Eingaben, aus denen sich kein gueltiges Datum lesen laesst. Ein leeres Feld gilt als gueltig. */
+class ValidatorDatum {
+    static STANDARD_FEHLER = 'Bitte geben Sie ein gültiges Datum ein';
+    hasError = false;
+    error = ValidatorDatum.STANDARD_FEHLER;
+    value;
+    constructor(error) {
+        if (Util.isDefined(error)) {
+            this.error = error;
+        }
+    }
+    validator() {
+        return (input) => {
+            this.value = input.value;
+            return this.validate();
+        };
+    }
+    validate() {
+        this.hasError = false;
+        if (MrdDatumUtil.istGueltig(this.value)) {
+            return null;
+        }
+        this.hasError = true;
+        return { invalidDate: true };
     }
 }
 
@@ -6196,7 +6310,6 @@ class MrdInputComponent extends BaseObject {
     static DEFAULT_MAX_ROWS = 2;
     static DEFAULT_LINE_HEIGHT = 24;
     static DATE_REGEX_INPUT = /(\d{4})-(\d{2})-(\d{2})/;
-    static DATE_FORMATS_STRICT = ['DD.MM.YYYY', 'D.M.YYYY', 'DD.MM.YY', 'D.M.YY'];
     baseInputElement;
     textAreaElement;
     dateInputElement;
@@ -6268,6 +6381,7 @@ class MrdInputComponent extends BaseObject {
     showDatepicker = new ObservableValue(false);
     showTimepicker = new ObservableValue(false);
     formControlChangeValue;
+    selectTimeout;
     _positions = [
         {
             originX: 'start',
@@ -6297,6 +6411,10 @@ class MrdInputComponent extends BaseObject {
     constructor(cdr) {
         super();
         this.cdr = cdr;
+    }
+    ngOnDestroy() {
+        clearTimeout(this.selectTimeout);
+        super.ngOnDestroy();
     }
     ngAfterViewInit() {
         if (Util.isDefined(this.formControl) && this.disabled) {
@@ -6337,6 +6455,12 @@ class MrdInputComponent extends BaseObject {
         }
         if (this.date && this.rangeStart) {
             this.textEnd = true;
+        }
+        if (this.date && Util.isDefined(this.formControl)) {
+            let datumValidator = this.formControl.validators.find((validator) => validator instanceof ValidatorDatum);
+            if (!Util.isDefined(datumValidator)) {
+                this.formControl.validateWith([...this.formControl.validators, new ValidatorDatum()], { emitEvent: false });
+            }
         }
         if (this.number && Util.isDefined(this.formControl)) {
             if (!Util.isDefined(this.formControl.convertTo)) {
@@ -6480,6 +6604,10 @@ class MrdInputComponent extends BaseObject {
     focus(event) {
         this.isFocused = true;
         this.focused.emit();
+        if (this.date && Util.isDefined(event) && !this.readonly && Util.isDefined(this.baseInputElement)) {
+            clearTimeout(this.selectTimeout);
+            this.selectTimeout = setTimeout(() => this.baseInputElement?.nativeElement?.select(), 0);
+        }
         this.cdr.detectChanges();
     }
     blur(event) {
@@ -6495,21 +6623,10 @@ class MrdInputComponent extends BaseObject {
             this.inputChange.emit(emitValue);
             this.formControlChangeValue = undefined;
         }
-        if (this.formControl && this.date && this.formControl.value && this.formControl.value !== '') {
-            if (!moment.isMoment(this.formControl.value)) {
-                let momentDate = moment(this.formControl.value, 'DD.MM.YYYY').utc(true);
-                if (momentDate.isValid()) {
-                    this.formControl.setValue(momentDate);
-                }
-            }
-        }
-        else if (this.formControl && this.date) {
-            let rawValue = this.formControl.control.value;
-            if (_.isString(rawValue) && rawValue.trim() !== '') {
-                let momentDate = moment(rawValue, MrdInputComponent.DATE_FORMATS_STRICT, true).utc(true);
-                if (momentDate.isValid()) {
-                    this.formControl.setValue(momentDate);
-                }
+        if (this.formControl && this.date) {
+            let momentDate = MrdDatumUtil.parse(this.formControl.control.value);
+            if (momentDate !== null) {
+                this.formControl.setValue(momentDate);
             }
         }
         if (this.formControl && this.time && this.formControl.value && this.formControl.value !== '') {
@@ -10075,5 +10192,5 @@ class MrdSButtonModule {
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

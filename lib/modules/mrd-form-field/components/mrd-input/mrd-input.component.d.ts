@@ -1,16 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { Moment } from 'moment';
 import { AccessableFormControl, BaseObject, ObservableValue } from 'mrd-core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import * as i0 from "@angular/core";
-export declare class MrdInputComponent extends BaseObject implements AfterViewInit {
+export declare class MrdInputComponent extends BaseObject implements AfterViewInit, OnDestroy {
     private cdr;
     private static readonly DEFAULT_MAX_LENGTH;
     private static readonly DEFAULT_MIN_ROWS;
     private static readonly DEFAULT_MAX_ROWS;
     private static readonly DEFAULT_LINE_HEIGHT;
     private static readonly DATE_REGEX_INPUT;
-    private static readonly DATE_FORMATS_STRICT;
     baseInputElement: ElementRef<HTMLInputElement>;
     textAreaElement: ElementRef<HTMLTextAreaElement>;
     dateInputElement: ElementRef<HTMLInputElement>;
@@ -59,8 +58,10 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     showDatepicker: ObservableValue<boolean>;
     showTimepicker: ObservableValue<boolean>;
     private formControlChangeValue;
+    private selectTimeout;
     _positions: ConnectedPosition[];
     constructor(cdr: ChangeDetectorRef);
+    ngOnDestroy(): void;
     ngAfterViewInit(): void;
     private formControlChanged;
     input(event: InputEvent): void;

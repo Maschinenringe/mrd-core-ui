@@ -1,6 +1,8 @@
 export { MrdConfigModel, MrdSButtonType, MrdSButtonSizeType } from './lib/common/model/config.model';
 export { ConfigUtil } from './lib/common/util/config.util';
 export { ColorUtil } from './lib/common/util/color.util';
+export { MrdDatumUtil } from './lib/common/util/datum.util';
+export { ValidatorDatum } from './lib/common/validation/validator-datum';
 export { colorAttribute, colorThemeAttribute } from './lib/common/transforms/color-transform';
 export { sizeAttribute } from './lib/common/transforms/size-transform';
 export { timeAttribute } from './lib/common/transforms/time-transform';
