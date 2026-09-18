@@ -1,6 +1,6 @@
 {
   "name": "mrd-core-ui",
-  "version": "v0.21.72-beta",
+  "version": "v0.21.73-beta",
   "peerDependencies": {
     "@angular/common": "^21.2.5",
     "@angular/core": "^21.2.5",

@@ -1,15 +1,16 @@
+import moment, { Moment } from 'moment';
+import { ValidatorFn } from '@angular/forms';
+import { IValidator, BasePushStrategyObject, ObservableValue, BaseObject, AccessableFormControl, AccessableFormArray } from 'mrd-core';
 import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import { ErrorHandler, AfterViewInit, OnChanges, OnDestroy, EventEmitter, ElementRef, SimpleChanges, OnInit, ChangeDetectorRef, Renderer2, TemplateRef, InjectionToken, ViewRef, ViewContainerRef, QueryList, ComponentRef, Injector, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { BasePushStrategyObject, ObservableValue, BaseObject, AccessableFormControl, AccessableFormArray } from 'mrd-core';
 import * as i2 from '@angular/common';
 import * as i16 from '@angular/cdk/overlay';
 import { Overlay, OverlayPositionBuilder, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ComponentType } from '@angular/cdk/portal';
-import moment, { Moment } from 'moment';
 
 interface MrdConfigModel {
     baseFont?: MrdBaseFont;
@@ -173,6 +174,42 @@ declare class ColorUtil {
     static shouldTextBeDark(color: string, debug?: boolean): boolean;
     static changeColorOpacity(color: string, opacity: number): string;
     static changeColorBrightnessPercent(color: string, percent: number): string;
+}
+
+/**
+ * Zentrale Datumserkennung fuer alle Datumsfelder der Bibliothek.
+ *
+ * Unterstuetzte Schreibweisen (Trennzeichen beliebig, z.B. . - + / , Leerzeichen):
+ *   dd.mm.yyyy   dd.mm.yy   d.m.yyyy   d.m.yy   (auch gemischt: d.mm.yyyy, dd.m.yy)
+ *   ddmmyyyy     ddmmyy     ddmm       dd
+ *   yyyy-mm-dd   (EURO-Datum, erkannt am vierstelligen ersten Block)
+ *
+ * Fehlende Bestandteile werden vom heutigen Datum ergaenzt (dd -> heutiger Monat und heutiges Jahr).
+ * Ein zweistelliges Jahr wird nach der moment-Regel aufgeloest: 00-68 -> 2000er, 69-99 -> 1900er.
+ *
+ * yy-mm-dd wird bewusst NICHT unterstuetzt, weil es nicht von dd-mm-yy unterscheidbar ist;
+ * eine solche Eingabe wird als dd-mm-yy gelesen.
+ */
+declare class MrdDatumUtil {
+    static readonly ANZEIGE_FORMAT: string;
+    private static readonly ZIFFERNBLOECKE;
+    /** Liefert das erkannte Datum oder null, wenn die Eingabe kein gueltiges Datum ergibt. */
+    static parse(wert: any): moment.Moment | null;
+    /** True, wenn der Wert leer ist oder ein gueltiges Datum ergibt. */
+    static istGueltig(wert: any): boolean;
+    private static bauen;
+    private static fuellen;
+}
+
+/** Meldet Eingaben, aus denen sich kein gueltiges Datum lesen laesst. Ein leeres Feld gilt als gueltig. */
+declare class ValidatorDatum implements IValidator {
+    static readonly STANDARD_FEHLER: string;
+    hasError: boolean;
+    error: string;
+    private value;
+    constructor(error?: string);
+    validator(): ValidatorFn;
+    validate(): any;
 }
 
 declare function colorAttribute(value: string, fallbackValue?: string): string;
@@ -2169,13 +2206,12 @@ declare class MrdChipModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MrdChipModule>;
 }
 
-declare class MrdInputComponent extends BaseObject implements AfterViewInit {
+declare class MrdInputComponent extends BaseObject implements AfterViewInit, OnDestroy {
     private cdr;
     private static readonly DEFAULT_MAX_LENGTH;
     private static readonly DEFAULT_MIN_ROWS;
     private static readonly DEFAULT_MAX_ROWS;
     private static readonly DEFAULT_LINE_HEIGHT;
-    private static readonly DATE_REGEX;
     private static readonly DATE_REGEX_INPUT;
     baseInputElement: ElementRef<HTMLInputElement>;
     textAreaElement: ElementRef<HTMLTextAreaElement>;
@@ -2222,8 +2258,10 @@ declare class MrdInputComponent extends BaseObject implements AfterViewInit {
     showDatepicker: ObservableValue<boolean>;
     showTimepicker: ObservableValue<boolean>;
     private formControlChangeValue;
+    private selectTimeout;
     _positions: ConnectedPosition[];
     constructor(cdr: ChangeDetectorRef);
+    ngOnDestroy(): void;
     ngAfterViewInit(): void;
     private formControlChanged;
     input(event: InputEvent): void;
@@ -2752,5 +2790,5 @@ declare class MrdStepperModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MrdStepperModule>;
 }
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
 export type { Day, MrdConfigModel, MrdFlyOutComponentRef, MrdFlyOutConfig, MrdIconLocation, MrdSelectOptionChange };
