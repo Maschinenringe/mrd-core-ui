@@ -622,6 +622,38 @@ class ConfigUtil {
                 knobNeutralColor: "#ffffff",
                 bgDisabledColor: "#dfdfdf",
                 knobDisabledColor: "#f3f3f3"
+            },
+            list: {
+                itemSize: 48,
+                selectedBackgroundColor: "#8fbc62",
+                selectedTextColor: "#ffffff",
+                hoverColor: "#e7e7e7",
+                dividerColor: "#0000001f"
+            },
+            toolbar: {
+                height: "56px",
+                padding: "0 16px",
+                fontSize: "20px",
+                fontWeight: "500",
+                backgroundColor: "#f5f5f5",
+                textColor: "#000000de",
+                green: {
+                    background: "#8fbc62",
+                    text: "#f5f5f5"
+                },
+                grey: {
+                    background: "#e7e7e7",
+                    text: "#494949"
+                },
+                blue: {
+                    background: "#293D4F",
+                    text: "#ffffff"
+                }
+            },
+            sidenav: {
+                breakpoint: 1024,
+                width: "100%",
+                maxWidth: "550px"
             }
         };
     }
@@ -1564,12 +1596,12 @@ class MrdDirectiveModule {
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
 } }
-const _c0$q = function (a0) { return { "transform": a0 }; };
+const _c0$x = function (a0) { return { "transform": a0 }; };
 function MrdProgressBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 4);
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$q, "translateX(" + ctx_r1.value + "%)"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$x, "translateX(" + ctx_r1.value + "%)"));
 } }
 class MrdProgressBarComponent {
     cdr;
@@ -1844,7 +1876,7 @@ function MrdTooltipComponent_ng_template_2_Template(rf, ctx) { if (rf & 1) {
 function MrdTooltipComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$p = function (a0) { return { "mrd-tooltip-container": a0 }; };
+const _c0$w = function (a0) { return { "mrd-tooltip-container": a0 }; };
 class MrdTooltipComponent {
     /**
      * This is simple text which is to be shown in the tooltip
@@ -1871,7 +1903,7 @@ class MrdTooltipComponent {
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$p, ctx.defaultStyle));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$w, ctx.defaultStyle));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || _r0);
         } }, dependencies: [i1$1.NgClass, i1$1.NgTemplateOutlet], styles: [".mrd-tooltip-container[_ngcontent-%COMP%]{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}"] });
@@ -2182,7 +2214,7 @@ class ToolTipRendererDirective {
             args: ['mouseleave', ['$event']]
         }] }); })();
 
-const _c0$o = ["mrdButtonTextContent"];
+const _c0$v = ["mrdButtonTextContent"];
 function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
@@ -2195,11 +2227,11 @@ function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf &
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵproperty("value", ctx_r3.loadingProgress == null ? null : ctx_r3.loadingProgress.value)("mode", ctx_r3.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r3.progressColor);
 } }
-const _c1$g = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c1$h = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c2$c = function (a0) { return { "min-width": a0 }; };
 const _c3$a = function (a0, a1, a2, a3, a4, a5, a6, a7, a8) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "disabled": a8 }; };
 const _c4$5 = function (a0) { return { "isCollapsed": a0 }; };
-const _c5$2 = function (a0) { return { "full-icon": a0 }; };
+const _c5$3 = function (a0) { return { "full-icon": a0 }; };
 const _c6$1 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -2865,7 +2897,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
     }
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$o, 7);
+            i0.ɵɵviewQuery(_c0$v, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -2875,7 +2907,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
             i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
         } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$g);
+            i0.ɵɵprojectionDef(_c1$h);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
             i0.ɵɵelementEnd();
@@ -2901,11 +2933,11 @@ class MrdButtonComponent extends BasePushStrategyObject {
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(66, _c4$5, ctx.isCollapsed));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$2, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(68, _c5$3, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("hideIfTruncated", ctx.collapse)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c5$2, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(70, _c5$3, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && !ctx.icon && !ctx.fab && !ctx.miniFab && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
             i0.ɵɵadvance(1);
@@ -3156,7 +3188,7 @@ class MrdButtonModule {
         MrdTooltipModule,
         MrdDirectiveModule], exports: [MrdButtonComponent] }); })();
 
-const _c0$n = ["*"];
+const _c0$u = ["*"];
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -3346,7 +3378,7 @@ class MrdIconComponent {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$n, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], inputs: { svgIcon: "svgIcon" }, ngContentSelectors: _c0$u, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } } });
@@ -3454,7 +3486,7 @@ class MrdTabComponent {
         }] }); })();
 
 function MrdTabBodyComponent_ng_template_1_Template(rf, ctx) { }
-const _c0$m = function (a0, a1) { return { "transform": a0, "display": a1 }; };
+const _c0$t = function (a0, a1) { return { "transform": a0, "display": a1 }; };
 class MatTabBodyPortal {
     viewContainerRef;
     _host;
@@ -3571,7 +3603,7 @@ class MrdTabBodyComponent {
             i0.ɵɵtemplate(1, MrdTabBodyComponent_ng_template_1_Template, 0, 0, "ng-template", 1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$m, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$t, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
         } }, dependencies: [i1$1.NgStyle, MatTabBodyPortal], styles: [".mrd-tab-content[_ngcontent-%COMP%]{display:block;position:absolute;inset:0;transition:transform 1s ease-out}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
@@ -3595,8 +3627,8 @@ class MrdTabBodyComponent {
             type: Input
         }] }); })();
 
-const _c0$l = ["mrdTabHeader"];
-const _c1$f = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
+const _c0$s = ["mrdTabHeader"];
+const _c1$g = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
 function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r6 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 6, 7);
@@ -3607,7 +3639,7 @@ function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const tab_r3 = ctx.$implicit;
     const ctx_r2 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$f, tab_r3.active, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$g, tab_r3.active, ctx_r2.rounded, ctx_r2.labelsFit));
     i0.ɵɵadvance(2);
     i0.ɵɵtextInterpolate1(" ", tab_r3.label, " ");
 } }
@@ -3769,7 +3801,7 @@ class MrdTabGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabs = _t);
         } }, viewQuery: function MrdTabGroupComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$l, 5);
+            i0.ɵɵviewQuery(_c0$s, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabBodys = _t);
@@ -3851,8 +3883,8 @@ class MrdTabsModule {
         MrdTabComponent,
         MrdTabBodyComponent] }); })();
 
-const _c0$k = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
-const _c1$e = function (a0, a1) { return { "selected": a0, "over": a1 }; };
+const _c0$r = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
+const _c1$f = function (a0, a1) { return { "selected": a0, "over": a1 }; };
 /**
  * Komponente für die Darstellung von Geo-Icons (Schlagzeichnungen).
  *
@@ -4128,10 +4160,10 @@ class MrdGeoIconComponent {
             i0.ɵɵstyleProp("--width", ctx.width)("--height", ctx.height)("--margin", ctx.margin)("--transitionTime", ctx.transitionTime)("--mainColor", ctx.mainColor)("--mainSelectedColor", ctx.mainSelectedColor)("--backColor", ctx.backColor)("--backSelectedColor", ctx.backSelectedColor)("--overColor", ctx.overlayColor)("--overSelectedColor", ctx.overlaySelectedColor)("--mainOpacity", ctx.mainOpacity)("--mainSelectedOpacity", ctx.mainSelectedOpacity)("--backOpacity", ctx.backOpacity)("--backSelectedOpacity", ctx.backSelectedOpacity)("--overOpacity", ctx.overlayOpacity)("--overSelectedOpacity", ctx.overlaySelectedOpacity);
             i0.ɵɵattribute("viewBox", ctx.viewBox);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$k, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$r, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.base);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$e, ctx.isSelected, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$f, ctx.isSelected, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.overlay);
         } }, dependencies: [i1$1.NgClass], styles: [".geoicon[_ngcontent-%COMP%]{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .main.selected[_ngcontent-%COMP%]{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon[_ngcontent-%COMP%]   .back[_ngcontent-%COMP%]{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .back.selected[_ngcontent-%COMP%]{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon[_ngcontent-%COMP%]   .over[_ngcontent-%COMP%]{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .over.selected[_ngcontent-%COMP%]{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}"] });
 }
@@ -4343,8 +4375,8 @@ class FlyOutData {
             }]
     }], null, null); })();
 
-const _c0$j = ["container"];
-const _c1$d = ["content"];
+const _c0$q = ["container"];
+const _c1$e = ["content"];
 function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     const _r4 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
@@ -4665,8 +4697,8 @@ class MrdFlyOutComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(t) { return new (t || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFlyOutComponent, selectors: [["mrd-fly-out"]], viewQuery: function MrdFlyOutComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$j, 5);
-            i0.ɵɵviewQuery(_c1$d, 7, ViewContainerRef);
+            i0.ɵɵviewQuery(_c0$q, 5);
+            i0.ɵɵviewQuery(_c1$e, 7, ViewContainerRef);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.container = _t.first);
@@ -4788,7 +4820,7 @@ class MrdFlyOutModule {
         MrdButtonModule], exports: [MrdFlyOutComponent,
         MrdFlyOutCloseDirective] }); })();
 
-const _c0$i = ["*"];
+const _c0$p = ["*"];
 class MrdButtonToggleGroupComponent extends BaseObject {
     cdr;
     buttons;
@@ -5026,7 +5058,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$i, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$p, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -5125,7 +5157,7 @@ class MrdButtonToggleModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdButtonToggleModule, { declarations: [MrdButtonToggleGroupComponent], imports: [CommonModule,
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
-const _c0$h = ["checkboxlabel"];
+const _c0$o = ["checkboxlabel"];
 function MrdCheckboxComponent_span_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵnamespaceSVG();
@@ -5153,7 +5185,7 @@ function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1)
 function MrdCheckboxComponent_div_2_ng_content_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 2, ["*ngIf", "!checked"]);
 } }
-const _c1$c = function (a0) { return { "isHover": a0 }; };
+const _c1$d = function (a0) { return { "isHover": a0 }; };
 function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 13);
     i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 7);
@@ -5161,7 +5193,7 @@ function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$c, !ctx_r1.customHoverIcons));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$d, !ctx_r1.customHoverIcons));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r1.checked);
     i0.ɵɵadvance(1);
@@ -5291,7 +5323,7 @@ class MrdCheckboxComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], viewQuery: function MrdCheckboxComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$h, 5);
+            i0.ɵɵviewQuery(_c0$o, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
@@ -5441,7 +5473,7 @@ class MrdCheckboxModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdCheckboxModule, { declarations: [MrdCheckboxComponent], imports: [CommonModule,
         MrdTooltipModule], exports: [MrdCheckboxComponent] }); })();
 
-const _c0$g = ["chipText"];
+const _c0$n = ["chipText"];
 function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
@@ -5469,7 +5501,7 @@ function MrdChipComponent_mrd_button_7_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r3.closeIconColor)("--chip-close-icon-cross-color", ctx_r3.closeIconCrossColor);
 } }
-const _c1$b = function (a0) { return { "cursor": a0 }; };
+const _c1$c = function (a0) { return { "cursor": a0 }; };
 const _c2$8 = function (a0) { return { "pointer-events": a0 }; };
 const _c3$7 = ["*"];
 class MrdChipComponent {
@@ -5551,7 +5583,7 @@ class MrdChipComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(t) { return new (t || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdChipComponent, selectors: [["mrd-chip"]], viewQuery: function MrdChipComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$g, 5);
+            i0.ɵɵviewQuery(_c0$n, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
@@ -5568,7 +5600,7 @@ class MrdChipComponent {
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--chip-color", ctx.color)("--chip-background-color", ctx.backgroundColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$b, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$c, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$8, ctx.disabled ? "none" : "auto"));
             i0.ɵɵadvance(1);
@@ -5662,7 +5694,7 @@ class MrdChipModule {
 function MrdDatepickerComponent_ng_container_10_div_17_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 8);
 } }
-const _c0$f = function (a0, a1) { return { "today": a0, "selected": a1 }; };
+const _c0$m = function (a0, a1) { return { "today": a0, "selected": a1 }; };
 function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
     const _r10 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 12);
@@ -5671,7 +5703,7 @@ function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Tem
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const d_r8 = ctx.$implicit;
-    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$f, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$m, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", d_r8.day, " ");
 } }
@@ -5745,7 +5777,7 @@ function MrdDatepickerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) 
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r0.range);
 } }
-const _c1$a = function (a0) { return { "selected": a0 }; };
+const _c1$b = function (a0) { return { "selected": a0 }; };
 function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) { if (rf & 1) {
     const _r19 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 17);
@@ -5755,7 +5787,7 @@ function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) {
 } if (rf & 2) {
     const y_r17 = ctx.$implicit;
     const ctx_r16 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$a, y_r17 === ctx_r16.year));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$b, y_r17 === ctx_r16.year));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", y_r17, " ");
 } }
@@ -5780,7 +5812,7 @@ function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template(rf, ctx) {
     const m_r21 = ctx.$implicit;
     const i_r22 = ctx.index;
     const ctx_r20 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$a, i_r22 === ctx_r20.monthIndex));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$b, i_r22 === ctx_r20.monthIndex));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", m_r21, " ");
 } }
@@ -6218,8 +6250,8 @@ class MrdTimepickerComponent {
             type: Output
         }] }); })();
 
-const _c0$e = ["baseInput"];
-const _c1$9 = ["textArea"];
+const _c0$l = ["baseInput"];
+const _c1$a = ["textArea"];
 const _c2$7 = ["dateInput"];
 const _c3$6 = ["timeInput"];
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
@@ -6301,7 +6333,7 @@ function MrdInputComponent_ng_template_8_Template(rf, ctx) { if (rf & 1) {
     const ctx_r8 = i0.ɵɵnextContext();
     i0.ɵɵproperty("time", ctx_r8.value);
 } }
-const _c5$1 = [[["", "unfocusedOverlay", ""]]];
+const _c5$2 = [[["", "unfocusedOverlay", ""]]];
 const _c6 = ["[unfocusedOverlay]"];
 class MrdInputComponent extends BaseObject {
     cdr;
@@ -6659,8 +6691,8 @@ class MrdInputComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdInputComponent, selectors: [["mrd-input"]], viewQuery: function MrdInputComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$e, 5);
-            i0.ɵɵviewQuery(_c1$9, 5);
+            i0.ɵɵviewQuery(_c0$l, 5);
+            i0.ɵɵviewQuery(_c1$a, 5);
             i0.ɵɵviewQuery(_c2$7, 5);
             i0.ɵɵviewQuery(_c3$6, 5);
         } if (rf & 2) {
@@ -6670,7 +6702,7 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.timeInputElement = _t.first);
         } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], number: ["number", "number", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c5$1);
+            i0.ɵɵprojectionDef(_c5$2);
             i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 13, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 1);
             i0.ɵɵtemplate(2, MrdInputComponent_div_2_Template, 2, 0, "div", 2);
@@ -6840,8 +6872,8 @@ function MrdLabelComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(1, "\u00A0*");
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$d = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
-const _c1$8 = ["*"];
+const _c0$k = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
+const _c1$9 = ["*"];
 class MrdLabelComponent extends BasePushStrategyObject {
     cdr;
     set labelTop(value) {
@@ -6862,14 +6894,14 @@ class MrdLabelComponent extends BasePushStrategyObject {
         this.watch(this._labelTop.changed, new SubscriptionHandler(() => this.cdr.detectChanges()));
     }
     /** @nocollapse */ static ɵfac = function MrdLabelComponent_Factory(t) { return new (t || MrdLabelComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$8, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$9, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵtemplate(3, MrdLabelComponent_ng_container_3_Template, 2, 0, "ng-container", 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$d, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$k, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.required.value);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
@@ -6884,8 +6916,8 @@ class MrdLabelComponent extends BasePushStrategyObject {
             type: Input
         }] }); })();
 
-const _c0$c = function (a0) { return { "mrd-error-ellipsis": a0 }; };
-const _c1$7 = function (a0) { return { "-webkit-line-clamp": a0 }; };
+const _c0$j = function (a0) { return { "mrd-error-ellipsis": a0 }; };
+const _c1$8 = function (a0) { return { "-webkit-line-clamp": a0 }; };
 class MrdErrorComponent {
     cdr;
     ellipsis;
@@ -6912,7 +6944,7 @@ class MrdErrorComponent {
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$c, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$7, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$j, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(6, _c1$8, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.error);
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate1(" ", ctx.error, "\n");
         } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
@@ -6925,7 +6957,7 @@ class MrdErrorComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$b = ["optionValue"];
+const _c0$i = ["optionValue"];
 function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 4);
     i0.ɵɵelement(1, "mrd-checkbox", 5);
@@ -6935,7 +6967,7 @@ function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("checked", ctx_r0.selected);
 } }
-const _c1$6 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c1$7 = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c2$6 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
 const _c3$5 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 class MrdSelectOptionComponent {
@@ -6968,6 +7000,7 @@ class MrdSelectOptionComponent {
         this.optionClicked.emit({ key: this.value, value: this.optionValue?.nativeElement.innerText || '', option: this, checked: !this.selected });
         this.cdr.markForCheck();
     }
+    /** Als Input nur fuer das virtuelle Scrolling im mrd-select; sonst setzt das Select den Zustand selbst */
     set selected(value) {
         this._selected = value;
         this.cdr.detectChanges();
@@ -6994,12 +7027,12 @@ class MrdSelectOptionComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(t) { return new (t || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectOptionComponent, selectors: [["mrd-select-option"]], viewQuery: function MrdSelectOptionComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$b, 5);
+            i0.ɵɵviewQuery(_c0$i, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionValue = _t.first);
-        } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$5, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$6);
+        } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], selected: "selected", focused: "focused" }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$5, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$7);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdSelectOptionComponent_Template_div_click_0_listener() { return ctx.optionClick(); });
             i0.ɵɵelementStart(1, "span");
@@ -7014,11 +7047,11 @@ class MrdSelectOptionComponent {
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c2$6, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.multiple && !ctx.noCheckbox);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdCheckboxComponent], styles: ["[_nghost-%COMP%]{display:block;width:100%}.mrd-select-search-option[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:inherit}.mrd-select-option-item[_ngcontent-%COMP%]{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-value-text[_ngcontent-%COMP%]{display:flex;flex:1;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-checkbox-wrapper[_ngcontent-%COMP%]{display:flex;pointer-events:none}.mrd-select-option-item.selected[_ngcontent-%COMP%]{background-color:#3fb61a21}.mrd-select-option-item.filtered[_ngcontent-%COMP%]{display:none}.mrd-select-option-item.focused[_ngcontent-%COMP%], .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:#f0f0f0}.mrd-select-option-item[_ngcontent-%COMP%]:last-of-type{border-bottom:none}.mrd-select-option-item.disabled[_ngcontent-%COMP%]{pointer-events:none;opacity:.5}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdCheckboxComponent], styles: ["[_nghost-%COMP%]{display:block;width:100%}.mrd-select-option-virtuell[_nghost-%COMP%]{height:100%}.mrd-select-option-virtuell[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]{height:100%;box-sizing:border-box}.mrd-select-search-option[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:inherit}.mrd-select-option-item[_ngcontent-%COMP%]{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-value-text[_ngcontent-%COMP%]{display:flex;flex:1;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-checkbox-wrapper[_ngcontent-%COMP%]{display:flex;pointer-events:none}.mrd-select-option-item.selected[_ngcontent-%COMP%]{background-color:#3fb61a21}.mrd-select-option-item.filtered[_ngcontent-%COMP%]{display:none}.mrd-select-option-item.focused[_ngcontent-%COMP%], .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:#f0f0f0}.mrd-select-option-item[_ngcontent-%COMP%]:last-of-type{border-bottom:none}.mrd-select-option-item.disabled[_ngcontent-%COMP%]{pointer-events:none;opacity:.5}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectOptionComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused, 'disabled': disabled}\" (click)=\"optionClick()\">\n  <span>\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\n        <ng-container *ngIf=\"selected\">\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\n          </svg>\n        </ng-container>\n      </span> -->\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\n    </div>\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\n  </span>\n</div>\n", styles: [":host{display:block;width:100%}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1;align-items:center}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}.mrd-select-option-item.disabled{pointer-events:none;opacity:.5}\n"] }]
+        args: [{ selector: 'mrd-select-option', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-select-option-item\" [ngClass]=\"{'selected': selected, 'filtered': filtered, 'focused': focused, 'disabled': disabled}\" (click)=\"optionClick()\">\n  <span>\n    <div *ngIf=\"multiple && !noCheckbox\" class=\"mrd-select-option-checkbox-wrapper\">\n      <!-- <span class=\"mrd-select-option-checkbox\" [ngClass]=\"{'selected': selected}\">\n        <ng-container *ngIf=\"selected\">\n          <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\n            <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\n          </svg>\n        </ng-container>\n      </span> -->\n      <mrd-checkbox [checked]=\"selected\"></mrd-checkbox>\n    </div>\n    <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\n    <span #optionValue class=\"mrd-select-option-value-text\"><ng-content></ng-content></span>\n    <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\n  </span>\n</div>\n", styles: [":host{display:block;width:100%}:host.mrd-select-option-virtuell{height:100%}:host.mrd-select-option-virtuell .mrd-select-option-item{height:100%;box-sizing:border-box}:host.mrd-select-search-option .mrd-select-option-item:hover{background-color:inherit}.mrd-select-option-item{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item>span{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item>span .mrd-select-option-value-text{display:flex;flex:1;align-items:center}.mrd-select-option-item>span ::ng-deep .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item>span ::ng-deep .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item>span .mrd-select-option-checkbox-wrapper{display:flex;pointer-events:none}.mrd-select-option-item.selected{background-color:#3fb61a21}.mrd-select-option-item.filtered{display:none}.mrd-select-option-item.focused,.mrd-select-option-item:hover{background-color:#f0f0f0}.mrd-select-option-item:last-of-type{border-bottom:none}.mrd-select-option-item.disabled{pointer-events:none;opacity:.5}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: MrdSelectComponent, decorators: [{
                 type: Host
             }] }, { type: i0.ChangeDetectorRef }]; }, { optionValue: [{
@@ -7034,16 +7067,20 @@ class MrdSelectOptionComponent {
             args: [{ transform: booleanAttribute }]
         }], optionClicked: [{
             type: Output
+        }], selected: [{
+            type: Input
+        }], focused: [{
+            type: Input
         }] }); })();
 
-const _c0$a = ["*"];
+const _c0$h = ["*"];
 class MrdSelectCustomTriggerComponent {
     triggerClick = new EventEmitter();
     triggerClicked() {
         this.triggerClick.emit();
     }
     /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(t) { return new (t || MrdSelectCustomTriggerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$a, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$h, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵlistener("click", function MrdSelectCustomTriggerComponent_Template_span_click_0_listener() { return ctx.triggerClicked(); });
@@ -7058,8 +7095,355 @@ class MrdSelectCustomTriggerComponent {
             type: Output
         }] }); })();
 
-const _c0$9 = ["selectContainer"];
-const _c1$5 = ["searchSelectionInput"];
+/**
+ * Inhalt einer Option im `mrd-select` mit `virtualScroll`; ohne Template wird das Label angezeigt:
+ * `<ng-template mrdSelectOption let-item>{{item.bezeichnung}} ({{item.nummer}})</ng-template>`
+ */
+class MrdSelectOptionTemplateDirective {
+    templateRef;
+    /** Nur fuer die Typisierung des Template-Kontexts: `[mrdSelectOption]="items"` */
+    mrdSelectOption;
+    constructor(templateRef) {
+        this.templateRef = templateRef;
+    }
+    static ngTemplateContextGuard(dir, ctx) {
+        return true;
+    }
+    /** @nocollapse */ static ɵfac = function MrdSelectOptionTemplateDirective_Factory(t) { return new (t || MrdSelectOptionTemplateDirective)(i0.ɵɵdirectiveInject(i0.TemplateRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdSelectOptionTemplateDirective, selectors: [["ng-template", "mrdSelectOption", ""]], inputs: { mrdSelectOption: "mrdSelectOption" } });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectOptionTemplateDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'ng-template[mrdSelectOption]'
+            }]
+    }], function () { return [{ type: i0.TemplateRef }]; }, { mrdSelectOption: [{
+            type: Input
+        }] }); })();
+
+/**
+ * Markiert das Zeilen-Template einer virtuellen Liste:
+ * `<ng-template mrdVirtualScrollItem let-item let-i="index">...</ng-template>`
+ */
+class MrdVirtualScrollItemDirective {
+    templateRef;
+    /** Nur fuer die Typisierung des Template-Kontexts: `[mrdVirtualScrollItem]="items"` */
+    mrdVirtualScrollItem;
+    constructor(templateRef) {
+        this.templateRef = templateRef;
+    }
+    static ngTemplateContextGuard(dir, ctx) {
+        return true;
+    }
+    /** @nocollapse */ static ɵfac = function MrdVirtualScrollItemDirective_Factory(t) { return new (t || MrdVirtualScrollItemDirective)(i0.ɵɵdirectiveInject(i0.TemplateRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdVirtualScrollItemDirective, selectors: [["ng-template", "mrdVirtualScrollItem", ""]], inputs: { mrdVirtualScrollItem: "mrdVirtualScrollItem" } });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdVirtualScrollItemDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'ng-template[mrdVirtualScrollItem]'
+            }]
+    }], function () { return [{ type: i0.TemplateRef }]; }, { mrdVirtualScrollItem: [{
+            type: Input
+        }] }); })();
+
+/**
+ * Nimmt eine Zahl (auch als Attribut-String) oder eine Funktion; ungueltige Werte ergeben null (= Standard aus der Config).
+ * Nicht generisch, weil Angular keine generischen Input-Transforms erlaubt (NG1010).
+ */
+function itemSizeAttribute(value) {
+    if (typeof value === 'function') {
+        return value;
+    }
+    const zahl = Number(value);
+    return zahl > 0 ? zahl : null;
+}
+
+function MrdVirtualScrollComponent_div_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainer(0);
+} }
+const _c0$g = function (a0, a1) { return { $implicit: a0, index: a1 }; };
+function MrdVirtualScrollComponent_div_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 3);
+    i0.ɵɵtemplate(1, MrdVirtualScrollComponent_div_2_ng_container_1_Template, 1, 0, "ng-container", 4);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const eintrag_r1 = ctx.$implicit;
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵstyleProp("height", eintrag_r1.hoehe, "px");
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.template)("ngTemplateOutletContext", i0.ɵɵpureFunction2(4, _c0$g, eintrag_r1.item, eintrag_r1.index));
+} }
+/**
+ * Rendert von einer langen Liste nur die sichtbaren Zeilen (plus Puffer).
+ * Voraussetzungen: die Hoehe jeder Zeile ist vorab bekannt (`itemSize` als Zahl oder Funktion je Eintrag)
+ * und das Element selbst hat eine feste Hoehe (z. B. ueber `height` oder `flex: 1`) oder `maxHeight` ist gesetzt.
+ */
+class MrdVirtualScrollComponent {
+    elementRef;
+    cdr;
+    ngZone;
+    contentItem;
+    /** Alternativ zum Content-Template, z. B. wenn eine umschliessende Komponente das Template durchreicht */
+    itemTemplate;
+    set items(value) {
+        this._items = value || [];
+        this.offsetsBerechnen();
+        this.bereichBerechnen(true, false);
+    }
+    get items() {
+        return this._items;
+    }
+    _items = [];
+    /**
+     * Zeilenhoehe in px fuer alle Eintraege oder `(item, index) => px` je Eintrag.
+     * Aendert sich das Ergebnis der Funktion fuer vorhandene Items, danach `checkViewportSize()` aufrufen.
+     */
+    set itemSize(value) {
+        this._itemSize = value ?? ConfigUtil.getConfig().list.itemSize;
+        this.offsetsBerechnen();
+        this.bereichBerechnen(true, false);
+    }
+    get itemSize() {
+        return this._itemSize;
+    }
+    _itemSize = ConfigUtil.getConfig().list.itemSize;
+    /**
+     * Nur bei `itemSize` als Funktion: offsets[i] ist die Oberkante von Eintrag i, offsets[anzahl] die Gesamthoehe.
+     * Bei fester Hoehe wird gerechnet statt gespeichert.
+     */
+    offsets = null;
+    /** Anzahl zusaetzlich gerenderter Zeilen ober- und unterhalb des sichtbaren Bereichs */
+    buffer = 5;
+    trackBy;
+    /** Hoehe in px, bis zu der das Element mit seinem Inhalt waechst; ohne Angabe bestimmt der Aufrufer die Hoehe */
+    maxHeight;
+    visibleRangeChange = new EventEmitter();
+    sichtbareEintraege = [];
+    versatz = 0;
+    gesamtHoehe = 0;
+    bereich = { start: 0, end: 0 };
+    initialisiert = false;
+    animationFrame = null;
+    resizeObserver;
+    scrollListener = () => this.bereichPlanen();
+    eintragTrackBy = (_, eintrag) => {
+        return this.trackBy ? this.trackBy(eintrag.index, eintrag.item) : eintrag.item;
+    };
+    constructor(elementRef, cdr, ngZone) {
+        this.elementRef = elementRef;
+        this.cdr = cdr;
+        this.ngZone = ngZone;
+    }
+    ngAfterViewInit() {
+        const element = this.elementRef.nativeElement;
+        // Scroll- und Resize-Ereignisse ausserhalb der Zone, damit nicht jedes Scroll-Frame eine globale Change Detection ausloest
+        this.ngZone.runOutsideAngular(() => {
+            element.addEventListener('scroll', this.scrollListener, { passive: true });
+            if (typeof ResizeObserver !== 'undefined') {
+                this.resizeObserver = new ResizeObserver(() => this.bereichPlanen());
+                this.resizeObserver.observe(element);
+            }
+        });
+        this.initialisiert = true;
+        this.bereichBerechnen(true, true);
+    }
+    ngOnDestroy() {
+        this.elementRef.nativeElement.removeEventListener('scroll', this.scrollListener);
+        this.resizeObserver?.disconnect();
+        if (this.animationFrame !== null) {
+            cancelAnimationFrame(this.animationFrame);
+        }
+    }
+    get template() {
+        return this.itemTemplate || this.contentItem?.templateRef;
+    }
+    get automatischeHoehe() {
+        return this.maxHeight > 0 ? Math.min(this.gesamtHoehe, this.maxHeight) : null;
+    }
+    get renderedRange() {
+        return { ...this.bereich };
+    }
+    /** Scrollt so, dass der Eintrag mit dem Index sichtbar ist. */
+    scrollToIndex(index, position = 'nearest', behavior = 'auto') {
+        if (index < 0 || index >= this._items.length) {
+            return;
+        }
+        const element = this.elementRef.nativeElement;
+        const hoehe = element.clientHeight;
+        const oben = this.oberkante(index);
+        const zeilenhoehe = this.hoeheVon(index);
+        const unten = oben + zeilenhoehe;
+        let ziel = element.scrollTop;
+        switch (position) {
+            case 'start':
+                ziel = oben;
+                break;
+            case 'end':
+                ziel = unten - hoehe;
+                break;
+            case 'center':
+                ziel = oben - (hoehe - zeilenhoehe) / 2;
+                break;
+            default:
+                if (oben < element.scrollTop) {
+                    ziel = oben;
+                }
+                else if (unten > element.scrollTop + hoehe) {
+                    ziel = unten - hoehe;
+                }
+        }
+        ziel = Math.max(0, Math.min(ziel, this.gesamtHoehe - hoehe));
+        element.scrollTo({ top: ziel, behavior });
+    }
+    /**
+     * Neu berechnen, wenn sich die Groesse von aussen geaendert hat, ohne dass der ResizeObserver es bemerkt,
+     * oder wenn `itemSize` als Funktion fuer vorhandene Items andere Hoehen liefert.
+     */
+    checkViewportSize() {
+        this.offsetsBerechnen();
+        this.bereichBerechnen(true, true);
+    }
+    offsetsBerechnen() {
+        const groesse = this._itemSize;
+        if (typeof groesse !== 'function') {
+            this.offsets = null;
+            return;
+        }
+        const anzahl = this._items.length;
+        const offsets = new Float64Array(anzahl + 1);
+        for (let i = 0; i < anzahl; i++) {
+            offsets[i + 1] = offsets[i] + Math.max(0, groesse(this._items[i], i) || 0);
+        }
+        this.offsets = offsets;
+    }
+    oberkante(index) {
+        return this.offsets ? this.offsets[index] : index * this._itemSize;
+    }
+    hoeheVon(index) {
+        return this.offsets ? this.offsets[index + 1] - this.offsets[index] : this._itemSize;
+    }
+    /** Index des Eintrags, der die Position y (px ab Listenanfang) enthaelt */
+    indexBei(y) {
+        const anzahl = this._items.length;
+        if (anzahl === 0) {
+            return 0;
+        }
+        if (!this.offsets) {
+            return Math.min(anzahl - 1, Math.floor(y / this._itemSize));
+        }
+        // Binaersuche nach dem letzten Eintrag mit Oberkante <= y
+        let links = 0;
+        let rechts = anzahl - 1;
+        while (links < rechts) {
+            const mitte = (links + rechts + 1) >> 1;
+            if (this.offsets[mitte] <= y) {
+                links = mitte;
+            }
+            else {
+                rechts = mitte - 1;
+            }
+        }
+        return links;
+    }
+    bereichPlanen() {
+        if (this.animationFrame !== null) {
+            return;
+        }
+        this.animationFrame = requestAnimationFrame(() => {
+            this.animationFrame = null;
+            this.bereichBerechnen(false, true);
+        });
+    }
+    /**
+     * @param erzwingen Auch neu aufbauen, wenn sich der Bereich nicht geaendert hat (z. B. neue Items)
+     * @param rendern Sofort rendern; im Input-Setter nicht noetig, weil die Change Detection ohnehin folgt
+     */
+    bereichBerechnen(erzwingen, rendern) {
+        const anzahl = this._items.length;
+        this.gesamtHoehe = this.oberkante(anzahl);
+        let start = 0;
+        let ende = Math.min(anzahl, this.buffer * 2);
+        if (this.initialisiert && anzahl > 0) {
+            const element = this.elementRef.nativeElement;
+            const hoehe = element.clientHeight;
+            // scrollTop ist nach dem Verkleinern der Liste bis zum naechsten Layout noch der alte Wert
+            const scrollTop = Math.max(0, Math.min(element.scrollTop, this.gesamtHoehe - hoehe));
+            const erster = this.indexBei(scrollTop);
+            const letzter = this.indexBei(scrollTop + hoehe);
+            start = Math.max(0, erster - this.buffer);
+            ende = Math.min(anzahl, letzter + 1 + this.buffer);
+        }
+        if (!erzwingen && start === this.bereich.start && ende === this.bereich.end) {
+            return;
+        }
+        const bereichGeaendert = start !== this.bereich.start || ende !== this.bereich.end;
+        this.bereich = { start, end: ende };
+        this.versatz = this.oberkante(start);
+        this.sichtbareEintraege = this._items.slice(start, ende).map((item, i) => ({ item, index: start + i, hoehe: this.hoeheVon(start + i) }));
+        if (rendern) {
+            // In der Zone rendern, damit Event-Listener im Zeilen-Template eine Change Detection ausloesen
+            this.ngZone.run(() => this.cdr.detectChanges());
+        }
+        else {
+            this.cdr.markForCheck();
+        }
+        if (bereichGeaendert) {
+            // Asynchron, damit der Aufrufer seinen Zustand nicht waehrend einer laufenden Change Detection aendert
+            const bereich = this.renderedRange;
+            Promise.resolve().then(() => this.ngZone.run(() => this.visibleRangeChange.emit(bereich)));
+        }
+    }
+    /** @nocollapse */ static ɵfac = function MrdVirtualScrollComponent_Factory(t) { return new (t || MrdVirtualScrollComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdVirtualScrollComponent, selectors: [["mrd-virtual-scroll"]], contentQueries: function MrdVirtualScrollComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, MrdVirtualScrollItemDirective, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.contentItem = _t.first);
+        } }, hostVars: 2, hostBindings: function MrdVirtualScrollComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("height", ctx.automatischeHoehe, "px");
+        } }, inputs: { itemTemplate: "itemTemplate", items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], trackBy: "trackBy", maxHeight: ["maxHeight", "maxHeight", numberAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], decls: 3, vars: 6, consts: [[1, "mrd-virtual-scroll-platzhalter"], [1, "mrd-virtual-scroll-inhalt"], ["class", "mrd-virtual-scroll-zeile", 3, "height", 4, "ngFor", "ngForOf", "ngForTrackBy"], [1, "mrd-virtual-scroll-zeile"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdVirtualScrollComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelement(0, "div", 0);
+            i0.ɵɵelementStart(1, "div", 1);
+            i0.ɵɵtemplate(2, MrdVirtualScrollComponent_div_2_Template, 2, 7, "div", 2);
+            i0.ɵɵelementEnd();
+        } if (rf & 2) {
+            i0.ɵɵstyleProp("height", ctx.gesamtHoehe, "px");
+            i0.ɵɵadvance(1);
+            i0.ɵɵstyleProp("transform", "translateY(" + ctx.versatz + "px)");
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngForOf", ctx.sichtbareEintraege)("ngForTrackBy", ctx.eintragTrackBy);
+        } }, dependencies: [i1$1.NgForOf, i1$1.NgTemplateOutlet], styles: ["[_nghost-%COMP%]{display:block;position:relative;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.mrd-virtual-scroll-platzhalter[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:1px;visibility:hidden;pointer-events:none}.mrd-virtual-scroll-inhalt[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;will-change:transform}.mrd-virtual-scroll-zeile[_ngcontent-%COMP%]{box-sizing:border-box;overflow:hidden}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdVirtualScrollComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-virtual-scroll', host: {
+                    '[style.height.px]': 'automatischeHoehe'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-virtual-scroll-platzhalter\" [style.height.px]=\"gesamtHoehe\"></div>\n<div class=\"mrd-virtual-scroll-inhalt\" [style.transform]=\"'translateY(' + versatz + 'px)'\">\n  <div class=\"mrd-virtual-scroll-zeile\" *ngFor=\"let eintrag of sichtbareEintraege; trackBy: eintragTrackBy\" [style.height.px]=\"eintrag.hoehe\">\n    <ng-container *ngTemplateOutlet=\"template; context: {$implicit: eintrag.item, index: eintrag.index}\"></ng-container>\n  </div>\n</div>\n", styles: [":host{display:block;position:relative;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.mrd-virtual-scroll-platzhalter{position:absolute;top:0;left:0;width:1px;visibility:hidden;pointer-events:none}.mrd-virtual-scroll-inhalt{position:absolute;top:0;left:0;width:100%;will-change:transform}.mrd-virtual-scroll-zeile{box-sizing:border-box;overflow:hidden}\n"] }]
+    }], function () { return [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i0.NgZone }]; }, { contentItem: [{
+            type: ContentChild,
+            args: [MrdVirtualScrollItemDirective]
+        }], itemTemplate: [{
+            type: Input
+        }], items: [{
+            type: Input
+        }], itemSize: [{
+            type: Input,
+            args: [{ transform: itemSizeAttribute }]
+        }], buffer: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], trackBy: [{
+            type: Input
+        }], maxHeight: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], visibleRangeChange: [{
+            type: Output
+        }] }); })();
+
+const _c0$f = ["selectContainer"];
+const _c1$6 = ["searchSelectionInput"];
 function MrdSelectComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
@@ -7102,17 +7486,17 @@ function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_1_Templat
     i0.ɵɵtextInterpolate(ctx_r10.showValue);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template(rf, ctx) { if (rf & 1) {
-    const _r22 = i0.ɵɵgetCurrentView();
+    const _r23 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-chip", 17);
-    i0.ɵɵlistener("close", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template_mrd_chip_close_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r22); const option_r20 = restoredCtx.$implicit; const ctx_r21 = i0.ɵɵnextContext(6); return i0.ɵɵresetView(ctx_r21.chipClosed(option_r20)); });
+    i0.ɵɵlistener("close", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_mrd_chip_1_Template_mrd_chip_close_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r23); const option_r21 = restoredCtx.$implicit; const ctx_r22 = i0.ɵɵnextContext(6); return i0.ɵɵresetView(ctx_r22.chipClosed(option_r21)); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const option_r20 = ctx.$implicit;
-    const ctx_r19 = i0.ɵɵnextContext(6);
-    i0.ɵɵproperty("prefixIcon", ctx_r19.chipPrefixIcon)("suffixIcon", ctx_r19.chipSuffixIcon)("disabled", (ctx_r19.formControl == null ? null : ctx_r19.formControl.disabled) || (ctx_r19.formArrayControl == null ? null : ctx_r19.formArrayControl.disabled) || ctx_r19.disabled);
+    const option_r21 = ctx.$implicit;
+    const ctx_r20 = i0.ɵɵnextContext(6);
+    i0.ɵɵproperty("prefixIcon", ctx_r20.chipPrefixIcon)("suffixIcon", ctx_r20.chipSuffixIcon)("disabled", (ctx_r20.formControl == null ? null : ctx_r20.formControl.disabled) || (ctx_r20.formArrayControl == null ? null : ctx_r20.formArrayControl.disabled) || ctx_r20.disabled);
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(option_r20.optionLabel);
+    i0.ɵɵtextInterpolate(option_r21.optionLabel);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
@@ -7123,29 +7507,54 @@ function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_n
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngForOf", ctx_r18.selectedOptions);
 } }
+function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_2_mrd_chip_1_Template(rf, ctx) { if (rf & 1) {
+    const _r27 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-chip", 17);
+    i0.ɵɵlistener("close", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_2_mrd_chip_1_Template_mrd_chip_close_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r27); const item_r25 = restoredCtx.$implicit; const ctx_r26 = i0.ɵɵnextContext(6); return i0.ɵɵresetView(ctx_r26.virtuellenChipSchliessen(item_r25)); });
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const item_r25 = ctx.$implicit;
+    const ctx_r24 = i0.ɵɵnextContext(6);
+    i0.ɵɵproperty("prefixIcon", ctx_r24.chipPrefixIcon)("suffixIcon", ctx_r24.chipSuffixIcon)("disabled", (ctx_r24.formControl == null ? null : ctx_r24.formControl.disabled) || (ctx_r24.formArrayControl == null ? null : ctx_r24.formArrayControl.disabled) || ctx_r24.disabled);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(ctx_r24.labelVon(item_r25));
+} }
+function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_2_mrd_chip_1_Template, 2, 4, "mrd-chip", 16);
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const ctx_r19 = i0.ɵɵnextContext(5);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngForOf", ctx_r19.virtuelleAusgewaehlteItems);
+} }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template(rf, ctx) { if (rf & 1) {
-    const _r24 = i0.ɵɵgetCurrentView();
+    const _r29 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 14);
     i0.ɵɵtemplate(1, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_1_Template, 2, 1, "ng-container", 2);
-    i0.ɵɵelementStart(2, "div", 15);
-    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_click_2_listener() { i0.ɵɵrestoreView(_r24); const ctx_r23 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r23.triggerClicked()); })("focus", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_focus_2_listener() { i0.ɵɵrestoreView(_r24); const ctx_r25 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r25.onTriggerFocus()); })("blur", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_blur_2_listener() { i0.ɵɵrestoreView(_r24); const ctx_r26 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r26.onTriggerBlur()); })("keydown", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_keydown_2_listener($event) { i0.ɵɵrestoreView(_r24); const ctx_r27 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r27.onTriggerKeyDown($event)); });
+    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_ng_container_2_Template, 2, 1, "ng-container", 2);
+    i0.ɵɵelementStart(3, "div", 15);
+    i0.ɵɵlistener("click", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_click_3_listener() { i0.ɵɵrestoreView(_r29); const ctx_r28 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r28.triggerClicked()); })("focus", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_focus_3_listener() { i0.ɵɵrestoreView(_r29); const ctx_r30 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r30.onTriggerFocus()); })("blur", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_blur_3_listener() { i0.ɵɵrestoreView(_r29); const ctx_r31 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r31.onTriggerBlur()); })("keydown", function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template_div_keydown_3_listener($event) { i0.ɵɵrestoreView(_r29); const ctx_r32 = i0.ɵɵnextContext(4); return i0.ɵɵresetView(ctx_r32.onTriggerKeyDown($event)); });
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(3, "svg", 7);
-    i0.ɵɵelement(4, "g", 8)(5, "g", 9);
-    i0.ɵɵelementStart(6, "g", 10);
-    i0.ɵɵelement(7, "path", 11);
+    i0.ɵɵelementStart(4, "svg", 7);
+    i0.ɵɵelement(5, "g", 8)(6, "g", 9);
+    i0.ɵɵelementStart(7, "g", 10);
+    i0.ɵɵelement(8, "path", 11);
     i0.ɵɵelementEnd()()()();
 } if (rf & 2) {
     const ctx_r17 = i0.ɵɵnextContext(4);
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r17.selectedOptions && ctx_r17.selectedOptions.length > 0);
     i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r17.virtualScroll);
+    i0.ɵɵadvance(1);
     i0.ɵɵattribute("tabindex", ctx_r17.triggerTabIndex);
 } }
 function MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵelementStart(1, "div", 12);
-    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template, 8, 2, "div", 13);
+    i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_3_ng_container_2_ng_container_2_div_2_Template, 9, 3, "div", 13);
     i0.ɵɵelementEnd();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
@@ -7178,33 +7587,80 @@ function MrdSelectComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵproperty("ngIf", !ctx_r2.customTrigger);
 } }
 function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template(rf, ctx) { if (rf & 1) {
-    const _r33 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-select-option", 23)(1, "input", 24, 25);
-    i0.ɵɵlistener("input", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_input_1_listener($event) { i0.ɵɵrestoreView(_r33); const ctx_r32 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r32.searchInput($event)); })("click", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_click_1_listener($event) { return $event.stopPropagation(); })("keydown", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_keydown_1_listener($event) { i0.ɵɵrestoreView(_r33); const ctx_r35 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r35.onKeyDown($event)); });
+    const _r39 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-select-option", 24)(1, "input", 25, 26);
+    i0.ɵɵlistener("input", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_input_1_listener($event) { i0.ɵɵrestoreView(_r39); const ctx_r38 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r38.searchInput($event)); })("click", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_click_1_listener($event) { return $event.stopPropagation(); })("keydown", function MrdSelectComponent_ng_template_4_mrd_select_option_1_Template_input_keydown_1_listener($event) { i0.ɵɵrestoreView(_r39); const ctx_r41 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r41.onKeyDown($event)); });
     i0.ɵɵelementEnd();
     i0.ɵɵprojection(3, 2);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r28 = i0.ɵɵnextContext(2);
+    const ctx_r33 = i0.ɵɵnextContext(2);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("value", ctx_r28.searchText);
+    i0.ɵɵproperty("value", ctx_r33.searchText);
 } }
 function MrdSelectComponent_ng_template_4_mrd_select_option_3_Template(rf, ctx) { if (rf & 1) {
-    const _r37 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-select-option", 26);
-    i0.ɵɵlistener("optionClicked", function MrdSelectComponent_ng_template_4_mrd_select_option_3_Template_mrd_select_option_optionClicked_0_listener() { i0.ɵɵrestoreView(_r37); const ctx_r36 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r36.removeSelected()); });
+    const _r43 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-select-option", 27);
+    i0.ɵɵlistener("optionClicked", function MrdSelectComponent_ng_template_4_mrd_select_option_3_Template_mrd_select_option_optionClicked_0_listener() { i0.ɵɵrestoreView(_r43); const ctx_r42 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r42.removeSelected()); });
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r29 = i0.ɵɵnextContext(2);
+    const ctx_r34 = i0.ɵɵnextContext(2);
     i0.ɵɵproperty("value", null);
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(ctx_r29.multiple ? "Auswahl l\u00F6schen" : "-");
+    i0.ɵɵtextInterpolate(ctx_r34.multiple ? "Auswahl l\u00F6schen" : "-");
 } }
 function MrdSelectComponent_ng_template_4_mrd_select_option_4_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "mrd-select-option", 27);
+    i0.ɵɵelementStart(0, "mrd-select-option", 28);
     i0.ɵɵtext(1, "Keine Eintr\u00E4ge gefunden");
     i0.ɵɵelementEnd();
+} }
+function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainer(0);
+} }
+const _c2$5 = function (a0, a1) { return { $implicit: a0, index: a1 }; };
+function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 34);
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const ctx_r51 = i0.ɵɵnextContext();
+    const item_r45 = ctx_r51.$implicit;
+    const i_r46 = ctx_r51.index;
+    const ctx_r47 = i0.ɵɵnextContext(3);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngTemplateOutlet", ctx_r47.optionTemplate.templateRef)("ngTemplateOutletContext", i0.ɵɵpureFunction2(2, _c2$5, item_r45, i_r46));
+} }
+function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_template_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵtext(0);
+} if (rf & 2) {
+    const item_r45 = i0.ɵɵnextContext().$implicit;
+    const ctx_r49 = i0.ɵɵnextContext(3);
+    i0.ɵɵtextInterpolate(ctx_r49.labelVon(item_r45));
+} }
+function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_Template(rf, ctx) { if (rf & 1) {
+    const _r54 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-select-option", 31);
+    i0.ɵɵlistener("optionClicked", function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_Template_mrd_select_option_optionClicked_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r54); const item_r45 = restoredCtx.$implicit; const ctx_r53 = i0.ɵɵnextContext(3); return i0.ɵɵresetView(ctx_r53.virtuelleOptionGeklickt(item_r45)); });
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_Template, 2, 5, "ng-container", 32);
+    i0.ɵɵtemplate(2, MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_template_2_Template, 1, 1, "ng-template", null, 33, i0.ɵɵtemplateRefExtractor);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const item_r45 = ctx.$implicit;
+    const i_r46 = ctx.index;
+    const _r48 = i0.ɵɵreference(3);
+    const ctx_r44 = i0.ɵɵnextContext(3);
+    i0.ɵɵproperty("value", ctx_r44.wertVon(item_r45))("selected", ctx_r44.istVirtuellAusgewaehlt(item_r45))("focused", i_r46 === ctx_r44.fokusIndex);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r44.optionTemplate)("ngIfElse", _r48);
+} }
+function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-virtual-scroll", 29);
+    i0.ɵɵtemplate(1, MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_Template, 4, 5, "ng-template", 30);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r36 = i0.ɵɵnextContext(2);
+    i0.ɵɵproperty("items", ctx_r36.gefilterteItems)("itemSize", ctx_r36.itemSize)("maxHeight", ctx_r36.virtualScrollMaxHeight)("trackBy", ctx_r36.virtuellerTrackBy);
 } }
 function MrdSelectComponent_ng_template_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 18);
@@ -7213,19 +7669,24 @@ function MrdSelectComponent_ng_template_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtemplate(3, MrdSelectComponent_ng_template_4_mrd_select_option_3_Template, 2, 2, "mrd-select-option", 21);
     i0.ɵɵtemplate(4, MrdSelectComponent_ng_template_4_mrd_select_option_4_Template, 2, 0, "mrd-select-option", 22);
     i0.ɵɵprojection(5, 1);
+    i0.ɵɵtemplate(6, MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_Template, 2, 4, "mrd-virtual-scroll", 23);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r3.searchSelection);
-    i0.ɵɵadvance(2);
+    i0.ɵɵadvance(1);
+    i0.ɵɵclassProp("mrd-select-options-scroll-virtuell", ctx_r3.virtualScroll);
+    i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r3.nullable);
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r3.searchSelection && ctx_r3.searchText.length > 0 && ctx_r3.showNoOptionsOnSearch);
+    i0.ɵɵadvance(2);
+    i0.ɵɵproperty("ngIf", ctx_r3.virtualScroll);
 } }
-const _c2$5 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
-const _c3$4 = function (a0) { return { "mrd-select-disabled": a0 }; };
-const _c4$2 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
+const _c3$4 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
+const _c4$2 = function (a0) { return { "mrd-select-disabled": a0 }; };
+const _c5$1 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
 class MrdSelectComponent extends BasePushStrategyObject {
     elementRef;
     cdr;
@@ -7233,6 +7694,8 @@ class MrdSelectComponent extends BasePushStrategyObject {
     searchSelectionInput;
     options;
     customTrigger;
+    optionTemplate;
+    virtuellesScroll;
     _initialized = new Subject();
     optionSelectionChanges = defer(() => {
         const options = this.options;
@@ -7256,7 +7719,30 @@ class MrdSelectComponent extends BasePushStrategyObject {
     }
     _value;
     identifier = 'id';
-    items = [];
+    set items(value) {
+        this._items = value || [];
+        if (this.virtualScroll && this.virtuellInitialisiert) {
+            this.virtuellFiltern(this.autoComplete ? this.showValue : this.searchText);
+            this.virtuelleAnzeigeAktualisieren(false);
+        }
+    }
+    get items() {
+        return this._items;
+    }
+    _items = [];
+    /**
+     * Rendert nur die sichtbaren Optionen. Die Optionen kommen dann aus `[items]` statt aus `<mrd-select-option>`;
+     * Wert ist `item[identifier]`, angezeigt wird `displayWith(item)` bzw. `item[labelKey]` oder ein `<ng-template mrdSelectOption>`.
+     */
+    virtualScroll = false;
+    /** Nur mit `virtualScroll` */
+    labelKey = 'bezeichnung';
+    /** Nur mit `virtualScroll`; hat Vorrang vor `labelKey` */
+    displayWith;
+    /** Nur mit `virtualScroll`: Hoehe einer Option in px, fuer alle gleich oder `(item, index) => px` je Option */
+    itemSize;
+    /** Nur mit `virtualScroll`: maximale Hoehe der Optionsliste in px */
+    virtualScrollMaxHeight = 240;
     autoComplete = false;
     searchSelection = false;
     chipSelection = false;
@@ -7294,6 +7780,12 @@ class MrdSelectComponent extends BasePushStrategyObject {
     optionsWidthExceeded = false;
     optionsHeightExceeded = false;
     optionChangeSubscription;
+    gefilterteItems = [];
+    virtuelleAusgewaehlteItems = [];
+    fokusIndex = -1;
+    virtuelleAuswahl = new Set();
+    virtuellInitialisiert = false;
+    virtuellerTrackBy = (_, item) => this.wertVon(item);
     _positions = [
         {
             originX: 'start',
@@ -7411,8 +7903,17 @@ class MrdSelectComponent extends BasePushStrategyObject {
                 this.searchSelectionInput?.nativeElement.focus();
             }, 500);
         }
+        if (this.virtualScroll) {
+            this.virtuellInitialisiert = true;
+            this.virtuellFiltern(this.autoComplete ? this.showValue : this.searchText);
+            this.virtuelleAnzeigeAktualisieren(true);
+        }
     }
     formControlChanged() {
+        if (this.virtualScroll) {
+            this.virtuelleAnzeigeAktualisieren(true);
+            return;
+        }
         if (this.autoComplete) {
             this.showValue = this.formControl.value;
             this.options.forEach(option => {
@@ -7465,6 +7966,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
         this.cdr.detectChanges();
     }
     formArrayControlChanged() {
+        if (this.virtualScroll) {
+            this.virtuelleAnzeigeAktualisieren(true);
+            return;
+        }
         if (this.autoComplete) {
             // TODO: Implement
         }
@@ -7491,6 +7996,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
         this.cdr.detectChanges();
     }
     modelChanged() {
+        if (this.virtualScroll) {
+            this.virtuelleAnzeigeAktualisieren(true);
+            return;
+        }
         if (this.autoComplete) {
             this.showValue = this.value;
             this.options.forEach(option => {
@@ -7581,24 +8090,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
                         this.value = selectedOptions.length === 0 ? null : selectedOptions.map(option => option.value);
                     }
                     if (Util.isDefined(this.formArrayControl)) {
-                        if (selectedOptions.length === 0) {
-                            this.formArrayControl.reset([]);
-                        }
-                        else {
-                            let selectedItems = selectedOptions.map(option => this.items.find(item => item[this.identifier] === option.value));
-                            let itemIndizesToRemove = [];
-                            let itemsToAdd = selectedItems.slice();
-                            this.formArrayControl.entries.forEach((entry, index) => {
-                                if (!Util.isDefined(selectedItems.find(item => item[this.identifier] === entry.fields[this.identifier].value))) {
-                                    itemIndizesToRemove.push(index);
-                                }
-                                else {
-                                    itemsToAdd = itemsToAdd.filter(item => item[this.identifier] !== entry.fields[this.identifier].value);
-                                }
-                            });
-                            itemIndizesToRemove.reverse().forEach(index => this.formArrayControl.removeAt(index, false, { onlySelf: true }));
-                            itemsToAdd.forEach(item => this.formArrayControl.push(item));
-                        }
+                        this.formArrayAbgleichen(selectedOptions.map(option => this.items.find(item => item[this.identifier] === option.value)));
                     }
                     if (this.closeOnSelect) {
                         this.showOptions.value = false;
@@ -7607,6 +8099,24 @@ class MrdSelectComponent extends BasePushStrategyObject {
             }
             this.cdr.detectChanges();
         }));
+    }
+    formArrayAbgleichen(selectedItems) {
+        if (selectedItems.length === 0) {
+            this.formArrayControl.reset([]);
+            return;
+        }
+        let itemIndizesToRemove = [];
+        let itemsToAdd = selectedItems.slice();
+        this.formArrayControl.entries.forEach((entry, index) => {
+            if (!Util.isDefined(selectedItems.find(item => item[this.identifier] === entry.fields[this.identifier].value))) {
+                itemIndizesToRemove.push(index);
+            }
+            else {
+                itemsToAdd = itemsToAdd.filter(item => item[this.identifier] !== entry.fields[this.identifier].value);
+            }
+        });
+        itemIndizesToRemove.reverse().forEach(index => this.formArrayControl.removeAt(index, false, { onlySelf: true }));
+        itemsToAdd.forEach(item => this.formArrayControl.push(item));
     }
     removeSelected() {
         // this.options.forEach(option => option.selected = false);
@@ -7670,6 +8180,11 @@ class MrdSelectComponent extends BasePushStrategyObject {
     }
     searchInput(event) {
         this.searchText = event.target.value;
+        if (this.virtualScroll) {
+            this.virtuellFiltern(this.searchText);
+            this.cdr.markForCheck();
+            return;
+        }
         this.options.forEach(option => {
             option.focused = false;
             if ((option.optionValue?.nativeElement.innerText || '').toLowerCase().indexOf(this.searchText.toLowerCase()) > -1) {
@@ -7689,6 +8204,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
         this.cdr.markForCheck();
     }
     onKeyDown(event) {
+        if (this.virtualScroll) {
+            this.virtuelleTasteVerarbeiten(event);
+            return;
+        }
         let filteredOptions = this.options.filter(option => !option.filtered);
         if (event.key === 'Enter') {
             let selectedOption = filteredOptions.find(option => option.focused);
@@ -7731,6 +8250,12 @@ class MrdSelectComponent extends BasePushStrategyObject {
             this.focused.emit();
             this.showOptions.value = true;
             setTimeout(() => {
+                if (this.virtualScroll) {
+                    // Die ausgewaehlte Option ist evtl. nicht gerendert, daher ueber den Index scrollen
+                    const index = this.gefilterteItems.findIndex(item => this.virtuelleAuswahl.has(this.wertVon(item)));
+                    this.virtuellesScroll?.scrollToIndex(index, 'center', this.smoothScroll ? 'smooth' : 'auto');
+                    return;
+                }
                 let selectedOption = document.querySelector('.mrd-select-options-overlay .mrd-select-options-scroll .mrd-select-option-item.selected');
                 if (Util.isDefined(selectedOption)) {
                     if (this.smoothScroll) {
@@ -7796,46 +8321,184 @@ class MrdSelectComponent extends BasePushStrategyObject {
     chipCloseClicked(value) {
         this.chipClose.emit(value);
     }
+    // ---------- Virtuelles Scrolling: Zustand kommt aus items und dem Wert, nicht aus MrdSelectOptionComponents ----------
+    wertVon(item) {
+        return Util.isDefined(item) && typeof item === 'object' ? item[this.identifier] : item;
+    }
+    labelVon(item) {
+        if (!Util.isDefined(item)) {
+            return '';
+        }
+        if (Util.isDefined(this.displayWith)) {
+            return this.displayWith(item) ?? '';
+        }
+        if (typeof item !== 'object') {
+            return String(item);
+        }
+        const label = item[this.labelKey];
+        return Util.isDefined(label) ? String(label) : '';
+    }
+    istVirtuellAusgewaehlt(item) {
+        return this.virtuelleAuswahl.has(this.wertVon(item));
+    }
+    virtuelleOptionGeklickt(item) {
+        const wert = this.wertVon(item);
+        this.searchText = '';
+        this.virtuellFiltern('');
+        if (!this.multiple) {
+            if (Util.isDefined(this.formControl) && this.formControl.value !== wert) {
+                this.formControl.setValue(wert);
+            }
+            else if (this.standalone && this.value !== wert) {
+                this.value = wert;
+            }
+            this.showOptions.value = false;
+        }
+        else {
+            const auswahl = new Set(this.virtuelleAuswahl);
+            if (auswahl.has(wert)) {
+                auswahl.delete(wert);
+            }
+            else {
+                auswahl.add(wert);
+            }
+            this.virtuelleWerteSetzen(this.items.map(i => this.wertVon(i)).filter(w => auswahl.has(w)));
+            if (this.closeOnSelect) {
+                this.showOptions.value = false;
+            }
+        }
+        this.cdr.detectChanges();
+    }
+    virtuellenChipSchliessen(item) {
+        const wert = this.wertVon(item);
+        this.virtuelleWerteSetzen(Array.from(this.virtuelleAuswahl).filter(w => w !== wert));
+        this.chipCloseClicked(wert);
+        this.cdr.detectChanges();
+    }
+    /** Nur fuer `multiple` */
+    virtuelleWerteSetzen(werte) {
+        const neuerWert = werte.length === 0 ? null : werte;
+        if (Util.isDefined(this.formControl)) {
+            this.formControl.setValue(neuerWert);
+        }
+        if (this.standalone) {
+            this.value = neuerWert;
+        }
+        if (Util.isDefined(this.formArrayControl)) {
+            this.formArrayAbgleichen(werte.map(w => this.items.find(item => this.wertVon(item) === w)).filter(item => Util.isDefined(item)));
+        }
+    }
+    ausgewaehlteWerteLesen() {
+        let wert;
+        if (Util.isDefined(this.formArrayControl)) {
+            return (this.formArrayControl.value || []).map(eintrag => eintrag?.[this.identifier]);
+        }
+        else if (Util.isDefined(this.formControl)) {
+            wert = this.formControl.value;
+        }
+        else {
+            wert = this.value;
+        }
+        if (!Util.isDefined(wert)) {
+            return [];
+        }
+        return this.multiple && Array.isArray(wert) ? wert : [wert];
+    }
+    /** @param rendern Sofort rendern; im Input-Setter nicht noetig, weil die Change Detection ohnehin folgt */
+    virtuelleAnzeigeAktualisieren(rendern) {
+        if (this.autoComplete) {
+            this.showValue = Util.isDefined(this.formControl) ? this.formControl.value : this.value;
+            this.virtuellFiltern(this.showValue);
+        }
+        else {
+            const werte = this.ausgewaehlteWerteLesen();
+            this.virtuelleAuswahl = new Set(werte);
+            this.virtuelleAusgewaehlteItems = werte
+                .map(w => this.items.find(item => this.wertVon(item) === w))
+                .filter(item => Util.isDefined(item));
+            this.showValue = this.virtuelleAusgewaehlteItems.map(item => this.labelVon(item)).join(', ');
+        }
+        this.cdr.markForCheck();
+        if (rendern) {
+            this.cdr.detectChanges();
+        }
+    }
+    virtuellFiltern(text) {
+        const suche = (text || '').toLowerCase();
+        this.gefilterteItems = suche.length === 0
+            ? this.items
+            : this.items.filter(item => this.labelVon(item).toLowerCase().indexOf(suche) > -1);
+        this.fokusIndex = suche.length > 0 && this.gefilterteItems.length > 0 ? 0 : -1;
+        // Feld statt Setter, damit hier (auch aus dem items-Setter heraus) keine Change Detection angestossen wird
+        this._showNoOptionsOnSearch = suche.length > 0 && this.gefilterteItems.length === 0;
+    }
+    virtuelleTasteVerarbeiten(event) {
+        const anzahl = this.gefilterteItems.length;
+        if (anzahl === 0) {
+            return;
+        }
+        if (event.key === 'Enter') {
+            if (this.fokusIndex >= 0 && this.fokusIndex < anzahl) {
+                this.virtuelleOptionGeklickt(this.gefilterteItems[this.fokusIndex]);
+            }
+            return;
+        }
+        if (event.key === 'ArrowDown') {
+            this.fokusIndex = Math.min(anzahl - 1, this.fokusIndex + 1);
+        }
+        else if (event.key === 'ArrowUp') {
+            this.fokusIndex = this.fokusIndex < 0 ? anzahl - 1 : Math.max(0, this.fokusIndex - 1);
+        }
+        else {
+            return;
+        }
+        this.virtuellesScroll?.scrollToIndex(this.fokusIndex);
+        this.cdr.markForCheck();
+    }
     get optionsMinWidth() {
         return this.selectContainer ? `${this.selectContainer.nativeElement.getBoundingClientRect().width}px` : 'auto';
     }
     /** @nocollapse */ static ɵfac = function MrdSelectComponent_Factory(t) { return new (t || MrdSelectComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectComponent, selectors: [["mrd-select"]], contentQueries: function MrdSelectComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdSelectCustomTriggerComponent, 5);
+            i0.ɵɵcontentQuery(dirIndex, MrdSelectOptionTemplateDirective, 5);
             i0.ɵɵcontentQuery(dirIndex, MrdSelectOptionComponent, 4);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.customTrigger = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionTemplate = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.options = _t);
         } }, viewQuery: function MrdSelectComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$9, 5);
-            i0.ɵɵviewQuery(_c1$5, 5);
+            i0.ɵɵviewQuery(_c0$f, 5);
+            i0.ɵɵviewQuery(_c1$6, 5);
+            i0.ɵɵviewQuery(MrdVirtualScrollComponent, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.selectContainer = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.searchSelectionInput = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$2, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click", "focus", "blur", "keydown"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click", "focus", "blur", "keydown"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2$5);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.virtuellesScroll = _t.first);
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], labelKey: "labelKey", displayWith: "displayWith", itemSize: ["itemSize", "itemSize", itemSizeAttribute], virtualScrollMaxHeight: ["virtualScrollMaxHeight", "virtualScrollMaxHeight", numberAttribute], autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5$1, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click", "focus", "blur", "keydown"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click", "focus", "blur", "keydown"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], [3, "items", "itemSize", "maxHeight", "trackBy", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""], [3, "items", "itemSize", "maxHeight", "trackBy"], ["mrdVirtualScrollItem", ""], [1, "mrd-select-option-virtuell", 3, "value", "selected", "focused", "optionClicked"], [4, "ngIf", "ngIfElse"], ["virtuellesLabel", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c3$4);
             i0.ɵɵelementStart(0, "div", 0, 1);
             i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_2_Template, 2, 1, "ng-container", 2);
             i0.ɵɵtemplate(3, MrdSelectComponent_ng_container_3_Template, 3, 2, "ng-container", 2);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(4, MrdSelectComponent_ng_template_4_Template, 6, 3, "ng-template", 3);
+            i0.ɵɵtemplate(4, MrdSelectComponent_ng_template_4_Template, 7, 6, "ng-template", 3);
             i0.ɵɵlistener("backdropClick", function MrdSelectComponent_Template_ng_template_backdropClick_4_listener() { return ctx.showOptions.value = false; });
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c3$4, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c4$2, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.autoComplete);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.autoComplete);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", _r0)("cdkConnectedOverlayOpen", ctx.showOptions.value)("cdkConnectedOverlayPositions", ctx._positions)("cdkConnectedOverlayMinWidth", ctx.optionsMinWidth);
-        } }, styles: ["[_nghost-%COMP%]{width:100%}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%]{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%] > svg[_ngcontent-%COMP%]{margin-right:8px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]{margin-top:4px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%]{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%] > svg[_ngcontent-%COMP%]{margin-right:8px}.mrd-select-container.mrd-select-disabled[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%], .mrd-select-container.mrd-select-disabled[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%]{color:#afa6a6;cursor:inherit}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}"], changeDetection: 0 });
+        } }, styles: ["[_nghost-%COMP%]{width:100%}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%]{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%] > svg[_ngcontent-%COMP%]{margin-right:8px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]{margin-top:4px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%]{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container[_ngcontent-%COMP%]   .mrd-chip-container[_ngcontent-%COMP%]   .mrd-chip-values[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%] > svg[_ngcontent-%COMP%]{margin-right:8px}.mrd-select-container.mrd-select-disabled[_ngcontent-%COMP%]   .mrd-select-trigger[_ngcontent-%COMP%], .mrd-select-container.mrd-select-disabled[_ngcontent-%COMP%]   .mrd-select-trigger-chip[_ngcontent-%COMP%]{color:#afa6a6;cursor:inherit}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}  .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll.mrd-select-options-scroll-virtuell{overflow-y:visible;max-height:none}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSelectComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-select', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div #selectContainer class=\"mrd-select-container\" [ngClass]=\"{'mrd-select-disabled': formControl?.disabled || formArrayControl?.disabled || disabled}\">\r\n  <ng-container *ngIf=\"autoComplete\">\r\n    <input\r\n    (click)=\"triggerClicked()\"\r\n    [value]=\"showValue\"\r\n    (input)=\"autoCompleteInput($event)\"\r\n    (keydown)=\"onKeyDown($event)\"\r\n  >\r\n  </ng-container>\r\n\r\n  <ng-container *ngIf=\"!autoComplete\">\r\n    <ng-container *ngIf=\"customTrigger\">\r\n      <ng-content select=\"mrd-select-custom-trigger\"></ng-content>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"!customTrigger\">\r\n      <ng-container *ngIf=\"!chipSelection\">\r\n        <div class=\"mrd-select-trigger\" (click)=\"triggerClicked()\" [attr.tabindex]=\"triggerTabIndex\" (focus)=\"onTriggerFocus()\" (blur)=\"onTriggerBlur()\" (keydown)=\"onTriggerKeyDown($event)\">\r\n          <span [mrdToolTip]=\"showValue\" showIfTruncated>{{showValue}}</span>\r\n          <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\r\n            <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\r\n          </svg>\r\n        </div>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"chipSelection\">\r\n        <div class=\"mrd-chip-container\">\r\n          <div class=\"mrd-chip-values\" *ngIf=\"chipSelection\">\r\n            <ng-container *ngIf=\"selectedOptions && selectedOptions.length > 0\">\r\n              <mrd-chip *ngFor=\"let option of selectedOptions\"\r\n                (close)=\"chipClosed(option)\"\r\n                [prefixIcon]=\"chipPrefixIcon\"\r\n                [suffixIcon]=\"chipSuffixIcon\"\r\n                [disabled]=\"formControl?.disabled || formArrayControl?.disabled || disabled\"\r\n                >{{option.optionLabel}}</mrd-chip>\r\n            </ng-container>\r\n            <div class=\"mrd-select-trigger-chip\" (click)=\"triggerClicked()\" [attr.tabindex]=\"triggerTabIndex\" (focus)=\"onTriggerFocus()\" (blur)=\"onTriggerBlur()\" (keydown)=\"onTriggerKeyDown($event)\">\r\n              <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n                <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n                <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\r\n                <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\r\n              </svg>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </ng-container>\r\n    </ng-container>\r\n  </ng-container>\r\n</div>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  cdkConnectedOverlayPanelClass=\"mrd-select-options-overlay\"\r\n  [cdkConnectedOverlayOrigin]=\"selectContainer\"\r\n  [cdkConnectedOverlayOpen]=\"showOptions.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  [cdkConnectedOverlayMinWidth]=\"optionsMinWidth\"\r\n  (backdropClick)=\"showOptions.value = false\"\r\n>\r\n  <div class=\"mrd-select-options-container\">\r\n    <mrd-select-option *ngIf=\"searchSelection\" class=\"mrd-select-search-option\" noCheckbox>\r\n      <input\r\n        placeholder=\"Suche\"\r\n        [value]=\"searchText\"\r\n        (input)=\"searchInput($event)\"\r\n        (click)=\"$event.stopPropagation()\"\r\n        (keydown)=\"onKeyDown($event)\"\r\n        #searchSelectionInput\r\n      >\r\n      <ng-content select=\"[addButton]\"></ng-content>\r\n    </mrd-select-option>\r\n    <div class=\"mrd-select-options-scroll\">\r\n      <mrd-select-option *ngIf=\"nullable\" noCheckbox [value]=\"null\" (optionClicked)=\"removeSelected()\">{{multiple ? 'Auswahl l\u00F6schen' : '-'}}</mrd-select-option>\r\n      <mrd-select-option *ngIf=\"searchSelection && searchText.length > 0 && showNoOptionsOnSearch\" noCheckbox>Keine Eintr\u00E4ge gefunden</mrd-select-option>\r\n      <ng-content select=\"mrd-select-option\"></ng-content>\r\n    </div>\r\n  </div>\r\n</ng-template>", styles: [":host{width:100%}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container .mrd-select-trigger{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container .mrd-select-trigger>span{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container .mrd-select-trigger>svg{margin-right:8px}.mrd-select-container .mrd-chip-container{margin-top:4px}.mrd-select-container .mrd-chip-container .mrd-chip-values{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip>svg{margin-right:8px}.mrd-select-container.mrd-select-disabled .mrd-select-trigger,.mrd-select-container.mrd-select-disabled .mrd-select-trigger-chip{color:#afa6a6;cursor:inherit}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}\n"] }]
+        args: [{ selector: 'mrd-select', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div #selectContainer class=\"mrd-select-container\" [ngClass]=\"{'mrd-select-disabled': formControl?.disabled || formArrayControl?.disabled || disabled}\">\n  <ng-container *ngIf=\"autoComplete\">\n    <input\n    (click)=\"triggerClicked()\"\n    [value]=\"showValue\"\n    (input)=\"autoCompleteInput($event)\"\n    (keydown)=\"onKeyDown($event)\"\n  >\n  </ng-container>\n\n  <ng-container *ngIf=\"!autoComplete\">\n    <ng-container *ngIf=\"customTrigger\">\n      <ng-content select=\"mrd-select-custom-trigger\"></ng-content>\n    </ng-container>\n    <ng-container *ngIf=\"!customTrigger\">\n      <ng-container *ngIf=\"!chipSelection\">\n        <div class=\"mrd-select-trigger\" (click)=\"triggerClicked()\" [attr.tabindex]=\"triggerTabIndex\" (focus)=\"onTriggerFocus()\" (blur)=\"onTriggerBlur()\" (keydown)=\"onTriggerKeyDown($event)\">\n          <span [mrdToolTip]=\"showValue\" showIfTruncated>{{showValue}}</span>\n          <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n            <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\n            <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\n          </svg>\n        </div>\n      </ng-container>\n      <ng-container *ngIf=\"chipSelection\">\n        <div class=\"mrd-chip-container\">\n          <div class=\"mrd-chip-values\" *ngIf=\"chipSelection\">\n            <ng-container *ngIf=\"selectedOptions && selectedOptions.length > 0\">\n              <mrd-chip *ngFor=\"let option of selectedOptions\"\n                (close)=\"chipClosed(option)\"\n                [prefixIcon]=\"chipPrefixIcon\"\n                [suffixIcon]=\"chipSuffixIcon\"\n                [disabled]=\"formControl?.disabled || formArrayControl?.disabled || disabled\"\n                >{{option.optionLabel}}</mrd-chip>\n            </ng-container>\n            <ng-container *ngIf=\"virtualScroll\">\n              <mrd-chip *ngFor=\"let item of virtuelleAusgewaehlteItems\"\n                (close)=\"virtuellenChipSchliessen(item)\"\n                [prefixIcon]=\"chipPrefixIcon\"\n                [suffixIcon]=\"chipSuffixIcon\"\n                [disabled]=\"formControl?.disabled || formArrayControl?.disabled || disabled\"\n                >{{labelVon(item)}}</mrd-chip>\n            </ng-container>\n            <div class=\"mrd-select-trigger-chip\" (click)=\"triggerClicked()\" [attr.tabindex]=\"triggerTabIndex\" (focus)=\"onTriggerFocus()\" (blur)=\"onTriggerBlur()\" (keydown)=\"onTriggerKeyDown($event)\">\n              <svg fill=\"currentColor\" width=\"14px\" height=\"14px\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n                <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\n                <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke=\"#CCCCCC\" stroke-width=\"0.048\"></g>\n                <g id=\"SVGRepo_iconCarrier\"><path d=\"M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z\"></path></g>\n              </svg>\n            </div>\n          </div>\n        </div>\n      </ng-container>\n    </ng-container>\n  </ng-container>\n</div>\n\n<ng-template\n  cdk-connected-overlay\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  cdkConnectedOverlayPanelClass=\"mrd-select-options-overlay\"\n  [cdkConnectedOverlayOrigin]=\"selectContainer\"\n  [cdkConnectedOverlayOpen]=\"showOptions.value\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayMinWidth]=\"optionsMinWidth\"\n  (backdropClick)=\"showOptions.value = false\"\n>\n  <div class=\"mrd-select-options-container\">\n    <mrd-select-option *ngIf=\"searchSelection\" class=\"mrd-select-search-option\" noCheckbox>\n      <input\n        placeholder=\"Suche\"\n        [value]=\"searchText\"\n        (input)=\"searchInput($event)\"\n        (click)=\"$event.stopPropagation()\"\n        (keydown)=\"onKeyDown($event)\"\n        #searchSelectionInput\n      >\n      <ng-content select=\"[addButton]\"></ng-content>\n    </mrd-select-option>\n    <div class=\"mrd-select-options-scroll\" [class.mrd-select-options-scroll-virtuell]=\"virtualScroll\">\n      <mrd-select-option *ngIf=\"nullable\" noCheckbox [value]=\"null\" (optionClicked)=\"removeSelected()\">{{multiple ? 'Auswahl l\u00F6schen' : '-'}}</mrd-select-option>\n      <mrd-select-option *ngIf=\"searchSelection && searchText.length > 0 && showNoOptionsOnSearch\" noCheckbox>Keine Eintr\u00E4ge gefunden</mrd-select-option>\n      <ng-content select=\"mrd-select-option\"></ng-content>\n      <mrd-virtual-scroll *ngIf=\"virtualScroll\"\n        [items]=\"gefilterteItems\"\n        [itemSize]=\"itemSize\"\n        [maxHeight]=\"virtualScrollMaxHeight\"\n        [trackBy]=\"virtuellerTrackBy\">\n        <ng-template mrdVirtualScrollItem let-item let-i=\"index\">\n          <mrd-select-option class=\"mrd-select-option-virtuell\"\n            [value]=\"wertVon(item)\"\n            [selected]=\"istVirtuellAusgewaehlt(item)\"\n            [focused]=\"i === fokusIndex\"\n            (optionClicked)=\"virtuelleOptionGeklickt(item)\">\n            <ng-container *ngIf=\"optionTemplate; else virtuellesLabel\">\n              <ng-container *ngTemplateOutlet=\"optionTemplate.templateRef; context: {$implicit: item, index: i}\"></ng-container>\n            </ng-container>\n            <ng-template #virtuellesLabel>{{labelVon(item)}}</ng-template>\n          </mrd-select-option>\n        </ng-template>\n      </mrd-virtual-scroll>\n    </div>\n  </div>\n</ng-template>", styles: [":host{width:100%}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}.mrd-select-container .mrd-select-trigger{display:flex;height:1.5em;width:100%;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center}.mrd-select-container .mrd-select-trigger>span{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.25em}.mrd-select-container .mrd-select-trigger>svg{margin-right:8px}.mrd-select-container .mrd-chip-container{margin-top:4px}.mrd-select-container .mrd-chip-container .mrd-chip-values{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip{display:flex;height:1.5em;min-width:24px;max-width:100%;flex:1 1 24px;cursor:pointer;padding-left:2px;flex-direction:row;align-items:center;justify-content:flex-end}.mrd-select-container .mrd-chip-container .mrd-chip-values .mrd-select-trigger-chip>svg{margin-right:8px}.mrd-select-container.mrd-select-disabled .mrd-select-trigger,.mrd-select-container.mrd-select-disabled .mrd-select-trigger-chip{color:#afa6a6;cursor:inherit}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container{display:flex;flex-direction:column;width:100%;background-color:#fff;border-radius:.375rem;overflow:hidden;--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)),var(--tw-shadow)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-search-option{border-bottom:1px solid rgba(0,0,0,.2196078431)}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll{overflow-y:auto;max-height:15em}::ng-deep .cdk-overlay-pane.mrd-select-options-overlay .mrd-select-options-container .mrd-select-options-scroll.mrd-select-options-scroll-virtuell{overflow-y:visible;max-height:none}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }]; }, { selectContainer: [{
             type: ViewChild,
             args: ['selectContainer']
@@ -7848,6 +8511,12 @@ class MrdSelectComponent extends BasePushStrategyObject {
         }], customTrigger: [{
             type: ContentChild,
             args: [MrdSelectCustomTriggerComponent]
+        }], optionTemplate: [{
+            type: ContentChild,
+            args: [MrdSelectOptionTemplateDirective]
+        }], virtuellesScroll: [{
+            type: ViewChild,
+            args: [MrdVirtualScrollComponent]
         }], formControl: [{
             type: Input,
             args: ['mrdFormControl']
@@ -7860,6 +8529,19 @@ class MrdSelectComponent extends BasePushStrategyObject {
             type: Input
         }], items: [{
             type: Input
+        }], virtualScroll: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], labelKey: [{
+            type: Input
+        }], displayWith: [{
+            type: Input
+        }], itemSize: [{
+            type: Input,
+            args: [{ transform: itemSizeAttribute }]
+        }], virtualScrollMaxHeight: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
         }], autoComplete: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
@@ -7905,8 +8587,8 @@ class MrdSelectComponent extends BasePushStrategyObject {
             type: Output
         }] }); })();
 
-const _c0$8 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
-const _c1$4 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
+const _c0$e = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
+const _c1$5 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
 const _c2$4 = function (a0, a1, a2, a3, a4, a5) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 }; };
 const _c3$3 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
 class MrdFormFieldComponent extends BaseObject {
@@ -8238,7 +8920,7 @@ class MrdFormFieldComponent extends BaseObject {
         } }, hostVars: 2, hostBindings: function MrdFormFieldComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("font-family", ctx.config == null ? null : ctx.config.baseFont.family);
         } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$3, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$8);
+            i0.ɵɵprojectionDef(_c0$e);
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵelementStart(3, "div", 2);
@@ -8255,7 +8937,7 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--focus-color", ctx.focusColor)("--error-color", ctx.errorColor)("--focus-color-dark", ctx.focusColorDark)("--error-color-dark", ctx.errorColorDark)("--focus-color-outline", ctx.focusColorOutline)("--error-color-outline", ctx.errorColorOutline)("--ff-border-radius", ctx.borderRadius)("--ff-fill-color", ctx.fillColor);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c1$4, ctx.fill, ctx.outline));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c1$5, ctx.fill, ctx.outline));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(21, _c2$4, ctx.hasError, ctx.disabled, ctx.focused, ctx.outline, ctx.fill, ctx.dark));
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:264px}.mrd-form-field-container[_ngcontent-%COMP%]{display:flex;flex-direction:column;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#bcbcbc}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#ebebeb}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]{border-bottom-style:dotted}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]{border-bottom-color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--focus-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-label-content{color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]{border-bottom-color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--error-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-label-content{color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}"], changeDetection: 0 });
@@ -8305,8 +8987,8 @@ class MrdFormFieldComponent extends BaseObject {
             args: [{ transform: colorAttribute }]
         }] }); })();
 
-const _c0$7 = ["hintContent"];
-const _c1$3 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
+const _c0$d = ["hintContent"];
+const _c1$4 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
 const _c2$3 = function (a0) { return { "-webkit-line-clamp": a0 }; };
 const _c3$2 = ["*"];
 class MrdHintComponent {
@@ -8328,7 +9010,7 @@ class MrdHintComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$7, 5);
+            i0.ɵɵviewQuery(_c0$d, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
@@ -8338,7 +9020,7 @@ class MrdHintComponent {
             i0.ɵɵprojection(2);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$3, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(5, _c2$3, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.tootltipText);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$4, ctx.ellipsis > 0))("ngStyle", i0.ɵɵpureFunction1(5, _c2$3, ctx.ellipsis > 0 ? ctx.ellipsis : ""))("mrdToolTip", ctx.tootltipText);
         } }, dependencies: [i1$1.NgClass, i1$1.NgStyle, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
@@ -8352,10 +9034,10 @@ class MrdHintComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$6 = ["*"];
+const _c0$c = ["*"];
 class MrdPrefixComponent {
     /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(t) { return new (t || MrdPrefixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$6, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$c, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
@@ -8365,10 +9047,10 @@ class MrdPrefixComponent {
         args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$5 = ["*"];
+const _c0$b = ["*"];
 class MrdSuffixComponent {
     /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(t) { return new (t || MrdSuffixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$5, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$b, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
@@ -8378,7 +9060,7 @@ class MrdSuffixComponent {
         args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$4 = ["dateInput"];
+const _c0$a = ["dateInput"];
 function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 1) {
     const _r3 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 5);
@@ -8388,7 +9070,7 @@ function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵproperty("startDate", ctx_r1.startValue)("endDate", ctx_r1.endValue);
 } }
-const _c1$2 = [[["mrd-input"]]];
+const _c1$3 = [[["mrd-input"]]];
 const _c2$2 = ["mrd-input"];
 class MrdDateRangePickerComponent {
     inputs;
@@ -8460,12 +9142,12 @@ class MrdDateRangePickerComponent {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.inputs = _t);
         } }, viewQuery: function MrdDateRangePickerComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$4, 5);
+            i0.ɵɵviewQuery(_c0$a, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
         } }, ngContentSelectors: _c2$2, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$2);
+            i0.ɵɵprojectionDef(_c1$3);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
             i0.ɵɵelement(2, "div", null, 1);
@@ -8575,12 +9257,38 @@ class MrdDateRangeIndicatorDirective {
             type: Output
         }] }); })();
 
+class MrdVirtualScrollModule {
+    /** @nocollapse */ static ɵfac = function MrdVirtualScrollModule_Factory(t) { return new (t || MrdVirtualScrollModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdVirtualScrollModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdVirtualScrollModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdVirtualScrollComponent,
+                    MrdVirtualScrollItemDirective
+                ],
+                imports: [
+                    CommonModule
+                ],
+                exports: [
+                    MrdVirtualScrollComponent,
+                    MrdVirtualScrollItemDirective
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdVirtualScrollModule, { declarations: [MrdVirtualScrollComponent,
+        MrdVirtualScrollItemDirective], imports: [CommonModule], exports: [MrdVirtualScrollComponent,
+        MrdVirtualScrollItemDirective] }); })();
+
 ;
 class MrdFormFieldModule {
     /** @nocollapse */ static ɵfac = function MrdFormFieldModule_Factory(t) { return new (t || MrdFormFieldModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdFormFieldModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
             OverlayModule,
+            MrdVirtualScrollModule,
             MrdTooltipModule,
             MrdChipModule,
             MrdCheckboxModule,
@@ -8606,11 +9314,13 @@ class MrdFormFieldModule {
                     MrdDatepickerComponent,
                     MrdDateRangePickerComponent,
                     MrdDateRangeIndicatorDirective,
-                    MrdTimepickerComponent
+                    MrdTimepickerComponent,
+                    MrdSelectOptionTemplateDirective
                 ],
                 imports: [
                     CommonModule,
                     OverlayModule,
+                    MrdVirtualScrollModule,
                     MrdTooltipModule,
                     MrdChipModule,
                     MrdCheckboxModule,
@@ -8630,7 +9340,8 @@ class MrdFormFieldModule {
                     MrdPrefixComponent,
                     MrdSuffixComponent,
                     MrdDatePickerToggle,
-                    MrdDateRangePickerComponent
+                    MrdDateRangePickerComponent,
+                    MrdSelectOptionTemplateDirective
                 ]
             }]
     }], null, null); })();
@@ -8648,8 +9359,10 @@ class MrdFormFieldModule {
         MrdDatepickerComponent,
         MrdDateRangePickerComponent,
         MrdDateRangeIndicatorDirective,
-        MrdTimepickerComponent], imports: [CommonModule,
+        MrdTimepickerComponent,
+        MrdSelectOptionTemplateDirective], imports: [CommonModule,
         OverlayModule,
+        MrdVirtualScrollModule,
         MrdTooltipModule,
         MrdChipModule,
         MrdCheckboxModule,
@@ -8666,14 +9379,15 @@ class MrdFormFieldModule {
         MrdPrefixComponent,
         MrdSuffixComponent,
         MrdDatePickerToggle,
-        MrdDateRangePickerComponent] }); })();
-i0.ɵɵsetComponentScope(MrdSelectComponent, [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$2.CdkConnectedOverlay, ToolTipRendererDirective, MrdChipComponent, MrdSelectOptionComponent], []);
+        MrdDateRangePickerComponent,
+        MrdSelectOptionTemplateDirective] }); })();
+i0.ɵɵsetComponentScope(MrdSelectComponent, [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgTemplateOutlet, i1$2.CdkConnectedOverlay, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, ToolTipRendererDirective, MrdChipComponent, MrdSelectOptionComponent], []);
 i0.ɵɵsetComponentScope(MrdDatepickerComponent, [i1$1.NgForOf, i1$1.NgIf, MrdButtonComponent, MrdDateRangeIndicatorDirective], []);
 i0.ɵɵsetComponentScope(MrdTimepickerComponent, [i1$1.NgForOf, MrdButtonComponent, MrdFormFieldComponent,
     MrdSelectComponent,
     MrdSelectOptionComponent], []);
 
-const _c0$3 = function (a0) { return { "small": a0 }; };
+const _c0$9 = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
     cdr;
     set backgroundColor(value) {
@@ -8783,7 +9497,7 @@ class MrdDecimalComponent {
             i0.ɵɵadvance(2);
             i0.ɵɵtextInterpolate(ctx.decimalValue);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$3, ctx.smallDigits));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$9, ctx.smallDigits));
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate(ctx.digitsValue);
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container[_ngcontent-%COMP%]   .mrd-digits-content.small[_ngcontent-%COMP%]{font-size:.8em}"], changeDetection: 0 });
@@ -8858,7 +9572,7 @@ function MrdToggleSwitchComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_3_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r3 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r3.toggle($event, ctx_r3.MrdToggleSwitchState.RIGHT)); });
     i0.ɵɵelementEnd()();
 } }
-const _c0$2 = function (a0, a1, a2, a3) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 }; };
+const _c0$8 = function (a0, a1, a2, a3) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-state-left": a1, "mrd-toggle-switch-state-neutral": a2, "mrd-toggle-switch-state-right": a3 }; };
 class MrdToggleSwitchComponent {
     cdr;
     MrdToggleSwitchState = MrdToggleSwitchState;
@@ -8936,7 +9650,7 @@ class MrdToggleSwitchComponent {
         } if (rf & 2) {
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--knob-color", ctx.knobColor)("--bg-neutral-color", ctx.bgNeutralColor)("--knob-neutral-color", ctx.knobNeutralColor)("--bg-disabled-color", ctx.bgDisabledColor)("--knob-disabled-color", ctx.knobDisabledColor)("--width", ctx.width)("--height", ctx.height);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(18, _c0$2, ctx.disabled, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(18, _c0$8, ctx.disabled, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && ctx.state === ctx.MrdToggleSwitchState.NEUTRAL);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: ["[_nghost-%COMP%]{width:-moz-fit-content;width:fit-content;height:-moz-fit-content;height:fit-content}.mrd-toggle-switch-container[_ngcontent-%COMP%]{display:block;width:var(--width);height:var(--height)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]{position:relative;border-radius:999px;width:100%;height:100%}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{border-radius:999px;position:absolute;top:2px;width:calc(var(--width) * .6);height:calc(var(--height) - 4px);transition:left .3s ease}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-left[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:2px}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-right[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc(var(--width) - var(--width) * .6 - 2px)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-state-neutral[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{left:calc((var(--width) - var(--width) * .6) / 2)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled){background-color:var(--bg-color);cursor:pointer}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral{background-color:var(--bg-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled).mrd-toggle-switch-state-neutral   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-neutral-color)}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background[_ngcontent-%COMP%]:not(.mrd-toggle-switch-disabled)   .mrd-toggle-swtich-neutral-clickareas[_ngcontent-%COMP%]   .mrd-toggle-switch-neutral-clickarea[_ngcontent-%COMP%]{width:50%;height:100%;pointer-events:all}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]{background-color:var(--bg-disabled-color);cursor:initial}.mrd-toggle-switch-container[_ngcontent-%COMP%]   .mrd-toggle-switch-background.mrd-toggle-switch-disabled[_ngcontent-%COMP%]   .mrd-toggle-switch-knob[_ngcontent-%COMP%]{background-color:var(--knob-disabled-color)}"], changeDetection: 0 });
@@ -9076,14 +9790,14 @@ class MrdStepComponent {
             type: Input
         }] }); })();
 
-const _c0$1 = ["mrdStepHeader"];
-const _c1$1 = function (a0) { return { "next-step-active": a0 }; };
+const _c0$7 = ["mrdStepHeader"];
+const _c1$2 = function (a0) { return { "next-step-active": a0 }; };
 function MrdStepperComponent_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 10);
 } if (rf & 2) {
     const i_r3 = i0.ɵɵnextContext().index;
     const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$1, ctx_r5.activeIndex > i_r3));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$2, ctx_r5.activeIndex > i_r3));
 } }
 const _c2$1 = function (a0) { return { "last-step": a0 }; };
 const _c3$1 = function (a0, a1, a2, a3, a4, a5) { return { "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 }; };
@@ -9253,7 +9967,7 @@ class MrdStepperComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.steps = _t);
         } }, viewQuery: function MrdStepperComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$1, 5);
+            i0.ɵɵviewQuery(_c0$7, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.stepBodys = _t);
@@ -9521,8 +10235,8 @@ class MrdIconGroupComponent {
             args: ['blur']
         }] }); })();
 
-const _c0 = ["mrdButtonTextContent"];
-const _c1 = ["buttonTouchArea"];
+const _c0$6 = ["mrdButtonTextContent"];
+const _c1$1 = ["buttonTouchArea"];
 function MrdSButtonComponent_span_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "span", 14);
     i0.ɵɵprojection(1, 1);
@@ -10017,8 +10731,8 @@ class MrdSButtonComponent extends BasePushStrategyObject {
     }
     /** @nocollapse */ static ɵfac = function MrdSButtonComponent_Factory(t) { return new (t || MrdSButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSButtonComponent, selectors: [["mrd-s-button"]], viewQuery: function MrdSButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0, 7);
-            i0.ɵɵviewQuery(_c1, 7);
+            i0.ɵɵviewQuery(_c0$6, 7);
+            i0.ɵɵviewQuery(_c1$1, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -10189,8 +10903,605 @@ class MrdSButtonModule {
         MrdIconGroupComponent], exports: [MrdSButtonComponent] }); })();
 
 /**
+ * Zeilen-Template einer `mrd-list` mit `virtualScroll`:
+ * `<ng-template mrdListItem let-item let-i="index"><mrd-list-item>...</mrd-list-item></ng-template>`
+ */
+class MrdListItemTemplateDirective {
+    templateRef;
+    /** Nur fuer die Typisierung des Template-Kontexts: `[mrdListItem]="items"` */
+    mrdListItem;
+    constructor(templateRef) {
+        this.templateRef = templateRef;
+    }
+    static ngTemplateContextGuard(dir, ctx) {
+        return true;
+    }
+    /** @nocollapse */ static ɵfac = function MrdListItemTemplateDirective_Factory(t) { return new (t || MrdListItemTemplateDirective)(i0.ɵɵdirectiveInject(i0.TemplateRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdListItemTemplateDirective, selectors: [["ng-template", "mrdListItem", ""]], inputs: { mrdListItem: "mrdListItem" } });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdListItemTemplateDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'ng-template[mrdListItem]'
+            }]
+    }], function () { return [{ type: i0.TemplateRef }]; }, { mrdListItem: [{
+            type: Input
+        }] }); })();
+
+function MrdListComponent_mrd_virtual_scroll_1_Template(rf, ctx) { if (rf & 1) {
+    const _r2 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-virtual-scroll", 1);
+    i0.ɵɵlistener("visibleRangeChange", function MrdListComponent_mrd_virtual_scroll_1_Template_mrd_virtual_scroll_visibleRangeChange_0_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.visibleRangeChange.emit($event)); });
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("items", ctx_r0.items)("itemSize", ctx_r0.itemSize)("buffer", ctx_r0.buffer)("maxHeight", ctx_r0.maxHeight)("trackBy", ctx_r0.trackBy)("itemTemplate", ctx_r0.itemTemplate == null ? null : ctx_r0.itemTemplate.templateRef);
+} }
+const _c0$5 = ["*"];
+/**
+ * Liste aus `mrd-list-item`s. Ohne `virtualScroll` werden die Eintraege normal projiziert,
+ * mit `virtualScroll` kommen sie ueber `[items]` und ein `<ng-template mrdListItem>`.
+ * Farben und Trennlinie werden als CSS-Variablen an die Eintraege vererbt.
+ */
+class MrdListComponent {
+    itemTemplate;
+    virtualScrollComponent;
+    /** Trennlinie unter jedem Eintrag */
+    divider = false;
+    /** Eintraege sind anklickbar: Zeiger-Cursor und Hover-Farbe */
+    selectable = false;
+    virtualScroll = false;
+    /** Nur mit `virtualScroll` */
+    items = [];
+    /**
+     * Zeilenhoehe in px; mit `virtualScroll` die feste Hoehe (Zahl oder `(item, index) => px` je Eintrag),
+     * ohne `virtualScroll` die Mindesthoehe (nur als Zahl)
+     */
+    itemSize;
+    /** Nur mit `virtualScroll`: zusaetzlich gerenderte Zeilen ober- und unterhalb des sichtbaren Bereichs */
+    buffer = 5;
+    /** Nur mit `virtualScroll`: maximale Hoehe in px, bis dahin waechst die Liste mit ihrem Inhalt */
+    maxHeight;
+    trackBy;
+    selectedBackgroundColor;
+    selectedTextColor;
+    hoverColor;
+    dividerColor;
+    visibleRangeChange = new EventEmitter();
+    config = ConfigUtil.getConfig();
+    get mindestZeilenhoehe() {
+        return typeof this.itemSize === 'number' ? this.itemSize : this.config.list.itemSize;
+    }
+    /** Nur mit `virtualScroll` wirksam */
+    scrollToIndex(index, position = 'nearest', behavior = 'auto') {
+        this.virtualScrollComponent?.scrollToIndex(index, position, behavior);
+    }
+    /** Nur mit `virtualScroll` wirksam */
+    checkViewportSize() {
+        this.virtualScrollComponent?.checkViewportSize();
+    }
+    /** @nocollapse */ static ɵfac = function MrdListComponent_Factory(t) { return new (t || MrdListComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdListComponent, selectors: [["mrd-list"]], contentQueries: function MrdListComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, MrdListItemTemplateDirective, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.itemTemplate = _t.first);
+        } }, viewQuery: function MrdListComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(MrdVirtualScrollComponent, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.virtualScrollComponent = _t.first);
+        } }, hostAttrs: ["role", "list"], hostVars: 14, hostBindings: function MrdListComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("--mrd-list-item-height", ctx.mindestZeilenhoehe + "px")("--mrd-list-selected-background", ctx.selectedBackgroundColor || ctx.config.list.selectedBackgroundColor)("--mrd-list-selected-text", ctx.selectedTextColor || ctx.config.list.selectedTextColor)("--mrd-list-hover", ctx.selectable ? ctx.hoverColor || ctx.config.list.hoverColor : "transparent")("--mrd-list-cursor", ctx.selectable ? "pointer" : "default")("--mrd-list-divider", ctx.divider ? "1px solid " + (ctx.dividerColor || ctx.config.list.dividerColor) : "none");
+            i0.ɵɵclassProp("mrd-list-virtual", ctx.virtualScroll);
+        } }, inputs: { divider: ["divider", "divider", booleanAttribute], selectable: ["selectable", "selectable", booleanAttribute], virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], maxHeight: ["maxHeight", "maxHeight", numberAttribute], trackBy: "trackBy", selectedBackgroundColor: ["selectedBackgroundColor", "selectedBackgroundColor", colorAttribute], selectedTextColor: ["selectedTextColor", "selectedTextColor", colorAttribute], hoverColor: ["hoverColor", "hoverColor", colorAttribute], dividerColor: ["dividerColor", "dividerColor", colorAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$5, decls: 2, vars: 1, consts: [["class", "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange", 4, "ngIf"], [1, "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange"]], template: function MrdListComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵprojection(0);
+            i0.ɵɵtemplate(1, MrdListComponent_mrd_virtual_scroll_1_Template, 1, 6, "mrd-virtual-scroll", 0);
+        } if (rf & 2) {
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.virtualScroll);
+        } }, dependencies: [i1$1.NgIf, MrdVirtualScrollComponent], styles: ["[_nghost-%COMP%]{display:block}.mrd-list-virtual[_nghost-%COMP%]{display:flex;flex-direction:column;min-height:0}.mrd-list-virtual[_nghost-%COMP%]   .mrd-list-virtual-scroll[_ngcontent-%COMP%]{flex:1 1 auto;min-height:0}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdListComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-list', host: {
+                    'role': 'list',
+                    '[class.mrd-list-virtual]': 'virtualScroll',
+                    '[style.--mrd-list-item-height]': "mindestZeilenhoehe + 'px'",
+                    '[style.--mrd-list-selected-background]': 'selectedBackgroundColor || config.list.selectedBackgroundColor',
+                    '[style.--mrd-list-selected-text]': 'selectedTextColor || config.list.selectedTextColor',
+                    '[style.--mrd-list-hover]': "selectable ? (hoverColor || config.list.hoverColor) : 'transparent'",
+                    '[style.--mrd-list-cursor]': "selectable ? 'pointer' : 'default'",
+                    '[style.--mrd-list-divider]': "divider ? '1px solid ' + (dividerColor || config.list.dividerColor) : 'none'"
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n<mrd-virtual-scroll *ngIf=\"virtualScroll\"\n  class=\"mrd-list-virtual-scroll\"\n  [items]=\"items\"\n  [itemSize]=\"itemSize\"\n  [buffer]=\"buffer\"\n  [maxHeight]=\"maxHeight\"\n  [trackBy]=\"trackBy\"\n  [itemTemplate]=\"itemTemplate?.templateRef\"\n  (visibleRangeChange)=\"visibleRangeChange.emit($event)\">\n</mrd-virtual-scroll>\n", styles: [":host{display:block}:host(.mrd-list-virtual){display:flex;flex-direction:column;min-height:0}:host(.mrd-list-virtual) .mrd-list-virtual-scroll{flex:1 1 auto;min-height:0}\n"] }]
+    }], null, { itemTemplate: [{
+            type: ContentChild,
+            args: [MrdListItemTemplateDirective]
+        }], virtualScrollComponent: [{
+            type: ViewChild,
+            args: [MrdVirtualScrollComponent]
+        }], divider: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], selectable: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], virtualScroll: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], items: [{
+            type: Input
+        }], itemSize: [{
+            type: Input,
+            args: [{ transform: itemSizeAttribute }]
+        }], buffer: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], maxHeight: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], trackBy: [{
+            type: Input
+        }], selectedBackgroundColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], selectedTextColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], hoverColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], dividerColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], visibleRangeChange: [{
+            type: Output
+        }] }); })();
+
+const _c0$4 = ["*"];
+class MrdListItemComponent {
+    selected = false;
+    disabled = false;
+    /** @nocollapse */ static ɵfac = function MrdListItemComponent_Factory(t) { return new (t || MrdListItemComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdListItemComponent, selectors: [["mrd-list-item"]], hostAttrs: ["role", "listitem"], hostVars: 6, hostBindings: function MrdListItemComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵattribute("aria-current", ctx.selected ? "true" : null)("aria-disabled", ctx.disabled ? "true" : null);
+            i0.ɵɵclassProp("mrd-list-item-selected", ctx.selected)("mrd-list-item-disabled", ctx.disabled);
+        } }, inputs: { selected: ["selected", "selected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$4, decls: 1, vars: 0, template: function MrdListItemComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵprojection(0);
+        } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;width:100%;min-height:var(--mrd-list-item-height, 48px);padding:0 16px;border-bottom:var(--mrd-list-divider, none);cursor:var(--mrd-list-cursor, default)}[_nghost-%COMP%]:hover{background-color:var(--mrd-list-hover, transparent)}.mrd-list-item-selected[_nghost-%COMP%]{background-color:var(--mrd-list-selected-background, #8fbc62);color:var(--mrd-list-selected-text, #ffffff)}.mrd-list-item-disabled[_nghost-%COMP%]{opacity:.5;pointer-events:none}.mrd-list-virtual[_nghost-%COMP%], .mrd-list-virtual   [_nghost-%COMP%]{height:100%;min-height:0}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdListItemComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-list-item', host: {
+                    'role': 'listitem',
+                    '[class.mrd-list-item-selected]': 'selected',
+                    '[class.mrd-list-item-disabled]': 'disabled',
+                    '[attr.aria-current]': "selected ? 'true' : null",
+                    '[attr.aria-disabled]': "disabled ? 'true' : null"
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n", styles: [":host{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;width:100%;min-height:var(--mrd-list-item-height, 48px);padding:0 16px;border-bottom:var(--mrd-list-divider, none);cursor:var(--mrd-list-cursor, default)}:host(:hover){background-color:var(--mrd-list-hover, transparent)}:host(.mrd-list-item-selected){background-color:var(--mrd-list-selected-background, #8fbc62);color:var(--mrd-list-selected-text, #ffffff)}:host(.mrd-list-item-disabled){opacity:.5;pointer-events:none}:host-context(.mrd-list-virtual){height:100%;min-height:0}\n"] }]
+    }], null, { selected: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], disabled: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }] }); })();
+
+class MrdListModule {
+    /** @nocollapse */ static ɵfac = function MrdListModule_Factory(t) { return new (t || MrdListModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdListModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            MrdVirtualScrollModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdListModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdListComponent,
+                    MrdListItemComponent,
+                    MrdListItemTemplateDirective
+                ],
+                imports: [
+                    CommonModule,
+                    MrdVirtualScrollModule
+                ],
+                exports: [
+                    MrdListComponent,
+                    MrdListItemComponent,
+                    MrdListItemTemplateDirective
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdListModule, { declarations: [MrdListComponent,
+        MrdListItemComponent,
+        MrdListItemTemplateDirective], imports: [CommonModule,
+        MrdVirtualScrollModule], exports: [MrdListComponent,
+        MrdListItemComponent,
+        MrdListItemTemplateDirective] }); })();
+
+const _c0$3 = ["*"];
+/**
+ * Kopf- oder Fusszeile mit fester Hoehe. Die Farbe kommt aus `color`/`textColor`,
+ * sonst aus den Attributen `green`, `grey` oder `blue`, sonst aus der Config.
+ */
+class MrdToolbarComponent {
+    /** Hintergrundfarbe; hat Vorrang vor `green`, `grey` und `blue` */
+    color;
+    textColor;
+    green = false;
+    grey = false;
+    blue = false;
+    height;
+    padding;
+    fontSize;
+    config = ConfigUtil.getConfig();
+    get hintergrundfarbe() {
+        return this.color || this.thema?.background || this.config.toolbar.backgroundColor;
+    }
+    get textfarbe() {
+        return this.textColor || this.thema?.text || this.config.toolbar.textColor;
+    }
+    get thema() {
+        if (this.green) {
+            return this.config.toolbar.green;
+        }
+        if (this.blue) {
+            return this.config.toolbar.blue;
+        }
+        if (this.grey) {
+            return this.config.toolbar.grey;
+        }
+        return null;
+    }
+    /** @nocollapse */ static ɵfac = function MrdToolbarComponent_Factory(t) { return new (t || MrdToolbarComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdToolbarComponent, selectors: [["mrd-toolbar"]], hostVars: 12, hostBindings: function MrdToolbarComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("--mrd-toolbar-background", ctx.hintergrundfarbe)("--mrd-toolbar-text", ctx.textfarbe)("--mrd-toolbar-height", ctx.height || ctx.config.toolbar.height)("--mrd-toolbar-padding", ctx.padding || ctx.config.toolbar.padding)("--mrd-toolbar-font-size", ctx.fontSize || ctx.config.toolbar.fontSize)("--mrd-toolbar-font-weight", ctx.config.toolbar.fontWeight);
+        } }, inputs: { color: ["color", "color", colorAttribute], textColor: ["textColor", "textColor", colorAttribute], green: ["green", "green", booleanAttribute], grey: ["grey", "grey", booleanAttribute], blue: ["blue", "blue", booleanAttribute], height: ["height", "height", sizeAttribute], padding: "padding", fontSize: ["fontSize", "fontSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$3, decls: 1, vars: 0, template: function MrdToolbarComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵprojection(0);
+        } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;position:relative;width:100%;height:var(--mrd-toolbar-height);min-height:var(--mrd-toolbar-height);max-height:var(--mrd-toolbar-height);padding:var(--mrd-toolbar-padding);background-color:var(--mrd-toolbar-background);color:var(--mrd-toolbar-text);font-size:var(--mrd-toolbar-font-size);font-weight:var(--mrd-toolbar-font-weight);line-height:32px;white-space:nowrap}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToolbarComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-toolbar', host: {
+                    '[style.--mrd-toolbar-background]': 'hintergrundfarbe',
+                    '[style.--mrd-toolbar-text]': 'textfarbe',
+                    '[style.--mrd-toolbar-height]': 'height || config.toolbar.height',
+                    '[style.--mrd-toolbar-padding]': 'padding || config.toolbar.padding',
+                    '[style.--mrd-toolbar-font-size]': 'fontSize || config.toolbar.fontSize',
+                    '[style.--mrd-toolbar-font-weight]': 'config.toolbar.fontWeight'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n", styles: [":host{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;position:relative;width:100%;height:var(--mrd-toolbar-height);min-height:var(--mrd-toolbar-height);max-height:var(--mrd-toolbar-height);padding:var(--mrd-toolbar-padding);background-color:var(--mrd-toolbar-background);color:var(--mrd-toolbar-text);font-size:var(--mrd-toolbar-font-size);font-weight:var(--mrd-toolbar-font-weight);line-height:32px;white-space:nowrap}\n"] }]
+    }], null, { color: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], textColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], green: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], grey: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], blue: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], height: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], padding: [{
+            type: Input
+        }], fontSize: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }] }); })();
+
+class MrdToolbarModule {
+    /** @nocollapse */ static ɵfac = function MrdToolbarModule_Factory(t) { return new (t || MrdToolbarModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdToolbarModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdToolbarModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdToolbarComponent
+                ],
+                imports: [
+                    CommonModule
+                ],
+                exports: [
+                    MrdToolbarComponent
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdToolbarModule, { declarations: [MrdToolbarComponent], imports: [CommonModule], exports: [MrdToolbarComponent] }); })();
+
+const _c0$2 = ["*"];
+class MrdSidenavComponent {
+    elementRef;
+    renderer;
+    set opened(value) {
+        this.geoeffnetSetzen(value, false);
+    }
+    get opened() {
+        return this._opened;
+    }
+    _opened = false;
+    /** Beim Wechsel von mobil auf Desktop automatisch oeffnen, damit die Navigation dort nicht verschwunden bleibt */
+    autoOpen = true;
+    width;
+    maxWidth;
+    /** Rahmen rechts, nur in der Desktop-Ansicht */
+    borderWidth;
+    borderColor;
+    openedChange = new EventEmitter();
+    /** Informiert den Container ueber Oeffnen und Schliessen */
+    zustandGeaendert = new Subject();
+    config = ConfigUtil.getConfig();
+    mobil = false;
+    constructor(elementRef, renderer) {
+        this.elementRef = elementRef;
+        this.renderer = renderer;
+        this.klassenAktualisieren();
+    }
+    ngOnDestroy() {
+        this.zustandGeaendert.complete();
+    }
+    open() {
+        this.geoeffnetSetzen(true, true);
+    }
+    close() {
+        this.geoeffnetSetzen(false, true);
+    }
+    toggle() {
+        this.geoeffnetSetzen(!this._opened, true);
+    }
+    /** Wird vom Container gesetzt */
+    mobilSetzen(mobil) {
+        this.mobil = mobil;
+        this.klassenAktualisieren();
+    }
+    geoeffnetSetzen(geoeffnet, ausgeben) {
+        geoeffnet = !!geoeffnet;
+        if (geoeffnet === this._opened) {
+            return;
+        }
+        this._opened = geoeffnet;
+        this.klassenAktualisieren();
+        if (ausgeben) {
+            this.openedChange.emit(geoeffnet);
+        }
+        this.zustandGeaendert.next();
+    }
+    // Direkt am Element statt per Host-Binding, damit der Zustand auch ohne Change Detection des Aufrufers (OnPush) sofort greift
+    klassenAktualisieren() {
+        const element = this.elementRef.nativeElement;
+        if (this._opened) {
+            this.renderer.removeClass(element, 'mrd-sidenav-geschlossen');
+        }
+        else {
+            this.renderer.addClass(element, 'mrd-sidenav-geschlossen');
+        }
+        if (this.mobil) {
+            this.renderer.addClass(element, 'mrd-sidenav-mobile');
+        }
+        else {
+            this.renderer.removeClass(element, 'mrd-sidenav-mobile');
+        }
+    }
+    /** @nocollapse */ static ɵfac = function MrdSidenavComponent_Factory(t) { return new (t || MrdSidenavComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavComponent, selectors: [["mrd-sidenav"]], hostVars: 6, hostBindings: function MrdSidenavComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("--mrd-sidenav-width", ctx.width || ctx.config.sidenav.width)("--mrd-sidenav-max-width", ctx.maxWidth || ctx.config.sidenav.maxWidth)("--mrd-sidenav-border", ctx.borderWidth ? ctx.borderWidth + " solid " + (ctx.borderColor || "transparent") : "none");
+        } }, inputs: { opened: ["opened", "opened", booleanAttribute], autoOpen: ["autoOpen", "autoOpen", booleanAttribute], width: ["width", "width", sizeAttribute], maxWidth: ["maxWidth", "maxWidth", sizeAttribute], borderWidth: ["borderWidth", "borderWidth", sizeAttribute], borderColor: ["borderColor", "borderColor", colorAttribute] }, outputs: { openedChange: "openedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$2, decls: 1, vars: 0, template: function MrdSidenavComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵprojection(0);
+        } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;flex:0 0 auto;box-sizing:border-box;height:100%;width:var(--mrd-sidenav-width);max-width:var(--mrd-sidenav-max-width);border-right:var(--mrd-sidenav-border);overflow:hidden}.mrd-sidenav-mobile[_nghost-%COMP%]{width:100%;max-width:none;border-right:none}.mrd-sidenav-geschlossen[_nghost-%COMP%]{display:none}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSidenavComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-sidenav', host: {
+                    '[style.--mrd-sidenav-width]': 'width || config.sidenav.width',
+                    '[style.--mrd-sidenav-max-width]': 'maxWidth || config.sidenav.maxWidth',
+                    '[style.--mrd-sidenav-border]': "borderWidth ? borderWidth + ' solid ' + (borderColor || 'transparent') : 'none'"
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n", styles: [":host{display:flex;flex-direction:column;flex:0 0 auto;box-sizing:border-box;height:100%;width:var(--mrd-sidenav-width);max-width:var(--mrd-sidenav-max-width);border-right:var(--mrd-sidenav-border);overflow:hidden}:host(.mrd-sidenav-mobile){width:100%;max-width:none;border-right:none}:host(.mrd-sidenav-geschlossen){display:none}\n"] }]
+    }], function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, { opened: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], autoOpen: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], width: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], maxWidth: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], borderWidth: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], borderColor: [{
+            type: Input,
+            args: [{ transform: colorAttribute }]
+        }], openedChange: [{
+            type: Output
+        }] }); })();
+
+const _c0$1 = ["*"];
+class MrdSidenavContentComponent {
+    elementRef;
+    renderer;
+    constructor(elementRef, renderer) {
+        this.elementRef = elementRef;
+        this.renderer = renderer;
+    }
+    /** Wird vom Container gesetzt: in der mobilen Ansicht verdeckt die geoeffnete Sidenav den Inhalt */
+    verborgenSetzen(verborgen) {
+        if (verborgen) {
+            this.renderer.addClass(this.elementRef.nativeElement, 'mrd-sidenav-content-verborgen');
+        }
+        else {
+            this.renderer.removeClass(this.elementRef.nativeElement, 'mrd-sidenav-content-verborgen');
+        }
+    }
+    /** @nocollapse */ static ɵfac = function MrdSidenavContentComponent_Factory(t) { return new (t || MrdSidenavContentComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavContentComponent, selectors: [["mrd-sidenav-content"]], ngContentSelectors: _c0$1, decls: 1, vars: 0, template: function MrdSidenavContentComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵprojection(0);
+        } }, styles: ["[_nghost-%COMP%]{display:block;flex:1 1 auto;box-sizing:border-box;min-width:0;height:100%;overflow:auto}.mrd-sidenav-content-verborgen[_nghost-%COMP%]{display:none}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSidenavContentComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-sidenav-content', changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n", styles: [":host{display:block;flex:1 1 auto;box-sizing:border-box;min-width:0;height:100%;overflow:auto}:host(.mrd-sidenav-content-verborgen){display:none}\n"] }]
+    }], function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, null); })();
+
+const _c0 = [[["mrd-sidenav"]], [["mrd-sidenav-content"]]];
+const _c1 = ["mrd-sidenav", "mrd-sidenav-content"];
+/**
+ * Seitenlayout aus `mrd-sidenav` (links) und `mrd-sidenav-content`.
+ * Unterhalb von `breakpoint` ist die Ansicht mobil: die Sidenav nimmt die volle Breite ein und verdeckt den Inhalt, solange sie geoeffnet ist.
+ */
+class MrdSidenavContainerComponent {
+    cdr;
+    sidenav;
+    content;
+    /** Fensterbreite in px, ab der die Desktop-Ansicht gilt (Standard wie Tailwind `lg`) */
+    set breakpoint(value) {
+        this._breakpoint = value > 0 ? value : ConfigUtil.getConfig().sidenav.breakpoint;
+        if (this.initialisiert) {
+            // Nicht waehrend der Change Detection des Aufrufers, weil dabei openedChange/mobileChange ausgegeben werden koennen
+            Promise.resolve().then(() => this.mediaQueryEinrichten(false));
+        }
+    }
+    get breakpoint() {
+        return this._breakpoint;
+    }
+    _breakpoint = ConfigUtil.getConfig().sidenav.breakpoint;
+    /** Wird beim Start und bei jedem Wechsel zwischen mobiler und Desktop-Ansicht ausgegeben */
+    mobileChange = new EventEmitter();
+    mobile = false;
+    initialisiert = false;
+    mediaQuery;
+    sidenavSubscription;
+    mediaQueryListener = (event) => this.mobilSetzen(event.matches, false);
+    constructor(cdr) {
+        this.cdr = cdr;
+    }
+    ngAfterContentInit() {
+        this.initialisiert = true;
+        this.sidenavSubscription = this.sidenav?.zustandGeaendert.subscribe(() => this.zustandAnwenden());
+        this.mediaQueryEinrichten(true);
+    }
+    ngOnDestroy() {
+        this.mediaQueryEntfernen();
+        this.sidenavSubscription?.unsubscribe();
+    }
+    mediaQueryEinrichten(initial) {
+        this.mediaQueryEntfernen();
+        if (typeof window === 'undefined' || !window.matchMedia) {
+            this.zustandAnwenden();
+            return;
+        }
+        // -0.02px wie bei Tailwind/Bootstrap, damit sich mobil und Desktop genau am Breakpoint nicht ueberschneiden
+        this.mediaQuery = window.matchMedia(`(max-width: ${this._breakpoint - 0.02}px)`);
+        this.mediaQuery.addEventListener('change', this.mediaQueryListener);
+        this.mobilSetzen(this.mediaQuery.matches, initial);
+    }
+    mediaQueryEntfernen() {
+        this.mediaQuery?.removeEventListener('change', this.mediaQueryListener);
+        this.mediaQuery = null;
+    }
+    mobilSetzen(mobil, initial) {
+        if (!initial && mobil === this.mobile) {
+            return;
+        }
+        const warMobil = this.mobile;
+        this.mobile = mobil;
+        if (!initial && warMobil && !mobil && this.sidenav?.autoOpen) {
+            this.sidenav.open();
+        }
+        this.zustandAnwenden();
+        this.cdr.markForCheck();
+        if (initial) {
+            // Nicht synchron waehrend der Change Detection des Aufrufers ausgeben
+            Promise.resolve().then(() => this.mobileChange.emit(this.mobile));
+        }
+        else {
+            this.mobileChange.emit(this.mobile);
+        }
+    }
+    zustandAnwenden() {
+        this.sidenav?.mobilSetzen(this.mobile);
+        this.content?.verborgenSetzen(this.mobile && !!this.sidenav?.opened);
+    }
+    /** @nocollapse */ static ɵfac = function MrdSidenavContainerComponent_Factory(t) { return new (t || MrdSidenavContainerComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavContainerComponent, selectors: [["mrd-sidenav-container"]], contentQueries: function MrdSidenavContainerComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, MrdSidenavComponent, 4);
+            i0.ɵɵcontentQuery(dirIndex, MrdSidenavContentComponent, 4);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.sidenav = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.content = _t.first);
+        } }, hostVars: 2, hostBindings: function MrdSidenavContainerComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵclassProp("mrd-sidenav-container-mobile", ctx.mobile);
+        } }, inputs: { breakpoint: ["breakpoint", "breakpoint", numberAttribute] }, outputs: { mobileChange: "mobileChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1, decls: 2, vars: 0, template: function MrdSidenavContainerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0);
+            i0.ɵɵprojection(0);
+            i0.ɵɵprojection(1, 1);
+        } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;box-sizing:border-box;position:relative;width:100%;height:100%;overflow:hidden}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSidenavContainerComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-sidenav-container', host: {
+                    '[class.mrd-sidenav-container-mobile]': 'mobile'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content select=\"mrd-sidenav\"></ng-content>\n<ng-content select=\"mrd-sidenav-content\"></ng-content>\n", styles: [":host{display:flex;flex-direction:row;box-sizing:border-box;position:relative;width:100%;height:100%;overflow:hidden}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { sidenav: [{
+            type: ContentChild,
+            args: [MrdSidenavComponent, { descendants: false }]
+        }], content: [{
+            type: ContentChild,
+            args: [MrdSidenavContentComponent, { descendants: false }]
+        }], breakpoint: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], mobileChange: [{
+            type: Output
+        }] }); })();
+
+class MrdSidenavModule {
+    /** @nocollapse */ static ɵfac = function MrdSidenavModule_Factory(t) { return new (t || MrdSidenavModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdSidenavModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSidenavModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdSidenavContainerComponent,
+                    MrdSidenavComponent,
+                    MrdSidenavContentComponent
+                ],
+                imports: [
+                    CommonModule
+                ],
+                exports: [
+                    MrdSidenavContainerComponent,
+                    MrdSidenavComponent,
+                    MrdSidenavContentComponent
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdSidenavModule, { declarations: [MrdSidenavContainerComponent,
+        MrdSidenavComponent,
+        MrdSidenavContentComponent], imports: [CommonModule], exports: [MrdSidenavContainerComponent,
+        MrdSidenavComponent,
+        MrdSidenavContentComponent] }); })();
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdTooltipModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, sizeAttribute, timeAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MatTabBodyPortal, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdInputComponent, MrdLabelComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, itemSizeAttribute, sizeAttribute, timeAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

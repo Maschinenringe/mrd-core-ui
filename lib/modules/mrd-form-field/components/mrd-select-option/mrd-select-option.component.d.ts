@@ -18,6 +18,7 @@ export declare class MrdSelectOptionComponent implements AfterViewInit {
     constructor(elementRef: ElementRef, select: MrdSelectComponent, cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
     optionClick(): void;
+    /** Als Input nur fuer das virtuelle Scrolling im mrd-select; sonst setzt das Select den Zustand selbst */
     set selected(value: boolean);
     get selected(): boolean;
     set filtered(value: boolean);
@@ -25,7 +26,7 @@ export declare class MrdSelectOptionComponent implements AfterViewInit {
     set focused(value: boolean);
     get focused(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSelectOptionComponent, [null, { host: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectOptionComponent, "mrd-select-option", never, { "value": { "alias": "value"; "required": false; }; "noCheckbox": { "alias": "noCheckbox"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "optionClicked": "optionClicked"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSelectOptionComponent, "mrd-select-option", never, { "value": { "alias": "value"; "required": false; }; "noCheckbox": { "alias": "noCheckbox"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "focused": { "alias": "focused"; "required": false; }; }, { "optionClicked": "optionClicked"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
     static ngAcceptInputType_noCheckbox: unknown;
     static ngAcceptInputType_disabled: unknown;
 }

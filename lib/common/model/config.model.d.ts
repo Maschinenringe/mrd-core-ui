@@ -24,6 +24,9 @@ export interface MrdConfigModel {
     };
     checkbox?: MrdCheckbox;
     toggleSwitch?: MrdToggleSwitch;
+    list?: MrdList;
+    toolbar?: MrdToolbar;
+    sidenav?: MrdSidenav;
 }
 export interface MrdBaseFont {
     size?: string;
@@ -174,6 +177,35 @@ export interface MrdToggleSwitch {
     knobNeutralColor?: string;
     bgDisabledColor?: string;
     knobDisabledColor?: string;
+}
+export interface MrdList {
+    /** Zeilenhoehe in px, beim Virtual Scrolling muss sie fuer alle Eintraege gleich sein */
+    itemSize?: number;
+    selectedBackgroundColor?: string;
+    selectedTextColor?: string;
+    hoverColor?: string;
+    dividerColor?: string;
+}
+export interface MrdToolbarTheme {
+    background?: string;
+    text?: string;
+}
+export interface MrdToolbar {
+    height?: string;
+    padding?: string;
+    fontSize?: string;
+    fontWeight?: string;
+    backgroundColor?: string;
+    textColor?: string;
+    green?: MrdToolbarTheme;
+    grey?: MrdToolbarTheme;
+    blue?: MrdToolbarTheme;
+}
+export interface MrdSidenav {
+    /** Unterhalb dieser Fensterbreite (px) gilt die Ansicht als mobil */
+    breakpoint?: number;
+    width?: string;
+    maxWidth?: string;
 }
 export declare enum MrdSButtonType {
     PRIMARY = "primary",
