@@ -6,18 +6,16 @@ export interface IconBuildConfig {
     color?: string;
     outerColor?: string;
     innerColor?: string;
-    size?: number;
+    size?: number | string;
     innerDirection?: IconDirection | number;
-    scaleInner?: boolean;
-    innerScale?: number;
 }
+/** Baut aus Symbolen im 64x64-Raster (aeusserer Rahmen + inneres Symbol) ein SVG. */
 export declare class IconFactoryService {
-    private static readonly INNER_SCALE;
     static build(config: IconBuildConfig): string;
-    private static innerOffset;
     private static resolveDirection;
     private static extractSvgContent;
-    private static applyFillColor;
+    /** Ersetzt vorhandene fill- und stroke-Farben; `none` bleibt erhalten, damit Aussparungen nicht gefuellt werden. */
+    private static applyColor;
     static ɵfac: i0.ɵɵFactoryDeclaration<IconFactoryService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<IconFactoryService>;
 }

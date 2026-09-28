@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { ErrorHandler } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { MrdIconSymbolRegistryService } from './mrd-icon-symbol-registry.service';
 import * as i0 from "@angular/core";
 export declare interface TrustedHTML {
     __brand__: 'TrustedHTML';
@@ -45,6 +46,7 @@ export declare class MrdIconRegistryService {
     private _httpClient;
     private _sanitizer;
     private readonly _errorHandler;
+    private readonly _symbolRegistry;
     private _document;
     /**
      * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -56,7 +58,23 @@ export declare class MrdIconRegistryService {
     private _inProgressUrlFetches;
     /** Registered icon resolver functions. */
     private _resolvers;
-    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler: ErrorHandler);
+    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler: ErrorHandler, _symbolRegistry: MrdIconSymbolRegistryService);
+    /**
+     * Registriert ein Icon aus SVG-Markup (ohne HTTP) im Standard-Namensraum.
+     * @param literal Mit `DomSanitizer.bypassSecurityTrustHtml` freigegebenes SVG-Markup.
+     */
+    addSvgIconLiteral(iconName: string, literal: SafeHtml, options?: IconOptions): this;
+    addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml, options?: IconOptions): this;
+    /**
+     * Registriert eine Funktion, die unbekannte Icon-Namen in eine URL aufloest,
+     * z. B. `(name, ns) => ns === 'app' ? sanitizer.bypassSecurityTrustResourceUrl(`assets/${name}.svg`) : null`.
+     */
+    addSvgIconResolver(resolver: IconResolver): this;
+    /**
+     * Erzeugt ein Icon-Element aus SVG-Markup, z. B. aus der IconFactory.
+     * @security Das Markup wird ohne Sanitizing uebernommen - nur mit selbst erzeugten oder im Code hinterlegten SVGs aufrufen.
+     */
+    createSvgElementFromTrustedString(svg: string, options?: IconOptions): SVGElement;
     /**
      * Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
@@ -124,6 +142,6 @@ export declare class MrdIconRegistryService {
     private _addSvgIconConfig;
     /** Parses a config's text into an SVG element. */
     private _svgElementFromConfig;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MrdIconRegistryService, [{ optional: true; }, null, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MrdIconRegistryService, [{ optional: true; }, null, { optional: true; }, null, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MrdIconRegistryService>;
 }

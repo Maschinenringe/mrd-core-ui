@@ -2,6 +2,7 @@ import { MrdSButtonSizeType, MrdSButtonType } from './../../../../common/model/c
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { SvgStateMap } from '../../../../common/components/mrd-icon-group/mrd-icon-group.component';
+import { MrdIconDefinition } from '../../../../common/service/mrd-icon-symbol-registry.service';
 import * as i0 from "@angular/core";
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -221,6 +222,8 @@ export declare class MrdSButtonComponent extends BasePushStrategyObject implemen
     isTouchHovered: boolean;
     isTouchActive: boolean;
     buttonText: string;
+    /** Icon eines vordefinierten Buttons per mrd-icon (Farbe folgt dem Text); nur ohne iconStateMap */
+    iconDefinition?: MrdIconDefinition;
     defaultButtonText: string;
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;

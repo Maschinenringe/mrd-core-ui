@@ -6,7 +6,7 @@ export { ValidatorDatum } from './lib/common/validation/validator-datum';
 export { colorAttribute, colorThemeAttribute } from './lib/common/transforms/color-transform';
 export { sizeAttribute } from './lib/common/transforms/size-transform';
 export { timeAttribute } from './lib/common/transforms/time-transform';
-export { MrdIconRegistryService } from './lib/common/service/mrd-icon-registry.service';
+export { MrdIconRegistryService, IconResolver, IconOptions } from './lib/common/service/mrd-icon-registry.service';
 export { PredefinedIconsService } from './lib/common/service/predefined-icons.service';
 export { IconFactoryService, IconBuildConfig, IconDirection } from './lib/common/service/icon-factory.service';
 export * from './lib/common/directive/mrd-directive.module';
@@ -88,3 +88,6 @@ export * from './lib/modules/mrd-sidenav/components/mrd-sidenav/mrd-sidenav.comp
 export * from './lib/modules/mrd-sidenav/components/mrd-sidenav-content/mrd-sidenav-content.component';
 export * from './lib/modules/mrd-form-field/common/directive/mrd-select-option-template.directive';
 export * from './lib/modules/mrd-virtual-scroll/common/transforms/item-size-transform';
+export { MrdIconSymbolRegistryService, MrdIconSymbol, MrdIconOuter, MrdIconSvgOptions, MrdIconSymbolDefinition, MrdIconDefinition, MRD_ICON_NAMESPACE } from './lib/common/service/mrd-icon-symbol-registry.service';
+export * from './lib/modules/mrd-icon/common/provider/provide-mrd-icons';
+export * from './lib/modules/mrd-icon/common/transforms/icon-color-transform';

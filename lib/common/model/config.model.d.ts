@@ -1,3 +1,4 @@
+import { MrdIconDefinition } from '../service/mrd-icon-symbol-registry.service';
 export interface MrdConfigModel {
     baseFont?: MrdBaseFont;
     baseColors: MrdBaseColor;
@@ -27,6 +28,7 @@ export interface MrdConfigModel {
     list?: MrdList;
     toolbar?: MrdToolbar;
     sidenav?: MrdSidenav;
+    icon?: MrdIcon;
 }
 export interface MrdBaseFont {
     size?: string;
@@ -131,6 +133,9 @@ export interface MrdDefinedButton {
     text?: string;
     theme?: MrdSButtonType;
     iconEnd?: boolean;
+    /** Symbol per mrd-icon in der Textfarbe des Buttons; fuer die vordefinierten Buttons der Standard */
+    icon?: MrdIconDefinition;
+    /** Eigene SVGs je Zustand (mrd-icon-group), wenn Icon oder Farbe von der Textfarbe abweichen; hat Vorrang vor `icon` */
     iconGroup?: MrdDefinedButtonIconGroup;
 }
 export interface MrdDefinedButtonIconGroup {
@@ -206,6 +211,10 @@ export interface MrdSidenav {
     breakpoint?: number;
     width?: string;
     maxWidth?: string;
+}
+export interface MrdIcon {
+    /** Standardgroesse fuer `<mrd-icon icon="...">`; `svgIcon` bekommt ohne `size` wie bisher keine feste Groesse */
+    size?: string;
 }
 export declare enum MrdSButtonType {
     PRIMARY = "primary",
