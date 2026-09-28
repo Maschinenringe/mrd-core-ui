@@ -1,6 +1,6 @@
 import { MrdSButtonSizeType, MrdSButtonType } from './../../../../common/model/config.model';
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { SvgStateMap } from '../../../../common/components/mrd-icon-group/mrd-icon-group.component';
 import { MrdIconDefinition } from '../../../../common/service/mrd-icon-symbol-registry.service';
 import * as i0 from "@angular/core";
@@ -24,9 +24,9 @@ import * as i0 from "@angular/core";
  * @extends {BasePushStrategyObject}
  * @implements {AfterViewInit}
  */
-export declare class MrdSButtonComponent extends BasePushStrategyObject implements OnInit, AfterViewInit, OnDestroy {
+export declare class MrdSButtonComponent extends BasePushStrategyObject implements AfterViewInit, OnDestroy {
     protected cdr: ChangeDetectorRef;
-    private renderer;
+    private ngZone;
     elementRef: ElementRef<HTMLElement>;
     /**
      * Referenz auf das Text-Element des Buttons.
@@ -167,13 +167,6 @@ export declare class MrdSButtonComponent extends BasePushStrategyObject implemen
     iconStateMap: SvgStateMap | undefined;
     iconEnd: boolean;
     /**
-     * Das Klick-Event durch den Nutzer.
-     *
-     * @type {EventEmitter<Event>}
-     * @memberof MrdSButtonComponent
-     */
-    click: EventEmitter<Event>;
-    /**
      * Die Konfiguration des Mrd-Buttons.
      *
      * @private
@@ -225,8 +218,7 @@ export declare class MrdSButtonComponent extends BasePushStrategyObject implemen
     /** Icon eines vordefinierten Buttons per mrd-icon (Farbe folgt dem Text); nur ohne iconStateMap */
     iconDefinition?: MrdIconDefinition;
     defaultButtonText: string;
-    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef<HTMLElement>);
-    ngOnInit(): void;
+    constructor(cdr: ChangeDetectorRef, ngZone: NgZone, elementRef: ElementRef<HTMLElement>);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     updateStyle(): void;
@@ -236,9 +228,17 @@ export declare class MrdSButtonComponent extends BasePushStrategyObject implemen
      * @param isCollapsed Gibt an, ob der Button kollabiert ist.
      */
     buttonCollapsed(isCollapsed: boolean): void;
-    onClick(event: Event): void;
+    onMouseEnter(): void;
+    onMouseLeave(): void;
+    /**
+     * Capture-Phase am Host: laeuft vor Angulars `(click)`, auch wenn direkt auf den Host geklickt wird.
+     * Deaktiviert endet der Klick hier, sodass weder `(click)` noch umgebende Elemente ihn erhalten.
+     */
+    private readonly klickPruefen;
+    /** Wie bisher: `(click)` am Host feuert, umgebende Elemente (z. B. eine klickbare Listenzeile) erhalten den Klick nicht */
+    private readonly klickAbschirmen;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdSButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSButtonComponent, "mrd-s-button", never, { "theme": { "alias": "theme"; "required": false; }; "editButton": { "alias": "edit-button"; "required": false; }; "saveButton": { "alias": "save-button"; "required": false; }; "cancelButton": { "alias": "cancel-button"; "required": false; }; "closeIconButton": { "alias": "close-icon-button"; "required": false; }; "deleteButton": { "alias": "delete-button"; "required": false; }; "addButton": { "alias": "add-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "hovered": { "alias": "hovered"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "size": { "alias": "size"; "required": false; }; "value": { "alias": "value"; "required": false; }; "iconStateMap": { "alias": "iconStateMap"; "required": false; }; "iconEnd": { "alias": "iconEnd"; "required": false; }; }, { "click": "click"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdSButtonComponent, "mrd-s-button", never, { "theme": { "alias": "theme"; "required": false; }; "editButton": { "alias": "edit-button"; "required": false; }; "saveButton": { "alias": "save-button"; "required": false; }; "cancelButton": { "alias": "cancel-button"; "required": false; }; "closeIconButton": { "alias": "close-icon-button"; "required": false; }; "deleteButton": { "alias": "delete-button"; "required": false; }; "addButton": { "alias": "add-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "hovered": { "alias": "hovered"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "size": { "alias": "size"; "required": false; }; "value": { "alias": "value"; "required": false; }; "iconStateMap": { "alias": "iconStateMap"; "required": false; }; "iconEnd": { "alias": "iconEnd"; "required": false; }; }, {}, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
     static ngAcceptInputType_editButton: unknown;
     static ngAcceptInputType_saveButton: unknown;
     static ngAcceptInputType_cancelButton: unknown;

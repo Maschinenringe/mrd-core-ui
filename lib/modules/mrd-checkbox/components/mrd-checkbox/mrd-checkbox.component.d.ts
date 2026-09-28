@@ -1,10 +1,14 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter } from '@angular/core';
-import { AccessableFormControl } from 'mrd-core';
+import { AccessableFormControl, BaseObject } from 'mrd-core';
 import * as i0 from "@angular/core";
-export declare class MrdCheckboxComponent implements AfterViewInit, AfterViewChecked {
+export declare class MrdCheckboxComponent extends BaseObject implements AfterViewInit, AfterViewChecked {
     private cdr;
     label: ElementRef<HTMLElement>;
-    formControl: AccessableFormControl;
+    /** Wert und Deaktivierung des Controls werden laufend uebernommen, auch nach setValue(), reset(), disable() und enable() */
+    set formControl(control: AccessableFormControl);
+    get formControl(): AccessableFormControl;
+    private _formControl;
+    private formularAbo;
     rounded: boolean;
     color: string;
     colorHover: string;

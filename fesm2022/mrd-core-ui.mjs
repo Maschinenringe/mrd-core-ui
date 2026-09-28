@@ -5,7 +5,7 @@ import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER } from '@angular/core';
-import { of, tap, map, throwError, finalize, share, Subscription, take, startWith, Subject, defer, switchMap, merge } from 'rxjs';
+import { of, tap, map, throwError, finalize, share, Subscription, take, startWith, fromEvent, merge, Subject, defer, switchMap } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -2371,7 +2371,7 @@ const _c6$1 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mr
  */
 class MrdButtonComponent extends BasePushStrategyObject {
     cdr;
-    renderer;
+    ngZone;
     elementRef;
     /**
      * Referenz auf das Text-Element des Buttons.
@@ -2729,13 +2729,6 @@ class MrdButtonComponent extends BasePushStrategyObject {
      */
     value;
     /**
-     * Das Klick-Event durch den Nutzer.
-     *
-     * @type {EventEmitter<Event>}
-     * @memberof MrdButtonComponent
-     */
-    click = new EventEmitter();
-    /**
      * Die Konfiguration des Mrd-Buttons.
      *
      * @private
@@ -2766,28 +2759,17 @@ class MrdButtonComponent extends BasePushStrategyObject {
     borderColor;
     isCollapsed = false;
     isHovered = false;
-    constructor(cdr, renderer, elementRef) {
+    constructor(cdr, ngZone, elementRef) {
         super();
         this.cdr = cdr;
-        this.renderer = renderer;
+        this.ngZone = ngZone;
         this.elementRef = elementRef;
-    }
-    ngOnInit() {
-        // Hier sorgen wir dafür, dass der Standard Click-Handler von Angular entfernt wird
         const host = this.elementRef.nativeElement;
-        const button = host.querySelector('button');
-        const newHost = host.cloneNode();
-        newHost.appendChild(button);
-        Array.from(host.attributes).forEach(attr => newHost.setAttribute(attr.name, attr.value));
-        host.parentNode.replaceChild(newHost, host);
-        newHost.style.minWidth = this.fitContent ? 'fit-content' : 'unset';
-        newHost.style.margin = this.toggle ? '0 -16px' : 'unset';
-        newHost.style.transition = this.toggle ? 'transform 0.2s' : 'unset';
-        if (this.toggle && this.toggleSelected) {
-            newHost.classList.add('active');
-        }
-        newHost.addEventListener('click', (event) => this.onClick(event));
-        this.elementRef.nativeElement = newHost;
+        // Ausserhalb der Zone, weil die Listener selbst keine Change Detection brauchen; Angulars (click) am Host laeuft weiter in der Zone
+        this.ngZone.runOutsideAngular(() => {
+            host.addEventListener('click', this.klickPruefen, { capture: true });
+            host.addEventListener('click', this.klickAbschirmen);
+        });
     }
     ngAfterViewInit() {
         if (Util.isDefined(this.loading)) {
@@ -2798,28 +2780,12 @@ class MrdButtonComponent extends BasePushStrategyObject {
         }
         this.initBaseStyle();
         this.updateStyle();
-        // Manuelles Anhängen der Mouseenter- und Mouseleave-Listener mit Renderer2
-        this.mouseEnterListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', () => {
-            this.isHovered = true;
-            this.cdr.markForCheck();
-        });
-        this.mouseLeaveListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', () => {
-            this.isHovered = false;
-            this.cdr.markForCheck();
-        });
         this.cdr.detectChanges();
     }
     ngOnDestroy() {
-        if (this.mouseEnterListener) {
-            this.mouseEnterListener();
-        }
-        if (this.mouseLeaveListener) {
-            this.mouseLeaveListener();
-        }
-        this.elementRef.nativeElement.removeEventListener('click', (event) => this.onClick(event));
-        if (this.elementRef.nativeElement.parentNode) {
-            this.elementRef.nativeElement.parentNode.removeChild(this.elementRef.nativeElement);
-        }
+        this.elementRef.nativeElement.removeEventListener('click', this.klickPruefen, { capture: true });
+        this.elementRef.nativeElement.removeEventListener('click', this.klickAbschirmen);
+        super.ngOnDestroy();
     }
     updateStyle() {
         let themesCount = [this.primary, this.accent, this.warn].filter((value) => value).length;
@@ -3003,26 +2969,40 @@ class MrdButtonComponent extends BasePushStrategyObject {
             }
         }
     }
-    onClick(event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        if (!this.disabled) {
-            this.click.emit(event);
-        }
+    onMouseEnter() {
+        this.isHovered = true;
+        this.cdr.markForCheck();
     }
-    /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    onMouseLeave() {
+        this.isHovered = false;
+        this.cdr.markForCheck();
+    }
+    /**
+     * Capture-Phase am Host: laeuft vor Angulars `(click)`, auch wenn direkt auf den Host geklickt wird.
+     * Deaktiviert endet der Klick hier, sodass weder `(click)` noch umgebende Elemente ihn erhalten.
+     */
+    klickPruefen = (event) => {
+        if (this.disabled) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        }
+    };
+    /** Wie bisher: `(click)` am Host feuert, umgebende Elemente (z. B. eine klickbare Listenzeile) erhalten den Klick nicht */
+    klickAbschirmen = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$v, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
-        } }, hostVars: 8, hostBindings: function MrdButtonComponent_HostBindings(rf, ctx) { if (rf & 1) {
+        } }, hostVars: 6, hostBindings: function MrdButtonComponent_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("mouseenter", function MrdButtonComponent_mouseenter_HostBindingHandler() { return ctx.onMouseEnter(); })("mouseleave", function MrdButtonComponent_mouseleave_HostBindingHandler() { return ctx.onMouseLeave(); });
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
-            i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
-        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 72, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1$i);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
@@ -3066,11 +3046,11 @@ class MrdButtonComponent extends BasePushStrategyObject {
                     '[style.min-width]': 'fitContent ? "fit-content" : "unset"',
                     '[style.margin]': 'toggle ? "0 -16px" : "unset"',
                     '[style.transition]': 'toggle ? "transform 0.2s" : "unset"',
-                    '[class.active]': 'toggle && toggleSelected',
+                    // Die Klasse active setzt updateStyle(), weil eine Toggle-Gruppe toggleSelected erst nach dem Check der Eltern setzt
                     '(mouseenter)': 'onMouseEnter()',
                     '(mouseleave)': 'onMouseLeave()'
                 }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der eigentlich HTML-Button -->\r\n<button class=\"mrd-button-container\"\r\n  #buttonContainer\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--text-color]=\"textColor\"\r\n  [style.--hover-text-color]=\"hoverTextColor\"\r\n  [style.--disabled-text-color]=\"disabledTextColor\"\r\n  [style.--disabled-bg-color]=\"disabledBgColor\"\r\n  [style.--border-width]=\"borderWidth\"\r\n  [style.--border-color]=\"borderColor\"\r\n  [style.--border-style]=\"borderStyle\"\r\n  [style.--border-radius]=\"borderRadius\"\r\n  [style.--min-height]=\"minHeight\"\r\n  [style.--font-size]=\"fontSize\"\r\n  [style.--font-family]=\"fontFamily\"\r\n  [style.--font-weight]=\"fontWeight\"\r\n  [style.--diameter]=\"diameter\"\r\n  [style.--icon-size]=\"iconSize\"\r\n  [style.--unselected-color]=\"toggleUnselectedColor\"\r\n\r\n  [ngStyle]=\"{'min-width': fitContent ? 'fit-content' : 'unset'}\"\r\n  [ngClass]=\"{'mrd-icon-button': icon, 'mrd-raised-button': raised, 'mrd-outline-button': outline,\r\n    'mrd-flat-button': flat, 'mrd-fab-button': fab, 'mrd-mini-fab-button': miniFab, 'mrd-toggle-button': toggle,\r\n    'mrd-toggle-selected': toggleSelected, 'disabled': disabled}\"\r\n\r\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\r\n  <div class=\"mrd-button-background\">\r\n    <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n    <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div>\r\n  </div>\r\n  <!-- Ein Overlay \u00FCber dem Button welches den Hover- und Active-Effekt anzeigt -->\r\n  <!-- <div class=\"mrd-button-focus\" [style.--hover-color]=\"hoverColor\" [style.--active-color]=\"activeColor\"></div> -->\r\n  <!-- Der Content des Buttons -->\r\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\r\n    <!-- Linker Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Der Text des Buttons -->\r\n    <span class=\"mrd-button-text-content\" \r\n          (hiddenChanged)=\"buttonCollapsed($event)\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          #mrdButtonTextContent \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\r\n    </span>\r\n    \r\n    <!-- Rechter Icon-Container -->\r\n    <span class=\"mrd-button-icon-content\" \r\n          [ngClass]=\"{'full-icon': fullIcon}\" \r\n          [hideIfTruncated]=\"collapse\" \r\n          displayState=\"flex\" \r\n          requiredHideAttribute=\"icon-collapse\"\r\n          checkChildrenForAttribute \r\n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \r\n          [parentResizeElement]=\"this.elementRef.nativeElement\">\r\n      <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\r\n    </span>\r\n  </span>\r\n\r\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\r\n    *ngIf=\"!disabled && !icon && !fab && !miniFab && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\r\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\r\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\r\n    *ngIf=\"!disabled && (icon || fab || miniFab) && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\r\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\r\n</button>\r\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:0 16px;font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border:var(--border-width) var(--border-style) var(--border-color);border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-focus{background-color:var(--hover-color)}.mrd-button-container:active:not(.disabled) .mrd-button-focus{background-color:var(--active-color)}.mrd-button-container .mrd-button-focus{position:absolute;inset:0;border-radius:var(--border-radius)}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container.mrd-raised-button:not(.disabled){--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-raised-button:not(.disabled):active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-icon-button,.mrd-button-container.mrd-fab-button,.mrd-button-container.mrd-mini-fab-button{min-width:var(--diameter)!important;height:var(--diameter);padding:0}.mrd-button-container.mrd-icon-button .mrd-button-background,.mrd-button-container.mrd-fab-button .mrd-button-background,.mrd-button-container.mrd-mini-fab-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon,.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-mini-fab-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040}.mrd-button-container.mrd-mini-fab-button:not(.disabled) .mrd-button-background:active,.mrd-button-container.mrd-fab-button:not(.disabled) .mrd-button-background:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
+    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.NgZone }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
             type: ViewChild,
             args: ['mrdButtonTextContent', { static: true }]
         }], icon: [{
@@ -3189,8 +3169,6 @@ class MrdButtonComponent extends BasePushStrategyObject {
             args: [{ transform: colorAttribute }]
         }], value: [{
             type: Input
-        }], click: [{
-            type: Output
         }] }); })();
 var MrdButtonAppearance;
 (function (MrdButtonAppearance) {
@@ -5257,7 +5235,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
             button.borderRadius = this.borderRadius ?? this.rounded ? '50px' : '4px';
             button.toggleSelected = this.multiple ? this.index.includes(index) : this.index === index;
             button.updateStyle();
-            this.watch(button.click.asObservable(), new SubscriptionHandler((event) => {
+            this.watch(fromEvent(button.elementRef.nativeElement, 'click'), new SubscriptionHandler((event) => {
                 event.stopPropagation();
                 event.preventDefault();
                 if (this.multiple) {
@@ -5453,10 +5431,29 @@ function MrdCheckboxComponent_div_3_Template(rf, ctx) { if (rf & 1) {
 const _c2$9 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
 const _c3$8 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
 const _c4$4 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
-class MrdCheckboxComponent {
+class MrdCheckboxComponent extends BaseObject {
     cdr;
     label;
-    formControl;
+    /** Wert und Deaktivierung des Controls werden laufend uebernommen, auch nach setValue(), reset(), disable() und enable() */
+    set formControl(control) {
+        this.formularAbo?.unsubscribe();
+        this._formControl = control;
+        if (Util.isDefined(control)) {
+            if (Util.isDefined(control.value)) {
+                this.checked = !!control.value;
+            }
+            // statusChanges, damit disable()/enable() auch bei OnPush sofort sichtbar werden
+            this.formularAbo = this.watch(merge(control.valueChanges, control.control.statusChanges), new SubscriptionHandler(() => {
+                this.checked = !!control.value;
+                this.cdr.markForCheck();
+            }));
+        }
+    }
+    get formControl() {
+        return this._formControl;
+    }
+    _formControl;
+    formularAbo;
     // @Input({transform: booleanAttribute}) public fill: boolean = false;
     // @Input({transform: booleanAttribute}) public outline: boolean = false;
     rounded = false;
@@ -5506,6 +5503,7 @@ class MrdCheckboxComponent {
     checkedChange = new EventEmitter();
     config = ConfigUtil.getConfig();
     constructor(cdr) {
+        super();
         this.cdr = cdr;
     }
     ngAfterViewInit() {
@@ -5562,7 +5560,7 @@ class MrdCheckboxComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
         } }, hostVars: 2, hostBindings: function MrdCheckboxComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("max-width", ctx.fitContent ? "fit-content" : "100%");
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c4$4, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$4, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c2$9);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener() { return ctx.toggle(); });
@@ -10740,7 +10738,7 @@ const _c5 = [":not([mrd-icon]):not(mrd-icon)", "mrd-icon:not([icon-end]), [mrd-i
  */
 class MrdSButtonComponent extends BasePushStrategyObject {
     cdr;
-    renderer;
+    ngZone;
     elementRef;
     /**
      * Referenz auf das Text-Element des Buttons.
@@ -10886,13 +10884,6 @@ class MrdSButtonComponent extends BasePushStrategyObject {
     iconStateMap;
     iconEnd = true;
     /**
-     * Das Klick-Event durch den Nutzer.
-     *
-     * @type {EventEmitter<Event>}
-     * @memberof MrdSButtonComponent
-     */
-    click = new EventEmitter();
-    /**
      * Die Konfiguration des Mrd-Buttons.
      *
      * @private
@@ -10945,28 +10936,17 @@ class MrdSButtonComponent extends BasePushStrategyObject {
     iconDefinition;
     defaultButtonText = '';
     // public iconStateMap?: SvgStateMap;
-    constructor(cdr, renderer, elementRef) {
+    constructor(cdr, ngZone, elementRef) {
         super();
         this.cdr = cdr;
-        this.renderer = renderer;
+        this.ngZone = ngZone;
         this.elementRef = elementRef;
-    }
-    ngOnInit() {
-        // Hier sorgen wir dafür, dass der Standard Click-Handler von Angular entfernt wird
         const host = this.elementRef.nativeElement;
-        const button = host.querySelector('button');
-        const newHost = host.cloneNode();
-        newHost.appendChild(button);
-        Array.from(host.attributes).forEach(attr => newHost.setAttribute(attr.name, attr.value));
-        host.parentNode.replaceChild(newHost, host);
-        newHost.style.minWidth = !this.collapse ? 'fit-content' : 'unset';
-        newHost.style.margin = this.toggle ? '0 -16px' : 'unset';
-        newHost.style.transition = this.toggle ? 'transform 0.2s' : 'unset';
-        if (this.toggle && this.toggleSelected) {
-            newHost.classList.add('active');
-        }
-        newHost.addEventListener('click', (event) => this.onClick(event));
-        this.elementRef.nativeElement = newHost;
+        // Ausserhalb der Zone, weil die Listener selbst keine Change Detection brauchen; Angulars (click) am Host laeuft weiter in der Zone
+        this.ngZone.runOutsideAngular(() => {
+            host.addEventListener('click', this.klickPruefen, { capture: true });
+            host.addEventListener('click', this.klickAbschirmen);
+        });
     }
     ngAfterViewInit() {
         if (Util.isDefined(this.loading)) {
@@ -10977,28 +10957,12 @@ class MrdSButtonComponent extends BasePushStrategyObject {
         }
         this.updateStyle();
         this.isHovered = this.hovered;
-        // Manuelles Anhängen der Mouseenter- und Mouseleave-Listener mit Renderer2
-        this.mouseEnterListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', () => {
-            this.isHovered = true;
-            this.cdr.markForCheck();
-        });
-        this.mouseLeaveListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', () => {
-            this.isHovered = this.hovered;
-            this.cdr.markForCheck();
-        });
         this.cdr.detectChanges();
     }
     ngOnDestroy() {
-        if (this.mouseEnterListener) {
-            this.mouseEnterListener();
-        }
-        if (this.mouseLeaveListener) {
-            this.mouseLeaveListener();
-        }
-        this.elementRef.nativeElement.removeEventListener('click', (event) => this.onClick(event));
-        if (this.elementRef.nativeElement.parentNode) {
-            this.elementRef.nativeElement.parentNode.removeChild(this.elementRef.nativeElement);
-        }
+        this.elementRef.nativeElement.removeEventListener('click', this.klickPruefen, { capture: true });
+        this.elementRef.nativeElement.removeEventListener('click', this.klickAbschirmen);
+        super.ngOnDestroy();
     }
     updateStyle() {
         let specificButtonConfig;
@@ -11118,15 +11082,30 @@ class MrdSButtonComponent extends BasePushStrategyObject {
             }
         }
     }
-    onClick(event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        if (!this.disabled) {
-            this.click.emit(event);
-        }
+    onMouseEnter() {
+        this.isHovered = true;
+        this.cdr.markForCheck();
     }
-    /** @nocollapse */ static ɵfac = function MrdSButtonComponent_Factory(t) { return new (t || MrdSButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    onMouseLeave() {
+        this.isHovered = this.hovered;
+        this.cdr.markForCheck();
+    }
+    /**
+     * Capture-Phase am Host: laeuft vor Angulars `(click)`, auch wenn direkt auf den Host geklickt wird.
+     * Deaktiviert endet der Klick hier, sodass weder `(click)` noch umgebende Elemente ihn erhalten.
+     */
+    klickPruefen = (event) => {
+        if (this.disabled) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        }
+    };
+    /** Wie bisher: `(click)` am Host feuert, umgebende Elemente (z. B. eine klickbare Listenzeile) erhalten den Klick nicht */
+    klickAbschirmen = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    /** @nocollapse */ static ɵfac = function MrdSButtonComponent_Factory(t) { return new (t || MrdSButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSButtonComponent, selectors: [["mrd-s-button"]], viewQuery: function MrdSButtonComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0$6, 7);
             i0.ɵɵviewQuery(_c1$1, 7);
@@ -11134,12 +11113,11 @@ class MrdSButtonComponent extends BasePushStrategyObject {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttonTouchArea = _t.first);
-        } }, hostVars: 8, hostBindings: function MrdSButtonComponent_HostBindings(rf, ctx) { if (rf & 1) {
+        } }, hostVars: 6, hostBindings: function MrdSButtonComponent_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("mouseenter", function MrdSButtonComponent_mouseenter_HostBindingHandler() { return ctx.onMouseEnter(); })("mouseleave", function MrdSButtonComponent_mouseleave_HostBindingHandler() { return ctx.onMouseLeave(); });
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", !ctx.collapse ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
-            i0.ɵɵclassProp("active", ctx.toggle && ctx.toggleSelected);
-        } }, inputs: { theme: "theme", editButton: ["edit-button", "editButton", booleanAttribute], saveButton: ["save-button", "saveButton", booleanAttribute], cancelButton: ["cancel-button", "cancelButton", booleanAttribute], closeIconButton: ["close-icon-button", "closeIconButton", booleanAttribute], deleteButton: ["delete-button", "deleteButton", booleanAttribute], addButton: ["add-button", "addButton", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hovered: ["hovered", "hovered", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], size: "size", value: "value", iconStateMap: "iconStateMap", iconEnd: ["iconEnd", "iconEnd", booleanAttribute] }, outputs: { click: "click" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 18, vars: 70, consts: [[1, "mrd-button-container", 3, "ngStyle", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-touch-area", 3, "mouseenter", "mouseleave", "mousedown", "mouseup"], ["buttonTouchArea", ""], [1, "mrd-button-content", 3, "ngClass"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-right", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-left", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], ["definiertesIcon", ""], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size", 4, "ngIf"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size"], [3, "ngTemplateOutlet"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"], [3, "icon", "outline", "full", "dashed", "direction", "size"]], template: function MrdSButtonComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { theme: "theme", editButton: ["edit-button", "editButton", booleanAttribute], saveButton: ["save-button", "saveButton", booleanAttribute], cancelButton: ["cancel-button", "cancelButton", booleanAttribute], closeIconButton: ["close-icon-button", "closeIconButton", booleanAttribute], deleteButton: ["delete-button", "deleteButton", booleanAttribute], addButton: ["add-button", "addButton", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hovered: ["hovered", "hovered", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], size: "size", value: "value", iconStateMap: "iconStateMap", iconEnd: ["iconEnd", "iconEnd", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 18, vars: 70, consts: [[1, "mrd-button-container", 3, "ngStyle", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-touch-area", 3, "mouseenter", "mouseleave", "mousedown", "mouseup"], ["buttonTouchArea", ""], [1, "mrd-button-content", 3, "ngClass"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-right", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-left", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], ["definiertesIcon", ""], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size", 4, "ngIf"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size"], [3, "ngTemplateOutlet"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"], [3, "icon", "outline", "full", "dashed", "direction", "size"]], template: function MrdSButtonComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c2);
             i0.ɵɵelementStart(0, "button", 0, 1);
             i0.ɵɵelement(2, "div", 2);
@@ -11192,11 +11170,11 @@ class MrdSButtonComponent extends BasePushStrategyObject {
                     '[style.min-width]': '!collapse ? "fit-content" : "unset"',
                     '[style.margin]': 'toggle ? "0 -16px" : "unset"',
                     '[style.transition]': 'toggle ? "transform 0.2s" : "unset"',
-                    '[class.active]': 'toggle && toggleSelected',
+                    // Die Klasse active setzt updateStyle(), weil eine Toggle-Gruppe toggleSelected erst nach dem Check der Eltern setzt
                     '(mouseenter)': 'onMouseEnter()',
                     '(mouseleave)': 'onMouseLeave()'
                 }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der eigentlich HTML-Button -->\n<button class=\"mrd-button-container\"\n  #buttonContainer\n  [style.--text-color]=\"textColor\"\n  [style.--hover-text-color]=\"hoverTextColor\"\n  [style.--disabled-text-color]=\"disabledTextColor\"\n  [style.--active-text-color]=\"activeTextColor\"\n  [style.--bg-color]=\"bgColor\"\n  [style.--hover-bg-color]=\"hoverBgColor\"\n  [style.--disabled-bg-color]=\"disabledBgColor\"\n  [style.--active-bg-color]=\"activeBgColor\"\n  [style.--border]=\"border\"\n  [style.--hover-border]=\"hoverBorder\"\n  [style.--disabled-border]=\"disabledBorder\"\n  [style.--active-border]=\"activeBorder\"\n\n  [style.--border-radius]=\"borderRadius\"\n  [style.--min-height]=\"minHeight\"\n  [style.--font-size]=\"fontSize\"\n  [style.--font-family]=\"fontFamily\"\n  [style.--font-weight]=\"fontWeight\"\n  [style.--diameter]=\"diameter\"\n  [style.--icon-size]=\"iconSize\"\n  [style.--padding]=\"padding\"\n  [style.--unselected-color]=\"toggleUnselectedColor\"\n\n  [ngStyle]=\"{'min-width': !collapse ? 'fit-content' : 'unset'}\"\n  [class.hovered]=\"hovered\"\n  [class.touch-hovered]=\"isTouchHovered\"\n  [class.touch-active]=\"isTouchActive\"\n  [class.disabled]=\"disabled\"\n  [class.mrd-icon-button]=\"isIconButton\"\n  [mrdToolTip]=\"tooltipText\" [showOnTruncatedElement]=\"tooltipIfTruncated ? mrdButtonTextContent : undefined\" [showToolTip]=\"showTooltip || (tooltipIfCollapsed && isCollapsed)\">\n  <div class=\"mrd-button-background\"></div>\n  <div class=\"mrd-button-touch-area\" #buttonTouchArea\n    (mouseenter)=\"isTouchHovered = true\"\n    (mouseleave)=\"isTouchHovered = false; isTouchActive = false\"\n    (mousedown)=\"isTouchActive = true\"\n    (mouseup)=\"isTouchActive = false\"></div>\n  <!-- Der Content des Buttons -->\n  <span class=\"mrd-button-content\" [ngClass]=\"{'isCollapsed': isCollapsed}\">\n    <!-- Linker Icon-Container -->\n    <span class=\"mrd-button-icon-content\" *ngIf=\"!isSpecificButton && !iconStateMap\"\n          [class.full-icon]=\"isFullIcon\" \n          [hideIfTruncated]=\"collapse\" \n          displayState=\"flex\" \n          requiredHideAttribute=\"icon-collapse\"\n          checkChildrenForAttribute \n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \n          [parentResizeElement]=\"this.elementRef.nativeElement\">\n      <ng-content select=\"mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])\"></ng-content>\n    </span>\n\n    <span class=\"mrd-button-icon-content\" *ngIf=\"(iconStateMap || iconDefinition) && !iconEnd\"\n          [style.margin-right]=\"!isIconButton ? '6px' : '0px'\"\n          [class.full-icon]=\"isFullIcon\" \n          [hideIfTruncated]=\"collapse\" \n          displayState=\"flex\" \n          requiredHideAttribute=\"icon-collapse\"\n          checkChildrenForAttribute \n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \n          [parentResizeElement]=\"this.elementRef.nativeElement\">\n        <mrd-icon-group *ngIf=\"iconStateMap\" [svgs]=\"iconStateMap\" [hostElement]=\"buttonContainer\" [disabled]=\"disabled\" [hovered]=\"hovered\" [loading]=\"isLoading\" [size]=\"iconSizeNumber\"></mrd-icon-group>\n        <ng-container *ngIf=\"!iconStateMap && iconDefinition\" [ngTemplateOutlet]=\"definiertesIcon\"></ng-container>\n    </span>\n    \n    <!-- Der Text des Buttons -->\n    <span class=\"mrd-button-text-content\" \n          (hiddenChanged)=\"buttonCollapsed($event)\" \n          [hideIfTruncated]=\"collapse\" \n          #mrdButtonTextContent \n          [parentResizeElement]=\"this.elementRef.nativeElement\">\n      <ng-content select=\":not([mrd-icon]):not(mrd-icon)\"></ng-content>\n    </span>\n    <span class=\"mrd-button-text-content\" *ngIf=\"!isIconButton && !buttonText?.length\"\n      (hiddenChanged)=\"buttonCollapsed($event)\" \n      [hideIfTruncated]=\"collapse\" \n      [parentResizeElement]=\"this.elementRef.nativeElement\">\n        {{defaultButtonText}}\n      </span>\n\n    <span class=\"mrd-button-icon-content\" *ngIf=\"(iconStateMap || iconDefinition) && iconEnd\"\n          [style.margin-left]=\"!isIconButton ? '6px' : '0px'\"\n          [class.full-icon]=\"isFullIcon\" \n          [hideIfTruncated]=\"collapse\" \n          displayState=\"flex\" \n          requiredHideAttribute=\"icon-collapse\"\n          checkChildrenForAttribute \n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \n          [parentResizeElement]=\"this.elementRef.nativeElement\">\n        <mrd-icon-group *ngIf=\"iconStateMap\" [svgs]=\"iconStateMap\" [hostElement]=\"buttonContainer\" [disabled]=\"disabled\" [hovered]=\"hovered\" [loading]=\"isLoading\" [size]=\"iconSizeNumber\"></mrd-icon-group>\n        <ng-container *ngIf=\"!iconStateMap && iconDefinition\" [ngTemplateOutlet]=\"definiertesIcon\"></ng-container>\n    </span>\n\n\n   \n    <!-- Rechter Icon-Container -->\n    <span class=\"mrd-button-icon-content\" *ngIf=\"!isSpecificButton && !iconStateMap\" \n          [class.full-icon]=\"isFullIcon\" \n          [hideIfTruncated]=\"collapse\" \n          displayState=\"flex\" \n          requiredHideAttribute=\"icon-collapse\"\n          checkChildrenForAttribute \n          [hideOnTruncatedElement]=\"mrdButtonTextContent\" \n          [parentResizeElement]=\"this.elementRef.nativeElement\">\n      <ng-content select=\"mrd-icon[icon-end], [mrd-icon][icon-end]\"></ng-content>\n    </span>\n  </span>\n\n  <!-- Die Progress-Bar eines Buttons (nicht f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\n  <mrd-progress-bar class=\"mrd-button-progress-bar\"\n    *ngIf=\"!isIconButton && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-bar>\n  <!-- Der Progress-Spinner eines Buttons (nur f\u00FCr Icon-, Fab- und Mini-Fab-Buttons) -->\n  <mrd-progress-spinner class=\"mrd-button-progress-spinner\"\n    *ngIf=\"isIconButton && (isLoading || loading?.value || loadingProgress?.value || loadingProgress?.value === 0)\"\n    [value]=\"loadingProgress?.value\" [mode]=\"loadingProgress ? 'determinate' : 'indeterminate'\" [color]=\"progressColor\"></mrd-progress-spinner>\n</button>\n\n<ng-template #definiertesIcon>\n  <mrd-icon [icon]=\"iconDefinition.symbol\"\n    [outline]=\"iconDefinition.outer === 'outline'\"\n    [full]=\"iconDefinition.outer === 'full'\"\n    [dashed]=\"iconDefinition.outer === 'dashed'\"\n    [direction]=\"iconDefinition.direction\"\n    [size]=\"iconSizeNumber\"></mrd-icon>\n</ng-template>\n", styles: [":host{position:relative;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%}:host.active{z-index:10}.mrd-button-container{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;min-height:var(--min-height);height:inherit;max-width:100%;width:100%;padding:var(--padding);font-size:var(--font-size);font-family:var(--font-family);font-weight:var(--font-weight);letter-spacing:.1px;border-radius:var(--border-radius);color:var(--text-color)}.mrd-button-container .mrd-button-content{display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;z-index:1;width:100%}.mrd-button-container .mrd-button-content .mrd-button-icon-content{display:flex;flex-direction:row;align-items:center;justify-content:center}.mrd-button-container .mrd-button-content .mrd-button-text-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:20px}.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep [mrd-icon],.mrd-button-container .mrd-button-content.isCollapsed ::ng-deep mrd-icon{margin:0 2px}.mrd-button-container .mrd-button-content.isCollapsed .mrd-button-text-content{padding:0 16px}.mrd-button-container.disabled{color:var(--disabled-text-color);cursor:initial}.mrd-button-container.disabled .mrd-button-background{border:var(--disabled-border);background-color:var(--disabled-bg-color)}.mrd-button-container:hover:not(.disabled),.mrd-button-container.hovered:not(.disabled),.mrd-button-container.touch-hovered:not(.disabled){color:var(--hover-text-color)}.mrd-button-container:hover:not(.disabled) .mrd-button-background,.mrd-button-container.hovered:not(.disabled) .mrd-button-background,.mrd-button-container.touch-hovered:not(.disabled) .mrd-button-background{border:var(--hover-border);background-color:var(--hover-bg-color)}.mrd-button-container:active:not(.disabled) .mrd-button-background,.mrd-button-container.touch-active:not(.disabled) .mrd-button-background{border:var(--active-border, var(--hover-border));background-color:var(--active-bg-color, var(--hover-bg-color))}.mrd-button-container .mrd-button-background{position:absolute;inset:0;border:var(--border);border-radius:var(--border-radius);background-color:var(--bg-color)}.mrd-button-container .mrd-button-touch-area{position:absolute;inset:-8px}.mrd-button-container.mrd-icon-button{min-width:var(--diameter)!important;height:var(--diameter)}.mrd-button-container.mrd-icon-button .mrd-button-background{min-height:unset;width:var(--diameter);height:var(--diameter)}.mrd-button-container.mrd-icon-button ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button ::ng-deep mrd-icon{margin:0!important;font-size:calc(var(--diameter) / 2)}.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep [mrd-icon],.mrd-button-container.mrd-icon-button .mrd-button-icon-content.full-icon ::ng-deep mrd-icon{font-size:var(--diameter)}.mrd-button-container.mrd-toggle-button{padding:0 44px;transition:color .2s}.mrd-button-container.mrd-toggle-button.mrd-toggle-selected{--webkit-box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, .25);box-shadow:1px 1px 6px 2px #00000040;transform:scale(1.15);z-index:10}.mrd-button-container.mrd-toggle-button:active{--webkit-box-shadow: 2px 2px 6px 3px rgba(0, 0, 0, .25);box-shadow:2px 2px 6px 3px #00000040;z-index:5}.mrd-button-container.mrd-toggle-button:hover{z-index:5}.mrd-button-container.mrd-toggle-button .mrd-button-background{transition:background-color .2s}.mrd-button-container.mrd-toggle-button:not(.mrd-toggle-selected) .mrd-button-background{background-color:var(--unselected-color)}.mrd-button-container ::ng-deep [mrd-icon],.mrd-button-container ::ng-deep mrd-icon{font-size:1.5em;margin-right:4px;margin-top:2px;width:var(--icon-size);height:var(--icon-size);min-width:1em}.mrd-button-container ::ng-deep [mrd-icon][icon-end],.mrd-button-container ::ng-deep mrd-icon[icon-end]{margin-right:0;margin-left:4px}.mrd-button-progress-bar{position:absolute;bottom:10%;left:5px;right:5px;height:10%;min-height:10%}.mrd-button-progress-spinner{position:absolute;top:3px;left:3px;width:calc(100% - 6px)!important;height:calc(100% - 6px)!important}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
+    }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.NgZone }, { type: i0.ElementRef }]; }, { mrdButtonTextContent: [{
             type: ViewChild,
             args: ['mrdButtonTextContent', { static: true }]
         }], buttonTouchArea: [{
@@ -11261,8 +11239,6 @@ class MrdSButtonComponent extends BasePushStrategyObject {
         }], iconEnd: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
-        }], click: [{
-            type: Output
         }] }); })();
 
 class MrdSButtonModule {

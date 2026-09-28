@@ -1,5 +1,5 @@
 import { BasePushStrategyObject, ObservableValue } from 'mrd-core';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import * as i0 from "@angular/core";
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
@@ -21,9 +21,9 @@ import * as i0 from "@angular/core";
  * @extends {BasePushStrategyObject}
  * @implements {AfterViewInit}
  */
-export declare class MrdButtonComponent extends BasePushStrategyObject implements OnInit, AfterViewInit, OnDestroy {
+export declare class MrdButtonComponent extends BasePushStrategyObject implements AfterViewInit, OnDestroy {
     protected cdr: ChangeDetectorRef;
-    private renderer;
+    private ngZone;
     elementRef: ElementRef<HTMLElement>;
     /**
      * Referenz auf das Text-Element des Buttons.
@@ -363,13 +363,6 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      */
     value: any;
     /**
-     * Das Klick-Event durch den Nutzer.
-     *
-     * @type {EventEmitter<Event>}
-     * @memberof MrdButtonComponent
-     */
-    click: EventEmitter<Event>;
-    /**
      * Die Konfiguration des Mrd-Buttons.
      *
      * @private
@@ -400,8 +393,7 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     borderColor: string;
     isCollapsed: boolean;
     isHovered: boolean;
-    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef<HTMLElement>);
-    ngOnInit(): void;
+    constructor(cdr: ChangeDetectorRef, ngZone: NgZone, elementRef: ElementRef<HTMLElement>);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     updateStyle(): void;
@@ -418,9 +410,17 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      * @param isCollapsed Gibt an, ob der Button kollabiert ist.
      */
     buttonCollapsed(isCollapsed: boolean): void;
-    onClick(event: Event): void;
+    onMouseEnter(): void;
+    onMouseLeave(): void;
+    /**
+     * Capture-Phase am Host: laeuft vor Angulars `(click)`, auch wenn direkt auf den Host geklickt wird.
+     * Deaktiviert endet der Klick hier, sodass weder `(click)` noch umgebende Elemente ihn erhalten.
+     */
+    private readonly klickPruefen;
+    /** Wie bisher: `(click)` am Host feuert, umgebende Elemente (z. B. eine klickbare Listenzeile) erhalten den Klick nicht */
+    private readonly klickAbschirmen;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "fontWeight": { "alias": "fontWeight"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; "customHoverTextColor": { "alias": "customHoverTextColor"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "click": "click"; }, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "fontWeight": { "alias": "fontWeight"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; "customHoverTextColor": { "alias": "customHoverTextColor"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, {}, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
     static ngAcceptInputType_icon: unknown;
     static ngAcceptInputType_raised: unknown;
     static ngAcceptInputType_outline: unknown;
