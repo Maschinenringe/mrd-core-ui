@@ -182,6 +182,15 @@ export interface MrdToggleSwitch {
     knobNeutralColor?: string;
     bgDisabledColor?: string;
     knobDisabledColor?: string;
+    slim?: MrdToggleSwitchSlim;
+}
+/** Schmale Schiene mit rundem Knopf in voller Hoehe (`<mrd-toggle-switch slim>`) */
+export interface MrdToggleSwitchSlim {
+    width?: string;
+    /** Durchmesser des Knopfs */
+    height?: string;
+    trackHeight?: string;
+    knobBorder?: string;
 }
 export interface MrdList {
     /** Zeilenhoehe in px, beim Virtual Scrolling muss sie fuer alle Eintraege gleich sein */
