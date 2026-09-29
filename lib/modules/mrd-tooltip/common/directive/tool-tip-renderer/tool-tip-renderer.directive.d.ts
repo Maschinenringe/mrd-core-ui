@@ -1,10 +1,13 @@
-import { TemplateRef, ElementRef } from '@angular/core';
+import { TemplateRef, ElementRef, Renderer2 } from '@angular/core';
 import { Overlay, OverlayPositionBuilder } from '@angular/cdk/overlay';
 import * as i0 from "@angular/core";
+/** `line-clamp` ohne Wert steht fuer eine Zeile; null, 0 oder ungueltige Werte heben die Begrenzung auf */
+export declare function zeilenAnzahlAttribute(value: number | string | null | undefined): number | null;
 export declare class ToolTipRendererDirective {
     private _overlay;
     private _overlayPositionBuilder;
     private _elementRef;
+    private renderer;
     /**
      * Gibt an, ob der Tooltip angezeigt werden soll
      *
@@ -61,6 +64,17 @@ export declare class ToolTipRendererDirective {
      */
     showOnTruncatedElement: HTMLElement;
     /**
+     * Begrenzt den Inhalt auf hoechstens so viele Zeilen und kuerzt ihn mit "…".
+     * Zusammen mit `showIfTruncated` erscheint der Tooltip nur, wenn Text abgeschnitten ist.
+     * Die Direktive setzt dafuer `display: -webkit-box` am Element.
+     *
+     * Beispiel: `<span [mrdToolTip]="text" showIfTruncated [line-clamp]="2">{{text}}</span>`
+     */
+    set lineClamp(value: number | null);
+    get lineClamp(): number | null;
+    private _lineClamp;
+    private zeilenbegrenzungGesetzt;
+    /**
      * Gibt an, ob der Tooltip geöffnet bleiben soll, wenn der Mauszeiger über dem Tooltip ist.
      *
      * Standard: false
@@ -95,7 +109,7 @@ export declare class ToolTipRendererDirective {
     private disabled;
     private tooltipRef;
     private origin;
-    constructor(_overlay: Overlay, _overlayPositionBuilder: OverlayPositionBuilder, _elementRef: ElementRef);
+    constructor(_overlay: Overlay, _overlayPositionBuilder: OverlayPositionBuilder, _elementRef: ElementRef, renderer: Renderer2);
     ngOnInit(): void;
     /**
      * This method will be called whenever the mouse enters in the Host element
@@ -115,13 +129,15 @@ export declare class ToolTipRendererDirective {
      * This method will make sure to close the tooltip
      */
     ngOnDestroy(): void;
+    private zeilenbegrenzungAnwenden;
     /**
      * This method will close the tooltip by detaching the component from the overlay
      */
     private closeToolTip;
     static ɵfac: i0.ɵɵFactoryDeclaration<ToolTipRendererDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<ToolTipRendererDirective, "[mrdToolTip]", ["mrdToolTip"], { "showToolTip": { "alias": "showToolTip"; "required": false; }; "text": { "alias": "mrdToolTip"; "required": false; }; "contentTemplate": { "alias": "contentTemplate"; "required": false; }; "defaultStyle": { "alias": "defaultStyle"; "required": false; }; "position": { "alias": "position"; "required": false; }; "showIfTruncated": { "alias": "showIfTruncated"; "required": false; }; "showOnTruncatedElement": { "alias": "showOnTruncatedElement"; "required": false; }; "keepOnTooltipHover": { "alias": "keepOnTooltipHover"; "required": false; }; "showDelay": { "alias": "showDelay"; "required": false; }; "hideDelay": { "alias": "hideDelay"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<ToolTipRendererDirective, "[mrdToolTip]", ["mrdToolTip"], { "showToolTip": { "alias": "showToolTip"; "required": false; }; "text": { "alias": "mrdToolTip"; "required": false; }; "contentTemplate": { "alias": "contentTemplate"; "required": false; }; "defaultStyle": { "alias": "defaultStyle"; "required": false; }; "position": { "alias": "position"; "required": false; }; "showIfTruncated": { "alias": "showIfTruncated"; "required": false; }; "showOnTruncatedElement": { "alias": "showOnTruncatedElement"; "required": false; }; "lineClamp": { "alias": "line-clamp"; "required": false; }; "keepOnTooltipHover": { "alias": "keepOnTooltipHover"; "required": false; }; "showDelay": { "alias": "showDelay"; "required": false; }; "hideDelay": { "alias": "hideDelay"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_showIfTruncated: unknown;
+    static ngAcceptInputType_lineClamp: number | string | null | undefined;
     static ngAcceptInputType_keepOnTooltipHover: unknown;
     static ngAcceptInputType_showDelay: unknown;
     static ngAcceptInputType_hideDelay: unknown;

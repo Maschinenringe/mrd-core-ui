@@ -102,7 +102,9 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     get showNoOptionsOnSearch(): boolean;
     focus(event: FocusEvent): void;
     blur(event: FocusEvent): void;
-    get triggerTabIndex(): number;
+    get istDeaktiviert(): boolean;
+    /** null statt -1: ein tabindex von -1 laesst sich per Mausklick weiterhin fokussieren */
+    get triggerTabIndex(): number | null;
     onTriggerFocus(): void;
     onTriggerBlur(): void;
     onTriggerKeyDown(event: KeyboardEvent): void;
