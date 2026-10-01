@@ -1,7 +1,7 @@
 export declare enum MrdColor {
     WEISS = "#FFFFFF",
     SCHWARZ = "#000000",
-    TRANSPARENT = "transparent",
+    TRANSPARENT = "#00000000",
     MR_GRUEN = "#65B32E",
     MR_GRUEN_DARK = "#518F25",
     MR_GRUEN_LIGHT = "#84CB4A",

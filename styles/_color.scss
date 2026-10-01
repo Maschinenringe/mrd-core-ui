@@ -1,0 +1,37 @@
+// SCSS-Gegenstueck zu `MrdColor` (lib/common/enum/color.enum.ts); Werte immer gemeinsam pflegen.
+// Einbindung: `@use 'mrd-core-ui/styles' as mrd;` -> `mrd.$mrd-color-mr-gruen`
+
+$mrd-color-weiss: #FFFFFF;
+$mrd-color-schwarz: #000000;
+$mrd-color-transparent: #00000000;
+$mrd-color-mr-gruen: #65B32E;
+$mrd-color-mr-gruen-dark: #518F25;
+$mrd-color-mr-gruen-light: #84CB4A;
+$mrd-color-mr-gruen-transparent: #E0F0D4;
+$mrd-color-grau-blau: #293D4F;
+$mrd-color-grau-blau-dark: #16222E;
+$mrd-color-grau-blau-light: #949EA7;
+$mrd-color-hellblau: #D8DFE8;
+$mrd-color-hellblau-light: #EBEFF3;
+$mrd-color-warnrot: #DA0000;
+$mrd-color-warnrot-dark: #AE0000;
+$mrd-color-warnrot-light: #E78080;
+
+// Fuer Schleifen, z. B. zum Erzeugen von Hilfsklassen oder CSS-Variablen
+$mrd-colors: (
+  "weiss": $mrd-color-weiss,
+  "schwarz": $mrd-color-schwarz,
+  "transparent": $mrd-color-transparent,
+  "mr-gruen": $mrd-color-mr-gruen,
+  "mr-gruen-dark": $mrd-color-mr-gruen-dark,
+  "mr-gruen-light": $mrd-color-mr-gruen-light,
+  "mr-gruen-transparent": $mrd-color-mr-gruen-transparent,
+  "grau-blau": $mrd-color-grau-blau,
+  "grau-blau-dark": $mrd-color-grau-blau-dark,
+  "grau-blau-light": $mrd-color-grau-blau-light,
+  "hellblau": $mrd-color-hellblau,
+  "hellblau-light": $mrd-color-hellblau-light,
+  "warnrot": $mrd-color-warnrot,
+  "warnrot-dark": $mrd-color-warnrot-dark,
+  "warnrot-light": $mrd-color-warnrot-light
+);

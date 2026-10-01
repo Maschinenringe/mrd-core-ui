@@ -36,7 +36,7 @@ var MrdColor;
 (function (MrdColor) {
     MrdColor["WEISS"] = "#FFFFFF";
     MrdColor["SCHWARZ"] = "#000000";
-    MrdColor["TRANSPARENT"] = "transparent";
+    MrdColor["TRANSPARENT"] = "#00000000";
     MrdColor["MR_GRUEN"] = "#65B32E";
     MrdColor["MR_GRUEN_DARK"] = "#518F25";
     MrdColor["MR_GRUEN_LIGHT"] = "#84CB4A";
