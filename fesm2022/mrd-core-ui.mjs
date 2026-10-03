@@ -6969,8 +6969,12 @@ class MrdInputComponent extends BaseObject {
             this.formControlChangeValue = undefined;
         }
         if (this.formControl && this.date) {
-            let momentDate = MrdDatumUtil.parse(this.formControl.control.value);
-            if (momentDate !== null) {
+            const rohwert = this.formControl.control.value;
+            const momentDate = MrdDatumUtil.parse(rohwert);
+            // Nur schreiben, wenn sich der angezeigte Wert aendert (z. B. "1.2.26" -> "01.02.2026"): setValue loest valueChanges aus,
+            // und mrd-form-field markiert das Feld dann als geaendert, obwohl nur der Fokus gewechselt hat
+            const anzeige = momentDate !== null && this.formControl.showAs ? this.formControl.showAs(momentDate) : momentDate;
+            if (momentDate !== null && anzeige !== rohwert) {
                 this.formControl.setValue(momentDate);
             }
         }
