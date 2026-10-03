@@ -37,10 +37,11 @@ var MrdColor;
     MrdColor["WEISS"] = "#FFFFFF";
     MrdColor["SCHWARZ"] = "#000000";
     MrdColor["TRANSPARENT"] = "#00000000";
-    MrdColor["MR_GRUEN"] = "#65B32E";
-    MrdColor["MR_GRUEN_DARK"] = "#518F25";
-    MrdColor["MR_GRUEN_LIGHT"] = "#84CB4A";
-    MrdColor["MR_GRUEN_TRANSPARENT"] = "#E0F0D4";
+    MrdColor["GRUEN"] = "#65B32E";
+    MrdColor["GRUEN_DARK"] = "#518F25";
+    MrdColor["GRUEN_LIGHT"] = "#84CB4A";
+    MrdColor["GRUEN_TRANSPARENT"] = "#E0F0D4";
+    MrdColor["GRAU"] = "#494949";
     MrdColor["GRAU_BLAU"] = "#293D4F";
     MrdColor["GRAU_BLAU_DARK"] = "#16222E";
     MrdColor["GRAU_BLAU_LIGHT"] = "#949EA7";
@@ -291,8 +292,8 @@ class ConfigUtil {
                     disabled: MrdColor.TRANSPARENT
                 },
                 progress: {
-                    default: MrdColor.MR_GRUEN,
-                    hover: MrdColor.MR_GRUEN,
+                    default: MrdColor.GRUEN,
+                    hover: MrdColor.GRUEN,
                     disabled: MrdColor.GRAU_BLAU_LIGHT
                 },
                 border: "unset",
@@ -313,28 +314,28 @@ class ConfigUtil {
                         disabled: MrdColor.GRAU_BLAU_LIGHT
                     },
                     background: {
-                        default: MrdColor.MR_GRUEN,
-                        hover: MrdColor.MR_GRUEN_DARK,
+                        default: MrdColor.GRUEN,
+                        hover: MrdColor.GRUEN_DARK,
                         disabled: MrdColor.HELLBLAU
                     },
                     progress: {
-                        default: MrdColor.MR_GRUEN_LIGHT
+                        default: MrdColor.GRUEN_LIGHT
                     }
                 },
                 secondary: {
                     text: {
-                        default: MrdColor.MR_GRUEN,
-                        hover: MrdColor.MR_GRUEN,
+                        default: MrdColor.GRUEN,
+                        hover: MrdColor.GRUEN,
                         disabled: MrdColor.HELLBLAU
                     },
                     background: {
                         default: MrdColor.TRANSPARENT,
-                        hover: MrdColor.MR_GRUEN_TRANSPARENT,
+                        hover: MrdColor.GRUEN_TRANSPARENT,
                         disabled: MrdColor.TRANSPARENT
                     },
                     border: {
-                        default: "2px solid " + MrdColor.MR_GRUEN,
-                        hover: "2px solid " + MrdColor.MR_GRUEN,
+                        default: "2px solid " + MrdColor.GRUEN,
+                        hover: "2px solid " + MrdColor.GRUEN,
                         disabled: "2px solid " + MrdColor.HELLBLAU
                     }
                 },
