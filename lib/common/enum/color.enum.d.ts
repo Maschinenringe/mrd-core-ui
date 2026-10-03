@@ -14,5 +14,7 @@ export declare enum MrdColor {
     HELLBLAU_LIGHT = "#EBEFF3",
     WARNROT = "#DA0000",
     WARNROT_DARK = "#AE0000",
-    WARNROT_LIGHT = "#E78080"
+    WARNROT_LIGHT = "#E78080",
+    LE_ROT = "#B51434",
+    ORANGE = "#FF9900"
 }

@@ -50,6 +50,8 @@ var MrdColor;
     MrdColor["WARNROT"] = "#DA0000";
     MrdColor["WARNROT_DARK"] = "#AE0000";
     MrdColor["WARNROT_LIGHT"] = "#E78080";
+    MrdColor["LE_ROT"] = "#B51434";
+    MrdColor["ORANGE"] = "#FF9900";
 })(MrdColor || (MrdColor = {}));
 
 var IconName;

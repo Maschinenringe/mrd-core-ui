@@ -8,6 +8,7 @@ $mrd-color-gruen: #65B32E;
 $mrd-color-gruen-dark: #518F25;
 $mrd-color-gruen-light: #84CB4A;
 $mrd-color-gruen-transparent: #E0F0D4;
+$mrd-color-grau: #494949;
 $mrd-color-grau-blau: #293D4F;
 $mrd-color-grau-blau-dark: #16222E;
 $mrd-color-grau-blau-light: #949EA7;
@@ -16,6 +17,8 @@ $mrd-color-hellblau-light: #EBEFF3;
 $mrd-color-warnrot: #DA0000;
 $mrd-color-warnrot-dark: #AE0000;
 $mrd-color-warnrot-light: #E78080;
+$mrd-color-le-rot: #B51434;
+$mrd-color-orange: #FF9900;
 
 // Fuer Schleifen, z. B. zum Erzeugen von Hilfsklassen oder CSS-Variablen
 $mrd-colors: (
@@ -26,6 +29,7 @@ $mrd-colors: (
   "gruen-dark": $mrd-color-gruen-dark,
   "gruen-light": $mrd-color-gruen-light,
   "gruen-transparent": $mrd-color-gruen-transparent,
+  "grau": $mrd-color-grau,
   "grau-blau": $mrd-color-grau-blau,
   "grau-blau-dark": $mrd-color-grau-blau-dark,
   "grau-blau-light": $mrd-color-grau-blau-light,
@@ -33,5 +37,7 @@ $mrd-colors: (
   "hellblau-light": $mrd-color-hellblau-light,
   "warnrot": $mrd-color-warnrot,
   "warnrot-dark": $mrd-color-warnrot-dark,
-  "warnrot-light": $mrd-color-warnrot-light
+  "warnrot-light": $mrd-color-warnrot-light,
+  "le-rot": $mrd-color-le-rot,
+  "orange": $mrd-color-orange
 );
