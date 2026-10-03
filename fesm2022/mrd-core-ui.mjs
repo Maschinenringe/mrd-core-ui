@@ -3417,7 +3417,10 @@ class MrdIconComponent {
     full = false;
     /** Gestrichelter Kreis */
     dashed = false;
-    /** Farbe fuer Rahmen und Symbol; ohne Angabe die Textfarbe der Umgebung */
+    /**
+     * Farbe fuer Rahmen und Symbol; ohne Angabe die Textfarbe der Umgebung.
+     * Bei `svgIcon` wird sie als Textfarbe gesetzt und faerbt nur Teile mit `currentColor`, fest eingetragene Farben bleiben.
+     */
     color;
     innerColor;
     outerColor;
@@ -3603,8 +3606,8 @@ class MrdIconComponent {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService), i0.ɵɵdirectiveInject(MrdIconSymbolRegistryService)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], hostAttrs: ["role", "img", "aria-hidden", "true"], hostVars: 4, hostBindings: function MrdIconComponent_HostBindings(rf, ctx) { if (rf & 2) {
-            i0.ɵɵstyleProp("--mrd-icon-size", ctx.aktuelleGroesse);
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], hostAttrs: ["role", "img", "aria-hidden", "true"], hostVars: 6, hostBindings: function MrdIconComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("--mrd-icon-size", ctx.aktuelleGroesse)("color", !ctx.icon ? ctx.color : null);
             i0.ɵɵclassProp("mrd-icon-sized", !!ctx.aktuelleGroesse);
         } }, inputs: { svgIcon: "svgIcon", icon: "icon", outline: ["outline", "outline", booleanAttribute], full: ["full", "full", booleanAttribute], dashed: ["dashed", "dashed", booleanAttribute], color: ["color", "color", iconColorAttribute], innerColor: ["innerColor", "innerColor", iconColorAttribute], outerColor: ["outerColor", "outerColor", iconColorAttribute], direction: "direction", size: ["size", "size", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c0$u, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
@@ -3617,7 +3620,9 @@ class MrdIconComponent {
                     'role': 'img',
                     'aria-hidden': 'true',
                     '[class.mrd-icon-sized]': '!!aktuelleGroesse',
-                    '[style.--mrd-icon-size]': 'aktuelleGroesse'
+                    '[style.--mrd-icon-size]': 'aktuelleGroesse',
+                    // Registry-Icons werden unveraendert eingehaengt; ueber die Textfarbe wirkt `color` auf deren `currentColor`
+                    '[style.color]': '!icon ? color : null'
                 }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\r\n", styles: [":host(.mrd-icon-sized){display:inline-flex;flex-shrink:0;box-sizing:border-box;width:var(--mrd-icon-size);height:var(--mrd-icon-size);line-height:0;vertical-align:middle}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
                 type: Inject,

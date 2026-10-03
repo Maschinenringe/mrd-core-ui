@@ -44,7 +44,10 @@ export declare class MrdIconComponent implements OnChanges {
     full: boolean;
     /** Gestrichelter Kreis */
     dashed: boolean;
-    /** Farbe fuer Rahmen und Symbol; ohne Angabe die Textfarbe der Umgebung */
+    /**
+     * Farbe fuer Rahmen und Symbol; ohne Angabe die Textfarbe der Umgebung.
+     * Bei `svgIcon` wird sie als Textfarbe gesetzt und faerbt nur Teile mit `currentColor`, fest eingetragene Farben bleiben.
+     */
     color: string;
     innerColor: string;
     outerColor: string;
