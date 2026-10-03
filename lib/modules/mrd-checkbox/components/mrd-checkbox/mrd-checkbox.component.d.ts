@@ -40,14 +40,21 @@ export declare class MrdCheckboxComponent extends BaseObject implements AfterVie
     private customTooltipText;
     tooltipPosition: 'top' | 'bottom' | 'left' | 'right';
     tooltipDisabled: boolean;
+    /**
+     * Die Checkbox schaltet nicht selbst um, sondern meldet den gewuenschten Wert ueber `checkedChange`;
+     * angezeigt wird allein `checked`. Fuer Listen, die selbst entscheiden, ob ein Klick zaehlt. Nicht mit `mrdFormControl` kombinieren.
+     */
+    controlled: boolean;
+    /** Klick nicht an umgebende Elemente weitergeben (auch wenn deaktiviert), z. B. in einer klickbaren Zeile */
+    stopPropagation: boolean;
     checkedChange: EventEmitter<boolean>;
     private config;
     constructor(cdr: ChangeDetectorRef);
     ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
-    toggle(): void;
+    toggle(event?: Event): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdCheckboxComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdCheckboxComponent, "mrd-checkbox", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "color": { "alias": "color"; "required": false; }; "colorHover": { "alias": "colorHover"; "required": false; }; "colorChecked": { "alias": "colorChecked"; "required": false; }; "colorCheckedHover": { "alias": "colorCheckedHover"; "required": false; }; "bgColor": { "alias": "bgColor"; "required": false; }; "bgColorHover": { "alias": "bgColorHover"; "required": false; }; "bgColorChecked": { "alias": "bgColorChecked"; "required": false; }; "bgColorCheckedHover": { "alias": "bgColorCheckedHover"; "required": false; }; "border": { "alias": "border"; "required": false; }; "borderHover": { "alias": "borderHover"; "required": false; }; "borderChecked": { "alias": "borderChecked"; "required": false; }; "borderCheckedHover": { "alias": "borderCheckedHover"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "customIcons": { "alias": "customIcons"; "required": false; }; "customHoverIcons": { "alias": "customHoverIcons"; "required": false; }; "checkboxSize": { "alias": "checkboxSize"; "required": false; }; "checkboxHeight": { "alias": "checkboxHeight"; "required": false; }; "checkboxWidth": { "alias": "checkboxWidth"; "required": false; }; "singleLine": { "alias": "single-line"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "ellipsis": { "alias": "ellipsis"; "required": false; }; "tooltip": { "alias": "tooltip"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipPosition": { "alias": "tooltipPosition"; "required": false; }; "tooltipDisabled": { "alias": "tooltipDisabled"; "required": false; }; }, { "checkedChange": "checkedChange"; }, never, ["[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdCheckboxComponent, "mrd-checkbox", never, { "formControl": { "alias": "mrdFormControl"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "color": { "alias": "color"; "required": false; }; "colorHover": { "alias": "colorHover"; "required": false; }; "colorChecked": { "alias": "colorChecked"; "required": false; }; "colorCheckedHover": { "alias": "colorCheckedHover"; "required": false; }; "bgColor": { "alias": "bgColor"; "required": false; }; "bgColorHover": { "alias": "bgColorHover"; "required": false; }; "bgColorChecked": { "alias": "bgColorChecked"; "required": false; }; "bgColorCheckedHover": { "alias": "bgColorCheckedHover"; "required": false; }; "border": { "alias": "border"; "required": false; }; "borderHover": { "alias": "borderHover"; "required": false; }; "borderChecked": { "alias": "borderChecked"; "required": false; }; "borderCheckedHover": { "alias": "borderCheckedHover"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "customIcons": { "alias": "customIcons"; "required": false; }; "customHoverIcons": { "alias": "customHoverIcons"; "required": false; }; "checkboxSize": { "alias": "checkboxSize"; "required": false; }; "checkboxHeight": { "alias": "checkboxHeight"; "required": false; }; "checkboxWidth": { "alias": "checkboxWidth"; "required": false; }; "singleLine": { "alias": "single-line"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "ellipsis": { "alias": "ellipsis"; "required": false; }; "tooltip": { "alias": "tooltip"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipPosition": { "alias": "tooltipPosition"; "required": false; }; "tooltipDisabled": { "alias": "tooltipDisabled"; "required": false; }; "controlled": { "alias": "controlled"; "required": false; }; "stopPropagation": { "alias": "stopPropagation"; "required": false; }; }, { "checkedChange": "checkedChange"; }, never, ["[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]", "*"], false, never>;
     static ngAcceptInputType_rounded: unknown;
     static ngAcceptInputType_color: string;
     static ngAcceptInputType_colorHover: string;
@@ -70,4 +77,6 @@ export declare class MrdCheckboxComponent extends BaseObject implements AfterVie
     static ngAcceptInputType_tooltip: unknown;
     static ngAcceptInputType_tooltipIfTruncated: unknown;
     static ngAcceptInputType_tooltipDisabled: unknown;
+    static ngAcceptInputType_controlled: unknown;
+    static ngAcceptInputType_stopPropagation: unknown;
 }
