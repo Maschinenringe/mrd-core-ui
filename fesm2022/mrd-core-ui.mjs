@@ -4361,13 +4361,14 @@ class MrdGeoIconComponent {
     overlay;
     viewBox;
     getPathString(d) {
-        if (!d) {
-            return { ps: "", vb: [0, 0, 0, 0], vbs: "0 0 1 1" };
-        }
         // Wenn der zweite Level ein Array ist Handelt es sich um daten mit inselflaechen.
         // Dann wird die erste Flaeche verwendet ohne inseln
         if (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0])) {
             d = d[0];
+        }
+        // Ohne Punkte entstuende sonst der ungueltige SVG-Pfad "undefinedz"
+        if (!d || d.length === 0) {
+            return { ps: "", vb: [0, 0, 0, 0], vbs: "0 0 1 1" };
         }
         var vb = [0, 0, 0, 0];
         var ps;
