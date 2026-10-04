@@ -91,3 +91,13 @@ export * from './lib/modules/mrd-virtual-scroll/common/transforms/item-size-tran
 export { MrdIconSymbolRegistryService, MrdIconSymbol, MrdIconOuter, MrdIconSvgOptions, MrdIconSymbolDefinition, MrdIconDefinition, MRD_ICON_NAMESPACE } from './lib/common/service/mrd-icon-symbol-registry.service';
 export * from './lib/modules/mrd-icon/common/provider/provide-mrd-icons';
 export * from './lib/modules/mrd-icon/common/transforms/icon-color-transform';
+export * from './lib/modules/mrd-expansion/mrd-expansion.module';
+export * from './lib/modules/mrd-expansion/components/mrd-accordion/mrd-accordion.component';
+export * from './lib/modules/mrd-expansion/components/mrd-expansion-panel/mrd-expansion-panel.component';
+export * from './lib/modules/mrd-expansion/components/mrd-expansion-panel-header/mrd-expansion-panel-header.component';
+export * from './lib/modules/mrd-expansion/common/directive/mrd-expansion-panel-content.directive';
+export * from './lib/modules/mrd-expansion/common/model/mrd-accordion.model';
+export * from './lib/modules/mrd-sort/mrd-sort.module';
+export * from './lib/modules/mrd-sort/common/directive/mrd-sort.directive';
+export * from './lib/modules/mrd-sort/components/mrd-sort-header/mrd-sort-header.component';
+export * from './lib/modules/mrd-sort/common/model/mrd-sort.model';

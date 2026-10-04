@@ -29,6 +29,8 @@ export interface MrdConfigModel {
     toolbar?: MrdToolbar;
     sidenav?: MrdSidenav;
     icon?: MrdIcon;
+    expansionPanel?: MrdExpansionPanel;
+    sort?: MrdSort;
 }
 export interface MrdBaseFont {
     size?: string;
@@ -239,4 +241,16 @@ export declare enum MrdSButtonSizeType {
     BIG = "big",
     ICON = "icon",
     FULL_ICON = "fullIcon"
+}
+export interface MrdExpansionPanel {
+    headerHeight?: string;
+    headerPadding?: string;
+    headerBackground?: string;
+    headerColor?: string;
+    background?: string;
+    /** Dauer des Auf- und Zuklappens, z. B. "225ms"; "0ms" schaltet die Animation ab */
+    animationDuration?: string;
+}
+export interface MrdSort {
+    arrowSize?: string;
 }
