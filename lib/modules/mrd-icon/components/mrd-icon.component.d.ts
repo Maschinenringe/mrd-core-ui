@@ -53,6 +53,7 @@ export declare class MrdIconComponent implements OnChanges {
     outerColor: string;
     /** Drehung des Symbols, z. B. fuer Pfeile */
     direction: IconDirection | number;
+    /** Kantenlaenge, z. B. `24`, `"1.5em"`; Standard 24px, auch fuer `svgIcon` */
     /** Kantenlaenge, z. B. `24`, `"1.5em"`; Standard bei `icon` aus der Config, bei `svgIcon` ohne Angabe wie bisher keine */
     size: string;
     _svgName: string | null;

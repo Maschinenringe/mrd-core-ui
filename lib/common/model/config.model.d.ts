@@ -224,7 +224,7 @@ export interface MrdSidenav {
     maxWidth?: string;
 }
 export interface MrdIcon {
-    /** Standardgroesse fuer `<mrd-icon icon="...">`; `svgIcon` bekommt ohne `size` wie bisher keine feste Groesse */
+    /** Groesse fuer `<mrd-icon icon="...">`, wenn `size` ausdruecklich leer gesetzt ist; sonst gilt der Standard von `size` (24px) */
     size?: string;
 }
 export declare enum MrdSButtonType {

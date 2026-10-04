@@ -3440,8 +3440,9 @@ class MrdIconComponent {
     outerColor;
     /** Drehung des Symbols, z. B. fuer Pfeile */
     direction;
+    /** Kantenlaenge, z. B. `24`, `"1.5em"`; Standard 24px, auch fuer `svgIcon` */
     /** Kantenlaenge, z. B. `24`, `"1.5em"`; Standard bei `icon` aus der Config, bei `svgIcon` ohne Angabe wie bisher keine */
-    size = '24';
+    size = '24px';
     _svgName;
     _svgNamespace;
     /** Keeps track of the current page path. */
