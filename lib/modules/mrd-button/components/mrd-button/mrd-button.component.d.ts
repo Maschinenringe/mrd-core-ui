@@ -108,6 +108,16 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
      */
     toggleSelected: boolean;
     /**
+     * Gibt an, ob der Button, als Toggle-Button, in der einfachen Variante dargestellt wird.
+     *
+     * Der selektierte Button wird dann nur eingefaerbt, ohne Vergroesserung, Schatten und Ueberlappung.
+     * Wird von der Toggle-Button-Group ueber deren Attribut "simple" gesetzt.
+     *
+     * @type {boolean}
+     * @memberof MrdButtonComponent
+     */
+    toggleSimple: boolean;
+    /**
      * Gibt an, ob der Button das Theme "primary" hat.
      *
      * Hierdurch wird die Hintergrundfarbe des Buttons auf die primäre Farbe des Themes gesetzt.
@@ -420,38 +430,193 @@ export declare class MrdButtonComponent extends BasePushStrategyObject implement
     /** Wie bisher: `(click)` am Host feuert, umgebende Elemente (z. B. eine klickbare Listenzeile) erhalten den Klick nicht */
     private readonly klickAbschirmen;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "fontWeight": { "alias": "fontWeight"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; "customHoverTextColor": { "alias": "customHoverTextColor"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, {}, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
-    static ngAcceptInputType_icon: unknown;
-    static ngAcceptInputType_raised: unknown;
-    static ngAcceptInputType_outline: unknown;
-    static ngAcceptInputType_flat: unknown;
-    static ngAcceptInputType_fab: unknown;
-    static ngAcceptInputType_miniFab: unknown;
-    static ngAcceptInputType_toggle: unknown;
-    static ngAcceptInputType_toggleSelected: unknown;
-    static ngAcceptInputType_primary: unknown;
-    static ngAcceptInputType_accent: unknown;
-    static ngAcceptInputType_warn: unknown;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_isLoading: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdButtonComponent, "mrd-button", never, { "icon": { "alias": "icon-button"; "required": false; }; "raised": { "alias": "raised-button"; "required": false; }; "outline": { "alias": "outline-button"; "required": false; }; "flat": { "alias": "flat-button"; "required": false; }; "fab": { "alias": "fab-button"; "required": false; }; "miniFab": { "alias": "miniFab-button"; "required": false; }; "toggle": { "alias": "toggle-button"; "required": false; }; "toggleSelected": { "alias": "selected"; "required": false; }; "toggleSimple": { "alias": "toggleSimple"; "required": false; }; "primary": { "alias": "primary"; "required": false; }; "accent": { "alias": "accent"; "required": false; }; "warn": { "alias": "warn"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "isLoading": { "alias": "isLoading"; "required": false; }; "loadingProgress": { "alias": "loadingProgress"; "required": false; }; "customTextColor": { "alias": "color"; "required": false; }; "customBgColor": { "alias": "backgroundColor"; "required": false; }; "keepCustomTextColor": { "alias": "keepCustomTextColor"; "required": false; }; "keepCustomBgColor": { "alias": "keepCustomBgColor"; "required": false; }; "customToggleUnselectedColor": { "alias": "customToggleUnselectedColor"; "required": false; }; "customToggleUnselectedTextColor": { "alias": "customToggleUnselectedTextColor"; "required": false; }; "customToggleSelectedTextColor": { "alias": "customToggleSelectedTextColor"; "required": false; }; "progressColor": { "alias": "progressColor"; "required": false; }; "collapse": { "alias": "collapse"; "required": false; }; "collapseTo": { "alias": "collapseTo"; "required": false; }; "fitContent": { "alias": "fit-content"; "required": false; }; "showTooltip": { "alias": "tooltip"; "required": false; }; "tooltipText": { "alias": "tooltipText"; "required": false; }; "tooltipIfTruncated": { "alias": "tooltipIfTruncated"; "required": false; }; "tooltipIfCollapsed": { "alias": "tooltipIfCollapsed"; "required": false; }; "minHeight": { "alias": "minHeight"; "required": false; }; "fontSize": { "alias": "fontSize"; "required": false; }; "fontFamily": { "alias": "fontFamily"; "required": false; }; "fontWeight": { "alias": "fontWeight"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "fullIcon": { "alias": "fullIcon"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "customHoverColor": { "alias": "customHoverColor"; "required": false; }; "customHoverTextColor": { "alias": "customHoverTextColor"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, {}, never, ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"], false, never>;
+    static ngAcceptInputType_icon: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_raised: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_outline: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_flat: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_fab: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_miniFab: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_toggle: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_toggleSelected: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_toggleSimple: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_primary: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_accent: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_warn: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_disabled: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_isLoading: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
     static ngAcceptInputType_customTextColor: string;
     static ngAcceptInputType_customBgColor: string;
-    static ngAcceptInputType_keepCustomTextColor: unknown;
-    static ngAcceptInputType_keepCustomBgColor: unknown;
+    static ngAcceptInputType_keepCustomTextColor: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_keepCustomBgColor: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
     static ngAcceptInputType_customToggleUnselectedColor: string;
     static ngAcceptInputType_customToggleUnselectedTextColor: string;
     static ngAcceptInputType_customToggleSelectedTextColor: string;
     static ngAcceptInputType_progressColor: string;
-    static ngAcceptInputType_collapse: unknown;
-    static ngAcceptInputType_fitContent: unknown;
-    static ngAcceptInputType_showTooltip: unknown;
-    static ngAcceptInputType_tooltipIfTruncated: unknown;
-    static ngAcceptInputType_tooltipIfCollapsed: unknown;
+    static ngAcceptInputType_collapse: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_fitContent: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_showTooltip: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_tooltipIfTruncated: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
+    static ngAcceptInputType_tooltipIfCollapsed: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
     static ngAcceptInputType_minHeight: string | number;
     static ngAcceptInputType_fontSize: string | number;
     static ngAcceptInputType_diameter: string | number;
     static ngAcceptInputType_iconSize: string | number;
-    static ngAcceptInputType_fullIcon: unknown;
+    static ngAcceptInputType_fullIcon: 
+    /**
+     * Setzt die Standard-Styles anhand der Konfiguration und der gesetzten Attribute.
+     *
+     * @private
+     * @memberof MrdButtonComponent
+     */
+    unknown;
     static ngAcceptInputType_borderRadius: string | number;
     static ngAcceptInputType_customHoverColor: string;
     static ngAcceptInputType_customHoverTextColor: string;
