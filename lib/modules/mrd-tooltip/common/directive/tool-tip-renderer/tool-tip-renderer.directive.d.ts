@@ -21,7 +21,7 @@ export declare class ToolTipRendererDirective {
      * @type {string}
      * @memberof ToolTipRendererDirective
      */
-    text: string;
+    text: string | undefined;
     /**
      * Ein eigenes Template, das im Tooltip angezeigt werden soll
      *

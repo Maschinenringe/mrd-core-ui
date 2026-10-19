@@ -4,15 +4,19 @@ import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, Observab
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, RendererStyleFlags2, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER } from '@angular/core';
-import { of, tap, map, throwError, finalize, share, Subscription, take, startWith, fromEvent, merge, Subject, defer, switchMap } from 'rxjs';
+import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, RendererStyleFlags2, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER, ViewEncapsulation } from '@angular/core';
+import { of, tap, map, throwError, finalize, share, Subscription, take, Subject, startWith, switchMap, merge, isObservable, fromEvent, defer, filter, BehaviorSubject } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
 import * as i1$3 from '@angular/router';
+import * as i1$4 from '@angular/cdk/table';
+import { CdkTable, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, STICKY_POSITIONING_LISTENER, CdkHeaderRow, CdkFooterRow, CdkRow, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkCell, CdkFooterCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkNoDataRow, CdkTableModule } from '@angular/cdk/table';
+import { _VIEW_REPEATER_STRATEGY, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
+import { _isNumberValue } from '@angular/cdk/coercion';
 
 var MrdSButtonType;
 (function (MrdSButtonType) {
@@ -80,8 +84,35 @@ var IconName;
     IconName["STERN"] = "stern";
     IconName["STERN_LEER"] = "stern_leer";
     IconName["LISTE"] = "liste";
+    IconName["LABOR"] = "labor";
+    IconName["VERKNUEPFEN"] = "verknuepfen";
+    IconName["VERKNUEPFUNG_LOESEN"] = "verknuepfung_loesen";
+    IconName["AUSRUFEZEICHEN"] = "ausrufezeichen";
+    IconName["WARNUNG"] = "warnung";
+    IconName["BUCH"] = "buch";
+    IconName["DUPLIZIEREN"] = "duplizieren";
+    IconName["PFEIL_BEIDSEITIG"] = "pfeil_beidseitig";
+    IconName["TRENNEN"] = "trennen";
+    IconName["SPEICHERN"] = "speichern";
+    IconName["TAUSCHEN"] = "tauschen";
+    IconName["VERBINDEN"] = "verbinden";
+    IconName["ALLES_AUSWAEHLEN"] = "alles_auswaehlen";
+    IconName["SPIEGELN"] = "spiegeln";
+    IconName["SCHNEIDEN"] = "schneiden";
+    IconName["LINIE"] = "linie";
+    IconName["LINEAL"] = "lineal";
 })(IconName || (IconName = {}));
+/** Gemeinsame Attribute der Strich-Symbole; die IconFactory faerbt `stroke` wie `fill` ein, `fill="none"` bleibt */
+const STRICH = 'stroke="#293D4F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"';
 class IconLib {
+    /**
+     * Strich-Symbol fuer den Kreis: auf die Haelfte verkleinert und mittig, der Strich etwas kraeftiger,
+     * damit er neben den gefuellten Rahmen-Symbolen nicht zu duenn wirkt
+     */
+    static imRahmen(pur) {
+        const kraeftiger = pur.replace(/stroke-width="([\d.]+)"/g, (_, breite) => `stroke-width="${Number(breite) * 1.4}"`);
+        return `<g transform="translate(16 16) scale(0.5)">${kraeftiger}</g>`;
+    }
     // Outer Icons
     static KREIS_OUTLINE = `<path fill-rule="evenodd" clip-rule="evenodd" d="M57.5004 26.9275C56.4971 21.8839 54.0207 17.2512 50.3844 13.615C45.5085 8.73924 38.8954 6 32 6C25.1046 6 18.4915 8.73924 13.6156 13.615C9.97932 17.2512 7.50296 21.8839 6.49967 26.9275C5.49638 31.971 6.0112 37.1986 7.97906 41.9496C9.9469 46.7005 13.2794 50.7612 17.5551 53.6181C21.8308 56.4751 26.8577 58 32 58C37.1424 58 42.1692 56.4751 46.4449 53.6181C50.7206 50.7612 54.0531 46.7005 56.021 41.9496C57.9888 37.1986 58.5036 31.971 57.5004 26.9275ZM63.3851 25.7568C62.1502 19.5494 59.1024 13.8475 54.627 9.37231C48.6259 3.37141 40.4867 0 32 0C23.5133 0 15.3741 3.37141 9.37301 9.37231C4.89761 13.8475 1.84979 19.5494 0.614972 25.7568C-0.619851 31.9643 0.0137875 38.3983 2.43576 44.2456C4.85773 50.0929 8.95925 55.0907 14.2216 58.6069C19.484 62.1232 25.671 64 32 64C38.3291 64 44.516 62.1232 49.7784 58.6069C55.0408 55.0907 59.1423 50.0929 61.5643 44.2456C63.9862 38.3983 64.6199 31.9643 63.3851 25.7568Z" fill="#293D4F"/>`;
     static KREIS_FULL = `<path d="M54.627 9.37231C59.1024 13.8475 62.1502 19.5494 63.3851 25.7568C64.6199 31.9643 63.9862 38.3983 61.5643 44.2456C59.1423 50.0929 55.0408 55.0907 49.7784 58.6069C44.516 62.1232 38.3291 64 32 64C25.671 64 19.484 62.1232 14.2216 58.6069C8.95925 55.0907 4.85773 50.0929 2.43576 44.2456C0.0137875 38.3983 -0.619851 31.9643 0.614972 25.7568C1.84979 19.5494 4.89761 13.8475 9.37301 9.37231C15.3741 3.37141 23.5133 0 32 0C40.4867 0 48.6259 3.37141 54.627 9.37231Z" fill="#293D4F"/>`;
@@ -115,6 +146,24 @@ class IconLib {
     // Burgermenue
     static LISTE_PUR = `<path d="M12 20.3333C12 18.9526 13.1193 17.8333 14.5 17.8333H49.5C50.8807 17.8333 52 18.9526 52 20.3333C52 21.714 50.8807 22.8333 49.5 22.8333H14.5C13.1193 22.8333 12 21.714 12 20.3333ZM12 32C12 30.6193 13.1193 29.5 14.5 29.5H49.5C50.8807 29.5 52 30.6193 52 32C52 33.3807 50.8807 34.5 49.5 34.5H14.5C13.1193 34.5 12 33.3807 12 32ZM12 43.6667C12 42.286 13.1193 41.1667 14.5 41.1667H49.5C50.8807 41.1667 52 42.286 52 43.6667C52 45.0474 50.8807 46.1667 49.5 46.1667H14.5C13.1193 46.1667 12 45.0474 12 43.6667Z" fill="#293D4F"/>`;
     static PLAY_PUR = `<path d="M19.8962 19.2364C19.8962 16.7827 22.5525 15.2491 24.6774 16.476L46.7845 29.2395C48.9095 30.4663 48.9095 33.5335 46.7845 34.7604L24.6774 47.5239C22.5525 48.7508 19.8962 47.2172 19.8962 44.7635L19.8962 19.2364Z" fill="#293D4F"/>`;
+    // Strich-Symbole (Ersatz fuer Material-Icons in den Schlagkartei-Modulen), ohne Rahmen; im Kreis per imRahmen()
+    static LABOR_PUR = `<path d="M24 8H40M27 8V25L12 50C10.5 53 12.5 56 16 56H48C51.5 56 53.5 53 52 50L37 25V8" ${STRICH}/><path d="M18 42H46" ${STRICH}/>`;
+    static VERKNUEPFEN_PUR = `<path d="M26 20H18C11.4 20 6 25.4 6 32C6 38.6 11.4 44 18 44H26M38 20H46C52.6 20 58 25.4 58 32C58 38.6 52.6 44 46 44H38M22 32H42" ${STRICH}/>`;
+    static VERKNUEPFUNG_LOESEN_PUR = `<path d="M26 20H18C11.4 20 6 25.4 6 32C6 38.6 11.4 44 18 44H26M38 20H46C52.6 20 58 25.4 58 32C58 38.6 52.6 44 46 44H38M16 8L48 56" ${STRICH}/>`;
+    static AUSRUFEZEICHEN_PUR = `<path d="M32 10V38" ${STRICH.replace('stroke-width="5"', 'stroke-width="7"')}/><circle cx="32" cy="52" r="4.5" fill="#293D4F"/>`;
+    static WARNUNG_PUR = `<path d="M32 8L58 54H6Z" ${STRICH}/><path d="M32 24V38" ${STRICH}/><circle cx="32" cy="46" r="3" fill="#293D4F"/>`;
+    static BUCH_PUR = `<path d="M32 16C26 12 16 11 8 13V50C16 48 26 49 32 53C38 49 48 48 56 50V13C48 11 38 12 32 16ZM32 16V53" ${STRICH}/>`;
+    static DUPLIZIEREN_PUR = `<path d="M12 44V14C12 11.8 13.8 10 16 10H44" ${STRICH}/><rect x="22" y="18" width="32" height="36" rx="4" ${STRICH}/><path d="M38 28V44M30 36H46" ${STRICH}/>`;
+    static PFEIL_BEIDSEITIG_PUR = `<path d="M8 32H56M18 22L8 32L18 42M46 22L56 32L46 42" ${STRICH}/>`;
+    static TRENNEN_PUR = `<path d="M8 32H24M40 32H56M18 22L8 32L18 42M46 22L56 32L46 42M37 18L27 46" ${STRICH}/>`;
+    static SPEICHERN_PUR = `<path d="M10 14C10 11.8 11.8 10 14 10H44L54 20V50C54 52.2 52.2 54 50 54H14C11.8 54 10 52.2 10 50ZM20 10V22H40V10" ${STRICH}/><circle cx="32" cy="40" r="6" ${STRICH}/>`;
+    static TAUSCHEN_PUR = `<path d="M10 22H52M42 12L52 22L42 32M54 42H12M22 32L12 42L22 52" ${STRICH}/>`;
+    static VERBINDEN_PUR = `<circle cx="24" cy="32" r="16" ${STRICH}/><circle cx="40" cy="32" r="16" ${STRICH}/>`;
+    static ALLES_AUSWAEHLEN_PUR = `<rect x="8" y="8" width="48" height="48" rx="3" stroke-dasharray="6 7" ${STRICH}/><rect x="20" y="20" width="24" height="24" rx="2" fill="#293D4F"/>`;
+    static SPIEGELN_PUR = `<path d="M32 6V58" stroke-dasharray="5 7" ${STRICH}/><path d="M24 16V48H8ZM40 16V48H56Z" ${STRICH}/>`;
+    static SCHNEIDEN_PUR = `<circle cx="18" cy="46" r="8" ${STRICH}/><circle cx="46" cy="46" r="8" ${STRICH}/><path d="M23.5 40L50 8M40.5 40L14 8" ${STRICH}/>`;
+    static LINIE_PUR = `<path d="M8 8V56H56M16 44L28 28L38 36L54 16" ${STRICH}/>`;
+    static LINEAL_PUR = `<path d="M10 10L54 54H10ZM20 34L30 44H20ZM10 22H16M10 32H16M10 42H16M32 54V48M42 54V48" ${STRICH}/>`;
     /** Symbole fuer die Darstellung im Rahmen; Symbole, die es nur ohne Rahmen gibt, stehen nur in der PurMap */
     static IconMap = {
         [IconName.OUTLINE]: IconLib.KREIS_OUTLINE,
@@ -131,7 +180,24 @@ class IconLib {
         [IconName.INFO]: IconLib.INFO,
         [IconName.SUCHE]: IconLib.SUCHE,
         [IconName.TELEFON]: IconLib.TELEFON,
-        [IconName.UPLOAD]: IconLib.UPLOAD
+        [IconName.UPLOAD]: IconLib.UPLOAD,
+        [IconName.LABOR]: IconLib.imRahmen(IconLib.LABOR_PUR),
+        [IconName.VERKNUEPFEN]: IconLib.imRahmen(IconLib.VERKNUEPFEN_PUR),
+        [IconName.VERKNUEPFUNG_LOESEN]: IconLib.imRahmen(IconLib.VERKNUEPFUNG_LOESEN_PUR),
+        [IconName.AUSRUFEZEICHEN]: IconLib.imRahmen(IconLib.AUSRUFEZEICHEN_PUR),
+        [IconName.WARNUNG]: IconLib.imRahmen(IconLib.WARNUNG_PUR),
+        [IconName.BUCH]: IconLib.imRahmen(IconLib.BUCH_PUR),
+        [IconName.DUPLIZIEREN]: IconLib.imRahmen(IconLib.DUPLIZIEREN_PUR),
+        [IconName.PFEIL_BEIDSEITIG]: IconLib.imRahmen(IconLib.PFEIL_BEIDSEITIG_PUR),
+        [IconName.TRENNEN]: IconLib.imRahmen(IconLib.TRENNEN_PUR),
+        [IconName.SPEICHERN]: IconLib.imRahmen(IconLib.SPEICHERN_PUR),
+        [IconName.TAUSCHEN]: IconLib.imRahmen(IconLib.TAUSCHEN_PUR),
+        [IconName.VERBINDEN]: IconLib.imRahmen(IconLib.VERBINDEN_PUR),
+        [IconName.ALLES_AUSWAEHLEN]: IconLib.imRahmen(IconLib.ALLES_AUSWAEHLEN_PUR),
+        [IconName.SPIEGELN]: IconLib.imRahmen(IconLib.SPIEGELN_PUR),
+        [IconName.SCHNEIDEN]: IconLib.imRahmen(IconLib.SCHNEIDEN_PUR),
+        [IconName.LINIE]: IconLib.imRahmen(IconLib.LINIE_PUR),
+        [IconName.LINEAL]: IconLib.imRahmen(IconLib.LINEAL_PUR)
     };
     /**
      * Varianten ohne Rahmen (_PUR): Sie fuellen das Raster weiter aus als die Symbole fuer den Kreis
@@ -150,7 +216,24 @@ class IconLib {
         [IconName.PLAY]: IconLib.PLAY_PUR,
         [IconName.STERN]: IconLib.STERN_PUR,
         [IconName.STERN_LEER]: IconLib.STERN_LEER_PUR,
-        [IconName.LISTE]: IconLib.LISTE_PUR
+        [IconName.LISTE]: IconLib.LISTE_PUR,
+        [IconName.LABOR]: IconLib.LABOR_PUR,
+        [IconName.VERKNUEPFEN]: IconLib.VERKNUEPFEN_PUR,
+        [IconName.VERKNUEPFUNG_LOESEN]: IconLib.VERKNUEPFUNG_LOESEN_PUR,
+        [IconName.AUSRUFEZEICHEN]: IconLib.AUSRUFEZEICHEN_PUR,
+        [IconName.WARNUNG]: IconLib.WARNUNG_PUR,
+        [IconName.BUCH]: IconLib.BUCH_PUR,
+        [IconName.DUPLIZIEREN]: IconLib.DUPLIZIEREN_PUR,
+        [IconName.PFEIL_BEIDSEITIG]: IconLib.PFEIL_BEIDSEITIG_PUR,
+        [IconName.TRENNEN]: IconLib.TRENNEN_PUR,
+        [IconName.SPEICHERN]: IconLib.SPEICHERN_PUR,
+        [IconName.TAUSCHEN]: IconLib.TAUSCHEN_PUR,
+        [IconName.VERBINDEN]: IconLib.VERBINDEN_PUR,
+        [IconName.ALLES_AUSWAEHLEN]: IconLib.ALLES_AUSWAEHLEN_PUR,
+        [IconName.SPIEGELN]: IconLib.SPIEGELN_PUR,
+        [IconName.SCHNEIDEN]: IconLib.SCHNEIDEN_PUR,
+        [IconName.LINIE]: IconLib.LINIE_PUR,
+        [IconName.LINEAL]: IconLib.LINEAL_PUR
     };
 }
 
@@ -211,6 +294,9 @@ class ConfigUtil {
                 borderRadiusRounded: "70px",
                 fill: {
                     backgroundColor: "#D8DFE880"
+                },
+                newFill: {
+                    backgroundColor: "#EBEFF3"
                 },
                 input: {
                     color: MrdColor.GRAU_BLAU
@@ -753,7 +839,8 @@ class MrdDatumUtil {
         return wert.trim() === '' || MrdDatumUtil.parse(wert) !== null;
     }
     static bauen(tag, monat, jahr) {
-        if (tag.length > 2 || (monat !== null && monat.length > 2) || (jahr !== null && jahr.length > 4)) {
+        // Ein- oder dreistellige Jahre sind halb getippt ("03.03.2") und duerfen nicht zum Jahr 0002 aufgefuellt werden
+        if (tag.length > 2 || (monat !== null && monat.length > 2) || (jahr !== null && jahr.length !== 2 && jahr.length !== 4)) {
             return null;
         }
         const heute = moment();
@@ -1726,12 +1813,12 @@ class MrdDirectiveModule {
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
 } }
-const _c0$B = function (a0) { return { "transform": a0 }; };
+const _c0$E = function (a0) { return { "transform": a0 }; };
 function MrdProgressBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 4);
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$B, "translateX(" + ctx_r1.value + "%)"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$E, "translateX(" + ctx_r1.value + "%)"));
 } }
 class MrdProgressBarComponent {
     cdr;
@@ -2006,7 +2093,7 @@ function MrdTooltipComponent_ng_template_2_Template(rf, ctx) { if (rf & 1) {
 function MrdTooltipComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$A = function (a0) { return { "mrd-tooltip-container": a0 }; };
+const _c0$D = function (a0) { return { "mrd-tooltip-container": a0 }; };
 class MrdTooltipComponent {
     /**
      * This is simple text which is to be shown in the tooltip
@@ -2033,7 +2120,7 @@ class MrdTooltipComponent {
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$A, ctx.defaultStyle));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$D, ctx.defaultStyle));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || _r0);
         } }, dependencies: [i1$1.NgClass, i1$1.NgTemplateOutlet], styles: [".mrd-tooltip-container[_ngcontent-%COMP%]{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}"] });
@@ -2237,7 +2324,7 @@ class ToolTipRendererDirective {
      * This method will show the tooltip by instantiating the CustomToolTipComponent and attaching to the overlay
      */
     show() {
-        if (!this._showToolTip) {
+        if (!this._showToolTip || !this.text || this.text === '') {
             return;
         }
         if (this.showIfTruncated) {
@@ -2391,7 +2478,7 @@ class ToolTipRendererDirective {
             args: ['mouseleave', ['$event']]
         }] }); })();
 
-const _c0$z = ["mrdButtonTextContent"];
+const _c0$C = ["mrdButtonTextContent"];
 function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
@@ -2404,12 +2491,12 @@ function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf &
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵproperty("value", ctx_r3.loadingProgress == null ? null : ctx_r3.loadingProgress.value)("mode", ctx_r3.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r3.progressColor);
 } }
-const _c1$j = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c1$l = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c2$c = function (a0) { return { "min-width": a0 }; };
 const _c3$9 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "mrd-toggle-simple": a8, "disabled": a9 }; };
-const _c4$5 = function (a0) { return { "isCollapsed": a0 }; };
-const _c5$3 = function (a0) { return { "full-icon": a0 }; };
-const _c6$1 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
+const _c4$6 = function (a0) { return { "isCollapsed": a0 }; };
+const _c5$4 = function (a0) { return { "full-icon": a0 }; };
+const _c6$2 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", ":not([mrd-icon]):not(mrd-icon)", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 /**
  * Dieses Komponente stellt den Mrd-Button zur Verfügung.
  *
@@ -3065,7 +3152,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
     };
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$z, 7);
+            i0.ɵɵviewQuery(_c0$C, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -3073,8 +3160,8 @@ class MrdButtonComponent extends BasePushStrategyObject {
             i0.ɵɵlistener("mouseenter", function MrdButtonComponent_mouseenter_HostBindingHandler() { return ctx.onMouseEnter(); })("mouseleave", function MrdButtonComponent_mouseleave_HostBindingHandler() { return ctx.onMouseLeave(); });
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
-        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], toggleSimple: ["toggleSimple", "toggleSimple", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 14, vars: 73, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$j);
+        } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], toggleSimple: ["toggleSimple", "toggleSimple", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$2, decls: 14, vars: 73, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$l);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
             i0.ɵɵelementEnd();
@@ -3098,13 +3185,13 @@ class MrdButtonComponent extends BasePushStrategyObject {
             i0.ɵɵadvance(3);
             i0.ɵɵstyleProp("--hover-color", ctx.hoverColor)("--active-color", ctx.activeColor);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(67, _c4$5, ctx.isCollapsed));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(67, _c4$6, ctx.isCollapsed));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(69, _c5$3, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(69, _c5$4, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("hideIfTruncated", ctx.collapse)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(71, _c5$3, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(71, _c5$4, ctx.fullIcon))("hideIfTruncated", ctx.collapse)("hideOnTruncatedElement", _r1)("parentResizeElement", ctx.elementRef.nativeElement);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", !ctx.disabled && !ctx.icon && !ctx.fab && !ctx.miniFab && (ctx.isLoading || (ctx.loading == null ? null : ctx.loading.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) || (ctx.loadingProgress == null ? null : ctx.loadingProgress.value) === 0));
             i0.ɵɵadvance(1);
@@ -3362,7 +3449,7 @@ function iconColorAttribute(value) {
     return SCHLUESSELWOERTER.includes(value) ? value : colorAttribute(value);
 }
 
-const _c0$y = ["*"];
+const _c0$B = ["*"];
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -3637,7 +3724,7 @@ class MrdIconComponent {
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], hostAttrs: ["role", "img", "aria-hidden", "true"], hostVars: 6, hostBindings: function MrdIconComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-icon-size", ctx.aktuelleGroesse)("color", !ctx.icon ? ctx.color : null);
             i0.ɵɵclassProp("mrd-icon-sized", !!ctx.aktuelleGroesse);
-        } }, inputs: { svgIcon: "svgIcon", icon: "icon", outline: ["outline", "outline", booleanAttribute], full: ["full", "full", booleanAttribute], dashed: ["dashed", "dashed", booleanAttribute], color: ["color", "color", iconColorAttribute], innerColor: ["innerColor", "innerColor", iconColorAttribute], outerColor: ["outerColor", "outerColor", iconColorAttribute], direction: "direction", size: ["size", "size", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c0$y, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { svgIcon: "svgIcon", icon: "icon", outline: ["outline", "outline", booleanAttribute], full: ["full", "full", booleanAttribute], dashed: ["dashed", "dashed", booleanAttribute], color: ["color", "color", iconColorAttribute], innerColor: ["innerColor", "innerColor", iconColorAttribute], outerColor: ["outerColor", "outerColor", iconColorAttribute], direction: "direction", size: ["size", "size", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c0$B, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: [".mrd-icon-sized[_nghost-%COMP%]{display:inline-flex;flex-shrink:0;box-sizing:border-box;width:var(--mrd-icon-size);height:var(--mrd-icon-size);line-height:0;vertical-align:middle}"], changeDetection: 0 });
@@ -3714,11 +3801,23 @@ class MrdTabComponent {
     set label(value) {
         this._label = value;
         this.cdr.detectChanges();
+        this.zustandGeaendert.next();
     }
     get label() {
         return this._label;
     }
     _label;
+    /** Gesperrter Tab: Kopf ausgegraut, Klick ohne Wirkung; per Code (`selectedIndex`) bleibt er waehlbar. `*mrdTab="'Label'; disabled: bedingung"` */
+    set disabled(value) {
+        this._disabled = value;
+        this.zustandGeaendert.next();
+    }
+    get disabled() {
+        return this._disabled;
+    }
+    _disabled = false;
+    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung und Sperre, damit der Kopf aktualisiert wird */
+    zustandGeaendert = new Subject();
     _embeddedViewRef = null;
     get content() {
         if (!this._embeddedViewRef || this._embeddedViewRef.destroyed) {
@@ -3752,13 +3851,16 @@ class MrdTabComponent {
         this.cdr = cdr;
         this.tr = tr;
     }
+    ngOnDestroy() {
+        this.zustandGeaendert.complete();
+    }
     /** @nocollapse */ static ɵfac = function MrdTabComponent_Factory(t) { return new (t || MrdTabComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.TemplateRef)); };
     /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdTabComponent, selectors: [["", "mrdTab", ""]], viewQuery: function MrdTabComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(TemplateRef, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx._implicitContent = _t.first);
-        } }, inputs: { label: ["mrdTab", "label"], preserveContent: ["mrdTabPreserveContent", "preserveContent", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
+        } }, inputs: { label: ["mrdTab", "label"], disabled: ["mrdTabDisabled", "disabled", booleanAttribute], preserveContent: ["mrdTabPreserveContent", "preserveContent", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabComponent, [{
         type: Directive,
@@ -3771,13 +3873,16 @@ class MrdTabComponent {
         }], label: [{
             type: Input,
             args: ["mrdTab"]
+        }], disabled: [{
+            type: Input,
+            args: [{ alias: 'mrdTabDisabled', transform: booleanAttribute }]
         }], preserveContent: [{
             type: Input,
             args: [{ alias: 'mrdTabPreserveContent', transform: booleanAttribute }]
         }] }); })();
 
 function MrdTabBodyComponent_ng_template_1_Template(rf, ctx) { }
-const _c0$x = function (a0, a1) { return { "transform": a0, "display": a1 }; };
+const _c0$A = function (a0, a1) { return { "transform": a0, "display": a1 }; };
 class MatTabBodyPortal {
     viewContainerRef;
     _host;
@@ -3857,7 +3962,6 @@ class MrdTabBodyComponent {
             this.hideTimeout = setTimeout(() => {
                 this.hidden = true;
                 this._isHidden.emit(true);
-                console.log(this.index, 'hide');
                 this.cdr.detectChanges();
             }, 1000);
             this._translate = value + '%';
@@ -3894,7 +3998,7 @@ class MrdTabBodyComponent {
             i0.ɵɵtemplate(1, MrdTabBodyComponent_ng_template_1_Template, 0, 0, "ng-template", 1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$x, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$A, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
         } }, dependencies: [i1$1.NgStyle, MatTabBodyPortal], styles: [".mrd-tab-content[_ngcontent-%COMP%]{display:block;position:absolute;inset:0;transition:transform 1s ease-out}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
@@ -3918,44 +4022,51 @@ class MrdTabBodyComponent {
             type: Input
         }] }); })();
 
-const _c0$w = ["mrdTabHeader"];
-const _c1$i = function (a0, a1, a2) { return { "tab-active": a0, "tabs-rounded": a1, "fit-labels": a2 }; };
+const _c0$z = ["mrdTabHeader"];
+const _c1$k = function (a0, a1, a2, a3) { return { "tab-active": a0, "tab-disabled": a1, "tabs-rounded": a2, "fit-labels": a3 }; };
 function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r6 = i0.ɵɵgetCurrentView();
+    const _r7 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 6, 7);
-    i0.ɵɵlistener("click", function MrdTabGroupComponent_div_0_div_1_Template_div_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r6); const tab_r3 = restoredCtx.$implicit; const ctx_r5 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r5.activateTab(tab_r3.index)); });
+    i0.ɵɵlistener("click", function MrdTabGroupComponent_div_0_div_1_Template_div_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r7); const tab_r4 = restoredCtx.$implicit; const ctx_r6 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r6.tabGeklickt(tab_r4)); });
     i0.ɵɵtext(2);
     i0.ɵɵelement(3, "div", 8);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const tab_r3 = ctx.$implicit;
+    const tab_r4 = ctx.$implicit;
     const ctx_r2 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c1$i, tab_r3.active, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(4, _c1$k, tab_r4.active, tab_r4.disabled, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵattribute("aria-selected", !!tab_r4.active)("aria-disabled", tab_r4.disabled);
     i0.ɵɵadvance(2);
-    i0.ɵɵtextInterpolate1(" ", tab_r3.label, " ");
+    i0.ɵɵtextInterpolate1(" ", tab_r4.label, " ");
+} }
+function MrdTabGroupComponent_div_0_div_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "div", 9);
+} if (rf & 2) {
+    const ctx_r3 = i0.ɵɵnextContext(2);
+    i0.ɵɵstyleProp("left", ctx_r3.tabUnderlineLeft, "px")("width", ctx_r3.tabUnderlineWidth, "px");
 } }
 const _c2$b = function (a0) { return { "height": a0 }; };
 function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 3);
-    i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 6, "div", 4);
-    i0.ɵɵelement(2, "div", 5);
+    i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 9, "div", 4);
+    i0.ɵɵtemplate(2, MrdTabGroupComponent_div_0_div_2_Template, 1, 4, "div", 5);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(6, _c2$b, ctx_r0.headerHeight + "px"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c2$b, ctx_r0.headerHeight + "px"));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngForOf", ctx_r0.tabs);
     i0.ɵɵadvance(1);
-    i0.ɵɵstyleProp("left", ctx_r0.tabUnderlineLeft, "px")("width", ctx_r0.tabUnderlineWidth, "px");
+    i0.ɵɵproperty("ngIf", ctx_r0.indicator);
 } }
 function MrdTabGroupComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵelement(1, "mrd-tab-body", 9);
+    i0.ɵɵelement(1, "mrd-tab-body", 10);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const tab_r7 = ctx.$implicit;
+    const tab_r8 = ctx.$implicit;
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("content", tab_r7.content)("active", tab_r7.active)("index", tab_r7.index)("preserveContent", tab_r7.preserveContent);
+    i0.ɵɵproperty("content", tab_r8.content)("active", tab_r8.active)("index", tab_r8.index)("preserveContent", tab_r8.preserveContent);
 } }
 class MrdTabGroupComponent extends BaseObject {
     cdr;
@@ -3967,6 +4078,8 @@ class MrdTabGroupComponent extends BaseObject {
     rounded = false;
     labelsFit = false;
     noHeader = false;
+    /** Linie unter dem aktiven Tab, die beim Wechsel mitwandert; standardmaessig aus */
+    indicator = false;
     queryParameterActive;
     set headerHeight(value) {
         this._headerHeight = value;
@@ -3985,8 +4098,15 @@ class MrdTabGroupComponent extends BaseObject {
     }
     _selectedIndex;
     changeTab;
+    /**
+     * Wird vor jedem Tabwechsel per Klick auf den Kopf gefragt; Wechsel per `selectedIndex`/`changeTab` laufen ohne Rueckfrage.
+     * Ein Observable zaehlt mit seinem ersten Wert.
+     */
+    canChangeTab;
     selectedTabChanged = new EventEmitter();
     selectedTabIndexChanged = new EventEmitter();
+    /** Fuer `[(selectedIndex)]`, gleicher Wert wie `selectedTabIndexChanged` */
+    selectedIndexChange = new EventEmitter();
     tabUnderlineLeft = 0;
     tabUnderlineWidth = 0;
     activeIndex;
@@ -3999,9 +4119,10 @@ class MrdTabGroupComponent extends BaseObject {
         this.route = route;
     }
     ngAfterViewInit() {
-        this.tabs.forEach((tab, index) => {
-            tab.index = index;
-        });
+        this.tabsIndizieren();
+        // Tabs per *ngFor koennen spaeter dazukommen oder wegfallen
+        this.watch(this.tabs.changes, new SubscriptionHandler(() => this.tabsGeaendert()));
+        this.watch(this.tabs.changes.pipe(startWith(this.tabs), switchMap((tabs) => merge(...tabs.map((tab) => tab.zustandGeaendert)))), new SubscriptionHandler(() => this.cdr.markForCheck()));
         if (Util.isDefined(this.changeTab)) {
             this.watch(this.changeTab.changed, new SubscriptionHandler((index) => {
                 this.activateTab(index);
@@ -4029,6 +4150,73 @@ class MrdTabGroupComponent extends BaseObject {
         else if (!Util.isDefined(this.activeIndex)) {
             this.activateTab(0);
         }
+    }
+    /** Klick auf einen Tabkopf: gesperrte Tabs ignorieren, sonst `canChangeTab` fragen */
+    tabGeklickt(tab) {
+        if (tab.disabled || tab.index === this.activeIndex) {
+            return;
+        }
+        if (!this.canChangeTab) {
+            this.activateTab(tab.index);
+            return;
+        }
+        const erlaubt = this.canChangeTab(tab.index, this.activeIndex);
+        if (isObservable(erlaubt)) {
+            this.subscribe(erlaubt, new SubscriptionHandler((ok) => {
+                if (ok) {
+                    this.activateTab(tab.index);
+                }
+            }));
+        }
+        else if (erlaubt) {
+            this.activateTab(tab.index);
+        }
+    }
+    tabsIndizieren() {
+        this.tabs.forEach((tab, index) => {
+            tab.index = index;
+        });
+    }
+    /** Der aktive Tab bleibt aktiv, auch wenn sich sein Index verschiebt; faellt er weg, wird der naechstliegende gewaehlt */
+    tabsGeaendert() {
+        this.tabsIndizieren();
+        this.cdr.detectChanges();
+        if (this.tabs.length === 0) {
+            this.activeIndex = undefined;
+            this.activeTab = undefined;
+            return;
+        }
+        const aktiv = Util.isDefined(this.activeTab) ? this.tabs.toArray().indexOf(this.activeTab) : -1;
+        if (aktiv >= 0) {
+            this.activeIndex = aktiv;
+            this.activeTabBody = this.tabBodys.get(aktiv);
+            this.unterstreichungSetzen(aktiv);
+            this.cdr.detectChanges();
+            this.indexMelden(aktiv);
+            return;
+        }
+        const neu = Math.min(this.activeIndex ?? this._selectedIndex ?? 0, this.tabs.length - 1);
+        this.activeIndex = undefined;
+        this.activeTab = undefined;
+        this.activateTab(neu);
+    }
+    unterstreichungSetzen(index) {
+        const header = this.noHeader ? undefined : this.tabHeader?.get(index);
+        if (header) {
+            this.tabUnderlineLeft = header.nativeElement.offsetLeft;
+            this.tabUnderlineWidth = header.nativeElement.offsetWidth;
+        }
+    }
+    /**
+     * Nur bei echter Aenderung und erst nach dem laufenden Change-Detection-Durchlauf,
+     * sonst wirft `[(selectedIndex)]` beim ersten Rendern ExpressionChangedAfterItHasBeenChecked
+     */
+    indexMelden(index) {
+        if (index === this._selectedIndex) {
+            return;
+        }
+        this._selectedIndex = index;
+        Promise.resolve().then(() => this.selectedIndexChange.emit(index));
     }
     activateTab(index) {
         if (Util.isDefined(this.activeIndex) && Util.isDefined(this.activeTab)) {
@@ -4074,13 +4262,10 @@ class MrdTabGroupComponent extends BaseObject {
                     queryParamsHandling: 'merge'
                 });
             }
-            if (!this.noHeader) {
-                let header = this.tabHeader.get(index);
-                this.tabUnderlineLeft = header.nativeElement.offsetLeft;
-                this.tabUnderlineWidth = header.nativeElement.offsetWidth;
-            }
+            this.unterstreichungSetzen(index);
             this.selectedTabChanged.emit(tab);
             this.selectedTabIndexChanged.emit(index);
+            this.indexMelden(index);
         }
         this.cdr.detectChanges();
     }
@@ -4092,13 +4277,13 @@ class MrdTabGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabs = _t);
         } }, viewQuery: function MrdTabGroupComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$w, 5);
+            i0.ɵɵviewQuery(_c0$z, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabBodys = _t);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabHeader = _t);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], labelsFit: ["labelsFit", "labelsFit", booleanAttribute], noHeader: ["noHeader", "noHeader", booleanAttribute], queryParameterActive: "queryParameterActive", headerHeight: "headerHeight", selectedIndex: "selectedIndex", changeTab: "changeTab" }, outputs: { selectedTabChanged: "selectedTabChanged", selectedTabIndexChanged: "selectedTabIndexChanged" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], decls: 3, vars: 2, consts: [["class", "mrd-tab-group-tabs-container", 3, "ngStyle", 4, "ngIf"], [1, "mrd-tab-group-content-container"], [4, "ngFor", "ngForOf"], [1, "mrd-tab-group-tabs-container", 3, "ngStyle"], ["class", "mrd-tab-group-tab", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "mrd-tab-underline"], [1, "mrd-tab-group-tab", 3, "ngClass", "click"], ["mrdTabHeader", ""], [1, "mrd-tab-group-tab-indicator"], [3, "content", "active", "index", "preserveContent"]], template: function MrdTabGroupComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵtemplate(0, MrdTabGroupComponent_div_0_Template, 3, 8, "div", 0);
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], labelsFit: ["labelsFit", "labelsFit", booleanAttribute], noHeader: ["noHeader", "noHeader", booleanAttribute], indicator: ["indicator", "indicator", booleanAttribute], queryParameterActive: "queryParameterActive", headerHeight: "headerHeight", selectedIndex: "selectedIndex", changeTab: "changeTab", canChangeTab: "canChangeTab" }, outputs: { selectedTabChanged: "selectedTabChanged", selectedTabIndexChanged: "selectedTabIndexChanged", selectedIndexChange: "selectedIndexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], decls: 3, vars: 2, consts: [["class", "mrd-tab-group-tabs-container", "role", "tablist", 3, "ngStyle", 4, "ngIf"], [1, "mrd-tab-group-content-container"], [4, "ngFor", "ngForOf"], ["role", "tablist", 1, "mrd-tab-group-tabs-container", 3, "ngStyle"], ["class", "mrd-tab-group-tab", "role", "tab", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], ["class", "mrd-tab-underline", 3, "left", "width", 4, "ngIf"], ["role", "tab", 1, "mrd-tab-group-tab", 3, "ngClass", "click"], ["mrdTabHeader", ""], [1, "mrd-tab-group-tab-indicator"], [1, "mrd-tab-underline"], [3, "content", "active", "index", "preserveContent"]], template: function MrdTabGroupComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵtemplate(0, MrdTabGroupComponent_div_0_Template, 3, 5, "div", 0);
             i0.ɵɵelementStart(1, "div", 1);
             i0.ɵɵtemplate(2, MrdTabGroupComponent_ng_container_2_Template, 2, 4, "ng-container", 2);
             i0.ɵɵelementEnd();
@@ -4106,11 +4291,11 @@ class MrdTabGroupComponent extends BaseObject {
             i0.ɵɵproperty("ngIf", !ctx.noHeader);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngForOf", ctx.tabs);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgStyle, MrdTabBodyComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-underline[_ngcontent-%COMP%]{position:absolute;bottom:0;height:2px;background-color:#00f;transition:left .3s,width .3s}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.fit-labels[_ngcontent-%COMP%]{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%], .mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{position:absolute;inset:0}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:active{pointer-events:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgForOf, i1$1.NgIf, i1$1.NgStyle, MrdTabBodyComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-underline[_ngcontent-%COMP%]{position:absolute;bottom:0;height:2px;background-color:var(--mrd-tab-indicator-farbe, blue);transition:left .3s,width .3s}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.fit-labels[_ngcontent-%COMP%]{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%], .mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tabs-rounded[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-disabled[_ngcontent-%COMP%]{opacity:.5;cursor:default}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-disabled[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:transparent}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab.tab-active[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]{position:absolute;inset:0}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:active{pointer-events:none}.mrd-tab-group-tabs-container[_ngcontent-%COMP%]   .mrd-tab-group-tab[_ngcontent-%COMP%]   .mrd-tab-group-tab-indicator[_ngcontent-%COMP%]:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabGroupComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-tab-group', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-tab-group-tabs-container\" [ngStyle]=\"{'height': headerHeight+'px'}\" *ngIf=\"!noHeader\">\r\n  <div class=\"mrd-tab-group-tab\" #mrdTabHeader *ngFor=\"let tab of tabs\"\r\n    [ngClass]=\"{'tab-active': tab.active, 'tabs-rounded': rounded, 'fit-labels': labelsFit}\" (click)=\"activateTab(tab.index)\">\r\n    {{tab.label}}\r\n    <div class=\"mrd-tab-group-tab-indicator\"></div>\r\n  </div>\r\n  <div class=\"mrd-tab-underline\" [style.left.px]=\"tabUnderlineLeft\" [style.width.px]=\"tabUnderlineWidth\"></div>\r\n</div>\r\n<div class=\"mrd-tab-group-content-container\">\r\n  <!-- <ng-content></ng-content> -->\r\n  <ng-container *ngFor=\"let tab of tabs\">\r\n    <mrd-tab-body\r\n      [content]=\"tab.content\"\r\n      [active]=\"tab.active\"\r\n      [index]=\"tab.index\"\r\n      [preserveContent]=\"tab.preserveContent\"\r\n    >\r\n\r\n    </mrd-tab-body>\r\n  </ng-container>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container .mrd-tab-underline{position:absolute;bottom:0;height:2px;background-color:#00f;transition:left .3s,width .3s}.mrd-tab-group-tabs-container .mrd-tab-group-tab{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container .mrd-tab-group-tab.fit-labels{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded,.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded .mrd-tab-group-tab-indicator{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active .mrd-tab-group-tab-indicator:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator{position:absolute;inset:0}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:active{pointer-events:none}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
+        args: [{ selector: 'mrd-tab-group', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-tab-group-tabs-container\" [ngStyle]=\"{'height': headerHeight+'px'}\" *ngIf=\"!noHeader\" role=\"tablist\">\r\n  <div class=\"mrd-tab-group-tab\" #mrdTabHeader *ngFor=\"let tab of tabs\"\r\n    role=\"tab\" [attr.aria-selected]=\"!!tab.active\" [attr.aria-disabled]=\"tab.disabled\"\r\n    [ngClass]=\"{'tab-active': tab.active, 'tab-disabled': tab.disabled, 'tabs-rounded': rounded, 'fit-labels': labelsFit}\" (click)=\"tabGeklickt(tab)\">\r\n    {{tab.label}}\r\n    <div class=\"mrd-tab-group-tab-indicator\"></div>\r\n  </div>\r\n  <div class=\"mrd-tab-underline\" *ngIf=\"indicator\" [style.left.px]=\"tabUnderlineLeft\" [style.width.px]=\"tabUnderlineWidth\"></div>\r\n</div>\r\n<div class=\"mrd-tab-group-content-container\">\r\n  <!-- <ng-content></ng-content> -->\r\n  <ng-container *ngFor=\"let tab of tabs\">\r\n    <mrd-tab-body\r\n      [content]=\"tab.content\"\r\n      [active]=\"tab.active\"\r\n      [index]=\"tab.index\"\r\n      [preserveContent]=\"tab.preserveContent\"\r\n    >\r\n\r\n    </mrd-tab-body>\r\n  </ng-container>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container .mrd-tab-underline{position:absolute;bottom:0;height:2px;background-color:var(--mrd-tab-indicator-farbe, blue);transition:left .3s,width .3s}.mrd-tab-group-tabs-container .mrd-tab-group-tab{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container .mrd-tab-group-tab.fit-labels{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded,.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded .mrd-tab-group-tab-indicator{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-disabled{opacity:.5;cursor:default}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-disabled .mrd-tab-group-tab-indicator:hover{background-color:transparent}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active .mrd-tab-group-tab-indicator:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator{position:absolute;inset:0}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:active{pointer-events:none}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i1$3.Router }, { type: i1$3.ActivatedRoute }]; }, { tabs: [{
             type: ContentChildren,
             args: [MrdTabComponent]
@@ -4129,6 +4314,9 @@ class MrdTabGroupComponent extends BaseObject {
         }], noHeader: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
+        }], indicator: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
         }], queryParameterActive: [{
             type: Input
         }], headerHeight: [{
@@ -4137,9 +4325,13 @@ class MrdTabGroupComponent extends BaseObject {
             type: Input
         }], changeTab: [{
             type: Input
+        }], canChangeTab: [{
+            type: Input
         }], selectedTabChanged: [{
             type: Output
         }], selectedTabIndexChanged: [{
+            type: Output
+        }], selectedIndexChange: [{
             type: Output
         }] }); })();
 
@@ -4174,8 +4366,8 @@ class MrdTabsModule {
         MrdTabComponent,
         MrdTabBodyComponent] }); })();
 
-const _c0$v = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
-const _c1$h = function (a0, a1) { return { "selected": a0, "over": a1 }; };
+const _c0$y = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
+const _c1$j = function (a0, a1) { return { "selected": a0, "over": a1 }; };
 /**
  * Komponente für die Darstellung von Geo-Icons (Schlagzeichnungen).
  *
@@ -4452,10 +4644,10 @@ class MrdGeoIconComponent {
             i0.ɵɵstyleProp("--width", ctx.width)("--height", ctx.height)("--margin", ctx.margin)("--transitionTime", ctx.transitionTime)("--mainColor", ctx.mainColor)("--mainSelectedColor", ctx.mainSelectedColor)("--backColor", ctx.backColor)("--backSelectedColor", ctx.backSelectedColor)("--overColor", ctx.overlayColor)("--overSelectedColor", ctx.overlaySelectedColor)("--mainOpacity", ctx.mainOpacity)("--mainSelectedOpacity", ctx.mainSelectedOpacity)("--backOpacity", ctx.backOpacity)("--backSelectedOpacity", ctx.backSelectedOpacity)("--overOpacity", ctx.overlayOpacity)("--overSelectedOpacity", ctx.overlaySelectedOpacity);
             i0.ɵɵattribute("viewBox", ctx.viewBox);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$v, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$y, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.base);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$h, ctx.isSelected, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$j, ctx.isSelected, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.overlay);
         } }, dependencies: [i1$1.NgClass], styles: [".geoicon[_ngcontent-%COMP%]{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .main.selected[_ngcontent-%COMP%]{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon[_ngcontent-%COMP%]   .back[_ngcontent-%COMP%]{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .back.selected[_ngcontent-%COMP%]{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon[_ngcontent-%COMP%]   .over[_ngcontent-%COMP%]{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .over.selected[_ngcontent-%COMP%]{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}"] });
 }
@@ -4667,8 +4859,8 @@ class FlyOutData {
             }]
     }], null, null); })();
 
-const _c0$u = ["container"];
-const _c1$g = ["content"];
+const _c0$x = ["container"];
+const _c1$i = ["content"];
 function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     const _r4 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
@@ -4989,8 +5181,8 @@ class MrdFlyOutComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(t) { return new (t || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFlyOutComponent, selectors: [["mrd-fly-out"]], viewQuery: function MrdFlyOutComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$u, 5);
-            i0.ɵɵviewQuery(_c1$g, 7, ViewContainerRef);
+            i0.ɵɵviewQuery(_c0$x, 5);
+            i0.ɵɵviewQuery(_c1$i, 7, ViewContainerRef);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.container = _t.first);
@@ -5112,7 +5304,7 @@ class MrdFlyOutModule {
         MrdButtonModule], exports: [MrdFlyOutComponent,
         MrdFlyOutCloseDirective] }); })();
 
-const _c0$t = ["*"];
+const _c0$w = ["*"];
 class MrdButtonToggleGroupComponent extends BaseObject {
     cdr;
     buttons;
@@ -5367,7 +5559,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
         } }, hostVars: 2, hostBindings: function MrdButtonToggleGroupComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵclassProp("simple", ctx.simple);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], simple: ["simple", "simple", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$t, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], simple: ["simple", "simple", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$w, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -5471,27 +5663,33 @@ class MrdButtonToggleModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdButtonToggleModule, { declarations: [MrdButtonToggleGroupComponent], imports: [CommonModule,
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
-const _c0$s = ["checkboxlabel"];
-function MrdCheckboxComponent_span_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+const _c0$v = ["checkboxlabel"];
+function MrdCheckboxComponent_span_1_span_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "span", 9);
+} }
+function MrdCheckboxComponent_span_1_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(1, "svg", 8);
-    i0.ɵɵelement(2, "g", 9)(3, "g", 10);
-    i0.ɵɵelementStart(4, "g", 11)(5, "title");
+    i0.ɵɵelementStart(1, "svg", 10);
+    i0.ɵɵelement(2, "g", 11)(3, "g", 12);
+    i0.ɵɵelementStart(4, "g", 13)(5, "title");
     i0.ɵɵtext(6, "check");
     i0.ɵɵelementEnd();
-    i0.ɵɵelement(7, "path", 12);
+    i0.ɵɵelement(7, "path", 14);
     i0.ɵɵelementEnd()();
     i0.ɵɵelementContainerEnd();
 } }
 function MrdCheckboxComponent_span_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "span", 6);
-    i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_ng_container_1_Template, 8, 0, "ng-container", 7);
+    i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_span_1_Template, 1, 0, "span", 7);
+    i0.ɵɵtemplate(2, MrdCheckboxComponent_span_1_ng_container_2_Template, 8, 0, "ng-container", 8);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r0.checked);
+    i0.ɵɵproperty("ngIf", ctx_r0.indeterminate);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r0.checked && !ctx_r0.indeterminate);
 } }
 function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 1, ["*ngIf", "checked"]);
@@ -5499,15 +5697,15 @@ function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1)
 function MrdCheckboxComponent_div_2_ng_content_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 2, ["*ngIf", "!checked"]);
 } }
-const _c1$f = function (a0) { return { "isHover": a0 }; };
+const _c1$h = function (a0) { return { "isHover": a0 }; };
 function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "div", 13);
-    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 7);
-    i0.ɵɵtemplate(2, MrdCheckboxComponent_div_2_ng_content_2_Template, 1, 0, "ng-content", 7);
+    i0.ɵɵelementStart(0, "div", 15);
+    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 8);
+    i0.ɵɵtemplate(2, MrdCheckboxComponent_div_2_ng_content_2_Template, 1, 0, "ng-content", 8);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$f, !ctx_r1.customHoverIcons));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$h, !ctx_r1.customHoverIcons));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r1.checked);
     i0.ɵɵadvance(1);
@@ -5520,9 +5718,9 @@ function MrdCheckboxComponent_div_3_ng_content_2_Template(rf, ctx) { if (rf & 1)
     i0.ɵɵprojection(0, 4, ["*ngIf", "!checked"]);
 } }
 function MrdCheckboxComponent_div_3_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "div", 14);
-    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_3_ng_content_1_Template, 1, 0, "ng-content", 7);
-    i0.ɵɵtemplate(2, MrdCheckboxComponent_div_3_ng_content_2_Template, 1, 0, "ng-content", 7);
+    i0.ɵɵelementStart(0, "div", 16);
+    i0.ɵɵtemplate(1, MrdCheckboxComponent_div_3_ng_content_1_Template, 1, 0, "ng-content", 8);
+    i0.ɵɵtemplate(2, MrdCheckboxComponent_div_3_ng_content_2_Template, 1, 0, "ng-content", 8);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r2 = i0.ɵɵnextContext();
@@ -5533,7 +5731,7 @@ function MrdCheckboxComponent_div_3_Template(rf, ctx) { if (rf & 1) {
 } }
 const _c2$9 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
 const _c3$7 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
-const _c4$4 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
+const _c4$5 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
 class MrdCheckboxComponent extends BaseObject {
     cdr;
     label;
@@ -5576,6 +5774,12 @@ class MrdCheckboxComponent extends BaseObject {
     borderChecked = 'none';
     borderCheckedHover = 'none';
     checked = false;
+    /**
+     * Teilweise ausgewaehlt (z. B. "alle uebernehmen", wenn nur ein Teil gewaehlt ist): Strich statt Haken.
+     * Ein Klick hebt den Zustand auf (`indeterminateChange`) und schaltet `checked` wie gewohnt um.
+     * Gilt nur fuer das Standard-Kaestchen, nicht fuer `customIcons`.
+     */
+    indeterminate = false;
     disabled = false;
     customIcons = false;
     customHoverIcons = false;
@@ -5611,6 +5815,7 @@ class MrdCheckboxComponent extends BaseObject {
     /** Klick nicht an umgebende Elemente weitergeben (auch wenn deaktiviert), z. B. in einer klickbaren Zeile */
     stopPropagation = false;
     checkedChange = new EventEmitter();
+    indeterminateChange = new EventEmitter();
     config = ConfigUtil.getConfig();
     constructor(cdr) {
         super();
@@ -5657,6 +5862,12 @@ class MrdCheckboxComponent extends BaseObject {
     }
     // private initBaseStyle(): void {
     // }
+    get ariaChecked() {
+        if (this.indeterminate) {
+            return 'mixed';
+        }
+        return this.checked ? 'true' : 'false';
+    }
     toggle(event) {
         if (this.stopPropagation) {
             event?.stopPropagation();
@@ -5668,6 +5879,10 @@ class MrdCheckboxComponent extends BaseObject {
             this.checkedChange.emit(!this.checked);
             return;
         }
+        if (this.indeterminate) {
+            this.indeterminate = false;
+            this.indeterminateChange.emit(false);
+        }
         this.checked = !this.checked;
         if (Util.isDefined(this.formControl)) {
             this.formControl.setValue(this.checked);
@@ -5677,17 +5892,17 @@ class MrdCheckboxComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], viewQuery: function MrdCheckboxComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$s, 5);
+            i0.ɵɵviewQuery(_c0$v, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
         } }, hostVars: 2, hostBindings: function MrdCheckboxComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("max-width", ctx.fitContent ? "fit-content" : "100%");
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute], controlled: ["controlled", "controlled", booleanAttribute], stopPropagation: ["stopPropagation", "stopPropagation", booleanAttribute] }, outputs: { checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$4, decls: 7, vars: 46, consts: [[1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], [4, "ngIf"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], indeterminate: ["indeterminate", "indeterminate", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute], controlled: ["controlled", "controlled", booleanAttribute], stopPropagation: ["stopPropagation", "stopPropagation", booleanAttribute] }, outputs: { checkedChange: "checkedChange", indeterminateChange: "indeterminateChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$5, decls: 7, vars: 50, consts: [["role", "checkbox", 1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], ["class", "mrd-checkbox-strich", 4, "ngIf"], [4, "ngIf"], [1, "mrd-checkbox-strich"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c2$9);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener($event) { return ctx.toggle($event); });
-            i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 2, 1, "span", 1);
+            i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 3, 2, "span", 1);
             i0.ɵɵtemplate(2, MrdCheckboxComponent_div_2_Template, 3, 5, "div", 2);
             i0.ɵɵtemplate(3, MrdCheckboxComponent_div_3_Template, 3, 2, "div", 3);
             i0.ɵɵelementStart(4, "span", 4, 5);
@@ -5696,8 +5911,9 @@ class MrdCheckboxComponent extends BaseObject {
         } if (rf & 2) {
             const _r3 = i0.ɵɵreference(5);
             i0.ɵɵstyleProp("--box-height", ctx.checkboxHeight)("--box-width", ctx.checkboxWidth)("--bg-color", ctx.bgColor)("--bg-color-hover", ctx.bgColorHover)("--bg-color-checked", ctx.bgColorChecked)("--bg-color-checked-hover", ctx.bgColorCheckedHover)("--color", ctx.color)("--color-hover", ctx.colorHover)("--color-checked", ctx.colorChecked)("--color-checked-hover", ctx.colorCheckedHover)("--border", ctx.border)("--border-hover", ctx.borderHover)("--border-checked", ctx.borderChecked)("--border-checked-hover", ctx.borderCheckedHover);
-            i0.ɵɵclassProp("rounded", ctx.rounded)("checked", ctx.checked);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(44, _c3$7, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r3 : undefined);
+            i0.ɵɵclassProp("rounded", ctx.rounded)("checked", ctx.checked && !ctx.indeterminate)("indeterminate", ctx.indeterminate);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(48, _c3$7, (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled))("mrdToolTip", ctx.tooltipText)("showToolTip", ctx.tooltip && !ctx.tooltipDisabled)("position", ctx.tooltipPosition)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r3 : undefined);
+            i0.ɵɵattribute("aria-checked", ctx.ariaChecked)("aria-disabled", (ctx.formControl == null ? null : ctx.formControl.disabled) || ctx.disabled);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.customIcons);
             i0.ɵɵadvance(1);
@@ -5706,13 +5922,13 @@ class MrdCheckboxComponent extends BaseObject {
             i0.ɵɵproperty("ngIf", ctx.customHoverIcons);
             i0.ɵɵadvance(1);
             i0.ɵɵclassProp("singleLine", ctx.singleLine)("ellipsis", ctx.ellipsis);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded[_ngcontent-%COMP%]{border-radius:999999px}.mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-unchecked], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-checked-hover], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-unchecked-hover]{margin-right:0}.mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked-hover], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked[_ngcontent-%COMP%]{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{background-color:#65b32e;border:none}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{overflow:hidden}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.singleLine[_ngcontent-%COMP%]{white-space:nowrap}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.ellipsis[_ngcontent-%COMP%]{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{color:#afa6a6}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom[_ngcontent-%COMP%]:not(.isHover){display:none}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:flex}.mrd-checkbox-custom[_ngcontent-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:none;flex-direction:column;justify-content:center;align-items:center}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded[_ngcontent-%COMP%]{border-radius:999999px}.mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-unchecked], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-checked-hover], .mrd-checkbox-container.ohne-text[_ngcontent-%COMP%]     [icon-unchecked-hover]{margin-right:0}.mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-checked-hover], .mrd-checkbox-container[_ngcontent-%COMP%]     [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.indeterminate[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{display:inline-flex;align-items:center;justify-content:center;background-color:#65b32e;border:none}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-strich[_ngcontent-%COMP%]{width:60%;height:2px;background-color:#fff}.mrd-checkbox-container.checked[_ngcontent-%COMP%]{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{background-color:#65b32e;border:none}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{overflow:hidden}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.singleLine[_ngcontent-%COMP%]{white-space:nowrap}.mrd-checkbox-container[_ngcontent-%COMP%]   .mrd-checkbox-label.ellipsis[_ngcontent-%COMP%]{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled.indeterminate[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box[_ngcontent-%COMP%]{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-box.checked[_ngcontent-%COMP%]{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled[_ngcontent-%COMP%]   .mrd-checkbox-label[_ngcontent-%COMP%]{color:#afa6a6}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom[_ngcontent-%COMP%]:not(.isHover){display:none}.mrd-checkbox-container[_ngcontent-%COMP%]:hover:not(.mrd-checkbox-disabled)   .mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:flex}.mrd-checkbox-custom[_ngcontent-%COMP%]{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover[_ngcontent-%COMP%]{display:none;flex-direction:column;justify-content:center;align-items:center}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCheckboxComponent, [{
         type: Component,
         args: [{ selector: 'mrd-checkbox', host: {
                     "[style.max-width]": "fitContent ? 'fit-content' : '100%'",
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle($event)\"\r\n  [mrdToolTip]=\"tooltipText\" [showToolTip]=\"tooltip && !tooltipDisabled\" [position]=\"tooltipPosition\" [showOnTruncatedElement]=\"tooltipIfTruncated ? checkboxlabel : undefined\"\r\n  [style.--box-height]=\"checkboxHeight\" \r\n  [style.--box-width]=\"checkboxWidth\"\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--bg-color-hover]=\"bgColorHover\"\r\n  [style.--bg-color-checked]=\"bgColorChecked\"\r\n  [style.--bg-color-checked-hover]=\"bgColorCheckedHover\"\r\n  [style.--color]=\"color\"\r\n  [style.--color-hover]=\"colorHover\"\r\n  [style.--color-checked]=\"colorChecked\"\r\n  [style.--color-checked-hover]=\"colorCheckedHover\"\r\n  [style.--border]=\"border\"\r\n  [style.--border-hover]=\"borderHover\"\r\n  [style.--border-checked]=\"borderChecked\"\r\n  [style.--border-checked-hover]=\"borderCheckedHover\"\r\n  [class.rounded]=\"rounded\"\r\n  [class.checked]=\"checked\"\r\n  >\r\n  <span class=\"mrd-checkbox-box\" *ngIf=\"!customIcons\">\r\n    <ng-container *ngIf=\"checked\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <div class=\"mrd-checkbox-custom\" [ngClass]=\"{'isHover': !customHoverIcons}\" *ngIf=\"customIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-checkbox-custom-hover\" *ngIf=\"customHoverIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked-hover]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked-hover]\"></ng-content>\r\n  </div>\r\n  \r\n  \r\n  <span #checkboxlabel class=\"mrd-checkbox-label\"\r\n    [class.singleLine]=\"singleLine\"\r\n    [class.ellipsis]=\"ellipsis\"\r\n  ><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded{border-radius:999999px}.mrd-checkbox-container.ohne-text .mrd-checkbox-box,.mrd-checkbox-container.ohne-text ::ng-deep [icon-checked],.mrd-checkbox-container.ohne-text ::ng-deep [icon-unchecked],.mrd-checkbox-container.ohne-text ::ng-deep [icon-checked-hover],.mrd-checkbox-container.ohne-text ::ng-deep [icon-unchecked-hover]{margin-right:0}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked],.mrd-checkbox-container ::ng-deep [icon-checked-hover],.mrd-checkbox-container ::ng-deep [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.checked{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked .mrd-checkbox-box{background-color:#65b32e;border:none}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-label{overflow:hidden}.mrd-checkbox-container .mrd-checkbox-label.singleLine{white-space:nowrap}.mrd-checkbox-container .mrd-checkbox-label.ellipsis{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom:not(.isHover){display:none}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom-hover{display:flex}.mrd-checkbox-custom{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover{display:none;flex-direction:column;justify-content:center;align-items:center}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-checkbox-container\" [ngClass]=\"{'mrd-checkbox-disabled': formControl?.disabled || disabled}\" (click)=\"toggle($event)\"\r\n  role=\"checkbox\" [attr.aria-checked]=\"ariaChecked\" [attr.aria-disabled]=\"formControl?.disabled || disabled\"\r\n  [mrdToolTip]=\"tooltipText\" [showToolTip]=\"tooltip && !tooltipDisabled\" [position]=\"tooltipPosition\" [showOnTruncatedElement]=\"tooltipIfTruncated ? checkboxlabel : undefined\"\r\n  [style.--box-height]=\"checkboxHeight\" \r\n  [style.--box-width]=\"checkboxWidth\"\r\n  [style.--bg-color]=\"bgColor\"\r\n  [style.--bg-color-hover]=\"bgColorHover\"\r\n  [style.--bg-color-checked]=\"bgColorChecked\"\r\n  [style.--bg-color-checked-hover]=\"bgColorCheckedHover\"\r\n  [style.--color]=\"color\"\r\n  [style.--color-hover]=\"colorHover\"\r\n  [style.--color-checked]=\"colorChecked\"\r\n  [style.--color-checked-hover]=\"colorCheckedHover\"\r\n  [style.--border]=\"border\"\r\n  [style.--border-hover]=\"borderHover\"\r\n  [style.--border-checked]=\"borderChecked\"\r\n  [style.--border-checked-hover]=\"borderCheckedHover\"\r\n  [class.rounded]=\"rounded\"\r\n  [class.checked]=\"checked && !indeterminate\"\r\n  [class.indeterminate]=\"indeterminate\"\r\n  >\r\n  <span class=\"mrd-checkbox-box\" *ngIf=\"!customIcons\">\r\n    <span class=\"mrd-checkbox-strich\" *ngIf=\"indeterminate\"></span>\r\n    <ng-container *ngIf=\"checked && !indeterminate\">\r\n      <svg fill=\"#ffffff\" width=\"16px\" height=\"16px\" viewBox=\"-4 0 32 32\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"0.00032\">\r\n        <g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g>\r\n        <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g>\r\n        <g id=\"SVGRepo_iconCarrier\"> <title>check</title> <path d=\"M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z\"></path></g>\r\n      </svg>\r\n    </ng-container>\r\n  </span>\r\n  <div class=\"mrd-checkbox-custom\" [ngClass]=\"{'isHover': !customHoverIcons}\" *ngIf=\"customIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked]\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-checkbox-custom-hover\" *ngIf=\"customHoverIcons\">\r\n    <ng-content *ngIf=\"checked\" select=\"[icon-checked-hover]\"></ng-content>\r\n    <ng-content *ngIf=\"!checked\" select=\"[icon-unchecked-hover]\"></ng-content>\r\n  </div>\r\n  \r\n  \r\n  <span #checkboxlabel class=\"mrd-checkbox-label\"\r\n    [class.singleLine]=\"singleLine\"\r\n    [class.ellipsis]=\"ellipsis\"\r\n  ><ng-content></ng-content></span>\r\n</div>\r\n", styles: [":host{display:block;width:-moz-fit-content;width:fit-content}.mrd-checkbox-container{display:flex;flex-direction:row;align-items:center;cursor:pointer;color:var(--color);background-color:var(--bg-color);border:var(--border);padding:4px 8px 4px 4px;line-height:1.25em}.mrd-checkbox-container.rounded{border-radius:999999px}.mrd-checkbox-container.ohne-text .mrd-checkbox-box,.mrd-checkbox-container.ohne-text ::ng-deep [icon-checked],.mrd-checkbox-container.ohne-text ::ng-deep [icon-unchecked],.mrd-checkbox-container.ohne-text ::ng-deep [icon-checked-hover],.mrd-checkbox-container.ohne-text ::ng-deep [icon-unchecked-hover]{margin-right:0}.mrd-checkbox-container ::ng-deep [icon-checked],.mrd-checkbox-container ::ng-deep [icon-unchecked],.mrd-checkbox-container ::ng-deep [icon-checked-hover],.mrd-checkbox-container ::ng-deep [icon-unchecked-hover]{display:block;max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-height);min-height:var(--box-width);margin-right:6px}.mrd-checkbox-container.indeterminate .mrd-checkbox-box{display:inline-flex;align-items:center;justify-content:center;background-color:#65b32e;border:none}.mrd-checkbox-container .mrd-checkbox-strich{width:60%;height:2px;background-color:#fff}.mrd-checkbox-container.checked{color:var(--color-checked);background-color:var(--bg-color-checked);border:var(--border-checked)}.mrd-checkbox-container.checked .mrd-checkbox-box{background-color:#65b32e;border:none}.mrd-checkbox-container .mrd-checkbox-box{max-height:var(--box-height);max-width:var(--box-width);height:var(--box-height);width:var(--box-width);min-width:var(--box-width);min-height:var(--box-height);display:inline-block;border:2px solid rgba(0,0,0,.54);border-radius:2px;text-align:center;margin-right:6px}.mrd-checkbox-container .mrd-checkbox-label{overflow:hidden}.mrd-checkbox-container .mrd-checkbox-label.singleLine{white-space:nowrap}.mrd-checkbox-container .mrd-checkbox-label.ellipsis{white-space:nowrap;text-overflow:ellipsis}.mrd-checkbox-container.mrd-checkbox-disabled{cursor:inherit}.mrd-checkbox-container.mrd-checkbox-disabled.indeterminate .mrd-checkbox-box{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box{border-color:#afa6a6}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-box.checked{background-color:#afa6a6af}.mrd-checkbox-container.mrd-checkbox-disabled .mrd-checkbox-label{color:#afa6a6}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled){color:var(--color-hover);background-color:var(--bg-color-hover);border:var(--border-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled).checked{color:var(--color-checked-hover);background-color:var(--bg-color-checked-hover);border:var(--border-checked-hover)}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom:not(.isHover){display:none}.mrd-checkbox-container:hover:not(.mrd-checkbox-disabled) .mrd-checkbox-custom-hover{display:flex}.mrd-checkbox-custom{display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-checkbox-custom-hover{display:none;flex-direction:column;justify-content:center;align-items:center}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { label: [{
             type: ViewChild,
             args: ['checkboxlabel']
@@ -5755,6 +5971,9 @@ class MrdCheckboxComponent extends BaseObject {
         }], borderCheckedHover: [{
             type: Input
         }], checked: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], indeterminate: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], disabled: [{
@@ -5805,6 +6024,8 @@ class MrdCheckboxComponent extends BaseObject {
             args: [{ transform: booleanAttribute }]
         }], checkedChange: [{
             type: Output
+        }], indeterminateChange: [{
+            type: Output
         }] }); })();
 
 /**
@@ -5833,7 +6054,7 @@ class MrdCheckboxModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdCheckboxModule, { declarations: [MrdCheckboxComponent], imports: [CommonModule,
         MrdTooltipModule], exports: [MrdCheckboxComponent] }); })();
 
-const _c0$r = ["chipText"];
+const _c0$u = ["chipText"];
 function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
@@ -5861,7 +6082,7 @@ function MrdChipComponent_mrd_button_7_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r3.closeIconColor)("--chip-close-icon-cross-color", ctx_r3.closeIconCrossColor);
 } }
-const _c1$e = function (a0) { return { "cursor": a0 }; };
+const _c1$g = function (a0) { return { "cursor": a0 }; };
 const _c2$8 = function (a0) { return { "pointer-events": a0 }; };
 const _c3$6 = ["*"];
 class MrdChipComponent {
@@ -5943,7 +6164,7 @@ class MrdChipComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(t) { return new (t || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdChipComponent, selectors: [["mrd-chip"]], viewQuery: function MrdChipComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$r, 5);
+            i0.ɵɵviewQuery(_c0$u, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
@@ -5960,7 +6181,7 @@ class MrdChipComponent {
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--chip-color", ctx.color)("--chip-background-color", ctx.backgroundColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$e, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$g, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$8, ctx.disabled ? "none" : "auto"));
             i0.ɵɵadvance(1);
@@ -6054,7 +6275,7 @@ class MrdChipModule {
 function MrdDatepickerComponent_ng_container_10_div_17_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 8);
 } }
-const _c0$q = function (a0, a1) { return { "today": a0, "selected": a1 }; };
+const _c0$t = function (a0, a1) { return { "today": a0, "selected": a1 }; };
 function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
     const _r10 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 12);
@@ -6063,7 +6284,7 @@ function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Tem
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const d_r8 = ctx.$implicit;
-    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$q, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$t, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", d_r8.day, " ");
 } }
@@ -6137,7 +6358,7 @@ function MrdDatepickerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) 
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r0.range);
 } }
-const _c1$d = function (a0) { return { "selected": a0 }; };
+const _c1$f = function (a0) { return { "selected": a0 }; };
 function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) { if (rf & 1) {
     const _r19 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 17);
@@ -6147,7 +6368,7 @@ function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) {
 } if (rf & 2) {
     const y_r17 = ctx.$implicit;
     const ctx_r16 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$d, y_r17 === ctx_r16.year));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$f, y_r17 === ctx_r16.year));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", y_r17, " ");
 } }
@@ -6172,7 +6393,7 @@ function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template(rf, ctx) {
     const m_r21 = ctx.$implicit;
     const i_r22 = ctx.index;
     const ctx_r20 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$d, i_r22 === ctx_r20.monthIndex));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$f, i_r22 === ctx_r20.monthIndex));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", m_r21, " ");
 } }
@@ -6211,7 +6432,8 @@ class MrdDatepickerComponent {
     constructor(cdr) {
         this.cdr = cdr;
     }
-    ngAfterViewInit() {
+    // In ngOnInit statt ngAfterViewInit: Kalender und Jahre stehen beim ersten Rendern fest (sonst NG0100 ausserhalb des Overlays)
+    ngOnInit() {
         if (!this.range) {
             this.date = this.checkDate(this.date);
             if (Util.isDefined(this.date) && this.date.isValid()) {
@@ -6610,8 +6832,8 @@ class MrdTimepickerComponent {
             type: Output
         }] }); })();
 
-const _c0$p = ["baseInput"];
-const _c1$c = ["textArea"];
+const _c0$s = ["baseInput"];
+const _c1$e = ["textArea"];
 const _c2$7 = ["dateInput"];
 const _c3$5 = ["timeInput"];
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
@@ -6621,11 +6843,11 @@ function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵstyleProp("pointer-events", ctx_r0.readonly ? "none" : "auto")("text-align", ctx_r0.textEnd ? "end" : ctx_r0.centered ? "center" : "start")("color", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled ? ctx_r0.disabledColor : ctx_r0.color);
+    i0.ɵɵstyleProp("pointer-events", ctx_r0.readonly ? "none" : "auto")("text-align", ctx_r0.textEnd ? "end" : ctx_r0.centered ? "center" : "start");
     i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.number || ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.nachkommastellen)("timeInput", ctx_r0.time);
     i0.ɵɵattribute("inputmode", ctx_r0.number ? "decimal" : null);
 } }
-const _c4$3 = function (a0) { return { "line-height": a0 }; };
+const _c4$4 = function (a0) { return { "line-height": a0 }; };
 function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
     const _r17 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "textarea", 7, 8);
@@ -6633,8 +6855,8 @@ function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto")("color", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled ? ctx_r1.disabledColor : ctx_r1.color);
-    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(8, _c4$3, ctx_r1.lineHeight + "px"));
+    i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto");
+    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(6, _c4$4, ctx_r1.lineHeight + "px"));
 } }
 function MrdInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", null, 9);
@@ -6693,14 +6915,14 @@ function MrdInputComponent_ng_template_8_Template(rf, ctx) { if (rf & 1) {
     const ctx_r8 = i0.ɵɵnextContext();
     i0.ɵɵproperty("time", ctx_r8.value);
 } }
-const _c5$2 = [[["", "unfocusedOverlay", ""]]];
-const _c6 = ["[unfocusedOverlay]"];
+const _c5$3 = [[["", "unfocusedOverlay", ""]]];
+const _c6$1 = ["[unfocusedOverlay]"];
 class MrdInputComponent extends BaseObject {
     cdr;
     static DEFAULT_MAX_LENGTH = 512;
     static DEFAULT_MIN_ROWS = 1;
     static DEFAULT_MAX_ROWS = 2;
-    static DEFAULT_LINE_HEIGHT = 24;
+    static DEFAULT_LINE_HEIGHT = 16;
     static DATE_REGEX_INPUT = /(\d{4})-(\d{2})-(\d{2})/;
     baseInputElement;
     textAreaElement;
@@ -6848,6 +7070,11 @@ class MrdInputComponent extends BaseObject {
         if (this.date && this.rangeStart) {
             this.textEnd = true;
         }
+        // Der Overlay-Ursprung (#dateInput/#timeInput im *ngIf) steht erst nach dem ersten Rendern fest; ohne erneutes
+        // Rendern wirft das Binding NG0100, sobald kein mrd-form-field (labelPresent) das Feld nachtraeglich neu rendert
+        if (this.date || this.time) {
+            this.cdr.detectChanges();
+        }
         if (this.date && Util.isDefined(this.formControl)) {
             let datumValidator = this.formControl.validators.find((validator) => validator instanceof ValidatorDatum);
             if (!Util.isDefined(datumValidator)) {
@@ -6985,9 +7212,9 @@ class MrdInputComponent extends BaseObject {
         this.textAreaElement.nativeElement.style.height = 'auto';
         this.textAreaElement.nativeElement.style.height =
             this.textAreaElement.nativeElement.scrollHeight > (this.maxRows * this.lineHeight) ?
-                (this.maxRows * this.lineHeight) + 'px' :
+                (this.maxRows * this.lineHeight) + 1 + 'px' :
                 this.textAreaElement.nativeElement.scrollHeight < (this.minRows * this.lineHeight) ?
-                    (this.minRows * this.lineHeight) + 'px' :
+                    (this.minRows * this.lineHeight) + 1 + 'px' :
                     this.textAreaElement.nativeElement.scrollHeight + 'px';
     }
     inputClicked(event) {
@@ -7055,8 +7282,8 @@ class MrdInputComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdInputComponent, selectors: [["mrd-input"]], viewQuery: function MrdInputComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$p, 5);
-            i0.ɵɵviewQuery(_c1$c, 5);
+            i0.ɵɵviewQuery(_c0$s, 5);
+            i0.ɵɵviewQuery(_c1$e, 5);
             i0.ɵɵviewQuery(_c2$7, 5);
             i0.ɵɵviewQuery(_c3$5, 5);
         } if (rf & 2) {
@@ -7065,10 +7292,10 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.timeInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], number: ["number", "number", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "color", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "color", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c5$2);
-            i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 13, "input", 0);
-            i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 10, "textarea", 1);
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], number: ["number", "number", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c5$3);
+            i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 11, "input", 0);
+            i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 8, "textarea", 1);
             i0.ɵɵtemplate(2, MrdInputComponent_div_2_Template, 2, 0, "div", 2);
             i0.ɵɵtemplate(3, MrdInputComponent_div_3_Template, 7, 1, "div", 2);
             i0.ɵɵtemplate(4, MrdInputComponent_div_4_Template, 2, 0, "div", 2);
@@ -7096,11 +7323,11 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.dateInputElement)("cdkConnectedOverlayOpen", ctx.showDatepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.timeInputElement)("cdkConnectedOverlayOpen", ctx.showTimepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
-        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, DecimalNumberDirective, TimeInputDirective, MrdDatepickerComponent, MrdTimepickerComponent], styles: ["[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, DecimalNumberDirective, TimeInputDirective, MrdDatepickerComponent, MrdTimepickerComponent], styles: ["@charset \"UTF-8\";[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{scrollbar-color:#999 transparent}textarea[_ngcontent-%COMP%]::-webkit-scrollbar{width:10px;background:transparent}textarea[_ngcontent-%COMP%]::-webkit-scrollbar-thumb{background:#999;border-radius:5px}textarea[_ngcontent-%COMP%]::-webkit-scrollbar-corner{background:transparent}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdInputComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  [decimalNumber]=\"number || maxDigits || maxDigits === 0\" [nachkommastellen]=\"nachkommastellen\"\r\n  [attr.inputmode]=\"number ? 'decimal' : null\"\r\n  [timeInput]=\"time\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.color]=\"formControl?.disabled || disabled ? disabledColor : color\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 14.986 17.127\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\r\n      <defs><style>.a{fill:#494949;}</style></defs>\r\n      <path class=\"a\" d=\"M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z\" transform=\"translate(0 0)\"></path>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<div #timeInput *ngIf=\"time\"></div>\r\n<div *ngIf=\"time && !customDateTimeToggle\">  \r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M12 6V12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M16.24 16.24L12 12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false;\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showTimepicker.value = false;\"\r\n>\r\n  <mrd-timepicker\r\n    [time]=\"value\"\r\n    (timeChanged)=\"timeChanged($event)\"\r\n  ></mrd-timepicker>\r\n</ng-template>", styles: [":host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
+        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [decimalNumber]=\"number || maxDigits || maxDigits === 0\" [nachkommastellen]=\"nachkommastellen\"\r\n  [attr.inputmode]=\"number ? 'decimal' : null\"\r\n  [timeInput]=\"time\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 14.986 17.127\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\r\n      <defs><style>.a{fill:#494949;}</style></defs>\r\n      <path class=\"a\" d=\"M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z\" transform=\"translate(0 0)\"></path>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<div #timeInput *ngIf=\"time\"></div>\r\n<div *ngIf=\"time && !customDateTimeToggle\">  \r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M12 6V12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M16.24 16.24L12 12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false;\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showTimepicker.value = false;\"\r\n>\r\n  <mrd-timepicker\r\n    [time]=\"value\"\r\n    (timeChanged)=\"timeChanged($event)\"\r\n  ></mrd-timepicker>\r\n</ng-template>", styles: ["@charset \"UTF-8\";:host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}textarea{scrollbar-color:#999 transparent}textarea::-webkit-scrollbar{width:10px;background:transparent}textarea::-webkit-scrollbar-thumb{background:#999;border-radius:5px}textarea::-webkit-scrollbar-corner{background:transparent}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { baseInputElement: [{
             type: ViewChild,
             args: ['baseInput']
@@ -7236,8 +7463,8 @@ function MrdLabelComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(1, "\u00A0*");
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$o = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
-const _c1$b = ["*"];
+const _c0$r = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
+const _c1$d = ["*"];
 class MrdLabelComponent extends BasePushStrategyObject {
     cdr;
     set labelTop(value) {
@@ -7250,6 +7477,8 @@ class MrdLabelComponent extends BasePushStrategyObject {
     float = 'auto';
     floating = new ObservableValue(false);
     required = new ObservableValue(false);
+    labelColor = MrdColor.GRAU_BLAU;
+    labelFloatingColor = MrdColor.GRAU_BLAU_LIGHT;
     constructor(cdr) {
         super();
         this.cdr = cdr;
@@ -7258,21 +7487,22 @@ class MrdLabelComponent extends BasePushStrategyObject {
         this.watch(this._labelTop.changed, new SubscriptionHandler(() => this.cdr.detectChanges()));
     }
     /** @nocollapse */ static ɵfac = function MrdLabelComponent_Factory(t) { return new (t || MrdLabelComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$b, decls: 4, vars: 6, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$d, decls: 4, vars: 10, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
             i0.ɵɵtemplate(3, MrdLabelComponent_ng_container_3_Template, 2, 0, "ng-container", 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(2, _c0$o, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
+            i0.ɵɵstyleProp("--label-color", ctx.labelColor)("--label-floating-color", ctx.labelFloatingColor);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(6, _c0$r, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.required.value);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:var(--label-color);pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;color:var(--label-floating-color);justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdLabelComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-label', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-label-content\" [ngClass]=\"{'mrd-label-floating': float === 'always' || floating.value, 'mrd-label-hidden': float === 'never' && floating.value, 'mrd-label-top': labelTop}\">\n  <span class=\"mrd-label-text\"><ng-content></ng-content><ng-container *ngIf=\"required.value\">&nbsp;*</ng-container></span>\n</div>\n", styles: [".mrd-label-content{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:#afa6a6;pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content .mrd-label-text{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top{justify-content:flex-start}.mrd-label-content.mrd-label-floating{top:-1.25em;font-size:.75em;justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden{display:none}\n"] }]
+        args: [{ selector: 'mrd-label', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-label-content\" \n  [style.--label-color]=\"labelColor\"\n  [style.--label-floating-color]=\"labelFloatingColor\"\n  [ngClass]=\"{'mrd-label-floating': float === 'always' || floating.value, 'mrd-label-hidden': float === 'never' && floating.value, 'mrd-label-top': labelTop}\">\n  <span class=\"mrd-label-text\"><ng-content></ng-content><ng-container *ngIf=\"required.value\">&nbsp;*</ng-container></span>\n</div>\n", styles: [".mrd-label-content{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:var(--label-color);pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content .mrd-label-text{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top{justify-content:flex-start}.mrd-label-content.mrd-label-floating{top:-1.25em;font-size:.75em;color:var(--label-floating-color);justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden{display:none}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { labelTop: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
@@ -7280,7 +7510,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
             type: Input
         }] }); })();
 
-const _c0$n = function (a0) { return { "mrd-error-ellipsis": a0 }; };
+const _c0$q = function (a0) { return { "mrd-error-ellipsis": a0 }; };
 class MrdErrorComponent {
     cdr;
     ellipsis;
@@ -7307,20 +7537,20 @@ class MrdErrorComponent {
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$n, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.error);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$q, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.error);
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate1(" ", ctx.error, "\n");
-        } }, dependencies: [i1$1.NgClass, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#da0000;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdErrorComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-error', changeDetection: ChangeDetectionStrategy.OnPush, template: "<span class=\"mrd-error-container\"\r\n  [ngClass]=\"{'mrd-error-ellipsis': ellipsis > 0}\"\r\n  [line-clamp]=\"ellipsis > 0 ? ellipsis : null\"\r\n  [mrdToolTip]=\"error\" showIfTruncated>\r\n  {{error}}\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#db2929;display:flex;flex:0 1 fit-content}.mrd-error-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
+        args: [{ selector: 'mrd-error', changeDetection: ChangeDetectionStrategy.OnPush, template: "<span class=\"mrd-error-container\"\r\n  [ngClass]=\"{'mrd-error-ellipsis': ellipsis > 0}\"\r\n  [line-clamp]=\"ellipsis > 0 ? ellipsis : null\"\r\n  [mrdToolTip]=\"error\" showIfTruncated>\r\n  {{error}}\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#da0000;display:flex;flex:0 1 fit-content}.mrd-error-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { ellipsis: [{
             type: Input,
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$m = ["optionValue"];
+const _c0$p = ["optionValue"];
 function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 4);
     i0.ɵɵelement(1, "mrd-checkbox", 5);
@@ -7330,7 +7560,7 @@ function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("checked", ctx_r0.selected);
 } }
-const _c1$a = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c1$c = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c2$6 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
 const _c3$4 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 class MrdSelectOptionComponent {
@@ -7390,12 +7620,12 @@ class MrdSelectOptionComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(t) { return new (t || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectOptionComponent, selectors: [["mrd-select-option"]], viewQuery: function MrdSelectOptionComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$m, 5);
+            i0.ɵɵviewQuery(_c0$p, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionValue = _t.first);
         } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], selected: "selected", focused: "focused" }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$4, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$a);
+            i0.ɵɵprojectionDef(_c1$c);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdSelectOptionComponent_Template_div_click_0_listener() { return ctx.optionClick(); });
             i0.ɵɵelementStart(1, "span");
@@ -7436,14 +7666,14 @@ class MrdSelectOptionComponent {
             type: Input
         }] }); })();
 
-const _c0$l = ["*"];
+const _c0$o = ["*"];
 class MrdSelectCustomTriggerComponent {
     triggerClick = new EventEmitter();
     triggerClicked() {
         this.triggerClick.emit();
     }
     /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(t) { return new (t || MrdSelectCustomTriggerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$l, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$o, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵlistener("click", function MrdSelectCustomTriggerComponent_Template_span_click_0_listener() { return ctx.triggerClicked(); });
@@ -7525,7 +7755,7 @@ function itemSizeAttribute(value) {
 function MrdVirtualScrollComponent_div_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$k = function (a0, a1) { return { $implicit: a0, index: a1 }; };
+const _c0$n = function (a0, a1) { return { $implicit: a0, index: a1 }; };
 function MrdVirtualScrollComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 3);
     i0.ɵɵtemplate(1, MrdVirtualScrollComponent_div_2_ng_container_1_Template, 1, 0, "ng-container", 4);
@@ -7535,7 +7765,7 @@ function MrdVirtualScrollComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("height", eintrag_r1.hoehe, "px");
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.template)("ngTemplateOutletContext", i0.ɵɵpureFunction2(4, _c0$k, eintrag_r1.item, eintrag_r1.index));
+    i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.template)("ngTemplateOutletContext", i0.ɵɵpureFunction2(4, _c0$n, eintrag_r1.item, eintrag_r1.index));
 } }
 /**
  * Rendert von einer langen Liste nur die sichtbaren Zeilen (plus Puffer).
@@ -7805,8 +8035,8 @@ class MrdVirtualScrollComponent {
             type: Output
         }] }); })();
 
-const _c0$j = ["selectContainer"];
-const _c1$9 = ["searchSelectionInput"];
+const _c0$m = ["selectContainer"];
+const _c1$b = ["searchSelectionInput"];
 function MrdSelectComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
@@ -8048,8 +8278,8 @@ function MrdSelectComponent_ng_template_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵproperty("ngIf", ctx_r3.virtualScroll);
 } }
 const _c3$3 = [[["mrd-select-custom-trigger"]], [["mrd-select-option"]], [["", "addButton", ""]]];
-const _c4$2 = function (a0) { return { "mrd-select-disabled": a0 }; };
-const _c5$1 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
+const _c4$3 = function (a0) { return { "mrd-select-disabled": a0 }; };
+const _c5$2 = ["mrd-select-custom-trigger", "mrd-select-option", "[addButton]"];
 class MrdSelectComponent extends BasePushStrategyObject {
     elementRef;
     cdr;
@@ -8428,7 +8658,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
                 this.options.forEach(option => option.filtered = false);
                 this.showNoOptionsOnSearch = false;
                 if (Util.isDefined(event.option) && !this.autoComplete) {
-                    event.option.selected = this.multiple ? event.checked : true;
+                    event.option.selected = this.multiple ? (event.checked ?? false) : true;
                     this.cdr.markForCheck();
                     this.cdr.detectChanges();
                 }
@@ -8840,15 +9070,15 @@ class MrdSelectComponent extends BasePushStrategyObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionTemplate = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.options = _t);
         } }, viewQuery: function MrdSelectComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$j, 5);
-            i0.ɵɵviewQuery(_c1$9, 5);
+            i0.ɵɵviewQuery(_c0$m, 5);
+            i0.ɵɵviewQuery(_c1$b, 5);
             i0.ɵɵviewQuery(MrdVirtualScrollComponent, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.selectContainer = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.searchSelectionInput = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.virtuellesScroll = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], labelKey: "labelKey", displayWith: "displayWith", itemSize: ["itemSize", "itemSize", itemSizeAttribute], virtualScrollMaxHeight: ["virtualScrollMaxHeight", "virtualScrollMaxHeight", numberAttribute], autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5$1, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click", "focus", "blur", "keydown"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click", "focus", "blur", "keydown"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], [3, "items", "itemSize", "maxHeight", "trackBy", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""], [3, "items", "itemSize", "maxHeight", "trackBy"], ["mrdVirtualScrollItem", ""], [1, "mrd-select-option-virtuell", 3, "value", "selected", "focused", "optionClicked"], [4, "ngIf", "ngIfElse"], ["virtuellesLabel", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], formArrayControl: ["mrdFormArray", "formArrayControl"], value: "value", identifier: "identifier", items: "items", virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], labelKey: "labelKey", displayWith: "displayWith", itemSize: ["itemSize", "itemSize", itemSizeAttribute], virtualScrollMaxHeight: ["virtualScrollMaxHeight", "virtualScrollMaxHeight", numberAttribute], autoComplete: ["autoComplete", "autoComplete", booleanAttribute], searchSelection: ["searchSelection", "searchSelection", booleanAttribute], chipSelection: ["chipSelection", "chipSelection", booleanAttribute], nullable: ["nullable", "nullable", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], closeOnSelect: ["closeOnSelect", "closeOnSelect", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], chipPrefixIcon: "chipPrefixIcon", chipSuffixIcon: "chipSuffixIcon", showOptions: "showOptions", smoothScroll: ["smoothScroll", "smoothScroll", booleanAttribute], searchAutofocus: ["searchAutofocus", "searchAutofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", chipClose: "chipClose", valueChange: "valueChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5$2, decls: 5, vars: 10, consts: [[1, "mrd-select-container", 3, "ngClass"], ["selectContainer", ""], [4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", "cdkConnectedOverlayPanelClass", "mrd-select-options-overlay", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayMinWidth", "backdropClick"], [3, "value", "click", "input", "keydown"], [1, "mrd-select-trigger", 3, "click", "focus", "blur", "keydown"], ["showIfTruncated", "", 3, "mrdToolTip"], ["fill", "currentColor", "width", "14px", "height", "14px", "viewBox", "0 0 24 24", "xmlns", "http://www.w3.org/2000/svg"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round", "stroke", "#CCCCCC", "stroke-width", "0.048"], ["id", "SVGRepo_iconCarrier"], ["d", "M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"], [1, "mrd-chip-container"], ["class", "mrd-chip-values", 4, "ngIf"], [1, "mrd-chip-values"], [1, "mrd-select-trigger-chip", 3, "click", "focus", "blur", "keydown"], [3, "prefixIcon", "suffixIcon", "disabled", "close", 4, "ngFor", "ngForOf"], [3, "prefixIcon", "suffixIcon", "disabled", "close"], [1, "mrd-select-options-container"], ["class", "mrd-select-search-option", "noCheckbox", "", 4, "ngIf"], [1, "mrd-select-options-scroll"], ["noCheckbox", "", 3, "value", "optionClicked", 4, "ngIf"], ["noCheckbox", "", 4, "ngIf"], [3, "items", "itemSize", "maxHeight", "trackBy", 4, "ngIf"], ["noCheckbox", "", 1, "mrd-select-search-option"], ["placeholder", "Suche", 3, "value", "input", "click", "keydown"], ["searchSelectionInput", ""], ["noCheckbox", "", 3, "value", "optionClicked"], ["noCheckbox", ""], [3, "items", "itemSize", "maxHeight", "trackBy"], ["mrdVirtualScrollItem", ""], [1, "mrd-select-option-virtuell", 3, "value", "selected", "focused", "optionClicked"], [4, "ngIf", "ngIfElse"], ["virtuellesLabel", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdSelectComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c3$3);
             i0.ɵɵelementStart(0, "div", 0, 1);
             i0.ɵɵtemplate(2, MrdSelectComponent_ng_container_2_Template, 2, 1, "ng-container", 2);
@@ -8858,7 +9088,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             i0.ɵɵlistener("backdropClick", function MrdSelectComponent_Template_ng_template_backdropClick_4_listener() { return ctx.showOptions.value = false; });
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c4$2, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c4$3, (ctx.formControl == null ? null : ctx.formControl.disabled) || (ctx.formArrayControl == null ? null : ctx.formArrayControl.disabled) || ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.autoComplete);
             i0.ɵɵadvance(1);
@@ -8958,30 +9188,129 @@ class MrdSelectComponent extends BasePushStrategyObject {
             type: Output
         }] }); })();
 
-const _c0$i = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-hint"]], [["mrd-error"]]];
-const _c1$8 = function (a0, a1) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1 }; };
-const _c2$4 = function (a0, a1, a2, a3, a4, a5) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-content-container-outline": a3, "mrd-form-field-content-container-fill": a4, "mrd-form-field-dark-theme": a5 }; };
-const _c3$2 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-hint", "mrd-error"];
+const _c0$l = ["hintContent"];
+const _c1$a = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
+const _c2$4 = ["*"];
+class MrdHintComponent {
+    cdr;
+    hintContent;
+    ellipsis;
+    tootltipText = '';
+    constructor(cdr) {
+        this.cdr = cdr;
+    }
+    ngAfterViewInit() {
+        if (Util.isDefined(this.hintContent) && Util.isDefined(this.hintContent.nativeElement) && Util.isDefined(this.hintContent.nativeElement.innerText)) {
+            this.tootltipText = this.hintContent.nativeElement.innerText;
+        }
+        if (this.ellipsis !== undefined && Number.isNaN(this.ellipsis)) {
+            this.ellipsis = 1;
+        }
+        this.cdr.detectChanges();
+    }
+    /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0$l, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
+        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c2$4, decls: 3, vars: 5, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "line-clamp", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵelementStart(0, "span", 0, 1);
+            i0.ɵɵprojection(2);
+            i0.ɵɵelementEnd();
+        } if (rf & 2) {
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$a, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.tootltipText);
+        } }, dependencies: [i1$1.NgClass, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-hint', changeDetection: ChangeDetectionStrategy.OnPush, template: "<span class=\"mrd-hint-container\"\r\n  [ngClass]=\"{'mrd-hint-ellipsis': ellipsis > 0}\"\r\n  [line-clamp]=\"ellipsis > 0 ? ellipsis : null\"\r\n  [mrdToolTip]=\"tootltipText\" showIfTruncated #hintContent>\r\n  <ng-content></ng-content>\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { hintContent: [{
+            type: ViewChild,
+            args: ['hintContent']
+        }], ellipsis: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }] }); })();
+
+const _c0$k = ["focusArea"];
+const _c1$9 = function (a0) { return { "show-icons": a0 }; };
+const _c2$3 = function (a0) { return { "icon-visible": a0 }; };
+const _c3$2 = function (a0, a1) { return { "hover-area-left": a0, "hover-area-top": a1 }; };
+const _c4$2 = function (a0) { return { "error-icon-visible": a0 }; };
+const _c5$1 = function (a0, a1) { return { "hover-area-right": a0, "hover-area-bottom": a1 }; };
+const _c6 = function (a0) { return { "hint-icon-visible": a0 }; };
+function MrdFormFieldComponent_ng_container_13_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵelementStart(1, "div", 9)(2, "div", 10);
+    i0.ɵɵelement(3, "div", 11);
+    i0.ɵɵnamespaceSVG();
+    i0.ɵɵelementStart(4, "svg", 12);
+    i0.ɵɵelement(5, "path", 13)(6, "path", 14);
+    i0.ɵɵelementEnd()();
+    i0.ɵɵnamespaceHTML();
+    i0.ɵɵelementStart(7, "div", 15);
+    i0.ɵɵelement(8, "div", 11)(9, "mrd-icon", 16);
+    i0.ɵɵelementEnd()();
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c1$9, ctx_r1.hasError && !ctx_r1.hideErrorIcon || ctx_r1.iconHint && !ctx_r1.hideHintIcon));
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(12, _c2$3, ctx_r1.hasError && !ctx_r1.hideErrorIcon));
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(14, _c3$2, !ctx_r1.isTextarea && ctx_r1.iconHint && !ctx_r1.hideHintIcon, ctx_r1.isTextarea && ctx_r1.iconHint && !ctx_r1.hideHintIcon))("mrdToolTip", ctx_r1.errorIconTooltip);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(17, _c4$2, ctx_r1.hasError && !ctx_r1.hideErrorIcon));
+    i0.ɵɵadvance(3);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(19, _c2$3, ctx_r1.iconHint && !ctx_r1.hideHintIcon));
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(21, _c5$1, !ctx_r1.isTextarea && ctx_r1.hasError && !ctx_r1.hideErrorIcon, ctx_r1.isTextarea && ctx_r1.hasError && !ctx_r1.hideErrorIcon))("mrdToolTip", ctx_r1.iconHint);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("color", ctx_r1.MrdColor.GRAU_BLAU)("ngClass", i0.ɵɵpureFunction1(24, _c6, ctx_r1.iconHint && !ctx_r1.hideHintIcon));
+} }
+const _c7 = [[["mrd-prefix"]], [["mrd-input"]], [["mrd-select"]], [["mrd-label"]], [["mrd-date-range-picker"]], [["mrd-suffix"]], [["mrd-error"]], [["mrd-hint"]]];
+const _c8 = function (a0, a1, a2) { return { "mrd-form-field-container-fill": a0, "mrd-form-field-container-outline": a1, "mrd-form-field-container-new-fill": a2 }; };
+const _c9 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) { return { "mrd-form-field-error": a0, "mrd-form-field-disabled": a1, "mrd-form-field-focused": a2, "mrd-form-field-label-floating": a3, "mrd-form-field-select": a4, "mrd-form-field-content-container-outline": a5, "mrd-form-field-content-container-fill": a6, "mrd-form-field-textarea": a7, "mrd-form-field-content-container-new-fill": a8, "mrd-form-field-dark-theme": a9, "mrd-form-field-small": a10 }; };
+const _c10 = function (a0) { return { "bottom-error-visible": a0 }; };
+const _c11 = function (a0) { return { "no-content": a0 }; };
+const _c12 = ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-error", "mrd-hint"];
 class MrdFormFieldComponent extends BaseObject {
     cdr;
     config = ConfigUtil.getConfig();
     input;
     select;
     label;
-    error;
+    outerError;
+    hint;
+    errorNewFill;
+    focusArea;
     // @Input() public appearance: 'standard' | 'outline' = 'standard';
     outline = false;
     fill = false;
+    newFill = false;
     dark = false;
+    small = false;
     requiredAsterisk = true;
     rounded = false;
     borderRadius;
     centered = false;
     textEnd = false;
     fillColor;
+    hideErrorIcon = false;
+    hideHintIcon = false;
+    iconHint;
+    MrdColor = MrdColor;
+    error;
+    iconError;
     disabled = false;
     focused = false;
     hasError = false;
+    hasHint = false;
+    labelFloating = false;
+    isTextarea = false;
     focusColor = this.config.formField?.focusColor ?? this.config.baseColors.primary;
     focusColorDark = this.config.formField?.focusColorDark ?? ColorUtil.changeColorBrightnessPercent(this.config.baseColors.primary, 10);
     focusColorOutline = this.config.formField?.focusColorOutline ?? ColorUtil.changeColorOpacity(this.config.baseColors.primary, 40);
@@ -8993,21 +9322,44 @@ class MrdFormFieldComponent extends BaseObject {
         super();
         this.cdr = cdr;
     }
+    focusAreaClickListener = () => {
+        this.input?.baseInputElement?.nativeElement?.focus();
+        this.input?.textAreaElement?.nativeElement?.focus();
+    };
     ngOnDestroy() {
         super.ngOnDestroy();
         this.timeouts.forEach((timeout) => clearTimeout(timeout));
+        this.focusArea?.nativeElement.removeEventListener('click', this.focusAreaClickListener);
     }
     ngAfterViewInit() {
+        this.focusArea?.nativeElement.addEventListener('click', this.focusAreaClickListener);
+        this.error = this.newFill ? this.errorNewFill : this.outerError;
         this.borderRadius = this.borderRadius ?? this.rounded ? this.config.formField?.borderRadiusRounded : this.config.formField?.borderRadius;
-        this.fillColor = this.fillColor ?? this.config.formField?.fill?.backgroundColor;
+        this.fillColor = this.fillColor ?? (this.newFill ? this.config.formField?.newFill?.backgroundColor : this.config.formField?.fill?.backgroundColor);
+        if (Util.isDefined(this.label)) {
+            this.watch(this.label.floating.changed, new SubscriptionHandler((value) => {
+                if (value) {
+                    setTimeout(() => {
+                        this.labelFloating = this.label.floating.value;
+                        this.cdr.markForCheck();
+                    }, 200);
+                }
+                else {
+                    this.labelFloating = this.label.floating.value;
+                    this.cdr.markForCheck();
+                }
+            }));
+        }
         if (Util.isDefined(this.input)) {
+            this.isTextarea = this.input.textarea ?? false;
             this.input.centered = !this.input.centered ? this.centered : this.input.centered;
             this.input.textEnd = !this.input.textEnd ? this.textEnd : this.input.textEnd;
             if (Util.isDefined(this.input.formControl)) {
                 this.watch(this.input.formControl.valueChanges, new SubscriptionHandler(() => {
                     if (!this.input.validateOnBlur) {
                         if (Util.isDefined(this.error)) {
-                            this.error.error = Util.isDefined(this.input.formControl.error) ? this.input.formControl.error.error : '';
+                            this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
+                            this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
                         }
                         this.hasError = Util.isDefined(this.input.formControl.error);
                     }
@@ -9029,21 +9381,23 @@ class MrdFormFieldComponent extends BaseObject {
                     else if (Util.isDefined(this.label)) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
                     }
-                    this.disabled = this.input.formControl.disabled;
+                    this.disabled = this.input.formControl.disabled || this.input.disabled;
                     this.cdr.markForCheck();
                 }));
                 if (Util.isDefined(this.error) && this.input.formControl.touched) {
-                    this.error.error = Util.isDefined(this.input.formControl.error) ? this.input.formControl.error.error : '';
+                    this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
+                    this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
                     this.hasError = Util.isDefined(this.input.formControl.error);
                 }
                 if (this.requiredAsterisk && Util.isDefined(this.label) && this.input.formControl.required) {
                     this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
                 }
-                this.disabled = this.input.formControl.disabled;
+                this.disabled = this.input.formControl.disabled || this.input.disabled;
                 if (Util.isDefined(this.input.formControl.value)) {
                     this.input.formControl.control.updateValueAndValidity({ emitEvent: false });
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.input.formControl.error) ? this.input.formControl.error.error : '';
+                        this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
+                        this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.input.formControl.error);
                 }
@@ -9091,7 +9445,8 @@ class MrdFormFieldComponent extends BaseObject {
                 if (Util.isDefined(this.input.formControl)) {
                     this.input.formControl.control.updateValueAndValidity({ emitEvent: false });
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.input.formControl.error) ? this.input.formControl.error.error : '';
+                        this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
+                        this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.input.formControl.error);
                 }
@@ -9102,7 +9457,8 @@ class MrdFormFieldComponent extends BaseObject {
             if (Util.isDefined(this.select.formControl)) {
                 this.watch(this.select.formControl.valueChanges, new SubscriptionHandler(() => {
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formControl.error) ? this.select.formControl.error.error : '';
+                        this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
+                        this.iconError = Util.isDefined(this.select.formControl.error?.iconError) ? this.select.formControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.select.formControl.error);
                     if (Util.isDefined(this.label)) {
@@ -9123,20 +9479,21 @@ class MrdFormFieldComponent extends BaseObject {
                     else if (Util.isDefined(this.label)) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
                     }
-                    this.disabled = this.select.formControl.disabled;
+                    this.disabled = this.select.formControl.disabled || this.select.disabled;
                     this.cdr.markForCheck();
                 }));
                 if (Util.isDefined(this.error) && this.select.formControl.touched) {
-                    this.error.error = Util.isDefined(this.select.formControl.error) ? this.select.formControl.error.error : '';
+                    this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
                 }
                 if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formControl.required) {
                     this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
                 }
-                this.disabled = this.select.formControl.disabled;
+                this.disabled = this.select.formControl.disabled || this.select.disabled;
                 if (Util.isDefined(this.select.formControl.value)) {
                     this.select.formControl.control.updateValueAndValidity({ emitEvent: false });
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formControl.error) ? this.select.formControl.error.error : '';
+                        this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
+                        this.iconError = Util.isDefined(this.select.formControl.error?.iconError) ? this.select.formControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.select.formControl.error);
                 }
@@ -9145,7 +9502,8 @@ class MrdFormFieldComponent extends BaseObject {
             if (Util.isDefined(this.select.formArrayControl)) {
                 this.watch(this.select.formArrayControl.valueChanges, new SubscriptionHandler(() => {
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formArrayControl.error) ? this.select.formArrayControl.error.error : '';
+                        this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
+                        this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.select.formArrayControl.error);
                     if (Util.isDefined(this.label)) {
@@ -9166,20 +9524,22 @@ class MrdFormFieldComponent extends BaseObject {
                     else if (Util.isDefined(this.label)) {
                         this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
                     }
-                    this.disabled = this.select.formArrayControl.control.disabled;
+                    this.disabled = this.select.formArrayControl.control.disabled || this.select.disabled;
                     this.cdr.markForCheck();
                 }));
                 if (Util.isDefined(this.error) && this.select.formArrayControl.touched) {
-                    this.error.error = Util.isDefined(this.select.formArrayControl.error) ? this.select.formArrayControl.error.error : '';
+                    this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
+                    this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
                 }
                 if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formArrayControl.required) {
                     this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
                 }
-                this.disabled = this.select.formArrayControl.control.disabled;
+                this.disabled = this.select.formArrayControl.control.disabled || this.select.disabled;
                 if (this.select.formArrayControl.value.length > 0) {
                     this.select.formArrayControl.control.updateValueAndValidity({ emitEvent: false });
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formArrayControl.error) ? this.select.formArrayControl.error.error : '';
+                        this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
+                        this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.select.formArrayControl.error);
                 }
@@ -9255,14 +9615,16 @@ class MrdFormFieldComponent extends BaseObject {
                 if (Util.isDefined(this.select.formControl)) {
                     this.select.formControl.control.updateValueAndValidity({ emitEvent: false });
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formControl.error) ? this.select.formControl.error.error : '';
+                        this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
+                        this.iconError = Util.isDefined(this.select.formControl.error?.iconError) ? this.select.formControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.select.formControl.error);
                 }
                 if (Util.isDefined(this.select.formArrayControl)) {
                     this.select.formArrayControl.control.updateValueAndValidity({ emitEvent: false });
                     if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formArrayControl.error) ? this.select.formArrayControl.error.error : '';
+                        this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
+                        this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
                     }
                     this.hasError = Util.isDefined(this.select.formArrayControl.error);
                 }
@@ -9272,8 +9634,14 @@ class MrdFormFieldComponent extends BaseObject {
         this.cdr.markForCheck();
         this.cdr.detectChanges();
     }
+    get errorIconTooltip() {
+        if (this.hasError) {
+            return this.iconError ?? this.error?.error ?? '';
+        }
+        return '';
+    }
     inputHasRawValue() {
-        let rawValue = this.input.formControl.control.value;
+        let rawValue = this.input.formControl?.control.value;
         return Util.isDefined(rawValue) && rawValue !== '';
     }
     /** @nocollapse */ static ɵfac = function MrdFormFieldComponent_Factory(t) { return new (t || MrdFormFieldComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
@@ -9282,42 +9650,60 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵcontentQuery(dirIndex, MrdSelectComponent, 5);
             i0.ɵɵcontentQuery(dirIndex, MrdLabelComponent, 5);
             i0.ɵɵcontentQuery(dirIndex, MrdErrorComponent, 5);
+            i0.ɵɵcontentQuery(dirIndex, MrdHintComponent, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.input = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.select = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
-            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.error = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.outerError = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hint = _t.first);
+        } }, viewQuery: function MrdFormFieldComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(MrdErrorComponent, 5);
+            i0.ɵɵviewQuery(_c0$k, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.errorNewFill = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.focusArea = _t.first);
         } }, hostVars: 2, hostBindings: function MrdFormFieldComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("font-family", ctx.config == null ? null : ctx.config.baseFont.family);
-        } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c3$2, decls: 12, vars: 28, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-input-content-container"], [1, "mrd-form-field-subcontent-container"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$i);
+        } }, inputs: { outline: ["outline", "outline", booleanAttribute], fill: ["fill", "fill", booleanAttribute], newFill: ["newFill", "newFill", booleanAttribute], dark: ["dark", "dark", booleanAttribute], small: ["small", "small", booleanAttribute], requiredAsterisk: "requiredAsterisk", rounded: ["rounded", "rounded", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], fillColor: ["fillColor", "fillColor", colorAttribute], hideErrorIcon: ["hideErrorIcon", "hideErrorIcon", booleanAttribute], hideHintIcon: ["hideHintIcon", "hideHintIcon", booleanAttribute], iconHint: "iconHint" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c12, decls: 17, vars: 41, consts: [[1, "mrd-form-field-container", 3, "ngClass"], [1, "mrd-form-field-content-container", 3, "ngClass"], [1, "mrd-form-field-focus-area"], ["focusArea", ""], [1, "mrd-form-field-content-wrapper"], [1, "mrd-form-field-input-content-container"], ["ellipsis", "1", 3, "ngClass"], [4, "ngIf"], [1, "mrd-form-field-subcontent-container", 3, "ngClass"], [1, "mrd-form-field-icons", 3, "ngClass"], [1, "mrd-form-field-error-icon", 3, "ngClass"], [1, "mrd-form-field-icons-hover-area", 3, "ngClass", "mrdToolTip"], ["width", "16", "height", "16", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg", 3, "ngClass"], ["d", "M4.47012 20.5039H19.5301C21.0701 20.5039 22.0301 18.8339 21.2601 17.5039L13.7301 4.49384C12.9601 3.16384 11.0401 3.16384 10.2701 4.49384L2.74012 17.5039C1.97012 18.8339 2.93012 20.5039 4.47012 20.5039Z", "fill", "#DA0000"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M10.9866 9.5516C10.9866 9.28286 11.0934 9.02513 11.2834 8.8351C11.4734 8.64508 11.7312 8.53832 11.9999 8.53832C12.2686 8.53832 12.5264 8.64508 12.7164 8.8351C12.9064 9.02513 13.0132 9.28286 13.0132 9.5516L13.0132 13.6038C13.0132 13.8725 12.9064 14.1302 12.7164 14.3203C12.5264 14.5103 12.2686 14.617 11.9999 14.617C11.7312 14.617 11.4734 14.5103 11.2834 14.3203C11.0934 14.1302 10.9866 13.8725 10.9866 13.6038L10.9866 9.5516ZM13.0132 16.3561C13.013 16.5564 12.9534 16.7521 12.842 16.9185C12.7306 17.0849 12.5724 17.2146 12.3873 17.2911C12.2022 17.3676 11.9986 17.3875 11.8022 17.3483C11.6058 17.3092 11.4254 17.2126 11.2839 17.0709C11.1423 16.9293 11.046 16.7488 11.007 16.5524C10.968 16.3559 10.9881 16.1523 11.0648 15.9673C11.1415 15.7823 11.2713 15.6242 11.4378 15.5129C11.6043 15.4017 11.8001 15.3423 12.0004 15.3423C12.1335 15.3423 12.2652 15.3685 12.3882 15.4195C12.5111 15.4705 12.6228 15.5452 12.7169 15.6393C12.8109 15.7334 12.8855 15.8452 12.9364 15.9682C12.9872 16.0912 13.0133 16.223 13.0132 16.3561Z", "fill", "white"], [1, "mrd-form-field-hint-icon", 3, "ngClass"], ["icon", "info", "full", "", "size", "16", 3, "color", "ngClass"]], template: function MrdFormFieldComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c7);
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
-            i0.ɵɵprojection(2);
-            i0.ɵɵelementStart(3, "div", 2);
-            i0.ɵɵprojection(4, 1);
-            i0.ɵɵprojection(5, 2);
-            i0.ɵɵprojection(6, 3);
-            i0.ɵɵprojection(7, 4);
+            i0.ɵɵelement(2, "div", 2, 3);
+            i0.ɵɵprojection(4);
+            i0.ɵɵelementStart(5, "div", 4)(6, "div", 5);
+            i0.ɵɵprojection(7, 1);
+            i0.ɵɵprojection(8, 2);
+            i0.ɵɵprojection(9, 3);
+            i0.ɵɵprojection(10, 4);
             i0.ɵɵelementEnd();
-            i0.ɵɵprojection(8, 5);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(9, "div", 3);
-            i0.ɵɵprojection(10, 6);
-            i0.ɵɵprojection(11, 7);
+            i0.ɵɵelement(11, "mrd-error", 6);
+            i0.ɵɵprojection(12, 5);
+            i0.ɵɵtemplate(13, MrdFormFieldComponent_ng_container_13_Template, 10, 26, "ng-container", 7);
+            i0.ɵɵelementEnd()();
+            i0.ɵɵelementStart(14, "div", 8);
+            i0.ɵɵprojection(15, 6);
+            i0.ɵɵprojection(16, 7);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--focus-color", ctx.focusColor)("--error-color", ctx.errorColor)("--focus-color-dark", ctx.focusColorDark)("--error-color-dark", ctx.errorColorDark)("--focus-color-outline", ctx.focusColorOutline)("--error-color-outline", ctx.errorColorOutline)("--ff-border-radius", ctx.borderRadius)("--ff-fill-color", ctx.fillColor);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(18, _c1$8, ctx.fill, ctx.outline));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(21, _c8, ctx.fill, ctx.outline, ctx.newFill));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(21, _c2$4, ctx.hasError, ctx.disabled, ctx.focused, ctx.outline, ctx.fill, ctx.dark));
-        } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:264px}.mrd-form-field-container[_ngcontent-%COMP%]{display:flex;flex-direction:column;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293D4F}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#bcbcbc}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#ebebeb}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]{border-bottom-style:dotted}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]{border-bottom-color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--focus-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-label-content{color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]{border-bottom-color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--error-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-label-content{color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]     .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}"], changeDetection: 0 });
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunctionV(25, _c9, [ctx.hasError, ctx.disabled, ctx.focused, ctx.labelFloating, ctx.select, ctx.outline, ctx.fill, ctx.isTextarea, ctx.newFill, ctx.dark, ctx.small]));
+            i0.ɵɵadvance(10);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(37, _c10, ctx.newFill));
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngIf", ctx.newFill);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(39, _c11, ctx.newFill && !ctx.hint));
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, ToolTipRendererDirective, MrdIconComponent, MrdErrorComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;width:264px}.mrd-form-field-container[_ngcontent-%COMP%]{display:flex;flex-direction:column;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill):not(.mrd-form-field-container-new-fill){padding-top:1.25em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px;position:relative}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-content-wrapper[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:row;justify-content:flex-start;width:100%}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-focus-area[_ngcontent-%COMP%]{position:absolute;inset:0}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293D4F}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#bcbcbc}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#ebebeb}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-outline[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused[_ngcontent-%COMP%]:not(.mrd-form-field-error)  .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-focused)  .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]:not(.mrd-form-field-focused):not(.mrd-form-field-error)  .s-label-content{color:#293d4f}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-fill[_ngcontent-%COMP%]     .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]{height:13px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]{padding:16px 15.5px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-suffix, .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-prefix{height:13px;font-size:16px;margin-top:-4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-input{align-items:center}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-input input{font-size:16px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-select .mrd-select-trigger, .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-select mrd-select-custom-trigger{font-size:16px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     .mrd-label-content{font-size:1em;height:unset;top:-2px;left:0}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     .mrd-label-content .mrd-label-text{height:24px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     .mrd-label-content.mrd-label-floating{top:-1.6em;font-size:.75em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-error{top:1em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{height:13px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;min-width:0;height:14px;transition:min-width .3s;gap:4px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-hint-icon[_ngcontent-%COMP%]{height:24px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-error-icon[_ngcontent-%COMP%], .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-hint-icon[_ngcontent-%COMP%]{position:relative;display:none}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-error-icon.icon-visible[_ngcontent-%COMP%], .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-hint-icon.icon-visible[_ngcontent-%COMP%]{display:block}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-icons-hover-area[_ngcontent-%COMP%]{position:absolute;inset:-8px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-icons-hover-area.hover-area-right[_ngcontent-%COMP%]{left:-2px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-icons-hover-area.hover-area-left[_ngcontent-%COMP%]{right:-2px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-icons-hover-area.hover-area-top[_ngcontent-%COMP%]{bottom:-2px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   .mrd-form-field-icons-hover-area.hover-area-bottom[_ngcontent-%COMP%]{top:-2px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%], .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   mrd-icon[_ngcontent-%COMP%]{opacity:0;transition:opacity .3s}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   svg.error-icon-visible[_ngcontent-%COMP%], .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   svg.hint-icon-visible[_ngcontent-%COMP%], .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   mrd-icon.error-icon-visible[_ngcontent-%COMP%], .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]   mrd-icon.hint-icon-visible[_ngcontent-%COMP%]{opacity:1}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:23px 15.5px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-dark-theme[_ngcontent-%COMP%]{background-color:#fff}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-disabled)     .mrd-label-content:not(.mrd-label-floating), .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-error[_ngcontent-%COMP%]:not(.mrd-form-field-disabled)     mrd-input input{color:#da0000}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-suffix, .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-prefix{font-weight:700;color:#949ea7;height:14px;font-size:20px;margin-top:-2px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]   .mrd-form-field-icons.show-icons[_ngcontent-%COMP%]{display:flex;min-width:-moz-fit-content;min-width:fit-content;margin-left:8px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-select[_ngcontent-%COMP%]     .mrd-label-content, .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-textarea[_ngcontent-%COMP%]     .mrd-label-content{padding-right:24px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     .mrd-label-content{font-size:1.25em;height:unset;top:-2px;left:0}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     .mrd-label-content .mrd-label-text{height:24px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     .mrd-label-content.mrd-label-floating{top:-1.75em;font-size:.75em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-select{display:flex;flex-direction:column;justify-content:center;padding-top:2px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-select .mrd-select-trigger, .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-select mrd-select-custom-trigger{font-size:20px;font-weight:700}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-input{align-items:center}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-input input{padding:0;color:#293d4f;font-size:20px;font-weight:700}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-input textarea{color:#293d4f;font-size:20px;font-weight:700}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]     mrd-error{position:absolute;bottom:-1.95em;left:0}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{height:14px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-textarea[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{height:auto}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-textarea[_ngcontent-%COMP%]   .mrd-form-field-icons[_ngcontent-%COMP%]{flex-direction:column;justify-content:center}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]{border-bottom-style:dotted}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]     mrd-input input, .mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-disabled[_ngcontent-%COMP%]     mrd-label .mrd-label-content{color:#949ea7}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused[_ngcontent-%COMP%]{border-bottom-color:var(--focus-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--focus-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-new-fill[_ngcontent-%COMP%]   .mrd-form-field-focus-area[_ngcontent-%COMP%]{border:2px solid;border-color:var(--focus-color);border-radius:var(--ff-border-radius)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error[_ngcontent-%COMP%]{border-bottom-color:var(--error-color)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline[_ngcontent-%COMP%]{border-color:var(--error-color-outline)}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container.mrd-form-field-label-floating[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:initial}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-content-container[_ngcontent-%COMP%]   .mrd-form-field-input-content-container[_ngcontent-%COMP%]{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}.mrd-form-field-container[_ngcontent-%COMP%]   .mrd-form-field-subcontent-container.no-content[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFormFieldComponent, [{
         type: Component,
         args: [{ selector: 'mrd-form-field', host: {
                     "[style.font-family]": "config?.baseFont.family"
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-form-field-container\"\r\n  [ngClass]=\"{'mrd-form-field-container-fill': fill, 'mrd-form-field-container-outline': outline}\"\r\n  [style.--focus-color]=\"focusColor\"\r\n  [style.--error-color]=\"errorColor\"\r\n  [style.--focus-color-dark]=\"focusColorDark\"\r\n  [style.--error-color-dark]=\"errorColorDark\"\r\n  [style.--focus-color-outline]=\"focusColorOutline\"\r\n  [style.--error-color-outline]=\"errorColorOutline\"\r\n  [style.--ff-border-radius]=\"borderRadius\"\r\n  [style.--ff-fill-color]=\"fillColor\"\r\n>\r\n  <div class=\"mrd-form-field-content-container\"\r\n    [ngClass]=\"{'mrd-form-field-error': hasError, 'mrd-form-field-disabled': disabled, 'mrd-form-field-focused': focused,\r\n      'mrd-form-field-content-container-outline': outline, 'mrd-form-field-content-container-fill': fill, 'mrd-form-field-dark-theme': dark}\">\r\n    <ng-content select=\"mrd-prefix\"></ng-content>\r\n    <div class=\"mrd-form-field-input-content-container\">\r\n\r\n      <ng-content select=\"mrd-input\"></ng-content>\r\n      <ng-content select=\"mrd-select\"></ng-content>\r\n      <ng-content select=\"mrd-label\"></ng-content>\r\n      <ng-content select=\"mrd-date-range-picker\"></ng-content>\r\n\r\n    </div>\r\n    <ng-content select=\"mrd-suffix\"></ng-content>\r\n  </div>\r\n  <div class=\"mrd-form-field-subcontent-container\">\r\n    <ng-content select=\"mrd-hint\"></ng-content>\r\n    <ng-content select=\"mrd-error\"></ng-content>\r\n  </div>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:264px}.mrd-form-field-container{display:flex;flex-direction:column;position:relative}.mrd-form-field-container:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill){padding-top:1.25em}.mrd-form-field-container .mrd-form-field-content-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293D4F}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme{background-color:#bcbcbc}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#ebebeb}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme{background-color:#fff}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#293d4f}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-disabled{border-bottom-style:dotted}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused{border-bottom-color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline{border-color:var(--focus-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused ::ng-deep .s-label-content{color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused ::ng-deep .s-select-container .s-select-trigger>svg{fill:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error{border-bottom-color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline{border-color:var(--error-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error ::ng-deep .s-label-content{color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error ::ng-deep .s-select-container .s-select-trigger>svg{fill:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-input-content-container{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container .mrd-form-field-subcontent-container{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-form-field-container\"\r\n  [ngClass]=\"{'mrd-form-field-container-fill': fill, 'mrd-form-field-container-outline': outline, 'mrd-form-field-container-new-fill': newFill}\"\r\n  [style.--focus-color]=\"focusColor\"\r\n  [style.--error-color]=\"errorColor\"\r\n  [style.--focus-color-dark]=\"focusColorDark\"\r\n  [style.--error-color-dark]=\"errorColorDark\"\r\n  [style.--focus-color-outline]=\"focusColorOutline\"\r\n  [style.--error-color-outline]=\"errorColorOutline\"\r\n  [style.--ff-border-radius]=\"borderRadius\"\r\n  [style.--ff-fill-color]=\"fillColor\"\r\n>\r\n  <div class=\"mrd-form-field-content-container\"\r\n    [ngClass]=\"{'mrd-form-field-error': hasError, 'mrd-form-field-disabled': disabled, 'mrd-form-field-focused': focused, 'mrd-form-field-label-floating': labelFloating, 'mrd-form-field-select': select,\r\n      'mrd-form-field-content-container-outline': outline, 'mrd-form-field-content-container-fill': fill, 'mrd-form-field-textarea': isTextarea,\r\n      'mrd-form-field-content-container-new-fill': newFill, 'mrd-form-field-dark-theme': dark, 'mrd-form-field-small': small}\">\r\n    <div #focusArea class=\"mrd-form-field-focus-area\"></div>\r\n    <ng-content select=\"mrd-prefix\"></ng-content>\r\n    <div class=\"mrd-form-field-content-wrapper\">\r\n      <div class=\"mrd-form-field-input-content-container\">\r\n        <ng-content select=\"mrd-input\"></ng-content>\r\n        <ng-content select=\"mrd-select\"></ng-content>\r\n        <ng-content select=\"mrd-label\"></ng-content>\r\n        <ng-content select=\"mrd-date-range-picker\"></ng-content>\r\n      </div>\r\n      <!-- <ng-content select=\"mrd-input[textarea]\"></ng-content> -->\r\n      <mrd-error ellipsis=\"1\" [ngClass]=\"{'bottom-error-visible': newFill}\"></mrd-error>\r\n      <ng-content select=\"mrd-suffix\"></ng-content>\r\n      <ng-container *ngIf=\"newFill\">\r\n        <div class=\"mrd-form-field-icons\" [ngClass]=\"{'show-icons': (hasError && !hideErrorIcon) || (iconHint && !hideHintIcon)}\">\r\n          <div class=\"mrd-form-field-error-icon\" [ngClass]=\"{'icon-visible': hasError && !hideErrorIcon}\">\r\n            <div class=\"mrd-form-field-icons-hover-area\" [ngClass]=\"{'hover-area-left': !isTextarea && iconHint && !hideHintIcon, 'hover-area-top': isTextarea && iconHint && !hideHintIcon}\" [mrdToolTip]=\"errorIconTooltip\"></div>\r\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" [ngClass]=\"{'error-icon-visible': hasError && !hideErrorIcon}\">\r\n              <path d=\"M4.47012 20.5039H19.5301C21.0701 20.5039 22.0301 18.8339 21.2601 17.5039L13.7301 4.49384C12.9601 3.16384 11.0401 3.16384 10.2701 4.49384L2.74012 17.5039C1.97012 18.8339 2.93012 20.5039 4.47012 20.5039Z\" fill=\"#DA0000\"/>\r\n              <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.9866 9.5516C10.9866 9.28286 11.0934 9.02513 11.2834 8.8351C11.4734 8.64508 11.7312 8.53832 11.9999 8.53832C12.2686 8.53832 12.5264 8.64508 12.7164 8.8351C12.9064 9.02513 13.0132 9.28286 13.0132 9.5516L13.0132 13.6038C13.0132 13.8725 12.9064 14.1302 12.7164 14.3203C12.5264 14.5103 12.2686 14.617 11.9999 14.617C11.7312 14.617 11.4734 14.5103 11.2834 14.3203C11.0934 14.1302 10.9866 13.8725 10.9866 13.6038L10.9866 9.5516ZM13.0132 16.3561C13.013 16.5564 12.9534 16.7521 12.842 16.9185C12.7306 17.0849 12.5724 17.2146 12.3873 17.2911C12.2022 17.3676 11.9986 17.3875 11.8022 17.3483C11.6058 17.3092 11.4254 17.2126 11.2839 17.0709C11.1423 16.9293 11.046 16.7488 11.007 16.5524C10.968 16.3559 10.9881 16.1523 11.0648 15.9673C11.1415 15.7823 11.2713 15.6242 11.4378 15.5129C11.6043 15.4017 11.8001 15.3423 12.0004 15.3423C12.1335 15.3423 12.2652 15.3685 12.3882 15.4195C12.5111 15.4705 12.6228 15.5452 12.7169 15.6393C12.8109 15.7334 12.8855 15.8452 12.9364 15.9682C12.9872 16.0912 13.0133 16.223 13.0132 16.3561Z\" fill=\"white\"/>\r\n            </svg>\r\n          </div>\r\n          <div class=\"mrd-form-field-hint-icon\" [ngClass]=\"{'icon-visible': iconHint && !hideHintIcon}\">\r\n            <div class=\"mrd-form-field-icons-hover-area\" [ngClass]=\"{'hover-area-right': !isTextarea && hasError && !hideErrorIcon, 'hover-area-bottom': isTextarea && hasError && !hideErrorIcon}\" [mrdToolTip]=\"iconHint\"></div>\r\n            <mrd-icon icon=\"info\" full [color]=\"MrdColor.GRAU_BLAU\" size=\"16\" [ngClass]=\"{'hint-icon-visible': iconHint && !hideHintIcon}\"></mrd-icon>\r\n          </div>\r\n        </div>\r\n      </ng-container>\r\n    </div>\r\n  </div>\r\n  <div class=\"mrd-form-field-subcontent-container\" [ngClass]=\"{'no-content': newFill && !hint}\">\r\n    <ng-content select=\"mrd-error\"></ng-content>\r\n    <ng-content select=\"mrd-hint\"></ng-content>\r\n  </div>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:264px}.mrd-form-field-container{display:flex;flex-direction:column;position:relative}.mrd-form-field-container:not(.mrd-form-field-container-outline):not(.mrd-form-field-container-fill):not(.mrd-form-field-container-new-fill){padding-top:1.25em}.mrd-form-field-container .mrd-form-field-content-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid #afa6a6;padding-bottom:4px;position:relative}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-content-wrapper{position:relative;display:flex;flex-direction:row;justify-content:flex-start;width:100%}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-focus-area{position:absolute;inset:0}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline{border-radius:var(--ff-border-radius);background-color:#fcfdfd;padding:12px;border:1px solid #293D4F}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme{background-color:#bcbcbc}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#ebebeb}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-outline ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:12px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme{background-color:#fff}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-focused:not(.mrd-form-field-error)::ng-deep .s-label-content{color:var(--focus-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill.mrd-form-field-dark-theme.mrd-form-field-error:not(.mrd-form-field-focused)::ng-deep .s-label-content{color:var(--error-color-dark)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill:not(.mrd-form-field-focused):not(.mrd-form-field-error)::ng-deep .s-label-content{color:#293d4f}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-fill ::ng-deep .s-label-content.s-label-floating{top:-2.5em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small .mrd-form-field-icons{height:13px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill{padding:16px 15.5px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-suffix,.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-prefix{height:13px;font-size:16px;margin-top:-4px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-input{align-items:center}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-input input{font-size:16px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-select .mrd-select-trigger,.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-select mrd-select-custom-trigger{font-size:16px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep .mrd-label-content{font-size:1em;height:unset;top:-2px;left:0}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep .mrd-label-content .mrd-label-text{height:24px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep .mrd-label-content.mrd-label-floating{top:-1.6em;font-size:.75em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill ::ng-deep mrd-error{top:1em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-small.mrd-form-field-content-container-new-fill .mrd-form-field-input-content-container{height:13px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;min-width:0;height:14px;transition:min-width .3s;gap:4px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-hint-icon{height:24px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-error-icon,.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-hint-icon{position:relative;display:none}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-error-icon.icon-visible,.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-hint-icon.icon-visible{display:block}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-icons-hover-area{position:absolute;inset:-8px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-icons-hover-area.hover-area-right{left:-2px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-icons-hover-area.hover-area-left{right:-2px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-icons-hover-area.hover-area-top{bottom:-2px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons .mrd-form-field-icons-hover-area.hover-area-bottom{top:-2px}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons svg,.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons mrd-icon{opacity:0;transition:opacity .3s}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons svg.error-icon-visible,.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons svg.hint-icon-visible,.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons mrd-icon.error-icon-visible,.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-icons mrd-icon.hint-icon-visible{opacity:1}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill{border-radius:var(--ff-border-radius);background-color:var(--ff-fill-color);border-bottom:unset!important;padding:23px 15.5px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-dark-theme{background-color:#fff}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-error:not(.mrd-form-field-disabled) ::ng-deep .mrd-label-content:not(.mrd-label-floating),.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-error:not(.mrd-form-field-disabled) ::ng-deep mrd-input input{color:#da0000}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-suffix,.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-prefix{font-weight:700;color:#949ea7;height:14px;font-size:20px;margin-top:-2px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill .mrd-form-field-icons.show-icons{display:flex;min-width:-moz-fit-content;min-width:fit-content;margin-left:8px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-select ::ng-deep .mrd-label-content,.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-textarea ::ng-deep .mrd-label-content{padding-right:24px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep .mrd-label-content{font-size:1.25em;height:unset;top:-2px;left:0}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep .mrd-label-content .mrd-label-text{height:24px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep .mrd-label-content.mrd-label-floating{top:-1.75em;font-size:.75em}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-select{display:flex;flex-direction:column;justify-content:center;padding-top:2px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-select .mrd-select-trigger,.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-select mrd-select-custom-trigger{font-size:20px;font-weight:700}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-input{align-items:center}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-input input{padding:0;color:#293d4f;font-size:20px;font-weight:700}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-input textarea{color:#293d4f;font-size:20px;font-weight:700}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill ::ng-deep mrd-error{position:absolute;bottom:-1.95em;left:0}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill .mrd-form-field-input-content-container{height:14px}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-textarea .mrd-form-field-input-content-container{height:auto}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-content-container-new-fill.mrd-form-field-textarea .mrd-form-field-icons{flex-direction:column;justify-content:center}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-disabled{border-bottom-style:dotted}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-disabled ::ng-deep mrd-input input,.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-disabled ::ng-deep mrd-label .mrd-label-content{color:#949ea7}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused{border-bottom-color:var(--focus-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-outline{border-color:var(--focus-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-focused.mrd-form-field-content-container-new-fill .mrd-form-field-focus-area{border:2px solid;border-color:var(--focus-color);border-radius:var(--ff-border-radius)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error{border-bottom-color:var(--error-color)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-error.mrd-form-field-content-container-outline{border-color:var(--error-color-outline)}.mrd-form-field-container .mrd-form-field-content-container.mrd-form-field-label-floating .mrd-form-field-input-content-container{position:initial}.mrd-form-field-container .mrd-form-field-content-container .mrd-form-field-input-content-container{position:relative;display:flex;flex:1 1 100%;min-width:0px}.mrd-form-field-container .mrd-form-field-subcontent-container{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:0 4px;max-height:-moz-fit-content;max-height:fit-content;min-height:1em}.mrd-form-field-container .mrd-form-field-subcontent-container.no-content{display:none}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { input: [{
             type: ContentChild,
             args: [MrdInputComponent]
@@ -9327,16 +9713,31 @@ class MrdFormFieldComponent extends BaseObject {
         }], label: [{
             type: ContentChild,
             args: [MrdLabelComponent]
-        }], error: [{
+        }], outerError: [{
             type: ContentChild,
             args: [MrdErrorComponent]
+        }], hint: [{
+            type: ContentChild,
+            args: [MrdHintComponent]
+        }], errorNewFill: [{
+            type: ViewChild,
+            args: [MrdErrorComponent]
+        }], focusArea: [{
+            type: ViewChild,
+            args: ['focusArea']
         }], outline: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], fill: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
+        }], newFill: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
         }], dark: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], small: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], requiredAsterisk: [{
@@ -9356,58 +9757,20 @@ class MrdFormFieldComponent extends BaseObject {
         }], fillColor: [{
             type: Input,
             args: [{ transform: colorAttribute }]
-        }] }); })();
-
-const _c0$h = ["hintContent"];
-const _c1$7 = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
-const _c2$3 = ["*"];
-class MrdHintComponent {
-    cdr;
-    hintContent;
-    ellipsis;
-    tootltipText = '';
-    constructor(cdr) {
-        this.cdr = cdr;
-    }
-    ngAfterViewInit() {
-        if (Util.isDefined(this.hintContent) && Util.isDefined(this.hintContent.nativeElement) && Util.isDefined(this.hintContent.nativeElement.innerText)) {
-            this.tootltipText = this.hintContent.nativeElement.innerText;
-        }
-        if (this.ellipsis !== undefined && Number.isNaN(this.ellipsis)) {
-            this.ellipsis = 1;
-        }
-        this.cdr.detectChanges();
-    }
-    /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$h, 5);
-        } if (rf & 2) {
-            let _t;
-            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
-        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c2$3, decls: 3, vars: 5, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "line-clamp", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef();
-            i0.ɵɵelementStart(0, "span", 0, 1);
-            i0.ɵɵprojection(2);
-            i0.ɵɵelementEnd();
-        } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$7, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.tootltipText);
-        } }, dependencies: [i1$1.NgClass, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
-}
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
-        type: Component,
-        args: [{ selector: 'mrd-hint', changeDetection: ChangeDetectionStrategy.OnPush, template: "<span class=\"mrd-hint-container\"\r\n  [ngClass]=\"{'mrd-hint-ellipsis': ellipsis > 0}\"\r\n  [line-clamp]=\"ellipsis > 0 ? ellipsis : null\"\r\n  [mrdToolTip]=\"tootltipText\" showIfTruncated #hintContent>\r\n  <ng-content></ng-content>\r\n</span>\r\n", styles: [":host{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis{white-space:nowrap;white-space:normal;display:-webkit-box}\n"] }]
-    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { hintContent: [{
-            type: ViewChild,
-            args: ['hintContent']
-        }], ellipsis: [{
+        }], hideErrorIcon: [{
             type: Input,
-            args: [{ transform: numberAttribute }]
+            args: [{ transform: booleanAttribute }]
+        }], hideHintIcon: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], iconHint: [{
+            type: Input
         }] }); })();
 
-const _c0$g = ["*"];
+const _c0$j = ["*"];
 class MrdPrefixComponent {
     /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(t) { return new (t || MrdPrefixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$g, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$j, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
@@ -9417,10 +9780,10 @@ class MrdPrefixComponent {
         args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$f = ["*"];
+const _c0$i = ["*"];
 class MrdSuffixComponent {
     /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(t) { return new (t || MrdSuffixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$f, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$i, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
@@ -9430,7 +9793,7 @@ class MrdSuffixComponent {
         args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$e = ["dateInput"];
+const _c0$h = ["dateInput"];
 function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 1) {
     const _r3 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 5);
@@ -9440,10 +9803,11 @@ function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵproperty("startDate", ctx_r1.startValue)("endDate", ctx_r1.endValue);
 } }
-const _c1$6 = [[["mrd-input"]]];
+const _c1$8 = [[["mrd-input"]]];
 const _c2$2 = ["mrd-input"];
 class MrdDateRangePickerComponent {
     inputs;
+    // static, damit der Overlay-Ursprung schon beim ersten Rendern feststeht (sonst NG0100)
     dateInputElement;
     showDatepicker = new ObservableValue(false);
     startValue = null;
@@ -9512,12 +9876,12 @@ class MrdDateRangePickerComponent {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.inputs = _t);
         } }, viewQuery: function MrdDateRangePickerComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$e, 5);
+            i0.ɵɵviewQuery(_c0$h, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
         } }, ngContentSelectors: _c2$2, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$6);
+            i0.ɵɵprojectionDef(_c1$8);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
             i0.ɵɵelement(2, "div", null, 1);
@@ -9540,7 +9904,7 @@ class MrdDateRangePickerComponent {
             args: [MrdInputComponent]
         }], dateInputElement: [{
             type: ViewChild,
-            args: ['dateInput']
+            args: ['dateInput', { static: true }]
         }] }); })();
 
 class MrdDateRangeIndicatorDirective {
@@ -9757,7 +10121,7 @@ i0.ɵɵsetComponentScope(MrdTimepickerComponent, [i1$1.NgForOf, MrdButtonCompone
     MrdSelectComponent,
     MrdSelectOptionComponent], []);
 
-const _c0$d = function (a0) { return { "small": a0 }; };
+const _c0$g = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
     cdr;
     set backgroundColor(value) {
@@ -9867,7 +10231,7 @@ class MrdDecimalComponent {
             i0.ɵɵadvance(2);
             i0.ɵɵtextInterpolate(ctx.decimalValue);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$d, ctx.smallDigits));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$g, ctx.smallDigits));
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate(ctx.digitsValue);
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container[_ngcontent-%COMP%]   .mrd-digits-content.small[_ngcontent-%COMP%]{font-size:.8em}"], changeDetection: 0 });
@@ -9948,8 +10312,8 @@ function MrdToggleSwitchComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_5_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r4); const ctx_r5 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r5.toggle($event, ctx_r5.MrdToggleSwitchState.RIGHT)); });
     i0.ɵɵelementEnd()();
 } }
-const _c0$c = function (a0, a1, a2, a3, a4) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-aus": a1, "mrd-toggle-switch-state-left": a2, "mrd-toggle-switch-state-neutral": a3, "mrd-toggle-switch-state-right": a4 }; };
-const _c1$5 = ["*"];
+const _c0$f = function (a0, a1, a2, a3, a4) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-aus": a1, "mrd-toggle-switch-state-left": a2, "mrd-toggle-switch-state-neutral": a3, "mrd-toggle-switch-state-right": a4 }; };
+const _c1$7 = ["*"];
 /**
  * Schalter mit zwei Betriebsarten:
  * - Auswahl ueber `state`/`stateChange` (links, neutral, rechts), beide Seiten in `bgColor`
@@ -10100,7 +10464,7 @@ class MrdToggleSwitchComponent extends BaseObject {
             i0.ɵɵlistener("keydown.space", function MrdToggleSwitchComponent_keydown_space_HostBindingHandler($event) { return ctx.toggle($event); })("keydown.enter", function MrdToggleSwitchComponent_keydown_enter_HostBindingHandler($event) { return ctx.toggle($event); });
         } if (rf & 2) {
             i0.ɵɵattribute("aria-checked", ctx.state === ctx.MrdToggleSwitchState.RIGHT)("aria-disabled", ctx.istDeaktiviert)("tabindex", ctx.istDeaktiviert ? -1 : 0);
-        } }, inputs: { bgColor: ["bgColor", "bgColor", colorAttribute], bgNeutralColor: ["bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: ["knobColor", "knobColor", colorAttribute], knobNeutralColor: ["knobNeutralColor", "knobNeutralColor", colorAttribute], width: ["width", "width", sizeAttribute], height: ["height", "height", sizeAttribute], bgDisabledColor: ["bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: ["knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: ["disabled", "disabled", booleanAttribute], slim: ["slim", "slim", booleanAttribute], trackHeight: ["trackHeight", "trackHeight", sizeAttribute], knobBorder: "knobBorder", labelPosition: "labelPosition", imageLeft: "imageLeft", imageNeutral: "imageNeutral", imageRight: "imageRight", state: "state", checked: ["checked", "checked", booleanAttribute], formControl: ["mrdFormControl", "formControl"] }, outputs: { stateChange: "stateChange", checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$5, decls: 8, vars: 35, consts: [[1, "mrd-toggle-switch-wrapper"], [1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "ngClass", "click"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-switch-bild", "alt", "", 3, "src", 4, "ngIf"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-switch-label", 3, "click"], ["alt", "", 1, "mrd-toggle-switch-bild", 3, "src"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { bgColor: ["bgColor", "bgColor", colorAttribute], bgNeutralColor: ["bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: ["knobColor", "knobColor", colorAttribute], knobNeutralColor: ["knobNeutralColor", "knobNeutralColor", colorAttribute], width: ["width", "width", sizeAttribute], height: ["height", "height", sizeAttribute], bgDisabledColor: ["bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: ["knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: ["disabled", "disabled", booleanAttribute], slim: ["slim", "slim", booleanAttribute], trackHeight: ["trackHeight", "trackHeight", sizeAttribute], knobBorder: "knobBorder", labelPosition: "labelPosition", imageLeft: "imageLeft", imageNeutral: "imageNeutral", imageRight: "imageRight", state: "state", checked: ["checked", "checked", booleanAttribute], formControl: ["mrdFormControl", "formControl"] }, outputs: { stateChange: "stateChange", checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$7, decls: 8, vars: 35, consts: [[1, "mrd-toggle-switch-wrapper"], [1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "ngClass", "click"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-switch-bild", "alt", "", 3, "src", 4, "ngIf"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-switch-label", 3, "click"], ["alt", "", 1, "mrd-toggle-switch-bild", 3, "src"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
             i0.ɵɵlistener("click", function MrdToggleSwitchComponent_Template_div_click_2_listener($event) { return ctx.toggle($event); });
@@ -10119,7 +10483,7 @@ class MrdToggleSwitchComponent extends BaseObject {
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--knob-color", ctx.knobColor)("--bg-neutral-color", ctx.bgNeutralColor)("--knob-neutral-color", ctx.knobNeutralColor)("--bg-disabled-color", ctx.bgDisabledColor)("--knob-disabled-color", ctx.knobDisabledColor)("--width", ctx.width)("--height", ctx.height)("--track-height", ctx.trackHeight)("--knob-border", ctx.knobBorder);
             i0.ɵɵclassProp("mrd-toggle-switch-slim", ctx.slim);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction5(29, _c0$c, ctx.istDeaktiviert, ctx.binaer && ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction5(29, _c0$f, ctx.istDeaktiviert, ctx.binaer && ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.aktuellesBild);
             i0.ɵɵadvance(1);
@@ -10294,14 +10658,14 @@ class MrdStepComponent {
             type: Input
         }] }); })();
 
-const _c0$b = ["mrdStepHeader"];
-const _c1$4 = function (a0) { return { "next-step-active": a0 }; };
+const _c0$e = ["mrdStepHeader"];
+const _c1$6 = function (a0) { return { "next-step-active": a0 }; };
 function MrdStepperComponent_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 10);
 } if (rf & 2) {
     const i_r3 = i0.ɵɵnextContext().index;
     const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$4, ctx_r5.activeIndex > i_r3));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$6, ctx_r5.activeIndex > i_r3));
 } }
 const _c2$1 = function (a0) { return { "last-step": a0 }; };
 const _c3$1 = function (a0, a1, a2, a3, a4, a5) { return { "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 }; };
@@ -10471,7 +10835,7 @@ class MrdStepperComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.steps = _t);
         } }, viewQuery: function MrdStepperComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$b, 5);
+            i0.ɵɵviewQuery(_c0$e, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.stepBodys = _t);
@@ -10739,8 +11103,8 @@ class MrdIconGroupComponent {
             args: ['blur']
         }] }); })();
 
-const _c0$a = ["mrdButtonTextContent"];
-const _c1$3 = ["buttonTouchArea"];
+const _c0$d = ["mrdButtonTextContent"];
+const _c1$5 = ["buttonTouchArea"];
 function MrdSButtonComponent_span_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "span", 15);
     i0.ɵɵprojection(1, 1);
@@ -11246,8 +11610,8 @@ class MrdSButtonComponent extends BasePushStrategyObject {
     };
     /** @nocollapse */ static ɵfac = function MrdSButtonComponent_Factory(t) { return new (t || MrdSButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSButtonComponent, selectors: [["mrd-s-button"]], viewQuery: function MrdSButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$a, 7);
-            i0.ɵɵviewQuery(_c1$3, 7);
+            i0.ɵɵviewQuery(_c0$d, 7);
+            i0.ɵɵviewQuery(_c1$5, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -11453,7 +11817,7 @@ function MrdListComponent_mrd_virtual_scroll_1_Template(rf, ctx) { if (rf & 1) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("items", ctx_r0.items)("itemSize", ctx_r0.itemSize)("buffer", ctx_r0.buffer)("maxHeight", ctx_r0.maxHeight)("trackBy", ctx_r0.trackBy)("itemTemplate", ctx_r0.itemTemplate == null ? null : ctx_r0.itemTemplate.templateRef);
 } }
-const _c0$9 = ["*"];
+const _c0$c = ["*"];
 /**
  * Liste aus `mrd-list-item`s. Ohne `virtualScroll` werden die Eintraege normal projiziert,
  * mit `virtualScroll` kommen sie ueber `[items]` und ein `<ng-template mrdListItem>`.
@@ -11510,7 +11874,7 @@ class MrdListComponent {
         } }, hostAttrs: ["role", "list"], hostVars: 14, hostBindings: function MrdListComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-list-item-height", ctx.mindestZeilenhoehe + "px")("--mrd-list-selected-background", ctx.selectedBackgroundColor || ctx.config.list.selectedBackgroundColor)("--mrd-list-selected-text", ctx.selectedTextColor || ctx.config.list.selectedTextColor)("--mrd-list-hover", ctx.selectable ? ctx.hoverColor || ctx.config.list.hoverColor : "transparent")("--mrd-list-cursor", ctx.selectable ? "pointer" : "default")("--mrd-list-divider", ctx.divider ? "1px solid " + (ctx.dividerColor || ctx.config.list.dividerColor) : "none");
             i0.ɵɵclassProp("mrd-list-virtual", ctx.virtualScroll);
-        } }, inputs: { divider: ["divider", "divider", booleanAttribute], selectable: ["selectable", "selectable", booleanAttribute], virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], maxHeight: ["maxHeight", "maxHeight", numberAttribute], trackBy: "trackBy", selectedBackgroundColor: ["selectedBackgroundColor", "selectedBackgroundColor", colorAttribute], selectedTextColor: ["selectedTextColor", "selectedTextColor", colorAttribute], hoverColor: ["hoverColor", "hoverColor", colorAttribute], dividerColor: ["dividerColor", "dividerColor", colorAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$9, decls: 2, vars: 1, consts: [["class", "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange", 4, "ngIf"], [1, "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange"]], template: function MrdListComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { divider: ["divider", "divider", booleanAttribute], selectable: ["selectable", "selectable", booleanAttribute], virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], maxHeight: ["maxHeight", "maxHeight", numberAttribute], trackBy: "trackBy", selectedBackgroundColor: ["selectedBackgroundColor", "selectedBackgroundColor", colorAttribute], selectedTextColor: ["selectedTextColor", "selectedTextColor", colorAttribute], hoverColor: ["hoverColor", "hoverColor", colorAttribute], dividerColor: ["dividerColor", "dividerColor", colorAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$c, decls: 2, vars: 1, consts: [["class", "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange", 4, "ngIf"], [1, "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange"]], template: function MrdListComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
             i0.ɵɵtemplate(1, MrdListComponent_mrd_virtual_scroll_1_Template, 1, 6, "mrd-virtual-scroll", 0);
@@ -11575,7 +11939,7 @@ class MrdListComponent {
             type: Output
         }] }); })();
 
-const _c0$8 = ["*"];
+const _c0$b = ["*"];
 class MrdListItemComponent {
     selected = false;
     disabled = false;
@@ -11583,7 +11947,7 @@ class MrdListItemComponent {
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdListItemComponent, selectors: [["mrd-list-item"]], hostAttrs: ["role", "listitem"], hostVars: 6, hostBindings: function MrdListItemComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵattribute("aria-current", ctx.selected ? "true" : null)("aria-disabled", ctx.disabled ? "true" : null);
             i0.ɵɵclassProp("mrd-list-item-selected", ctx.selected)("mrd-list-item-disabled", ctx.disabled);
-        } }, inputs: { selected: ["selected", "selected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$8, decls: 1, vars: 0, template: function MrdListItemComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { selected: ["selected", "selected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$b, decls: 1, vars: 0, template: function MrdListItemComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;width:100%;min-height:var(--mrd-list-item-height, 48px);padding:0 16px;border-bottom:var(--mrd-list-divider, none);cursor:var(--mrd-list-cursor, default)}[_nghost-%COMP%]:hover{background-color:var(--mrd-list-hover, transparent)}.mrd-list-item-selected[_nghost-%COMP%]{background-color:var(--mrd-list-selected-background, #65B32E);color:var(--mrd-list-selected-text, #FFFFFF)}.mrd-list-item-disabled[_nghost-%COMP%]{opacity:.5;pointer-events:none}.mrd-list-virtual[_nghost-%COMP%], .mrd-list-virtual   [_nghost-%COMP%]{height:100%;min-height:0}"], changeDetection: 0 });
@@ -11637,7 +12001,7 @@ class MrdListModule {
         MrdListItemComponent,
         MrdListItemTemplateDirective] }); })();
 
-const _c0$7 = ["*"];
+const _c0$a = ["*"];
 /**
  * Kopf- oder Fusszeile mit fester Hoehe. Die Farbe kommt aus `color`/`textColor`,
  * sonst aus den Attributen `green`, `grey` oder `blue`, sonst aus der Config.
@@ -11674,7 +12038,7 @@ class MrdToolbarComponent {
     /** @nocollapse */ static ɵfac = function MrdToolbarComponent_Factory(t) { return new (t || MrdToolbarComponent)(); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdToolbarComponent, selectors: [["mrd-toolbar"]], hostVars: 12, hostBindings: function MrdToolbarComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-toolbar-background", ctx.hintergrundfarbe)("--mrd-toolbar-text", ctx.textfarbe)("--mrd-toolbar-height", ctx.height || ctx.config.toolbar.height)("--mrd-toolbar-padding", ctx.padding || ctx.config.toolbar.padding)("--mrd-toolbar-font-size", ctx.fontSize || ctx.config.toolbar.fontSize)("--mrd-toolbar-font-weight", ctx.config.toolbar.fontWeight);
-        } }, inputs: { color: ["color", "color", colorAttribute], textColor: ["textColor", "textColor", colorAttribute], green: ["green", "green", booleanAttribute], grey: ["grey", "grey", booleanAttribute], blue: ["blue", "blue", booleanAttribute], height: ["height", "height", sizeAttribute], padding: "padding", fontSize: ["fontSize", "fontSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$7, decls: 1, vars: 0, template: function MrdToolbarComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { color: ["color", "color", colorAttribute], textColor: ["textColor", "textColor", colorAttribute], green: ["green", "green", booleanAttribute], grey: ["grey", "grey", booleanAttribute], blue: ["blue", "blue", booleanAttribute], height: ["height", "height", sizeAttribute], padding: "padding", fontSize: ["fontSize", "fontSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$a, decls: 1, vars: 0, template: function MrdToolbarComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;position:relative;width:100%;height:var(--mrd-toolbar-height);min-height:var(--mrd-toolbar-height);max-height:var(--mrd-toolbar-height);padding:var(--mrd-toolbar-padding);background-color:var(--mrd-toolbar-background);color:var(--mrd-toolbar-text);font-size:var(--mrd-toolbar-font-size);font-weight:var(--mrd-toolbar-font-weight);line-height:32px;white-space:nowrap}"], changeDetection: 0 });
@@ -11735,7 +12099,7 @@ class MrdToolbarModule {
     }], null, null); })();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdToolbarModule, { declarations: [MrdToolbarComponent], imports: [CommonModule], exports: [MrdToolbarComponent] }); })();
 
-const _c0$6 = ["*"];
+const _c0$9 = ["*"];
 class MrdSidenavComponent {
     elementRef;
     renderer;
@@ -11811,7 +12175,7 @@ class MrdSidenavComponent {
     /** @nocollapse */ static ɵfac = function MrdSidenavComponent_Factory(t) { return new (t || MrdSidenavComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavComponent, selectors: [["mrd-sidenav"]], hostVars: 6, hostBindings: function MrdSidenavComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-sidenav-width", ctx.width || ctx.config.sidenav.width)("--mrd-sidenav-max-width", ctx.maxWidth || ctx.config.sidenav.maxWidth)("--mrd-sidenav-border", ctx.borderWidth ? ctx.borderWidth + " solid " + (ctx.borderColor || "transparent") : "none");
-        } }, inputs: { opened: ["opened", "opened", booleanAttribute], autoOpen: ["autoOpen", "autoOpen", booleanAttribute], width: ["width", "width", sizeAttribute], maxWidth: ["maxWidth", "maxWidth", sizeAttribute], borderWidth: ["borderWidth", "borderWidth", sizeAttribute], borderColor: ["borderColor", "borderColor", colorAttribute] }, outputs: { openedChange: "openedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$6, decls: 1, vars: 0, template: function MrdSidenavComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { opened: ["opened", "opened", booleanAttribute], autoOpen: ["autoOpen", "autoOpen", booleanAttribute], width: ["width", "width", sizeAttribute], maxWidth: ["maxWidth", "maxWidth", sizeAttribute], borderWidth: ["borderWidth", "borderWidth", sizeAttribute], borderColor: ["borderColor", "borderColor", colorAttribute] }, outputs: { openedChange: "openedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$9, decls: 1, vars: 0, template: function MrdSidenavComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;flex:0 0 auto;box-sizing:border-box;height:100%;width:var(--mrd-sidenav-width);max-width:var(--mrd-sidenav-max-width);border-right:var(--mrd-sidenav-border);overflow:hidden}.mrd-sidenav-mobile[_nghost-%COMP%]{width:100%;max-width:none;border-right:none}.mrd-sidenav-geschlossen[_nghost-%COMP%]{display:none}"], changeDetection: 0 });
@@ -11845,7 +12209,7 @@ class MrdSidenavComponent {
             type: Output
         }] }); })();
 
-const _c0$5 = ["*"];
+const _c0$8 = ["*"];
 class MrdSidenavContentComponent {
     elementRef;
     renderer;
@@ -11863,7 +12227,7 @@ class MrdSidenavContentComponent {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdSidenavContentComponent_Factory(t) { return new (t || MrdSidenavContentComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavContentComponent, selectors: [["mrd-sidenav-content"]], ngContentSelectors: _c0$5, decls: 1, vars: 0, template: function MrdSidenavContentComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavContentComponent, selectors: [["mrd-sidenav-content"]], ngContentSelectors: _c0$8, decls: 1, vars: 0, template: function MrdSidenavContentComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:block;flex:1 1 auto;box-sizing:border-box;min-width:0;height:100%;overflow:auto}.mrd-sidenav-content-verborgen[_nghost-%COMP%]{display:none}"], changeDetection: 0 });
@@ -11873,8 +12237,8 @@ class MrdSidenavContentComponent {
         args: [{ selector: 'mrd-sidenav-content', changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n", styles: [":host{display:block;flex:1 1 auto;box-sizing:border-box;min-width:0;height:100%;overflow:auto}:host(.mrd-sidenav-content-verborgen){display:none}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, null); })();
 
-const _c0$4 = [[["mrd-sidenav"]], [["mrd-sidenav-content"]]];
-const _c1$2 = ["mrd-sidenav", "mrd-sidenav-content"];
+const _c0$7 = [[["mrd-sidenav"]], [["mrd-sidenav-content"]]];
+const _c1$4 = ["mrd-sidenav", "mrd-sidenav-content"];
 /**
  * Seitenlayout aus `mrd-sidenav` (links) und `mrd-sidenav-content`.
  * Unterhalb von `breakpoint` ist die Ansicht mobil: die Sidenav nimmt die volle Breite ein und verdeckt den Inhalt, solange sie geoeffnet ist.
@@ -11962,8 +12326,8 @@ class MrdSidenavContainerComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.content = _t.first);
         } }, hostVars: 2, hostBindings: function MrdSidenavContainerComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵclassProp("mrd-sidenav-container-mobile", ctx.mobile);
-        } }, inputs: { breakpoint: ["breakpoint", "breakpoint", numberAttribute] }, outputs: { mobileChange: "mobileChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$2, decls: 2, vars: 0, template: function MrdSidenavContainerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$4);
+        } }, inputs: { breakpoint: ["breakpoint", "breakpoint", numberAttribute] }, outputs: { mobileChange: "mobileChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$4, decls: 2, vars: 0, template: function MrdSidenavContainerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0$7);
             i0.ɵɵprojection(0);
             i0.ɵɵprojection(1, 1);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;box-sizing:border-box;position:relative;width:100%;height:100%;overflow:hidden}"], changeDetection: 0 });
@@ -12052,7 +12416,7 @@ function mrdIconsRegistrieren(configs) {
 
 const MRD_ACCORDION = new InjectionToken('MRD_ACCORDION');
 
-const _c0$3 = ["*"];
+const _c0$6 = ["*"];
 /**
  * Fasst mehrere `mrd-expansion-panel` zusammen. Ohne `multi` ist immer hoechstens ein Panel geoeffnet.
  */
@@ -12081,7 +12445,7 @@ class MrdAccordionComponent {
         this.panels.forEach((p) => p.close());
     }
     /** @nocollapse */ static ɵfac = function MrdAccordionComponent_Factory(t) { return new (t || MrdAccordionComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdAccordionComponent, selectors: [["mrd-accordion"]], inputs: { multi: ["multi", "multi", booleanAttribute] }, features: [i0.ɵɵProvidersFeature([{ provide: MRD_ACCORDION, useExisting: MrdAccordionComponent }]), i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$3, decls: 1, vars: 0, template: function MrdAccordionComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdAccordionComponent, selectors: [["mrd-accordion"]], inputs: { multi: ["multi", "multi", booleanAttribute] }, features: [i0.ɵɵProvidersFeature([{ provide: MRD_ACCORDION, useExisting: MrdAccordionComponent }]), i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$6, decls: 1, vars: 0, template: function MrdAccordionComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:block}"], changeDetection: 0 });
@@ -12119,8 +12483,8 @@ function MrdExpansionPanelComponent_ng_container_4_Template(rf, ctx) { if (rf & 
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.lazyInhalt.templateRef);
 } }
-const _c0$2 = [[["mrd-expansion-panel-header"]], "*"];
-const _c1$1 = ["mrd-expansion-panel-header", "*"];
+const _c0$5 = [[["mrd-expansion-panel-header"]], "*"];
+const _c1$3 = ["mrd-expansion-panel-header", "*"];
 let naechsteId = 0;
 /**
  * Aufklappbarer Bereich mit `mrd-expansion-panel-header` als Kopf. Einzeln nutzbar oder innerhalb von `mrd-accordion`.
@@ -12218,8 +12582,8 @@ class MrdExpansionPanelComponent {
         } }, hostVars: 16, hostBindings: function MrdExpansionPanelComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-expansion-panel-header-height", ctx.headerHeight || ctx.config.expansionPanel.headerHeight)("--mrd-expansion-panel-header-padding", ctx.headerPadding || ctx.config.expansionPanel.headerPadding)("--mrd-expansion-panel-header-background", ctx.headerBackground || ctx.config.expansionPanel.headerBackground)("--mrd-expansion-panel-header-color", ctx.headerColor || ctx.config.expansionPanel.headerColor)("--mrd-expansion-panel-background", ctx.background || ctx.config.expansionPanel.background)("--mrd-expansion-panel-dauer", ctx.config.expansionPanel.animationDuration);
             i0.ɵɵclassProp("mrd-expansion-panel-offen", ctx.expanded)("mrd-expansion-panel-disabled", ctx.disabled);
-        } }, inputs: { expanded: ["expanded", "expanded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hideToggle: ["hideToggle", "hideToggle", booleanAttribute], togglePosition: "togglePosition", headerHeight: ["headerHeight", "headerHeight", sizeAttribute], headerPadding: "headerPadding", headerBackground: ["headerBackground", "headerBackground", colorAttribute], headerColor: ["headerColor", "headerColor", colorAttribute], background: ["background", "background", colorAttribute] }, outputs: { expandedChange: "expandedChange", opened: "opened", closed: "closed" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$1, decls: 5, vars: 3, consts: [["role", "region", 1, "mrd-expansion-panel-koerper"], [1, "mrd-expansion-panel-inhalt"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "ngTemplateOutlet"]], template: function MrdExpansionPanelComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$2);
+        } }, inputs: { expanded: ["expanded", "expanded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hideToggle: ["hideToggle", "hideToggle", booleanAttribute], togglePosition: "togglePosition", headerHeight: ["headerHeight", "headerHeight", sizeAttribute], headerPadding: "headerPadding", headerBackground: ["headerBackground", "headerBackground", colorAttribute], headerColor: ["headerColor", "headerColor", colorAttribute], background: ["background", "background", colorAttribute] }, outputs: { expandedChange: "expandedChange", opened: "opened", closed: "closed" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$3, decls: 5, vars: 3, consts: [["role", "region", 1, "mrd-expansion-panel-koerper"], [1, "mrd-expansion-panel-inhalt"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "ngTemplateOutlet"]], template: function MrdExpansionPanelComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0$5);
             i0.ɵɵprojection(0);
             i0.ɵɵelementStart(1, "div", 0)(2, "div", 1);
             i0.ɵɵprojection(3, 1);
@@ -12305,7 +12669,7 @@ function MrdExpansionPanelHeaderComponent_ng_template_4_Template(rf, ctx) { if (
     i0.ɵɵelement(1, "path", 5);
     i0.ɵɵelementEnd();
 } }
-const _c0$1 = ["*"];
+const _c0$4 = ["*"];
 /** Kopf eines `mrd-expansion-panel`; Klick, Enter und Leertaste klappen das Panel auf und zu */
 class MrdExpansionPanelHeaderComponent {
     panel;
@@ -12337,7 +12701,7 @@ class MrdExpansionPanelHeaderComponent {
         } if (rf & 2) {
             i0.ɵɵattribute("id", ctx.panel.headerId)("tabindex", ctx.panel.disabled ? -1 : 0)("aria-expanded", ctx.panel.expanded)("aria-controls", ctx.panel.inhaltId)("aria-disabled", ctx.panel.disabled);
             i0.ɵɵclassProp("mrd-expansion-panel-header-disabled", ctx.panel.disabled);
-        } }, ngContentSelectors: _c0$1, decls: 6, vars: 2, consts: [[3, "ngTemplateOutlet", 4, "ngIf"], [1, "mrd-expansion-panel-header-inhalt"], ["pfeil", ""], [3, "ngTemplateOutlet"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-expansion-panel-header-pfeil"], ["d", "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"]], template: function MrdExpansionPanelHeaderComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, ngContentSelectors: _c0$4, decls: 6, vars: 2, consts: [[3, "ngTemplateOutlet", 4, "ngIf"], [1, "mrd-expansion-panel-header-inhalt"], ["pfeil", ""], [3, "ngTemplateOutlet"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-expansion-panel-header-pfeil"], ["d", "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"]], template: function MrdExpansionPanelHeaderComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵtemplate(0, MrdExpansionPanelHeaderComponent_ng_container_0_Template, 1, 1, "ng-container", 0);
             i0.ɵɵelementStart(1, "div", 1);
@@ -12475,8 +12839,8 @@ class MrdSortDirective {
             type: Output
         }] }); })();
 
-const _c0 = ["mrd-sort-header", ""];
-const _c1 = ["*"];
+const _c0$3 = ["mrd-sort-header", ""];
+const _c1$2 = ["*"];
 /**
  * Sortierbarer Spaltenkopf innerhalb von `[mrdSort]`; funktioniert auf `th` wie auf beliebigen Elementen.
  * Der Pfeil uebernimmt die Textfarbe; bei inaktiver Spalte erscheint er nur beim Hovern.
@@ -12536,7 +12900,7 @@ class MrdSortHeaderComponent {
             i0.ɵɵattribute("aria-sort", ctx.ariaSort)("tabindex", ctx.gesperrt ? null : 0);
             i0.ɵɵstyleProp("--mrd-sort-pfeil-groesse", ctx.arrowSize || ctx.config.sort.arrowSize);
             i0.ɵɵclassProp("mrd-sort-header-aktiv", ctx.aktiv)("mrd-sort-header-disabled", ctx.gesperrt);
-        } }, inputs: { id: ["mrd-sort-header", "id"], start: "start", disabled: ["disabled", "disabled", booleanAttribute], arrowPosition: "arrowPosition", arrowSize: ["arrowSize", "arrowSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0, ngContentSelectors: _c1, decls: 5, vars: 4, consts: [[1, "mrd-sort-header-container"], [1, "mrd-sort-header-inhalt"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-sort-header-pfeil"], ["d", "M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"]], template: function MrdSortHeaderComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { id: ["mrd-sort-header", "id"], start: "start", disabled: ["disabled", "disabled", booleanAttribute], arrowPosition: "arrowPosition", arrowSize: ["arrowSize", "arrowSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0$3, ngContentSelectors: _c1$2, decls: 5, vars: 4, consts: [[1, "mrd-sort-header-container"], [1, "mrd-sort-header-inhalt"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-sort-header-pfeil"], ["d", "M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"]], template: function MrdSortHeaderComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
@@ -12606,9 +12970,1057 @@ class MrdSortModule {
         MrdSortHeaderComponent], imports: [CommonModule], exports: [MrdSortDirective,
         MrdSortHeaderComponent] }); })();
 
+const MRD_MENU = new InjectionToken('MRD_MENU');
+
+const _c0$2 = ["mrd-menu-item", ""];
+function MrdMenuItemComponent_mrd_icon_0_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-icon", 2);
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("icon", ctx_r0.icon)("svgIcon", ctx_r0.svgIcon);
+} }
+const _c1$1 = ["*"];
+/**
+ * Eintrag in einem `mrd-menu`, am besten auf einem `button`. Ein Klick schliesst das Menue.
+ * Das Icon steht vor dem Text: `icon` fuer Symbole der IconFactory, `svgIcon` fuer registrierte Icons.
+ */
+class MrdMenuItemComponent {
+    elementRef;
+    menu;
+    icon;
+    svgIcon;
+    disabled = false;
+    istButton;
+    constructor(elementRef, menu) {
+        this.elementRef = elementRef;
+        this.menu = menu;
+        this.istButton = elementRef.nativeElement.tagName === 'BUTTON';
+    }
+    geklickt() {
+        if (!this.disabled) {
+            this.menu?.eintragGewaehlt();
+        }
+    }
+    fokussieren() {
+        this.elementRef.nativeElement.focus();
+    }
+    hatFokus() {
+        return document.activeElement === this.elementRef.nativeElement;
+    }
+    /** @nocollapse */ static ɵfac = function MrdMenuItemComponent_Factory(t) { return new (t || MrdMenuItemComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_MENU, 8)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdMenuItemComponent, selectors: [["", "mrd-menu-item", ""]], hostAttrs: ["role", "menuitem", "tabindex", "-1", 1, "mrd-menu-item"], hostVars: 4, hostBindings: function MrdMenuItemComponent_HostBindings(rf, ctx) { if (rf & 1) {
+            i0.ɵɵlistener("click", function MrdMenuItemComponent_click_HostBindingHandler() { return ctx.geklickt(); });
+        } if (rf & 2) {
+            i0.ɵɵattribute("aria-disabled", ctx.disabled)("disabled", ctx.disabled && ctx.istButton ? "" : null);
+            i0.ɵɵclassProp("mrd-menu-item-disabled", ctx.disabled);
+        } }, inputs: { icon: "icon", svgIcon: "svgIcon", disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0$2, ngContentSelectors: _c1$1, decls: 3, vars: 1, consts: [["class", "mrd-menu-item-icon", "size", "20", 3, "icon", "svgIcon", 4, "ngIf"], [1, "mrd-menu-item-text"], ["size", "20", 1, "mrd-menu-item-icon", 3, "icon", "svgIcon"]], template: function MrdMenuItemComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵtemplate(0, MrdMenuItemComponent_mrd_icon_0_Template, 1, 2, "mrd-icon", 0);
+            i0.ɵɵelementStart(1, "span", 1);
+            i0.ɵɵprojection(2);
+            i0.ɵɵelementEnd();
+        } if (rf & 2) {
+            i0.ɵɵproperty("ngIf", ctx.icon || ctx.svgIcon);
+        } }, dependencies: [i1$1.NgIf, MrdIconComponent], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 16px;border:none;background:transparent;color:#293d4f;font:inherit;text-align:left;white-space:nowrap;cursor:pointer;outline:none}[_nghost-%COMP%]:hover, [_nghost-%COMP%]:focus-visible, [_nghost-%COMP%]:focus{background-color:#ebeff3}.mrd-menu-item-disabled[_nghost-%COMP%]{color:#949ea7;cursor:default;pointer-events:none;background:transparent}.mrd-menu-item-icon[_ngcontent-%COMP%]{flex:0 0 auto}.mrd-menu-item-text[_ngcontent-%COMP%]{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdMenuItemComponent, [{
+        type: Component,
+        args: [{ selector: '[mrd-menu-item]', host: {
+                    'class': 'mrd-menu-item',
+                    'role': 'menuitem',
+                    'tabindex': '-1',
+                    '[class.mrd-menu-item-disabled]': 'disabled',
+                    '[attr.aria-disabled]': 'disabled',
+                    // Bei einem button verhindert erst das native Attribut, dass (click) des Nutzers ausloest
+                    '[attr.disabled]': 'disabled && istButton ? "" : null',
+                    '(click)': 'geklickt()'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<mrd-icon *ngIf=\"icon || svgIcon\" class=\"mrd-menu-item-icon\" [icon]=\"icon\" [svgIcon]=\"svgIcon\" size=\"20\"></mrd-icon>\n<span class=\"mrd-menu-item-text\"><ng-content></ng-content></span>\n", styles: [":host{display:flex;flex-direction:row;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 16px;border:none;background:transparent;color:#293d4f;font:inherit;text-align:left;white-space:nowrap;cursor:pointer;outline:none}:host:hover,:host:focus-visible,:host:focus{background-color:#ebeff3}:host.mrd-menu-item-disabled{color:#949ea7;cursor:default;pointer-events:none;background:transparent}.mrd-menu-item-icon{flex:0 0 auto}.mrd-menu-item-text{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis}\n"] }]
+    }], function () { return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
+                type: Optional
+            }, {
+                type: Inject,
+                args: [MRD_MENU]
+            }] }]; }, { icon: [{
+            type: Input
+        }], svgIcon: [{
+            type: Input
+        }], disabled: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }] }); })();
+
+function MrdMenuComponent_ng_template_0_Template(rf, ctx) { if (rf & 1) {
+    const _r2 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "div", 0);
+    i0.ɵɵlistener("keydown", function MrdMenuComponent_ng_template_0_Template_div_keydown_0_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.tasteGedrueckt($event)); });
+    i0.ɵɵprojection(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("ngClass", ctx_r0.panelClass);
+} }
+const _c0$1 = ["*"];
+/**
+ * Aufklappmenue, das ueber `[mrdMenuTriggerFor]` geoeffnet wird. Der Inhalt erscheint erst beim Oeffnen im Overlay.
+ *
+ * `<mrd-s-button [mrdMenuTriggerFor]="menu">...</mrd-s-button>`
+ * `<mrd-menu #menu="mrdMenu"><button mrd-menu-item icon="download">Exportieren</button></mrd-menu>`
+ */
+class MrdMenuComponent {
+    panelTemplate;
+    eintraege;
+    xPosition = 'after';
+    yPosition = 'below';
+    /** Zusaetzliche CSS-Klasse(n) am Panel, z. B. fuer eine Mindestbreite */
+    panelClass;
+    opened = new EventEmitter();
+    closed = new EventEmitter();
+    /** Der Trigger entscheidet ueber das Schliessen, weil ihm das Overlay gehoert */
+    schliessenAngefordert = new Subject();
+    ngOnDestroy() {
+        this.schliessenAngefordert.complete();
+    }
+    eintragGewaehlt() {
+        this.schliessenAngefordert.next('eintrag');
+    }
+    fokusErsterEintrag() {
+        this.aktiveEintraege()[0]?.fokussieren();
+    }
+    tasteGedrueckt(event) {
+        const aktive = this.aktiveEintraege();
+        const aktuell = aktive.findIndex((eintrag) => eintrag.hatFokus());
+        let ziel;
+        switch (event.key) {
+            case 'ArrowDown':
+                ziel = aktuell < 0 || aktuell === aktive.length - 1 ? 0 : aktuell + 1;
+                break;
+            case 'ArrowUp':
+                ziel = aktuell <= 0 ? aktive.length - 1 : aktuell - 1;
+                break;
+            case 'Home':
+                ziel = 0;
+                break;
+            case 'End':
+                ziel = aktive.length - 1;
+                break;
+            case 'Tab':
+                this.schliessenAngefordert.next('tab');
+                return;
+            default:
+                return;
+        }
+        event.preventDefault();
+        aktive[ziel]?.fokussieren();
+    }
+    aktiveEintraege() {
+        return this.eintraege ? this.eintraege.filter((eintrag) => !eintrag.disabled) : [];
+    }
+    /** @nocollapse */ static ɵfac = function MrdMenuComponent_Factory(t) { return new (t || MrdMenuComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdMenuComponent, selectors: [["mrd-menu"]], contentQueries: function MrdMenuComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, MrdMenuItemComponent, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.eintraege = _t);
+        } }, viewQuery: function MrdMenuComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(TemplateRef, 7);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.panelTemplate = _t.first);
+        } }, inputs: { xPosition: "xPosition", yPosition: "yPosition", panelClass: "panelClass" }, outputs: { opened: "opened", closed: "closed" }, exportAs: ["mrdMenu"], features: [i0.ɵɵProvidersFeature([{ provide: MRD_MENU, useExisting: MrdMenuComponent }])], ngContentSelectors: _c0$1, decls: 1, vars: 0, consts: [["role", "menu", 1, "mrd-menu-panel", 3, "ngClass", "keydown"]], template: function MrdMenuComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef();
+            i0.ɵɵtemplate(0, MrdMenuComponent_ng_template_0_Template, 2, 1, "ng-template");
+        } }, dependencies: [i1$1.NgClass], styles: [".mrd-menu-panel[_ngcontent-%COMP%]{display:flex;flex-direction:column;min-width:180px;max-width:320px;max-height:calc(100vh - 48px);overflow-y:auto;padding:8px 0;background-color:#fff;color:#293d4f;border-radius:8px;box-shadow:0 4px 16px #16222e33;outline:none}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdMenuComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-menu', exportAs: 'mrdMenu', providers: [{ provide: MRD_MENU, useExisting: MrdMenuComponent }], changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-template>\n  <div class=\"mrd-menu-panel\" [ngClass]=\"panelClass\" role=\"menu\" (keydown)=\"tasteGedrueckt($event)\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: [".mrd-menu-panel{display:flex;flex-direction:column;min-width:180px;max-width:320px;max-height:calc(100vh - 48px);overflow-y:auto;padding:8px 0;background-color:#fff;color:#293d4f;border-radius:8px;box-shadow:0 4px 16px #16222e33;outline:none}\n"] }]
+    }], null, { panelTemplate: [{
+            type: ViewChild,
+            args: [TemplateRef, { static: true }]
+        }], eintraege: [{
+            type: ContentChildren,
+            args: [MrdMenuItemComponent, { descendants: true }]
+        }], xPosition: [{
+            type: Input
+        }], yPosition: [{
+            type: Input
+        }], panelClass: [{
+            type: Input
+        }], opened: [{
+            type: Output
+        }], closed: [{
+            type: Output
+        }] }); })();
+
+/** Trennlinie zwischen Gruppen von Menueeintraegen */
+class MrdMenuDividerComponent {
+    /** @nocollapse */ static ɵfac = function MrdMenuDividerComponent_Factory(t) { return new (t || MrdMenuDividerComponent)(); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdMenuDividerComponent, selectors: [["mrd-menu-divider"]], hostAttrs: ["role", "separator"], decls: 0, vars: 0, template: function MrdMenuDividerComponent_Template(rf, ctx) { }, styles: ["[_nghost-%COMP%]{display:block;height:1px;margin:8px 0;background-color:#d8dfe8}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdMenuDividerComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-menu-divider', template: '', host: {
+                    'role': 'separator'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, styles: [":host{display:block;height:1px;margin:8px 0;background-color:#d8dfe8}\n"] }]
+    }], null, null); })();
+
+/**
+ * Oeffnet ein `mrd-menu` beim Klick auf das Element (auch auf `mrd-s-button`) in einem Overlay.
+ * Geschlossen wird per Eintrag, Klick daneben, Escape oder Tab; danach geht der Fokus zurueck an den Trigger.
+ */
+class MrdMenuTriggerDirective {
+    overlay;
+    elementRef;
+    viewContainerRef;
+    menu;
+    /** Sperrt das Oeffnen; ein deaktivierter Button als Trigger (auch der innere eines `mrd-s-button`) sperrt automatisch */
+    disabled = false;
+    menuOpened = new EventEmitter();
+    menuClosed = new EventEmitter();
+    overlayRef;
+    abos = Subscription.EMPTY;
+    constructor(overlay, elementRef, viewContainerRef) {
+        this.overlay = overlay;
+        this.elementRef = elementRef;
+        this.viewContainerRef = viewContainerRef;
+    }
+    ngOnDestroy() {
+        this.abos.unsubscribe();
+        this.overlayRef?.dispose();
+        this.overlayRef = null;
+    }
+    get offen() {
+        return !!this.overlayRef?.hasAttached();
+    }
+    toggle() {
+        if (this.offen) {
+            this.close();
+        }
+        else {
+            this.open();
+        }
+    }
+    get gesperrt() {
+        if (this.disabled) {
+            return true;
+        }
+        const element = this.elementRef.nativeElement;
+        const button = element instanceof HTMLButtonElement ? element : element.querySelector('button');
+        return !!button?.disabled;
+    }
+    open() {
+        if (this.offen || !this.menu || this.gesperrt) {
+            return;
+        }
+        if (!this.overlayRef) {
+            this.overlayRef = this.overlay.create({
+                positionStrategy: this.overlay.position()
+                    .flexibleConnectedTo(this.elementRef)
+                    .withPositions(this.positionen())
+                    .withPush(false),
+                scrollStrategy: this.overlay.scrollStrategies.reposition(),
+                hasBackdrop: true,
+                backdropClass: 'cdk-overlay-transparent-backdrop'
+            });
+        }
+        else {
+            // Position kann sich seit dem letzten Oeffnen geaendert haben (xPosition/yPosition sind Inputs)
+            this.overlayRef.updatePositionStrategy(this.overlay.position()
+                .flexibleConnectedTo(this.elementRef)
+                .withPositions(this.positionen())
+                .withPush(false));
+        }
+        this.overlayRef.attach(new TemplatePortal(this.menu.panelTemplate, this.viewContainerRef));
+        this.abos = merge(this.overlayRef.backdropClick(), this.overlayRef.keydownEvents().pipe(filter((event) => event.key === 'Escape')), this.menu.schliessenAngefordert).subscribe(() => this.close());
+        this.menu.fokusErsterEintrag();
+        this.menu.opened.emit();
+        this.menuOpened.emit();
+    }
+    close() {
+        if (!this.offen) {
+            return;
+        }
+        this.abos.unsubscribe();
+        this.overlayRef.detach();
+        this.fokusZurueck();
+        this.menu.closed.emit();
+        this.menuClosed.emit();
+    }
+    /** Bei Komponenten wie `mrd-s-button` ist der Host selbst nicht fokussierbar, sondern der Button darin */
+    fokusZurueck() {
+        const element = this.elementRef.nativeElement;
+        const ziel = element.matches('button, a, [tabindex]') ? element : element.querySelector('button, a, [tabindex]') ?? element;
+        ziel.focus();
+    }
+    positionen() {
+        const [originX, gegenOriginX] = this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'];
+        const unten = { originX, originY: 'bottom', overlayX: originX, overlayY: 'top' };
+        const oben = { originX, originY: 'top', overlayX: originX, overlayY: 'bottom' };
+        const [erst, dann] = this.menu.yPosition === 'above' ? [oben, unten] : [unten, oben];
+        return [
+            erst,
+            dann,
+            { ...erst, originX: gegenOriginX, overlayX: gegenOriginX },
+            { ...dann, originX: gegenOriginX, overlayX: gegenOriginX }
+        ];
+    }
+    /** @nocollapse */ static ɵfac = function MrdMenuTriggerDirective_Factory(t) { return new (t || MrdMenuTriggerDirective)(i0.ɵɵdirectiveInject(i1$2.Overlay), i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.ViewContainerRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdMenuTriggerDirective, selectors: [["", "mrdMenuTriggerFor", ""]], hostAttrs: ["aria-haspopup", "menu"], hostVars: 2, hostBindings: function MrdMenuTriggerDirective_HostBindings(rf, ctx) { if (rf & 1) {
+            i0.ɵɵlistener("click", function MrdMenuTriggerDirective_click_HostBindingHandler() { return ctx.toggle(); });
+        } if (rf & 2) {
+            i0.ɵɵattribute("aria-expanded", ctx.offen)("aria-disabled", ctx.disabled || null);
+        } }, inputs: { menu: ["mrdMenuTriggerFor", "menu"], disabled: ["mrdMenuTriggerDisabled", "disabled", booleanAttribute] }, outputs: { menuOpened: "menuOpened", menuClosed: "menuClosed" }, exportAs: ["mrdMenuTrigger"], features: [i0.ɵɵInputTransformsFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdMenuTriggerDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdMenuTriggerFor]',
+                exportAs: 'mrdMenuTrigger',
+                host: {
+                    'aria-haspopup': 'menu',
+                    '[attr.aria-expanded]': 'offen',
+                    '[attr.aria-disabled]': 'disabled || null',
+                    '(click)': 'toggle()'
+                }
+            }]
+    }], function () { return [{ type: i1$2.Overlay }, { type: i0.ElementRef }, { type: i0.ViewContainerRef }]; }, { menu: [{
+            type: Input,
+            args: [{ alias: 'mrdMenuTriggerFor', required: true }]
+        }], disabled: [{
+            type: Input,
+            args: [{ alias: 'mrdMenuTriggerDisabled', transform: booleanAttribute }]
+        }], menuOpened: [{
+            type: Output
+        }], menuClosed: [{
+            type: Output
+        }] }); })();
+
+class MrdMenuModule {
+    /** @nocollapse */ static ɵfac = function MrdMenuModule_Factory(t) { return new (t || MrdMenuModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdMenuModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            OverlayModule,
+            MrdIconModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdMenuModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdMenuComponent,
+                    MrdMenuItemComponent,
+                    MrdMenuDividerComponent,
+                    MrdMenuTriggerDirective
+                ],
+                imports: [
+                    CommonModule,
+                    OverlayModule,
+                    MrdIconModule
+                ],
+                exports: [
+                    MrdMenuComponent,
+                    MrdMenuItemComponent,
+                    MrdMenuDividerComponent,
+                    MrdMenuTriggerDirective
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdMenuModule, { declarations: [MrdMenuComponent,
+        MrdMenuItemComponent,
+        MrdMenuDividerComponent,
+        MrdMenuTriggerDirective], imports: [CommonModule,
+        OverlayModule,
+        MrdIconModule], exports: [MrdMenuComponent,
+        MrdMenuItemComponent,
+        MrdMenuDividerComponent,
+        MrdMenuTriggerDirective] }); })();
+
+const _c0 = [[["caption"]], [["colgroup"], ["col"]]];
+const _c1 = ["caption", "colgroup, col"];
+/**
+ * Tabelle auf Basis der CDK-Tabelle, als natives `<table mrd-table>` oder als Element `<mrd-table>`.
+ * `dataSource` nimmt ein Array, ein Observable oder eine `MrdTableDataSource`; sortiert wird mit `mrdSort` + `mrd-sort-header`.
+ *
+ * `<table mrd-table [dataSource]="daten" mrdSort><ng-container mrdColumnDef="name">
+ *   <th mrd-header-cell *mrdHeaderCellDef mrd-sort-header="name">Name</th><td mrd-cell *mrdCellDef="let zeile">{{zeile.name}}</td>
+ * </ng-container><tr mrd-header-row *mrdHeaderRowDef="spalten; sticky: true"></tr><tr mrd-row *mrdRowDef="let zeile; columns: spalten"></tr></table>`
+ */
+class MrdTableComponent extends CdkTable {
+    stickyCssClass = 'mrd-table-sticky';
+    // position: sticky kommt aus dem Stylesheet, nicht als Inline-Style je Zelle
+    needsPositionStickyOnElement = false;
+    /** Vertikale Linien zwischen allen Spalten; einzelne Linien ueber `trennlinieVor`/`trennlinieNach` an `mrdColumnDef` */
+    spaltenTrennlinien = false;
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdTableComponent_BaseFactory; return function MrdTableComponent_Factory(t) { return (ɵMrdTableComponent_BaseFactory || (ɵMrdTableComponent_BaseFactory = i0.ɵɵgetInheritedFactory(MrdTableComponent)))(t || MrdTableComponent); }; }();
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdTableComponent, selectors: [["mrd-table"], ["table", "mrd-table", ""]], hostAttrs: ["ngSkipHydration", "", 1, "mrd-table"], hostVars: 4, hostBindings: function MrdTableComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵclassProp("mrd-table-fixed-layout", ctx.fixedLayout)("mrd-table-spaltenlinien", ctx.spaltenTrennlinien);
+        } }, inputs: { spaltenTrennlinien: ["spaltenTrennlinien", "spaltenTrennlinien", booleanAttribute] }, exportAs: ["mrdTable"], features: [i0.ɵɵProvidersFeature([
+                { provide: CdkTable, useExisting: MrdTableComponent },
+                { provide: CDK_TABLE, useExisting: MrdTableComponent },
+                { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
+                { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
+                // Verschachtelte Tabellen sollen nicht den Sticky-Listener dieser Tabelle erben
+                { provide: STICKY_POSITIONING_LISTENER, useValue: null }
+            ]), i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1, decls: 6, vars: 0, consts: [["headerRowOutlet", ""], ["rowOutlet", ""], ["noDataRowOutlet", ""], ["footerRowOutlet", ""]], template: function MrdTableComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0);
+            i0.ɵɵprojection(0);
+            i0.ɵɵprojection(1, 1);
+            i0.ɵɵelementContainer(2, 0)(3, 1)(4, 2)(5, 3);
+        } }, dependencies: [i1$4.DataRowOutlet, i1$4.HeaderRowOutlet, i1$4.FooterRowOutlet, i1$4.NoDataRowOutlet], styles: [".mrd-table{--mrd-table-hintergrund: #FFFFFF;--mrd-table-kopf-hintergrund: #FFFFFF;--mrd-table-kopf-farbe: #293D4F;--mrd-table-farbe: #293D4F;--mrd-table-linie: #D8DFE8;--mrd-table-zeile-hover: #EBEFF3;--mrd-table-zelle-padding: 8px 16px;--mrd-table-kopf-padding: 12px 16px;--mrd-table-spaltenlinie: var(--mrd-table-linie);--mrd-table-spaltenlinie-breite: 1px;border-collapse:separate;border-spacing:0;min-width:100%;background-color:var(--mrd-table-hintergrund);color:var(--mrd-table-farbe)}.mrd-table.mrd-table-fixed-layout{table-layout:fixed}.mrd-table thead,.mrd-table tbody,.mrd-table tfoot{background:inherit}.mrd-table .mrd-header-cell,.mrd-table .mrd-cell,.mrd-table .mrd-footer-cell{box-sizing:border-box;text-align:left;vertical-align:middle}.mrd-table .mrd-header-row{background-color:var(--mrd-table-kopf-hintergrund)}.mrd-table .mrd-header-cell{padding:var(--mrd-table-kopf-padding);font-weight:700;color:var(--mrd-table-kopf-farbe);white-space:nowrap;border-bottom:2px solid var(--mrd-table-linie);background-color:var(--mrd-table-kopf-hintergrund)}.mrd-table .mrd-cell,.mrd-table .mrd-footer-cell{padding:var(--mrd-table-zelle-padding);border-bottom:1px solid var(--mrd-table-linie);background:inherit}.mrd-table .mrd-row{background-color:var(--mrd-table-hintergrund)}.mrd-table .mrd-row:hover{background-color:var(--mrd-table-zeile-hover)}.mrd-table .mrd-row:last-child .mrd-cell{border-bottom:none}.mrd-table .mrd-footer-row{background-color:var(--mrd-table-hintergrund);font-weight:700}.mrd-table .mrd-footer-row .mrd-footer-cell{border-top:2px solid var(--mrd-table-linie);border-bottom:none}.mrd-table .mrd-header-row:has(+.mrd-header-row) .mrd-header-cell{border-bottom-width:1px}.mrd-table .mrd-footer-row+.mrd-footer-row .mrd-footer-cell{border-top-width:1px}.mrd-table.mrd-table-spaltenlinien .mrd-header-cell:not(:last-child),.mrd-table.mrd-table-spaltenlinien .mrd-cell:not(:last-child),.mrd-table.mrd-table-spaltenlinien .mrd-footer-cell:not(:last-child){border-right:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-table-sticky-border-elem-left{border-right:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-table-sticky-border-elem-right,.mrd-table .mrd-trennlinie-vor{border-left:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-trennlinie-nach{border-right:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-header-cell[colspan]{text-align:center}.mrd-table .mrd-no-data-row{color:#949ea7}.mrd-table .mrd-no-data-row>td,.mrd-table .mrd-no-data-row>*{padding:var(--mrd-table-zelle-padding)}.mrd-table.mrd-table-virtual .mrd-row{height:var(--mrd-table-zeilen-hoehe);box-sizing:border-box}.mrd-table.mrd-table-virtual .mrd-cell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mrd-table .mrd-table-virtual-platzhalter,.mrd-table .mrd-table-virtual-platzhalter>td{padding:0;border:none;background:transparent}.mrd-table .mrd-table-sticky{position:sticky!important;z-index:1}mrd-table.mrd-table{display:block}mrd-table.mrd-table .mrd-header-row,mrd-table.mrd-table .mrd-row,mrd-table.mrd-table .mrd-footer-row{display:flex;align-items:stretch}mrd-table.mrd-table .mrd-header-cell,mrd-table.mrd-table .mrd-cell,mrd-table.mrd-table .mrd-footer-cell{display:flex;flex:1 1 0;align-items:center;min-width:0;overflow:hidden}\n"], encapsulation: 2 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTableComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-table, table[mrd-table]', exportAs: 'mrdTable', host: {
+                    'class': 'mrd-table',
+                    '[class.mrd-table-fixed-layout]': 'fixedLayout',
+                    '[class.mrd-table-spaltenlinien]': 'spaltenTrennlinien',
+                    'ngSkipHydration': ''
+                }, providers: [
+                    { provide: CdkTable, useExisting: MrdTableComponent },
+                    { provide: CDK_TABLE, useExisting: MrdTableComponent },
+                    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
+                    { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
+                    // Verschachtelte Tabellen sollen nicht den Sticky-Listener dieser Tabelle erben
+                    { provide: STICKY_POSITIONING_LISTENER, useValue: null }
+                ], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, template: "<ng-content select=\"caption\"></ng-content>\n<ng-content select=\"colgroup, col\"></ng-content>\n<ng-container headerRowOutlet></ng-container>\n<ng-container rowOutlet></ng-container>\n<ng-container noDataRowOutlet></ng-container>\n<ng-container footerRowOutlet></ng-container>\n", styles: [".mrd-table{--mrd-table-hintergrund: #FFFFFF;--mrd-table-kopf-hintergrund: #FFFFFF;--mrd-table-kopf-farbe: #293D4F;--mrd-table-farbe: #293D4F;--mrd-table-linie: #D8DFE8;--mrd-table-zeile-hover: #EBEFF3;--mrd-table-zelle-padding: 8px 16px;--mrd-table-kopf-padding: 12px 16px;--mrd-table-spaltenlinie: var(--mrd-table-linie);--mrd-table-spaltenlinie-breite: 1px;border-collapse:separate;border-spacing:0;min-width:100%;background-color:var(--mrd-table-hintergrund);color:var(--mrd-table-farbe)}.mrd-table.mrd-table-fixed-layout{table-layout:fixed}.mrd-table thead,.mrd-table tbody,.mrd-table tfoot{background:inherit}.mrd-table .mrd-header-cell,.mrd-table .mrd-cell,.mrd-table .mrd-footer-cell{box-sizing:border-box;text-align:left;vertical-align:middle}.mrd-table .mrd-header-row{background-color:var(--mrd-table-kopf-hintergrund)}.mrd-table .mrd-header-cell{padding:var(--mrd-table-kopf-padding);font-weight:700;color:var(--mrd-table-kopf-farbe);white-space:nowrap;border-bottom:2px solid var(--mrd-table-linie);background-color:var(--mrd-table-kopf-hintergrund)}.mrd-table .mrd-cell,.mrd-table .mrd-footer-cell{padding:var(--mrd-table-zelle-padding);border-bottom:1px solid var(--mrd-table-linie);background:inherit}.mrd-table .mrd-row{background-color:var(--mrd-table-hintergrund)}.mrd-table .mrd-row:hover{background-color:var(--mrd-table-zeile-hover)}.mrd-table .mrd-row:last-child .mrd-cell{border-bottom:none}.mrd-table .mrd-footer-row{background-color:var(--mrd-table-hintergrund);font-weight:700}.mrd-table .mrd-footer-row .mrd-footer-cell{border-top:2px solid var(--mrd-table-linie);border-bottom:none}.mrd-table .mrd-header-row:has(+.mrd-header-row) .mrd-header-cell{border-bottom-width:1px}.mrd-table .mrd-footer-row+.mrd-footer-row .mrd-footer-cell{border-top-width:1px}.mrd-table.mrd-table-spaltenlinien .mrd-header-cell:not(:last-child),.mrd-table.mrd-table-spaltenlinien .mrd-cell:not(:last-child),.mrd-table.mrd-table-spaltenlinien .mrd-footer-cell:not(:last-child){border-right:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-table-sticky-border-elem-left{border-right:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-table-sticky-border-elem-right,.mrd-table .mrd-trennlinie-vor{border-left:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-trennlinie-nach{border-right:var(--mrd-table-spaltenlinie-breite) solid var(--mrd-table-spaltenlinie)}.mrd-table .mrd-header-cell[colspan]{text-align:center}.mrd-table .mrd-no-data-row{color:#949ea7}.mrd-table .mrd-no-data-row>td,.mrd-table .mrd-no-data-row>*{padding:var(--mrd-table-zelle-padding)}.mrd-table.mrd-table-virtual .mrd-row{height:var(--mrd-table-zeilen-hoehe);box-sizing:border-box}.mrd-table.mrd-table-virtual .mrd-cell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mrd-table .mrd-table-virtual-platzhalter,.mrd-table .mrd-table-virtual-platzhalter>td{padding:0;border:none;background:transparent}.mrd-table .mrd-table-sticky{position:sticky!important;z-index:1}mrd-table.mrd-table{display:block}mrd-table.mrd-table .mrd-header-row,mrd-table.mrd-table .mrd-row,mrd-table.mrd-table .mrd-footer-row{display:flex;align-items:stretch}mrd-table.mrd-table .mrd-header-cell,mrd-table.mrd-table .mrd-cell,mrd-table.mrd-table .mrd-footer-cell{display:flex;flex:1 1 0;align-items:center;min-width:0;overflow:hidden}\n"] }]
+    }], null, { spaltenTrennlinien: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }] }); })();
+
+// Default statt OnPush aus demselben Grund wie bei MrdTableComponent
+/** Kopfzeile, gerendert aus `*mrdHeaderRowDef` */
+class MrdHeaderRowComponent extends CdkHeaderRow {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdHeaderRowComponent_BaseFactory; return function MrdHeaderRowComponent_Factory(t) { return (ɵMrdHeaderRowComponent_BaseFactory || (ɵMrdHeaderRowComponent_BaseFactory = i0.ɵɵgetInheritedFactory(MrdHeaderRowComponent)))(t || MrdHeaderRowComponent); }; }();
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHeaderRowComponent, selectors: [["mrd-header-row"], ["tr", "mrd-header-row", ""]], hostAttrs: ["role", "row", 1, "mrd-header-row"], exportAs: ["mrdHeaderRow"], features: [i0.ɵɵProvidersFeature([{ provide: CdkHeaderRow, useExisting: MrdHeaderRowComponent }]), i0.ɵɵInheritDefinitionFeature], decls: 1, vars: 0, consts: [["cdkCellOutlet", ""]], template: function MrdHeaderRowComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementContainer(0, 0);
+        } }, dependencies: [i1$4.CdkCellOutlet], encapsulation: 2 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHeaderRowComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-header-row, tr[mrd-header-row]', exportAs: 'mrdHeaderRow', host: {
+                    'class': 'mrd-header-row',
+                    'role': 'row'
+                }, providers: [{ provide: CdkHeaderRow, useExisting: MrdHeaderRowComponent }], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, template: "<ng-container cdkCellOutlet></ng-container>\n" }]
+    }], null, null); })();
+/** Fusszeile, gerendert aus `*mrdFooterRowDef` */
+class MrdFooterRowComponent extends CdkFooterRow {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdFooterRowComponent_BaseFactory; return function MrdFooterRowComponent_Factory(t) { return (ɵMrdFooterRowComponent_BaseFactory || (ɵMrdFooterRowComponent_BaseFactory = i0.ɵɵgetInheritedFactory(MrdFooterRowComponent)))(t || MrdFooterRowComponent); }; }();
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFooterRowComponent, selectors: [["mrd-footer-row"], ["tr", "mrd-footer-row", ""]], hostAttrs: ["role", "row", 1, "mrd-footer-row"], exportAs: ["mrdFooterRow"], features: [i0.ɵɵProvidersFeature([{ provide: CdkFooterRow, useExisting: MrdFooterRowComponent }]), i0.ɵɵInheritDefinitionFeature], decls: 1, vars: 0, consts: [["cdkCellOutlet", ""]], template: function MrdFooterRowComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementContainer(0, 0);
+        } }, dependencies: [i1$4.CdkCellOutlet], encapsulation: 2 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFooterRowComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-footer-row, tr[mrd-footer-row]', exportAs: 'mrdFooterRow', host: {
+                    'class': 'mrd-footer-row',
+                    'role': 'row'
+                }, providers: [{ provide: CdkFooterRow, useExisting: MrdFooterRowComponent }], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, template: "<ng-container cdkCellOutlet></ng-container>\n" }]
+    }], null, null); })();
+/** Datenzeile, gerendert aus `*mrdRowDef` */
+class MrdRowComponent extends CdkRow {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdRowComponent_BaseFactory; return function MrdRowComponent_Factory(t) { return (ɵMrdRowComponent_BaseFactory || (ɵMrdRowComponent_BaseFactory = i0.ɵɵgetInheritedFactory(MrdRowComponent)))(t || MrdRowComponent); }; }();
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdRowComponent, selectors: [["mrd-row"], ["tr", "mrd-row", ""]], hostAttrs: ["role", "row", 1, "mrd-row"], exportAs: ["mrdRow"], features: [i0.ɵɵProvidersFeature([{ provide: CdkRow, useExisting: MrdRowComponent }]), i0.ɵɵInheritDefinitionFeature], decls: 1, vars: 0, consts: [["cdkCellOutlet", ""]], template: function MrdRowComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementContainer(0, 0);
+        } }, dependencies: [i1$4.CdkCellOutlet], encapsulation: 2 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdRowComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-row, tr[mrd-row]', exportAs: 'mrdRow', host: {
+                    'class': 'mrd-row',
+                    'role': 'row'
+                }, providers: [{ provide: CdkRow, useExisting: MrdRowComponent }], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, template: "<ng-container cdkCellOutlet></ng-container>\n" }]
+    }], null, null); })();
+
+/** Template der Datenzelle einer Spalte: `<td mrd-cell *mrdCellDef="let zeile">` */
+class MrdCellDefDirective extends CdkCellDef {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdCellDefDirective_BaseFactory; return function MrdCellDefDirective_Factory(t) { return (ɵMrdCellDefDirective_BaseFactory || (ɵMrdCellDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdCellDefDirective)))(t || MrdCellDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdCellDefDirective, selectors: [["", "mrdCellDef", ""]], features: [i0.ɵɵProvidersFeature([{ provide: CdkCellDef, useExisting: MrdCellDefDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCellDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdCellDef]',
+                providers: [{ provide: CdkCellDef, useExisting: MrdCellDefDirective }]
+            }]
+    }], null, null); })();
+/** Template der Kopfzelle einer Spalte: `<th mrd-header-cell *mrdHeaderCellDef>` */
+class MrdHeaderCellDefDirective extends CdkHeaderCellDef {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdHeaderCellDefDirective_BaseFactory; return function MrdHeaderCellDefDirective_Factory(t) { return (ɵMrdHeaderCellDefDirective_BaseFactory || (ɵMrdHeaderCellDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdHeaderCellDefDirective)))(t || MrdHeaderCellDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdHeaderCellDefDirective, selectors: [["", "mrdHeaderCellDef", ""]], features: [i0.ɵɵProvidersFeature([{ provide: CdkHeaderCellDef, useExisting: MrdHeaderCellDefDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHeaderCellDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdHeaderCellDef]',
+                providers: [{ provide: CdkHeaderCellDef, useExisting: MrdHeaderCellDefDirective }]
+            }]
+    }], null, null); })();
+/** Template der Fusszelle einer Spalte: `<td mrd-footer-cell *mrdFooterCellDef>` */
+class MrdFooterCellDefDirective extends CdkFooterCellDef {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdFooterCellDefDirective_BaseFactory; return function MrdFooterCellDefDirective_Factory(t) { return (ɵMrdFooterCellDefDirective_BaseFactory || (ɵMrdFooterCellDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdFooterCellDefDirective)))(t || MrdFooterCellDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdFooterCellDefDirective, selectors: [["", "mrdFooterCellDef", ""]], features: [i0.ɵɵProvidersFeature([{ provide: CdkFooterCellDef, useExisting: MrdFooterCellDefDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFooterCellDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdFooterCellDef]',
+                providers: [{ provide: CdkFooterCellDef, useExisting: MrdFooterCellDefDirective }]
+            }]
+    }], null, null); })();
+/**
+ * Spalte der Tabelle; die Zellen bekommen die Klassen `cdk-column-<name>` und `mrd-column-<name>`.
+ * `sticky`/`stickyEnd` heften die Spalte beim horizontalen Scrollen an, `trennlinieVor`/`trennlinieNach` ziehen eine vertikale Linie.
+ */
+class MrdColumnDefDirective extends CdkColumnDef {
+    get name() {
+        return this._name;
+    }
+    set name(name) {
+        this._setNameInput(name);
+    }
+    /** Vertikale Linie vor bzw. nach der Spalte, durch Kopf, Daten und Fuss (z. B. zwischen Spaltengruppen) */
+    trennlinieVor = false;
+    trennlinieNach = false;
+    _updateColumnCssClassName() {
+        super._updateColumnCssClassName();
+        this._columnCssClassName.push(`mrd-column-${this.cssClassFriendlyName}`);
+    }
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdColumnDefDirective_BaseFactory; return function MrdColumnDefDirective_Factory(t) { return (ɵMrdColumnDefDirective_BaseFactory || (ɵMrdColumnDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdColumnDefDirective)))(t || MrdColumnDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdColumnDefDirective, selectors: [["", "mrdColumnDef", ""]], inputs: { sticky: "sticky", name: ["mrdColumnDef", "name"], trennlinieVor: ["trennlinieVor", "trennlinieVor", booleanAttribute], trennlinieNach: ["trennlinieNach", "trennlinieNach", booleanAttribute] }, features: [i0.ɵɵProvidersFeature([{ provide: CdkColumnDef, useExisting: MrdColumnDefDirective }]), i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdColumnDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdColumnDef]',
+                inputs: ['sticky'],
+                providers: [{ provide: CdkColumnDef, useExisting: MrdColumnDefDirective }]
+            }]
+    }], null, { name: [{
+            type: Input,
+            args: ['mrdColumnDef']
+        }], trennlinieVor: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], trennlinieNach: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }] }); })();
+class MrdHeaderCellDirective extends CdkHeaderCell {
+    spalte;
+    constructor(spalte, elementRef) {
+        super(spalte, elementRef);
+        this.spalte = spalte;
+    }
+    /** @nocollapse */ static ɵfac = function MrdHeaderCellDirective_Factory(t) { return new (t || MrdHeaderCellDirective)(i0.ɵɵdirectiveInject(MrdColumnDefDirective), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdHeaderCellDirective, selectors: [["mrd-header-cell"], ["th", "mrd-header-cell", ""]], hostAttrs: ["role", "columnheader", 1, "mrd-header-cell"], hostVars: 4, hostBindings: function MrdHeaderCellDirective_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵclassProp("mrd-trennlinie-vor", ctx.spalte.trennlinieVor)("mrd-trennlinie-nach", ctx.spalte.trennlinieNach);
+        } }, features: [i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHeaderCellDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'mrd-header-cell, th[mrd-header-cell]',
+                host: {
+                    'class': 'mrd-header-cell',
+                    '[class.mrd-trennlinie-vor]': 'spalte.trennlinieVor',
+                    '[class.mrd-trennlinie-nach]': 'spalte.trennlinieNach',
+                    'role': 'columnheader'
+                }
+            }]
+    }], function () { return [{ type: MrdColumnDefDirective }, { type: i0.ElementRef }]; }, null); })();
+class MrdCellDirective extends CdkCell {
+    spalte;
+    constructor(spalte, elementRef) {
+        super(spalte, elementRef);
+        this.spalte = spalte;
+    }
+    /** @nocollapse */ static ɵfac = function MrdCellDirective_Factory(t) { return new (t || MrdCellDirective)(i0.ɵɵdirectiveInject(MrdColumnDefDirective), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdCellDirective, selectors: [["mrd-cell"], ["td", "mrd-cell", ""]], hostAttrs: [1, "mrd-cell"], hostVars: 4, hostBindings: function MrdCellDirective_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵclassProp("mrd-trennlinie-vor", ctx.spalte.trennlinieVor)("mrd-trennlinie-nach", ctx.spalte.trennlinieNach);
+        } }, features: [i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdCellDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'mrd-cell, td[mrd-cell]',
+                host: {
+                    'class': 'mrd-cell',
+                    '[class.mrd-trennlinie-vor]': 'spalte.trennlinieVor',
+                    '[class.mrd-trennlinie-nach]': 'spalte.trennlinieNach'
+                }
+            }]
+    }], function () { return [{ type: MrdColumnDefDirective }, { type: i0.ElementRef }]; }, null); })();
+class MrdFooterCellDirective extends CdkFooterCell {
+    spalte;
+    constructor(spalte, elementRef) {
+        super(spalte, elementRef);
+        this.spalte = spalte;
+    }
+    /** @nocollapse */ static ɵfac = function MrdFooterCellDirective_Factory(t) { return new (t || MrdFooterCellDirective)(i0.ɵɵdirectiveInject(MrdColumnDefDirective), i0.ɵɵdirectiveInject(i0.ElementRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdFooterCellDirective, selectors: [["mrd-footer-cell"], ["td", "mrd-footer-cell", ""]], hostAttrs: [1, "mrd-footer-cell"], hostVars: 4, hostBindings: function MrdFooterCellDirective_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵclassProp("mrd-trennlinie-vor", ctx.spalte.trennlinieVor)("mrd-trennlinie-nach", ctx.spalte.trennlinieNach);
+        } }, features: [i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFooterCellDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'mrd-footer-cell, td[mrd-footer-cell]',
+                host: {
+                    'class': 'mrd-footer-cell',
+                    '[class.mrd-trennlinie-vor]': 'spalte.trennlinieVor',
+                    '[class.mrd-trennlinie-nach]': 'spalte.trennlinieNach'
+                }
+            }]
+    }], function () { return [{ type: MrdColumnDefDirective }, { type: i0.ElementRef }]; }, null); })();
+
+/** Kopfzeile mit ihren Spalten: `<tr mrd-header-row *mrdHeaderRowDef="spalten; sticky: true">` */
+class MrdHeaderRowDefDirective extends CdkHeaderRowDef {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdHeaderRowDefDirective_BaseFactory; return function MrdHeaderRowDefDirective_Factory(t) { return (ɵMrdHeaderRowDefDirective_BaseFactory || (ɵMrdHeaderRowDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdHeaderRowDefDirective)))(t || MrdHeaderRowDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdHeaderRowDefDirective, selectors: [["", "mrdHeaderRowDef", ""]], inputs: { columns: ["mrdHeaderRowDef", "columns"], sticky: ["mrdHeaderRowDefSticky", "sticky"] }, features: [i0.ɵɵProvidersFeature([{ provide: CdkHeaderRowDef, useExisting: MrdHeaderRowDefDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHeaderRowDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdHeaderRowDef]',
+                providers: [{ provide: CdkHeaderRowDef, useExisting: MrdHeaderRowDefDirective }],
+                inputs: ['columns: mrdHeaderRowDef', 'sticky: mrdHeaderRowDefSticky']
+            }]
+    }], null, null); })();
+/** Fusszeile mit ihren Spalten: `<tr mrd-footer-row *mrdFooterRowDef="spalten; sticky: true">` */
+class MrdFooterRowDefDirective extends CdkFooterRowDef {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdFooterRowDefDirective_BaseFactory; return function MrdFooterRowDefDirective_Factory(t) { return (ɵMrdFooterRowDefDirective_BaseFactory || (ɵMrdFooterRowDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdFooterRowDefDirective)))(t || MrdFooterRowDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdFooterRowDefDirective, selectors: [["", "mrdFooterRowDef", ""]], inputs: { columns: ["mrdFooterRowDef", "columns"], sticky: ["mrdFooterRowDefSticky", "sticky"] }, features: [i0.ɵɵProvidersFeature([{ provide: CdkFooterRowDef, useExisting: MrdFooterRowDefDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFooterRowDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdFooterRowDef]',
+                providers: [{ provide: CdkFooterRowDef, useExisting: MrdFooterRowDefDirective }],
+                inputs: ['columns: mrdFooterRowDef', 'sticky: mrdFooterRowDefSticky']
+            }]
+    }], null, null); })();
+/** Datenzeile: `<tr mrd-row *mrdRowDef="let zeile; columns: spalten; when: istGruppe">` */
+class MrdRowDefDirective extends CdkRowDef {
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdRowDefDirective_BaseFactory; return function MrdRowDefDirective_Factory(t) { return (ɵMrdRowDefDirective_BaseFactory || (ɵMrdRowDefDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdRowDefDirective)))(t || MrdRowDefDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdRowDefDirective, selectors: [["", "mrdRowDef", ""]], inputs: { columns: ["mrdRowDefColumns", "columns"], when: ["mrdRowDefWhen", "when"] }, features: [i0.ɵɵProvidersFeature([{ provide: CdkRowDef, useExisting: MrdRowDefDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdRowDefDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[mrdRowDef]',
+                providers: [{ provide: CdkRowDef, useExisting: MrdRowDefDirective }],
+                inputs: ['columns: mrdRowDefColumns', 'when: mrdRowDefWhen']
+            }]
+    }], null, null); })();
+/** Zeile, die erscheint, solange die Tabelle keine Daten hat: `<tr *mrdNoDataRow><td [attr.colspan]="n">Keine Einträge</td></tr>` */
+class MrdNoDataRowDirective extends CdkNoDataRow {
+    _contentClassName = 'mrd-no-data-row';
+    /** @nocollapse */ static ɵfac = /** @pureOrBreakMyCode */ function () { let ɵMrdNoDataRowDirective_BaseFactory; return function MrdNoDataRowDirective_Factory(t) { return (ɵMrdNoDataRowDirective_BaseFactory || (ɵMrdNoDataRowDirective_BaseFactory = i0.ɵɵgetInheritedFactory(MrdNoDataRowDirective)))(t || MrdNoDataRowDirective); }; }();
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdNoDataRowDirective, selectors: [["ng-template", "mrdNoDataRow", ""]], features: [i0.ɵɵProvidersFeature([{ provide: CdkNoDataRow, useExisting: MrdNoDataRowDirective }]), i0.ɵɵInheritDefinitionFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdNoDataRowDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'ng-template[mrdNoDataRow]',
+                providers: [{ provide: CdkNoDataRow, useExisting: MrdNoDataRowDirective }]
+            }]
+    }], null, null); })();
+
+/** Groesste Zahl, die als Zahl verglichen wird; laengere Ziffernfolgen (z. B. IDs) bleiben Text */
+const MAX_SICHERE_ZAHL = 9007199254740991;
+/** Wie tief verschachtelte Objekte der Standardfilter durchsucht (z. B. `zeile.schlag.name`) */
+const FILTER_TIEFE = 3;
+/**
+ * Datenquelle fuer `mrd-table` mit clientseitiger Sortierung (ueber `mrdSort`) und Textfilter.
+ * Ohne Sortierung und Filter genuegt ein einfaches Array als `dataSource`.
+ *
+ * `quelle = new MrdTableDataSource(zeilen); quelle.sort = this.sortierung; quelle.filter = 'weizen';`
+ */
+class MrdTableDataSource extends DataSource {
+    /** Ungefilterte, unsortierte Daten */
+    get data() {
+        return this._daten;
+    }
+    set data(daten) {
+        this._daten = Array.isArray(daten) ? daten : [];
+        this.aktualisieren();
+    }
+    _daten;
+    /** Suchtext; leer zeigt alle Zeilen */
+    get filter() {
+        return this._filter;
+    }
+    set filter(filter) {
+        this._filter = filter ?? '';
+        this.aktualisieren();
+    }
+    _filter = '';
+    /** Sortier-Direktive der Tabelle; sortiert wird bei jedem Klick und bei Aenderung von `[mrdSort]` */
+    get sort() {
+        return this._sort;
+    }
+    set sort(sort) {
+        this._sort = sort;
+        this.sortBeobachten();
+        this.aktualisieren();
+    }
+    _sort = null;
+    /** Daten nach dem Filter, vor der Sortierung */
+    filteredData = [];
+    /** Liefert den Sortierwert einer Zeile fuer die Spalte (Id aus `mrd-sort-header`); Standard ist die gleichnamige Eigenschaft */
+    sortingDataAccessor = (zeile, spalte) => {
+        const wert = zeile?.[spalte];
+        if (_isNumberValue(wert)) {
+            const zahl = Number(wert);
+            return zahl < MAX_SICHERE_ZAHL ? zahl : wert;
+        }
+        return wert;
+    };
+    /** true, wenn die Zeile zum (kleingeschriebenen, getrimmten) Filter passt; Standard durchsucht alle einfachen Werte */
+    filterPredicate = (zeile, filter) => MrdTableDataSource.textWerte(zeile, FILTER_TIEFE).join('\n').toLowerCase().includes(filter);
+    renderDaten = new BehaviorSubject([]);
+    sortAbo = null;
+    constructor(daten = []) {
+        super();
+        this._daten = daten;
+        this.aktualisieren();
+    }
+    connect() {
+        this.sortBeobachten();
+        return this.renderDaten;
+    }
+    disconnect() {
+        this.sortAbo?.unsubscribe();
+        this.sortAbo = null;
+    }
+    /**
+     * Sortiert eine Kopie der Daten; Leerwerte (null, undefined, '') stehen in beiden Richtungen am Ende.
+     * Texte werden deutsch verglichen (Umlaute, Zahlen im Text numerisch, Gross-/Kleinschreibung egal).
+     */
+    sortData(daten, sort) {
+        const spalte = sort.active;
+        const richtung = sort.direction === 'desc' ? -1 : 1;
+        if (!spalte || !sort.direction) {
+            return daten;
+        }
+        return [...daten].sort((a, b) => {
+            const wertA = this.sortingDataAccessor(a, spalte);
+            const wertB = this.sortingDataAccessor(b, spalte);
+            const leerA = MrdTableDataSource.istLeer(wertA);
+            const leerB = MrdTableDataSource.istLeer(wertB);
+            if (leerA || leerB) {
+                return leerA === leerB ? 0 : (leerA ? 1 : -1);
+            }
+            if (typeof wertA === 'number' && typeof wertB === 'number') {
+                return (wertA - wertB) * richtung;
+            }
+            return String(wertA).localeCompare(String(wertB), 'de', { numeric: true, sensitivity: 'base' }) * richtung;
+        });
+    }
+    sortBeobachten() {
+        this.sortAbo?.unsubscribe();
+        this.sortAbo = this._sort ? this._sort.zustandGeaendert.subscribe(() => this.aktualisieren()) : null;
+    }
+    aktualisieren() {
+        const filter = this._filter.trim().toLowerCase();
+        this.filteredData = filter ? this._daten.filter((zeile) => this.filterPredicate(zeile, filter)) : this._daten;
+        this.renderDaten.next(this._sort ? this.sortData(this.filteredData, this._sort) : this.filteredData);
+    }
+    static istLeer(wert) {
+        return wert === null || wert === undefined || wert === '';
+    }
+    static textWerte(wert, tiefe) {
+        if (MrdTableDataSource.istLeer(wert)) {
+            return [];
+        }
+        if (wert instanceof Date) {
+            return [wert.toISOString()];
+        }
+        if (typeof wert !== 'object') {
+            return [String(wert)];
+        }
+        if (tiefe <= 0) {
+            return [];
+        }
+        return Object.values(wert).reduce((werte, teil) => werte.concat(MrdTableDataSource.textWerte(teil, tiefe - 1)), []);
+    }
+}
+
+/** Liefert der CDK-Tabelle nur den Ausschnitt; die Gesamtdaten verwaltet die Direktive */
+class AusschnittQuelle extends DataSource {
+    zeilen = new BehaviorSubject([]);
+    connect() {
+        return this.zeilen;
+    }
+    disconnect() {
+        // Die Direktive beendet den Strom beim Zerstoeren
+    }
+}
+/**
+ * Virtuelles Scrollen fuer `mrd-table`: gerendert werden nur die sichtbaren Zeilen samt Puffer, oben und unten halten
+ * Platzhalter die Scrollhoehe. Ohne transform, daher funktionieren angeheftete Kopf-/Fusszeilen und Spalten weiter.
+ *
+ * Die Daten kommen ueber die Direktive statt ueber `dataSource`; alle Datenzeilen muessen genau `zeilenHoehe` hoch sein.
+ * Gescrollt wird im naechsten scrollbaren Vorfahren (Hoehe bzw. max-height und overflow: auto setzen).
+ *
+ * `<div class="h-96 overflow-auto"><table mrd-table [mrdTableVirtualScroll]="quelle" zeilenHoehe="48">...</table></div>`
+ */
+class MrdTableVirtualScrollDirective {
+    tabelle;
+    elementRef;
+    ngZone;
+    set daten(daten) {
+        this.datenAbo?.unsubscribe();
+        this.vorherigeQuelle?.disconnect();
+        this.vorherigeQuelle = daten instanceof MrdTableDataSource ? daten : null;
+        const strom = daten instanceof MrdTableDataSource
+            ? daten.connect()
+            : isObservable(daten) ? daten : of(daten ?? []);
+        this.datenAbo = strom.subscribe((zeilen) => {
+            this.alle = zeilen ?? [];
+            this.aktualisieren(true);
+        });
+    }
+    /** Feste Hoehe jeder Datenzeile in px */
+    zeilenHoehe;
+    /** Zusaetzlich gerenderte Zeilen ober- und unterhalb des sichtbaren Bereichs */
+    puffer = 10;
+    bereichGeaendert = new EventEmitter();
+    bereich = { start: 0, ende: 0 };
+    /** Anzahl aller Zeilen (nach Filter) */
+    get anzahl() {
+        return this.alle.length;
+    }
+    alle = [];
+    quelle = new AusschnittQuelle();
+    datenAbo;
+    vorherigeQuelle = null;
+    scrollContainer;
+    platzhalterOben;
+    platzhalterUnten;
+    groessenBeobachter;
+    bereit = false;
+    scrollHandler = () => this.aktualisieren(false);
+    constructor(tabelle, elementRef, ngZone) {
+        this.tabelle = tabelle;
+        this.elementRef = elementRef;
+        this.ngZone = ngZone;
+    }
+    ngOnInit() {
+        this.tabelle.dataSource = this.quelle;
+    }
+    ngAfterViewInit() {
+        this.scrollContainer = this.scrollContainerSuchen();
+        // Sonst verschiebt der Browser beim Austauschen der Zeilen die Scrollposition (Scroll Anchoring)
+        this.scrollContainer.style.overflowAnchor = 'none';
+        this.platzhalterEinfuegen();
+        this.ngZone.runOutsideAngular(() => {
+            this.scrollContainer.addEventListener('scroll', this.scrollHandler, { passive: true });
+            this.groessenBeobachter = new ResizeObserver(() => this.aktualisieren(false));
+            this.groessenBeobachter.observe(this.scrollContainer);
+        });
+        this.bereit = true;
+        // Erst nach dem laufenden Change-Detection-Durchlauf: neue Zeilen in ngAfterViewInit wuerden NG0100 ausloesen
+        Promise.resolve().then(() => this.aktualisieren(true));
+    }
+    ngOnDestroy() {
+        this.scrollContainer?.removeEventListener('scroll', this.scrollHandler);
+        this.groessenBeobachter?.disconnect();
+        this.datenAbo?.unsubscribe();
+        this.vorherigeQuelle?.disconnect();
+        this.quelle.zeilen.complete();
+        this.platzhalterOben?.remove();
+        this.platzhalterUnten?.remove();
+    }
+    /** Scrollt zur Zeile mit dem Index (bezogen auf die gefilterten und sortierten Daten) */
+    scrollToIndex(index, behavior = 'auto') {
+        const ziel = Math.max(0, Math.min(index, this.alle.length - 1));
+        this.scrollContainer?.scrollTo({ top: this.datenBeginn() + ziel * this.zeilenHoehe, behavior });
+    }
+    /** Berechnet den Ausschnitt; `erzwingen`, wenn sich die Daten geaendert haben */
+    aktualisieren(erzwingen) {
+        if (!this.bereit) {
+            this.quelle.zeilen.next(this.alle.slice(0, this.puffer * 2));
+            return;
+        }
+        const hoehe = Math.max(this.zeilenHoehe, 1);
+        const sichtbarAb = Math.max(0, this.scrollContainer.scrollTop - this.datenBeginn());
+        const erste = Math.floor(sichtbarAb / hoehe);
+        const sichtbar = Math.ceil(this.scrollContainer.clientHeight / hoehe) + 1;
+        const start = Math.max(0, Math.min(erste - this.puffer, this.alle.length));
+        const ende = Math.min(this.alle.length, erste + sichtbar + this.puffer);
+        if (!erzwingen && start === this.bereich.start && ende === this.bereich.ende) {
+            return;
+        }
+        this.bereich = { start, ende: Math.max(start, ende) };
+        this.platzhalterSetzen(start * hoehe, (this.alle.length - this.bereich.ende) * hoehe);
+        // Nur bei geaendertem Ausschnitt zurueck in die Zone, damit Scrollen allein keine Change Detection ausloest
+        this.ngZone.run(() => {
+            this.quelle.zeilen.next(this.alle.slice(this.bereich.start, this.bereich.ende));
+            this.bereichGeaendert.emit(this.bereich);
+        });
+    }
+    /**
+     * Abstand vom Anfang des Scrollinhalts bis zur ersten Datenzeile (Inhalt ueber der Tabelle und Kopfzeilen),
+     * gemessen am oberen Platzhalter; angeheftete Kopfzeilen verschieben ihn nicht
+     */
+    datenBeginn() {
+        const container = this.scrollContainer.getBoundingClientRect();
+        return this.platzhalterOben.getBoundingClientRect().top - container.top - this.scrollContainer.clientTop + this.scrollContainer.scrollTop;
+    }
+    scrollContainerSuchen() {
+        let element = this.elementRef.nativeElement.parentElement;
+        while (element) {
+            const overflow = getComputedStyle(element).overflowY;
+            if (overflow === 'auto' || overflow === 'scroll') {
+                return element;
+            }
+            element = element.parentElement;
+        }
+        return document.scrollingElement ?? document.documentElement;
+    }
+    /**
+     * Platzhalter direkt vor der ersten und hinter der letzten Datenzeile. Angular fuegt Zeilen vor dem Anker des
+     * Zeilen-Outlets ein, die Platzhalter bleiben daher an ihrem Platz.
+     */
+    platzhalterEinfuegen() {
+        const anker = this.tabelle._rowOutlet.elementRef.nativeElement;
+        const kopfAnker = this.tabelle._headerRowOutlet.elementRef.nativeElement;
+        const eltern = anker.parentNode;
+        const nativ = this.elementRef.nativeElement.tagName === 'TABLE';
+        this.platzhalterOben = this.platzhalterErzeugen(nativ);
+        this.platzhalterUnten = this.platzhalterErzeugen(nativ);
+        // Native Tabelle: eigener tbody; Element-Variante: Datenzeilen folgen auf den Anker der Kopfzeilen
+        const vorErsterZeile = eltern === kopfAnker.parentNode ? kopfAnker.nextSibling : eltern.firstChild;
+        eltern.insertBefore(this.platzhalterOben, vorErsterZeile);
+        eltern.insertBefore(this.platzhalterUnten, anker.nextSibling);
+    }
+    platzhalterErzeugen(nativ) {
+        const platzhalter = document.createElement(nativ ? 'tr' : 'div');
+        platzhalter.className = 'mrd-table-virtual-platzhalter';
+        platzhalter.setAttribute('aria-hidden', 'true');
+        if (nativ) {
+            platzhalter.appendChild(document.createElement('td'));
+        }
+        return platzhalter;
+    }
+    platzhalterSetzen(oben, unten) {
+        const spalten = this.spaltenAnzahl();
+        this.platzhalterHoehe(this.platzhalterOben, oben, spalten);
+        this.platzhalterHoehe(this.platzhalterUnten, unten, spalten);
+    }
+    /** Bleibt auch mit Hoehe 0 im Layout, weil datenBeginn() am oberen Platzhalter misst */
+    platzhalterHoehe(platzhalter, hoehe, spalten) {
+        const zelle = platzhalter.firstElementChild;
+        (zelle ?? platzhalter).style.height = `${hoehe}px`;
+        if (zelle) {
+            zelle.colSpan = spalten;
+        }
+    }
+    spaltenAnzahl() {
+        const zeile = this.elementRef.nativeElement.querySelector('.mrd-row, .mrd-header-row');
+        return Math.max(1, zeile ? Array.from(zeile.children).reduce((summe, zelle) => summe + (zelle.colSpan || 1), 0) : 1);
+    }
+    /** @nocollapse */ static ɵfac = function MrdTableVirtualScrollDirective_Factory(t) { return new (t || MrdTableVirtualScrollDirective)(i0.ɵɵdirectiveInject(i1$4.CdkTable), i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.NgZone)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdTableVirtualScrollDirective, selectors: [["table", "mrd-table", "", "mrdTableVirtualScroll", ""], ["mrd-table", "mrdTableVirtualScroll", ""]], hostAttrs: [1, "mrd-table-virtual"], hostVars: 2, hostBindings: function MrdTableVirtualScrollDirective_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵstyleProp("--mrd-table-zeilen-hoehe", ctx.zeilenHoehe, "px");
+        } }, inputs: { daten: ["mrdTableVirtualScroll", "daten"], zeilenHoehe: ["zeilenHoehe", "zeilenHoehe", numberAttribute], puffer: ["puffer", "puffer", numberAttribute] }, outputs: { bereichGeaendert: "bereichGeaendert" }, exportAs: ["mrdTableVirtualScroll"], features: [i0.ɵɵInputTransformsFeature] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTableVirtualScrollDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'table[mrd-table][mrdTableVirtualScroll], mrd-table[mrdTableVirtualScroll]',
+                exportAs: 'mrdTableVirtualScroll',
+                host: {
+                    'class': 'mrd-table-virtual',
+                    '[style.--mrd-table-zeilen-hoehe.px]': 'zeilenHoehe'
+                }
+            }]
+    }], function () { return [{ type: i1$4.CdkTable }, { type: i0.ElementRef }, { type: i0.NgZone }]; }, { daten: [{
+            type: Input,
+            args: [{ alias: 'mrdTableVirtualScroll', required: true }]
+        }], zeilenHoehe: [{
+            type: Input,
+            args: [{ required: true, transform: numberAttribute }]
+        }], puffer: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], bereichGeaendert: [{
+            type: Output
+        }] }); })();
+
+const DEKLARATIONEN = [
+    MrdTableComponent,
+    MrdHeaderRowComponent,
+    MrdRowComponent,
+    MrdFooterRowComponent,
+    MrdColumnDefDirective,
+    MrdHeaderCellDefDirective,
+    MrdCellDefDirective,
+    MrdFooterCellDefDirective,
+    MrdHeaderCellDirective,
+    MrdCellDirective,
+    MrdFooterCellDirective,
+    MrdHeaderRowDefDirective,
+    MrdRowDefDirective,
+    MrdFooterRowDefDirective,
+    MrdNoDataRowDirective,
+    MrdTableVirtualScrollDirective
+];
+/** Tabelle auf Basis der CDK-Tabelle; sortiert wird mit dem MrdSortModule */
+class MrdTableModule {
+    /** @nocollapse */ static ɵfac = function MrdTableModule_Factory(t) { return new (t || MrdTableModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdTableModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            CdkTableModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTableModule, [{
+        type: NgModule,
+        args: [{
+                declarations: DEKLARATIONEN,
+                imports: [
+                    CommonModule,
+                    CdkTableModule
+                ],
+                exports: DEKLARATIONEN
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdTableModule, { declarations: [MrdTableComponent,
+        MrdHeaderRowComponent,
+        MrdRowComponent,
+        MrdFooterRowComponent,
+        MrdColumnDefDirective,
+        MrdHeaderCellDefDirective,
+        MrdCellDefDirective,
+        MrdFooterCellDefDirective,
+        MrdHeaderCellDirective,
+        MrdCellDirective,
+        MrdFooterCellDirective,
+        MrdHeaderRowDefDirective,
+        MrdRowDefDirective,
+        MrdFooterRowDefDirective,
+        MrdNoDataRowDirective,
+        MrdTableVirtualScrollDirective], imports: [CommonModule,
+        CdkTableModule], exports: [MrdTableComponent,
+        MrdHeaderRowComponent,
+        MrdRowComponent,
+        MrdFooterRowComponent,
+        MrdColumnDefDirective,
+        MrdHeaderCellDefDirective,
+        MrdCellDefDirective,
+        MrdFooterCellDefDirective,
+        MrdHeaderCellDirective,
+        MrdCellDirective,
+        MrdFooterCellDirective,
+        MrdHeaderRowDefDirective,
+        MrdRowDefDirective,
+        MrdFooterRowDefDirective,
+        MrdNoDataRowDirective,
+        MrdTableVirtualScrollDirective] }); })();
+
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MatTabBodyPortal, MrdAccordionComponent, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MatTabBodyPortal, MrdAccordionComponent, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

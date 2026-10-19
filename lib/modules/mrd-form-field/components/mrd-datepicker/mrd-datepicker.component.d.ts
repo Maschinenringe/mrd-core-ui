@@ -1,8 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnInit } from '@angular/core';
 import moment, { Moment } from 'moment';
 import { ObservableValue } from 'mrd-core';
 import * as i0 from "@angular/core";
-export declare class MrdDatepickerComponent implements AfterViewInit {
+export declare class MrdDatepickerComponent implements OnInit {
     private cdr;
     date: string | Moment | null;
     range: boolean;
@@ -27,7 +27,7 @@ export declare class MrdDatepickerComponent implements AfterViewInit {
     private today;
     private calendarDate;
     constructor(cdr: ChangeDetectorRef);
-    ngAfterViewInit(): void;
+    ngOnInit(): void;
     private checkDate;
     private initYearRange;
     private initCalendar;

@@ -12,16 +12,16 @@ import * as i1 from "../../../mrd-virtual-scroll/common/model/mrd-virtual-scroll
 export declare class MrdSelectComponent extends BasePushStrategyObject implements OnInit, AfterContentInit, AfterViewInit {
     private elementRef;
     protected cdr: ChangeDetectorRef;
-    selectContainer: ElementRef;
-    searchSelectionInput: ElementRef;
-    options: QueryList<MrdSelectOptionComponent>;
-    customTrigger: MrdSelectCustomTriggerComponent;
-    optionTemplate: MrdSelectOptionTemplateDirective;
-    virtuellesScroll: MrdVirtualScrollComponent;
+    selectContainer?: ElementRef;
+    searchSelectionInput?: ElementRef;
+    options?: QueryList<MrdSelectOptionComponent>;
+    customTrigger?: MrdSelectCustomTriggerComponent;
+    optionTemplate?: MrdSelectOptionTemplateDirective;
+    virtuellesScroll?: MrdVirtualScrollComponent;
     private _initialized;
     readonly optionSelectionChanges: Observable<any>;
-    formControl: AccessableFormControl;
-    formArrayControl: AccessableFormArray<any>;
+    formControl?: AccessableFormControl;
+    formArrayControl?: AccessableFormArray<any>;
     set value(value: any);
     get value(): any;
     private _value;
@@ -37,9 +37,9 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     /** Nur mit `virtualScroll` */
     labelKey: string;
     /** Nur mit `virtualScroll`; hat Vorrang vor `labelKey` */
-    displayWith: (item: any) => string;
+    displayWith?: (item: any) => string;
     /** Nur mit `virtualScroll`: Hoehe einer Option in px, fuer alle gleich oder `(item, index) => px` je Option */
-    itemSize: MrdVirtualScrollItemSize;
+    itemSize?: MrdVirtualScrollItemSize;
     /** Nur mit `virtualScroll`: maximale Hoehe der Optionsliste in px */
     virtualScrollMaxHeight: number;
     autoComplete: boolean;
@@ -51,8 +51,8 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     private _multiple;
     closeOnSelect: boolean;
     disabled: boolean;
-    chipPrefixIcon: string;
-    chipSuffixIcon: string;
+    chipPrefixIcon?: string;
+    chipSuffixIcon?: string;
     showOptions: ObservableValue<boolean>;
     smoothScroll: boolean;
     searchAutofocus: boolean;
@@ -74,7 +74,7 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     searchText: string;
     optionsWidthExceeded: boolean;
     optionsHeightExceeded: boolean;
-    private optionChangeSubscription;
+    private optionChangeSubscription?;
     gefilterteItems: any[];
     virtuelleAusgewaehlteItems: any[];
     fokusIndex: number;
@@ -100,8 +100,8 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     get selectedOptions(): MrdSelectOptionComponent[];
     set showNoOptionsOnSearch(value: boolean);
     get showNoOptionsOnSearch(): boolean;
-    focus(event: FocusEvent): void;
-    blur(event: FocusEvent): void;
+    focus(event: FocusEvent | null): void;
+    blur(event: FocusEvent | null): void;
     get istDeaktiviert(): boolean;
     /** null statt -1: ein tabindex von -1 laesst sich per Mausklick weiterhin fokussieren */
     get triggerTabIndex(): number | null;

@@ -1,13 +1,13 @@
 {
   "name": "mrd-core-ui",
-  "version": "v0.16.98-beta",
+  "version": "v0.16.99-beta",
   "peerDependencies": {
     "@angular/common": "^16.1.7",
     "@angular/core": "^16.1.7",
     "@angular/router": "^16.1.7",
     "moment": "^2.24.0",
     "underscore": "^1.9.1",
-    "mrd-core": "git+https://github.com/Maschinenringe/mrd-core.git#v1.0.27",
+    "mrd-core": "git+https://github.com/Maschinenringe/mrd-core.git#v1.16.34",
     "rxjs": "^7.8.1"
   },
   "dependencies": {

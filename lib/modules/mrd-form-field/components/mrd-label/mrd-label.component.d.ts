@@ -9,6 +9,8 @@ export declare class MrdLabelComponent extends BasePushStrategyObject {
     float: 'always' | 'auto' | 'never';
     floating: ObservableValue<boolean>;
     required: ObservableValue<boolean>;
+    labelColor: string;
+    labelFloatingColor: string;
     constructor(cdr: ChangeDetectorRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdLabelComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MrdLabelComponent, "mrd-label", never, { "labelTop": { "alias": "labelTop"; "required": false; }; "float": { "alias": "float"; "required": false; }; }, {}, never, ["*"], false, never>;

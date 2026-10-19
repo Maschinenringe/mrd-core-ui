@@ -2,7 +2,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import * as i0 from "@angular/core";
 export declare class MrdErrorComponent {
     private cdr;
-    ellipsis: number;
+    ellipsis?: number;
     private _error;
     set error(value: string);
     get error(): string;

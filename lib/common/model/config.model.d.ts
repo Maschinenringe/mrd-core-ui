@@ -19,6 +19,9 @@ export interface MrdConfigModel {
         fill?: {
             backgroundColor?: string;
         };
+        newFill?: {
+            backgroundColor?: string;
+        };
         input?: {
             color?: string;
         };
