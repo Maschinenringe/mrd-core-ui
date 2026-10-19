@@ -114,3 +114,7 @@ export * from './lib/modules/mrd-table/common/directive/mrd-cell.directive';
 export * from './lib/modules/mrd-table/common/directive/mrd-row-def.directive';
 export * from './lib/modules/mrd-table/common/model/mrd-table-data-source';
 export * from './lib/modules/mrd-table/common/directive/mrd-table-virtual-scroll.directive';
+export * from './lib/modules/mrd-upload/mrd-upload.module';
+export * from './lib/modules/mrd-upload/components/mrd-upload/mrd-upload.component';
+export * from './lib/modules/mrd-upload/common/model/mrd-upload-format.model';
+export * from './lib/common/service/mrd-svg-arrow.service';

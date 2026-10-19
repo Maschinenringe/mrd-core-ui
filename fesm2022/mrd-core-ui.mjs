@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
 import moment, { isMoment } from 'moment';
-import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, TypeConverter, ValidatorFloat } from 'mrd-core';
+import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, TypeConverter, ValidatorFloat, AccessableControlFactory } from 'mrd-core';
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
@@ -5204,11 +5204,11 @@ class MrdFlyOutComponent extends BaseObject {
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(25, _c3$8, ctx.stateToggle.value, ctx.centered, ctx.topDown, ctx.bottomUp, ctx.leftRight, ctx.rightLeft));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", !ctx.hideDefaultCloseButton);
-        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdButtonComponent], styles: ["[_nghost-%COMP%]{width:100vw;height:100vh;position:absolute;inset:0}.backdrop[_ngcontent-%COMP%]{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open[_ngcontent-%COMP%]{display:block;background-color:var(--bd-color)}.mrd-fly-out[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]   .mrd-fly-out__content[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown[_ngcontent-%COMP%]{padding-top:3.5em;top:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown.centered[_ngcontent-%COMP%]{padding-top:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp[_ngcontent-%COMP%]{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp.centered[_ngcontent-%COMP%]{padding-bottom:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight[_ngcontent-%COMP%]{padding-left:3.5em;left:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight.centered[_ngcontent-%COMP%]{padding-left:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft[_ngcontent-%COMP%]{padding-right:3.5em;right:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft.centered[_ngcontent-%COMP%]{padding-right:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown[_ngcontent-%COMP%]{top:-3em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown.centered[_ngcontent-%COMP%]{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp[_ngcontent-%COMP%]{bottom:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp.centered[_ngcontent-%COMP%]{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight[_ngcontent-%COMP%]{left:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight.centered[_ngcontent-%COMP%]{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft[_ngcontent-%COMP%]{right:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft.centered[_ngcontent-%COMP%]{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__close[_ngcontent-%COMP%]{position:absolute;top:0;right:0;z-index:10000}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdButtonComponent], styles: ["[_nghost-%COMP%]{width:100vw;height:100vh;position:absolute;inset:0}.backdrop[_ngcontent-%COMP%]{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open[_ngcontent-%COMP%]{display:block;background-color:var(--bd-color)}.mrd-fly-out[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container[_ngcontent-%COMP%]   .mrd-fly-out__content[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown[_ngcontent-%COMP%]{padding-top:3.5em;top:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.topDown.centered[_ngcontent-%COMP%]{padding-top:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp[_ngcontent-%COMP%]{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.bottomUp.centered[_ngcontent-%COMP%]{padding-bottom:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight[_ngcontent-%COMP%]{padding-left:3.5em;left:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.leftRight.centered[_ngcontent-%COMP%]{padding-left:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft[_ngcontent-%COMP%]{padding-right:3.5em;right:-100%}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.rightLeft.centered[_ngcontent-%COMP%]{padding-right:1em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown[_ngcontent-%COMP%]{top:-3em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.topDown.centered[_ngcontent-%COMP%]{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp[_ngcontent-%COMP%]{bottom:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.bottomUp.centered[_ngcontent-%COMP%]{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight[_ngcontent-%COMP%]{left:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.leftRight.centered[_ngcontent-%COMP%]{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft[_ngcontent-%COMP%]{right:-2em}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__container.open.rightLeft.centered[_ngcontent-%COMP%]{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out[_ngcontent-%COMP%]   .mrd-fly-out__close[_ngcontent-%COMP%]{position:absolute;top:0;right:0;z-index:10000}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdFlyOutComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-fly-out', changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der Hintergrund des FlyOuts -->\r\n<div class=\"backdrop\" [ngClass]=\"{'open': stateToggle.value}\" (click)=\"backdropClicked()\"\r\n  [style.--bd-color]=\"backdropColor\"\r\n  [style.--bd-transition-time]=\"transitionTime\"\r\n  ></div>\r\n<!-- Die \u00E4u\u00DFerste Komponente des FlyOuts, das den Container zentriert -->\r\n<div class=\"mrd-fly-out\"\r\n  [style.--fo-width]=\"width\"\r\n  [style.--fo-max-width]=\"maxWidth\"\r\n  [style.--fo-height]=\"height\"\r\n  [style.--fo-max-height]=\"maxHeight\"\r\n  [style.--fo-bg-color]=\"backgroundColor\"\r\n  [style.--fo-padding]=\"padding\"\r\n  [style.--fo-border-radius]=\"borderRadius\"\r\n  [style.--fo-transition-time]=\"transitionTime\"\r\n  >\r\n  <!-- Der Container, der das Grundlayout des FlyOuts bereitstellt -->\r\n  <div #container class=\"mrd-fly-out__container\" [ngClass]=\"{'open': stateToggle.value, 'centered': centered,\r\n    'topDown': topDown, 'bottomUp': bottomUp, 'leftRight': leftRight, 'rightLeft': rightLeft}\">\r\n    <!-- Der Inhalt des FlyOuts -->\r\n    <div class=\"mrd-fly-out__content\">\r\n      <!-- Der Standard Schlie\u00DFen-Button des FlyOuts -->\r\n      <mrd-button icon-button iconSize=\"2em\" (click)=\"close()\" class=\"mrd-fly-out__close\" *ngIf=\"!hideDefaultCloseButton\">\r\n        <svg mrd-icon width=\"48\" height=\"48\" viewBox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M43.1253 20.1956C42.3728 16.4129 40.5155 12.9384 37.7883 10.2113C34.1313 6.55443 29.1715 4.5 24 4.5C18.8285 4.5 13.8687 6.55443 10.2117 10.2113C7.48449 12.9384 5.62722 16.4129 4.87475 20.1956C4.12228 23.9782 4.5084 27.899 5.98429 31.4622C7.46017 35.0253 9.95953 38.0709 13.1663 40.2136C16.3731 42.3563 20.1432 43.5 24 43.5C27.8568 43.5 31.6269 42.3563 34.8337 40.2136C38.0405 38.0709 40.5398 35.0253 42.0157 31.4622C43.4916 27.899 43.8777 23.9782 43.1253 20.1956ZM47.5388 19.3176C46.6127 14.6621 44.3268 10.3857 40.9702 7.02923C36.4694 2.52855 30.365 0 24 0C17.635 0 11.5306 2.52855 7.02976 7.02923C3.67321 10.3857 1.38735 14.6621 0.461228 19.3176C-0.464888 23.9732 0.0103406 28.7987 1.82682 33.1842C3.64329 37.5697 6.71943 41.318 10.6662 43.9552C14.613 46.5924 19.2532 48 24 48C28.7468 48 33.387 46.5924 37.3338 43.9552C41.2806 41.318 44.3567 37.5697 46.1732 33.1842C47.9897 28.7987 48.4649 23.9732 47.5388 19.3176Z\" fill=\"#949EA7\"/>\r\n          <path d=\"M27.9366 30.9242L23.9998 26.9867L20.0631 30.9242C19.867 31.1204 19.6341 31.276 19.3777 31.3821C19.1213 31.4881 18.8465 31.5425 18.5691 31.5422C18.2918 31.5424 18.0171 31.488 17.7609 31.3819C17.5047 31.2759 17.2719 31.1203 17.0758 30.9242C16.6798 30.528 16.4573 29.9907 16.4573 29.4305C16.4573 28.8704 16.6798 28.3331 17.0758 27.9369L21.0126 24.0002L17.0758 20.0634C16.8797 19.8673 16.724 19.6344 16.6179 19.3782C16.5117 19.1219 16.457 18.8472 16.457 18.5698C16.457 18.2924 16.5117 18.0177 16.6179 17.7614C16.724 17.5051 16.8797 17.2723 17.0758 17.0762C17.4719 16.6802 18.009 16.4577 18.5691 16.4577C19.1291 16.4577 19.6663 16.6802 20.0623 17.0762L23.9991 21.0129L27.9358 17.0762C28.3319 16.6802 28.869 16.4577 29.4291 16.4577C29.9891 16.4577 30.5263 16.6802 30.9223 17.0762C31.1185 17.2723 31.2741 17.5051 31.3803 17.7614C31.4865 18.0177 31.5411 18.2924 31.5411 18.5698C31.5411 18.8472 31.4865 19.1219 31.3803 19.3782C31.2741 19.6344 31.1185 19.8673 30.9223 20.0634L26.9856 24.0002L30.9223 27.9369C31.3184 28.3331 31.5408 28.8704 31.5408 29.4305C31.5408 29.9907 31.3184 30.528 30.9223 30.9242C30.7264 31.1204 30.4936 31.276 30.2373 31.3821C29.9811 31.4882 29.7064 31.5425 29.4291 31.5422C29.1519 31.5425 28.8773 31.4881 28.6212 31.382C28.3651 31.276 28.1324 31.1204 27.9366 30.9242Z\" fill=\"#949EA7\"/>\r\n        </svg>\r\n      </mrd-button>\r\n      <!-- Der Inhalt des FlyOuts (die eingebettete Komponente wird hier reingealden) -->\r\n      <div #content></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n", styles: [":host{width:100vw;height:100vh;position:absolute;inset:0}.backdrop{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open{display:block;background-color:var(--bd-color)}.mrd-fly-out{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out .mrd-fly-out__container{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out .mrd-fly-out__container .mrd-fly-out__content{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center}.mrd-fly-out .mrd-fly-out__container.topDown{padding-top:3.5em;top:-100%}.mrd-fly-out .mrd-fly-out__container.topDown.centered{padding-top:1em}.mrd-fly-out .mrd-fly-out__container.bottomUp{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out .mrd-fly-out__container.bottomUp.centered{padding-bottom:1em}.mrd-fly-out .mrd-fly-out__container.leftRight{padding-left:3.5em;left:-100%}.mrd-fly-out .mrd-fly-out__container.leftRight.centered{padding-left:1em}.mrd-fly-out .mrd-fly-out__container.rightLeft{padding-right:3.5em;right:-100%}.mrd-fly-out .mrd-fly-out__container.rightLeft.centered{padding-right:1em}.mrd-fly-out .mrd-fly-out__container.open.topDown{top:-3em}.mrd-fly-out .mrd-fly-out__container.open.topDown.centered{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.bottomUp{bottom:-2em}.mrd-fly-out .mrd-fly-out__container.open.bottomUp.centered{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.leftRight{left:-2em}.mrd-fly-out .mrd-fly-out__container.open.leftRight.centered{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__container.open.rightLeft{right:-2em}.mrd-fly-out .mrd-fly-out__container.open.rightLeft.centered{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__close{position:absolute;top:0;right:0;z-index:10000}\n"] }]
+        args: [{ selector: 'mrd-fly-out', changeDetection: ChangeDetectionStrategy.OnPush, template: "<!-- Der Hintergrund des FlyOuts -->\r\n<div class=\"backdrop\" [ngClass]=\"{'open': stateToggle.value}\" (click)=\"backdropClicked()\"\r\n  [style.--bd-color]=\"backdropColor\"\r\n  [style.--bd-transition-time]=\"transitionTime\"\r\n  ></div>\r\n<!-- Die \u00E4u\u00DFerste Komponente des FlyOuts, das den Container zentriert -->\r\n<div class=\"mrd-fly-out\"\r\n  [style.--fo-width]=\"width\"\r\n  [style.--fo-max-width]=\"maxWidth\"\r\n  [style.--fo-height]=\"height\"\r\n  [style.--fo-max-height]=\"maxHeight\"\r\n  [style.--fo-bg-color]=\"backgroundColor\"\r\n  [style.--fo-padding]=\"padding\"\r\n  [style.--fo-border-radius]=\"borderRadius\"\r\n  [style.--fo-transition-time]=\"transitionTime\"\r\n  >\r\n  <!-- Der Container, der das Grundlayout des FlyOuts bereitstellt -->\r\n  <div #container class=\"mrd-fly-out__container\" [ngClass]=\"{'open': stateToggle.value, 'centered': centered,\r\n    'topDown': topDown, 'bottomUp': bottomUp, 'leftRight': leftRight, 'rightLeft': rightLeft}\">\r\n    <!-- Der Inhalt des FlyOuts -->\r\n    <div class=\"mrd-fly-out__content\">\r\n      <!-- Der Standard Schlie\u00DFen-Button des FlyOuts -->\r\n      <mrd-button icon-button iconSize=\"2em\" (click)=\"close()\" class=\"mrd-fly-out__close\" *ngIf=\"!hideDefaultCloseButton\">\r\n        <svg mrd-icon width=\"48\" height=\"48\" viewBox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M43.1253 20.1956C42.3728 16.4129 40.5155 12.9384 37.7883 10.2113C34.1313 6.55443 29.1715 4.5 24 4.5C18.8285 4.5 13.8687 6.55443 10.2117 10.2113C7.48449 12.9384 5.62722 16.4129 4.87475 20.1956C4.12228 23.9782 4.5084 27.899 5.98429 31.4622C7.46017 35.0253 9.95953 38.0709 13.1663 40.2136C16.3731 42.3563 20.1432 43.5 24 43.5C27.8568 43.5 31.6269 42.3563 34.8337 40.2136C38.0405 38.0709 40.5398 35.0253 42.0157 31.4622C43.4916 27.899 43.8777 23.9782 43.1253 20.1956ZM47.5388 19.3176C46.6127 14.6621 44.3268 10.3857 40.9702 7.02923C36.4694 2.52855 30.365 0 24 0C17.635 0 11.5306 2.52855 7.02976 7.02923C3.67321 10.3857 1.38735 14.6621 0.461228 19.3176C-0.464888 23.9732 0.0103406 28.7987 1.82682 33.1842C3.64329 37.5697 6.71943 41.318 10.6662 43.9552C14.613 46.5924 19.2532 48 24 48C28.7468 48 33.387 46.5924 37.3338 43.9552C41.2806 41.318 44.3567 37.5697 46.1732 33.1842C47.9897 28.7987 48.4649 23.9732 47.5388 19.3176Z\" fill=\"#949EA7\"/>\r\n          <path d=\"M27.9366 30.9242L23.9998 26.9867L20.0631 30.9242C19.867 31.1204 19.6341 31.276 19.3777 31.3821C19.1213 31.4881 18.8465 31.5425 18.5691 31.5422C18.2918 31.5424 18.0171 31.488 17.7609 31.3819C17.5047 31.2759 17.2719 31.1203 17.0758 30.9242C16.6798 30.528 16.4573 29.9907 16.4573 29.4305C16.4573 28.8704 16.6798 28.3331 17.0758 27.9369L21.0126 24.0002L17.0758 20.0634C16.8797 19.8673 16.724 19.6344 16.6179 19.3782C16.5117 19.1219 16.457 18.8472 16.457 18.5698C16.457 18.2924 16.5117 18.0177 16.6179 17.7614C16.724 17.5051 16.8797 17.2723 17.0758 17.0762C17.4719 16.6802 18.009 16.4577 18.5691 16.4577C19.1291 16.4577 19.6663 16.6802 20.0623 17.0762L23.9991 21.0129L27.9358 17.0762C28.3319 16.6802 28.869 16.4577 29.4291 16.4577C29.9891 16.4577 30.5263 16.6802 30.9223 17.0762C31.1185 17.2723 31.2741 17.5051 31.3803 17.7614C31.4865 18.0177 31.5411 18.2924 31.5411 18.5698C31.5411 18.8472 31.4865 19.1219 31.3803 19.3782C31.2741 19.6344 31.1185 19.8673 30.9223 20.0634L26.9856 24.0002L30.9223 27.9369C31.3184 28.3331 31.5408 28.8704 31.5408 29.4305C31.5408 29.9907 31.3184 30.528 30.9223 30.9242C30.7264 31.1204 30.4936 31.276 30.2373 31.3821C29.9811 31.4882 29.7064 31.5425 29.4291 31.5422C29.1519 31.5425 28.8773 31.4881 28.6212 31.382C28.3651 31.276 28.1324 31.1204 27.9366 30.9242Z\" fill=\"#949EA7\"/>\r\n        </svg>\r\n      </mrd-button>\r\n      <!-- Der Inhalt des FlyOuts (die eingebettete Komponente wird hier reingealden) -->\r\n      <div #content></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n", styles: [":host{width:100vw;height:100vh;position:absolute;inset:0}.backdrop{position:absolute;inset:0;background-color:transparent;transition:background-color var(--bd-transition-time) ease-in-out;z-index:2}.backdrop.open{display:block;background-color:var(--bd-color)}.mrd-fly-out{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}.mrd-fly-out .mrd-fly-out__container{position:absolute;width:var(--fo-width);max-width:var(--fo-max-width);height:var(--fo-height);max-height:var(--fo-max-height);background-color:var(--fo-bg-color);box-shadow:0 0 10px #00000080;border-radius:var(--fo-border-radius);padding:var(--fo-padding);transition:top var(--fo-transition-time) ease-in-out,bottom var(--fo-transition-time) ease-in-out,left var(--fo-transition-time) ease-in-out,right var(--fo-transition-time) ease-in-out;z-index:3}.mrd-fly-out .mrd-fly-out__container .mrd-fly-out__content{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%}.mrd-fly-out .mrd-fly-out__container.topDown{padding-top:3.5em;top:-100%}.mrd-fly-out .mrd-fly-out__container.topDown.centered{padding-top:1em}.mrd-fly-out .mrd-fly-out__container.bottomUp{padding-bottom:3.5em;bottom:-100%}.mrd-fly-out .mrd-fly-out__container.bottomUp.centered{padding-bottom:1em}.mrd-fly-out .mrd-fly-out__container.leftRight{padding-left:3.5em;left:-100%}.mrd-fly-out .mrd-fly-out__container.leftRight.centered{padding-left:1em}.mrd-fly-out .mrd-fly-out__container.rightLeft{padding-right:3.5em;right:-100%}.mrd-fly-out .mrd-fly-out__container.rightLeft.centered{padding-right:1em}.mrd-fly-out .mrd-fly-out__container.open.topDown{top:-3em}.mrd-fly-out .mrd-fly-out__container.open.topDown.centered{top:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.bottomUp{bottom:-2em}.mrd-fly-out .mrd-fly-out__container.open.bottomUp.centered{bottom:calc(50% - var(--fo-container-height) / 2)}.mrd-fly-out .mrd-fly-out__container.open.leftRight{left:-2em}.mrd-fly-out .mrd-fly-out__container.open.leftRight.centered{left:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__container.open.rightLeft{right:-2em}.mrd-fly-out .mrd-fly-out__container.open.rightLeft.centered{right:calc(50% - var(--fo-container-width) / 2)}.mrd-fly-out .mrd-fly-out__close{position:absolute;top:0;right:0;z-index:10000}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }, { type: FlyOutService }]; }, { container: [{
             type: ViewChild,
             args: ['container']
@@ -14018,9 +14018,513 @@ class MrdTableModule {
         MrdNoDataRowDirective,
         MrdTableVirtualScrollDirective] }); })();
 
+/** Wird ergaenzt, wenn `alleDateitypen` gesetzt ist oder keine Formate uebergeben werden */
+const MRD_UPLOAD_ALLE_DATEITYPEN = {
+    key: 'alle',
+    bezeichnung: 'Alle Dateitypen',
+    acceptedDataTypes: '*',
+    infoIconText: 'Akzeptierte Dateitypen: alle'
+};
+
+function MrdUploadComponent_mrd_form_field_1_mrd_select_option_4_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-select-option", 13);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const eintrag_r6 = ctx.$implicit;
+    i0.ɵɵproperty("value", eintrag_r6.key);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(eintrag_r6.bezeichnung);
+} }
+function MrdUploadComponent_mrd_form_field_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-form-field", 10)(1, "mrd-label");
+    i0.ɵɵtext(2);
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(3, "mrd-select", 11);
+    i0.ɵɵtemplate(4, MrdUploadComponent_mrd_form_field_1_mrd_select_option_4_Template, 2, 2, "mrd-select-option", 12);
+    i0.ɵɵelementEnd()();
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(2);
+    i0.ɵɵtextInterpolate(ctx_r0.formatLabel);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("mrdFormControl", ctx_r0.formatControl);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngForOf", ctx_r0.formatListe);
+} }
+function MrdUploadComponent_button_3_Template(rf, ctx) { if (rf & 1) {
+    const _r8 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "button", 14);
+    i0.ɵɵlistener("click", function MrdUploadComponent_button_3_Template_button_click_0_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r7 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r7.zuruecksetzen($event)); });
+    i0.ɵɵelement(1, "mrd-icon", 15);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("mrdToolTip", ctx_r1.zuruecksetzenText);
+    i0.ɵɵattribute("aria-label", ctx_r1.zuruecksetzenText);
+} }
+function MrdUploadComponent_ng_container_5_mrd_icon_3_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelement(0, "mrd-icon", 19);
+} if (rf & 2) {
+    const ctx_r9 = i0.ɵɵnextContext(2);
+    i0.ɵɵproperty("color", ctx_r9.infoFarbe)("mrdToolTip", ctx_r9.format == null ? null : ctx_r9.format.infoIconText);
+} }
+function MrdUploadComponent_ng_container_5_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵelementStart(1, "span", 16);
+    i0.ɵɵtext(2);
+    i0.ɵɵtemplate(3, MrdUploadComponent_ng_container_5_mrd_icon_3_Template, 1, 2, "mrd-icon", 17);
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(4, "mrd-s-button", 18);
+    i0.ɵɵtext(5);
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const ctx_r2 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(2);
+    i0.ɵɵtextInterpolate1(" ", ctx_r2.format ? ctx_r2.hinweisText : ctx_r2.formatFehltText, " ");
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r2.format == null ? null : ctx_r2.format.infoIconText);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("disabled", !ctx_r2.format);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(ctx_r2.buttonText);
+} }
+function MrdUploadComponent_span_8_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 20);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r3 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(ctx_r3.fehler);
+} }
+/**
+ * Dateiauswahl per Klick oder Drag & Drop, optional mit vorgeschalteter Formatauswahl.
+ * Gemeldet werden nur Dateien, die zum gewaehlten Format passen; abgelehnte kommen ueber `ungueltigeDateien`.
+ *
+ * `<mrd-upload [formate]="formate" (dateienChange)="dateien = $event" (formatChange)="format = $event"></mrd-upload>`
+ */
+class MrdUploadComponent extends BaseObject {
+    cdr;
+    /** Auswaehlbare Formate; das Array wird nicht veraendert */
+    set formate(formate) {
+        this._formate = formate ?? [];
+        this.formatListeAufbauen();
+    }
+    get formate() {
+        return this._formate;
+    }
+    _formate = [];
+    /** Ergaenzt "Alle Dateitypen" als Format */
+    set alleDateitypen(wert) {
+        this._alleDateitypen = wert;
+        this.formatListeAufbauen();
+    }
+    get alleDateitypen() {
+        return this._alleDateitypen;
+    }
+    _alleDateitypen = false;
+    /** Mehrere Dateien zulassen; sonst zaehlt nur die erste */
+    mehrfach = false;
+    iconGroesse = '48px';
+    formatLabel = 'Wähle ein Format';
+    hinweisText = 'Klicke hier oder ziehe deine Datei hierher.';
+    formatFehltText = 'Bitte wähle zuerst ein Format aus.';
+    buttonText = 'Datei auswählen';
+    keineDateiText = 'Keine Datei ausgewählt';
+    ungueltigText = 'Dateityp nicht zulässig';
+    zuruecksetzenText = 'Dateiauswahl zurücksetzen';
+    dateienChange = new EventEmitter();
+    formatChange = new EventEmitter();
+    ungueltigeDateien = new EventEmitter();
+    /** Eigenes Control je Instanz, damit mehrere Upload-Felder sich nicht gegenseitig die Auswahl ueberschreiben */
+    infoFarbe = MrdColor.GRUEN;
+    formatControl = AccessableControlFactory.simpleControl(null, []);
+    /** Formate samt ergaenztem "Alle Dateitypen" */
+    formatListe = [];
+    dateien = [];
+    fehler = null;
+    ziehen = false;
+    constructor(cdr) {
+        super();
+        this.cdr = cdr;
+        this.watch(this.formatControl.valueChanges, new SubscriptionHandler(() => {
+            this.fehler = null;
+            this.cdr.markForCheck();
+            // Verzoegert: die automatische Auswahl passiert beim Setzen von `formate` mitten in der Change Detection des Aufrufers
+            const format = this.format;
+            Promise.resolve().then(() => this.formatChange.emit(format));
+        }));
+        // Ohne gebundenes `formate` liefe der Setter nie; dann gibt es nur "Alle Dateitypen"
+        this.formatListeAufbauen();
+    }
+    get format() {
+        return this.formatListe.find((format) => format.key === this.formatControl.value) ?? null;
+    }
+    get dateinamen() {
+        if (this.dateien.length === 0) {
+            return this.keineDateiText;
+        }
+        const namen = this.dateien.map((datei) => datei.name).join(', ');
+        return this.dateien.length === 1 ? `Datei: ${namen}` : `Dateien: ${namen}`;
+    }
+    dateiAuswaehlen(eingabe) {
+        if (this.format && this.dateien.length === 0) {
+            eingabe.click();
+        }
+    }
+    dateiGewaehlt(event) {
+        const eingabe = event.target;
+        this.dateienUebernehmen(Array.from(eingabe.files ?? []));
+        // Sonst loest dieselbe Datei beim naechsten Auswaehlen kein change mehr aus
+        eingabe.value = '';
+    }
+    ueberBereich(event) {
+        event.preventDefault();
+        this.ziehen = !!this.format;
+    }
+    ablegen(event) {
+        event.preventDefault();
+        this.ziehen = false;
+        if (!this.format) {
+            return;
+        }
+        this.dateienUebernehmen(Array.from(event.dataTransfer?.files ?? []));
+    }
+    zuruecksetzen(event) {
+        event?.stopPropagation();
+        this.dateien = [];
+        this.fehler = null;
+        this.dateienChange.emit([]);
+        this.cdr.markForCheck();
+    }
+    /** Passende Dateien uebernehmen, unpassende melden; ohne passende bleibt die bisherige Auswahl */
+    dateienUebernehmen(dateien) {
+        if (dateien.length === 0) {
+            return;
+        }
+        const kandidaten = this.mehrfach ? dateien : dateien.slice(0, 1);
+        const erlaubt = this.format?.acceptedDataTypes ?? '*';
+        const gueltig = kandidaten.filter((datei) => MrdUploadComponent.istErlaubt(datei, erlaubt));
+        const ungueltig = kandidaten.filter((datei) => !gueltig.includes(datei));
+        this.fehler = ungueltig.length > 0 ? `${this.ungueltigText}: ${ungueltig.map((datei) => datei.name).join(', ')}` : null;
+        if (ungueltig.length > 0) {
+            this.ungueltigeDateien.emit(ungueltig);
+        }
+        if (gueltig.length > 0) {
+            this.dateien = gueltig;
+            this.dateienChange.emit(gueltig);
+        }
+        this.cdr.markForCheck();
+    }
+    formatListeAufbauen() {
+        const ergaenzen = this._alleDateitypen || this._formate.length === 0;
+        this.formatListe = ergaenzen ? [...this._formate, MRD_UPLOAD_ALLE_DATEITYPEN] : [...this._formate];
+        const aktuell = this.formatControl.value;
+        if (this.formatListe.length === 1) {
+            this.formatControl.setValue(this.formatListe[0].key);
+        }
+        else if (aktuell !== null && !this.formatListe.some((format) => format.key === aktuell)) {
+            this.formatControl.setValue(null);
+        }
+    }
+    /** Wie das `accept`-Attribut: Endungen ohne Gross-/Kleinschreibung, MIME-Typen auch mit `/*`, `*` fuer alle */
+    static istErlaubt(datei, erlaubt) {
+        const typen = (erlaubt ?? '').split(',').map((typ) => typ.trim().toLowerCase()).filter((typ) => typ.length > 0);
+        if (typen.length === 0 || typen.includes('*')) {
+            return true;
+        }
+        const name = datei.name.toLowerCase();
+        const mime = (datei.type ?? '').toLowerCase();
+        return typen.some((typ) => {
+            if (typ.startsWith('.')) {
+                return name.endsWith(typ);
+            }
+            if (typ.endsWith('/*')) {
+                return mime.startsWith(typ.slice(0, -1));
+            }
+            return mime === typ;
+        });
+    }
+    /** @nocollapse */ static ɵfac = function MrdUploadComponent_Factory(t) { return new (t || MrdUploadComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdUploadComponent, selectors: [["mrd-upload"]], inputs: { formate: "formate", alleDateitypen: ["alleDateitypen", "alleDateitypen", booleanAttribute], mehrfach: ["mehrfach", "mehrfach", booleanAttribute], iconGroesse: ["iconGroesse", "iconGroesse", sizeAttribute], formatLabel: "formatLabel", hinweisText: "hinweisText", formatFehltText: "formatFehltText", buttonText: "buttonText", keineDateiText: "keineDateiText", ungueltigText: "ungueltigText", zuruecksetzenText: "zuruecksetzenText" }, outputs: { dateienChange: "dateienChange", formatChange: "formatChange", ungueltigeDateien: "ungueltigeDateien" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], decls: 11, vars: 15, consts: [[1, "mrd-upload"], ["fill", "", "class", "mrd-upload-format", 4, "ngIf"], ["role", "button", 1, "mrd-upload-bereich", 3, "click", "dragover", "dragleave", "drop"], ["type", "button", "class", "mrd-upload-zuruecksetzen", 3, "mrdToolTip", "click", 4, "ngIf"], ["icon", "upload", 1, "mrd-upload-icon", 3, "size"], [4, "ngIf"], [1, "mrd-upload-dateiname"], ["class", "mrd-upload-fehler", "role", "alert", 4, "ngIf"], ["type", "file", "hidden", "", 3, "multiple", "accept", "change"], ["dateiEingabe", ""], ["fill", "", 1, "mrd-upload-format"], [3, "mrdFormControl"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], ["type", "button", 1, "mrd-upload-zuruecksetzen", 3, "mrdToolTip", "click"], ["icon", "schliessen", "size", "20"], [1, "mrd-upload-hinweis"], ["class", "mrd-upload-info", "icon", "info", "full", "", "size", "18", 3, "color", "mrdToolTip", 4, "ngIf"], ["theme", "primary", "size", "small", 3, "disabled"], ["icon", "info", "full", "", "size", "18", 1, "mrd-upload-info", 3, "color", "mrdToolTip"], ["role", "alert", 1, "mrd-upload-fehler"]], template: function MrdUploadComponent_Template(rf, ctx) { if (rf & 1) {
+            const _r10 = i0.ɵɵgetCurrentView();
+            i0.ɵɵelementStart(0, "div", 0);
+            i0.ɵɵtemplate(1, MrdUploadComponent_mrd_form_field_1_Template, 5, 3, "mrd-form-field", 1);
+            i0.ɵɵelementStart(2, "div", 2);
+            i0.ɵɵlistener("click", function MrdUploadComponent_Template_div_click_2_listener() { i0.ɵɵrestoreView(_r10); const _r4 = i0.ɵɵreference(10); return i0.ɵɵresetView(ctx.dateiAuswaehlen(_r4)); })("dragover", function MrdUploadComponent_Template_div_dragover_2_listener($event) { return ctx.ueberBereich($event); })("dragleave", function MrdUploadComponent_Template_div_dragleave_2_listener() { return ctx.ziehen = false; })("drop", function MrdUploadComponent_Template_div_drop_2_listener($event) { return ctx.ablegen($event); });
+            i0.ɵɵtemplate(3, MrdUploadComponent_button_3_Template, 2, 2, "button", 3);
+            i0.ɵɵelement(4, "mrd-icon", 4);
+            i0.ɵɵtemplate(5, MrdUploadComponent_ng_container_5_Template, 6, 4, "ng-container", 5);
+            i0.ɵɵelementStart(6, "span", 6);
+            i0.ɵɵtext(7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtemplate(8, MrdUploadComponent_span_8_Template, 2, 1, "span", 7);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(9, "input", 8, 9);
+            i0.ɵɵlistener("change", function MrdUploadComponent_Template_input_change_9_listener($event) { return ctx.dateiGewaehlt($event); });
+            i0.ɵɵelementEnd()();
+        } if (rf & 2) {
+            let tmp_11_0;
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.formatListe.length > 1);
+            i0.ɵɵadvance(1);
+            i0.ɵɵclassProp("mrd-upload-gesperrt", !ctx.format)("mrd-upload-ziehen", ctx.ziehen)("mrd-upload-mit-dateien", ctx.dateien.length > 0);
+            i0.ɵɵattribute("aria-disabled", !ctx.format);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.dateien.length > 0);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("size", ctx.iconGroesse);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.dateien.length === 0);
+            i0.ɵɵadvance(2);
+            i0.ɵɵtextInterpolate(ctx.dateinamen);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.fehler);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("multiple", ctx.mehrfach)("accept", (tmp_11_0 = ctx.format == null ? null : ctx.format.acceptedDataTypes) !== null && tmp_11_0 !== undefined ? tmp_11_0 : "");
+        } }, dependencies: [i1$1.NgForOf, i1$1.NgIf, MrdFormFieldComponent, MrdSelectComponent, MrdSelectOptionComponent, MrdLabelComponent, MrdIconComponent, ToolTipRendererDirective, MrdSButtonComponent], styles: ["[_nghost-%COMP%]{display:block}.mrd-upload[_ngcontent-%COMP%]{display:flex;flex-direction:column;align-items:center;gap:16px}.mrd-upload-format[_ngcontent-%COMP%]{width:260px}.mrd-upload-bereich[_ngcontent-%COMP%]{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;box-sizing:border-box;width:100%;max-width:420px;padding:24px;border:2px dashed #949EA7;border-radius:10px;background-color:#ebeff3;color:#293d4f;cursor:pointer;transition:background-color .2s ease,border-color .2s ease}.mrd-upload-bereich[_ngcontent-%COMP%]:hover:not(.mrd-upload-gesperrt):not(.mrd-upload-mit-dateien){background-color:#d8dfe8}.mrd-upload-bereich.mrd-upload-ziehen[_ngcontent-%COMP%]{border-color:#65b32e;background-color:#e0f0d4}.mrd-upload-bereich.mrd-upload-gesperrt[_ngcontent-%COMP%]{cursor:default;opacity:.6}.mrd-upload-bereich.mrd-upload-mit-dateien[_ngcontent-%COMP%]{cursor:default}.mrd-upload-icon[_ngcontent-%COMP%]{color:#65b32e}.mrd-upload-hinweis[_ngcontent-%COMP%]{display:inline-flex;align-items:center;gap:4px;text-align:center}.mrd-upload-info[_ngcontent-%COMP%]{cursor:help}.mrd-upload-dateiname[_ngcontent-%COMP%]{font-size:.875em;text-align:center;word-break:break-word}.mrd-upload-fehler[_ngcontent-%COMP%]{font-size:.875em;color:#da0000;text-align:center}.mrd-upload-zuruecksetzen[_ngcontent-%COMP%]{position:absolute;top:8px;right:8px;display:inline-flex;padding:0;border:none;background:transparent;color:#da0000;cursor:pointer}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdUploadComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-upload', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-upload\">\n  <mrd-form-field fill *ngIf=\"formatListe.length > 1\" class=\"mrd-upload-format\">\n    <mrd-label>{{formatLabel}}</mrd-label>\n    <mrd-select [mrdFormControl]=\"formatControl\">\n      <mrd-select-option *ngFor=\"let eintrag of formatListe\" [value]=\"eintrag.key\">{{eintrag.bezeichnung}}</mrd-select-option>\n    </mrd-select>\n  </mrd-form-field>\n\n  <div class=\"mrd-upload-bereich\" role=\"button\"\n    [class.mrd-upload-gesperrt]=\"!format\"\n    [class.mrd-upload-ziehen]=\"ziehen\"\n    [class.mrd-upload-mit-dateien]=\"dateien.length > 0\"\n    [attr.aria-disabled]=\"!format\"\n    (click)=\"dateiAuswaehlen(dateiEingabe)\"\n    (dragover)=\"ueberBereich($event)\"\n    (dragleave)=\"ziehen = false\"\n    (drop)=\"ablegen($event)\">\n    <button type=\"button\" class=\"mrd-upload-zuruecksetzen\" *ngIf=\"dateien.length > 0\"\n      [mrdToolTip]=\"zuruecksetzenText\" [attr.aria-label]=\"zuruecksetzenText\" (click)=\"zuruecksetzen($event)\">\n      <mrd-icon icon=\"schliessen\" size=\"20\"></mrd-icon>\n    </button>\n\n    <mrd-icon class=\"mrd-upload-icon\" icon=\"upload\" [size]=\"iconGroesse\"></mrd-icon>\n\n    <ng-container *ngIf=\"dateien.length === 0\">\n      <span class=\"mrd-upload-hinweis\">\n        {{format ? hinweisText : formatFehltText}}\n        <mrd-icon *ngIf=\"format?.infoIconText\" class=\"mrd-upload-info\" icon=\"info\" full [color]=\"infoFarbe\" size=\"18\" [mrdToolTip]=\"format?.infoIconText\"></mrd-icon>\n      </span>\n      <mrd-s-button theme=\"primary\" size=\"small\" [disabled]=\"!format\">{{buttonText}}</mrd-s-button>\n    </ng-container>\n\n    <span class=\"mrd-upload-dateiname\">{{dateinamen}}</span>\n    <span class=\"mrd-upload-fehler\" *ngIf=\"fehler\" role=\"alert\">{{fehler}}</span>\n  </div>\n\n  <!-- Ausserhalb des Bereichs, sonst loest dessen Klick-Handler beim programmatischen click() erneut aus -->\n  <input #dateiEingabe type=\"file\" hidden [multiple]=\"mehrfach\" [accept]=\"format?.acceptedDataTypes ?? ''\" (change)=\"dateiGewaehlt($event)\">\n</div>\n", styles: [":host{display:block}.mrd-upload{display:flex;flex-direction:column;align-items:center;gap:16px}.mrd-upload-format{width:260px}.mrd-upload-bereich{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;box-sizing:border-box;width:100%;max-width:420px;padding:24px;border:2px dashed #949EA7;border-radius:10px;background-color:#ebeff3;color:#293d4f;cursor:pointer;transition:background-color .2s ease,border-color .2s ease}.mrd-upload-bereich:hover:not(.mrd-upload-gesperrt):not(.mrd-upload-mit-dateien){background-color:#d8dfe8}.mrd-upload-bereich.mrd-upload-ziehen{border-color:#65b32e;background-color:#e0f0d4}.mrd-upload-bereich.mrd-upload-gesperrt{cursor:default;opacity:.6}.mrd-upload-bereich.mrd-upload-mit-dateien{cursor:default}.mrd-upload-icon{color:#65b32e}.mrd-upload-hinweis{display:inline-flex;align-items:center;gap:4px;text-align:center}.mrd-upload-info{cursor:help}.mrd-upload-dateiname{font-size:.875em;text-align:center;word-break:break-word}.mrd-upload-fehler{font-size:.875em;color:#da0000;text-align:center}.mrd-upload-zuruecksetzen{position:absolute;top:8px;right:8px;display:inline-flex;padding:0;border:none;background:transparent;color:#da0000;cursor:pointer}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { formate: [{
+            type: Input
+        }], alleDateitypen: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], mehrfach: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], iconGroesse: [{
+            type: Input,
+            args: [{ transform: sizeAttribute }]
+        }], formatLabel: [{
+            type: Input
+        }], hinweisText: [{
+            type: Input
+        }], formatFehltText: [{
+            type: Input
+        }], buttonText: [{
+            type: Input
+        }], keineDateiText: [{
+            type: Input
+        }], ungueltigText: [{
+            type: Input
+        }], zuruecksetzenText: [{
+            type: Input
+        }], dateienChange: [{
+            type: Output
+        }], formatChange: [{
+            type: Output
+        }], ungueltigeDateien: [{
+            type: Output
+        }] }); })();
+
+class MrdUploadModule {
+    /** @nocollapse */ static ɵfac = function MrdUploadModule_Factory(t) { return new (t || MrdUploadModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdUploadModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            MrdFormFieldModule,
+            MrdIconModule,
+            MrdTooltipModule,
+            MrdSButtonModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdUploadModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [MrdUploadComponent],
+                imports: [
+                    CommonModule,
+                    MrdFormFieldModule,
+                    MrdIconModule,
+                    MrdTooltipModule,
+                    MrdSButtonModule
+                ],
+                exports: [MrdUploadComponent]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdUploadModule, { declarations: [MrdUploadComponent], imports: [CommonModule,
+        MrdFormFieldModule,
+        MrdIconModule,
+        MrdTooltipModule,
+        MrdSButtonModule], exports: [MrdUploadComponent] }); })();
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+/** Abstand, um den die Linie vor dem Ziel endet, damit die Pfeilspitze das Zielelement beruehrt statt es zu ueberdecken */
+const SPITZEN_ABSTAND = 10;
+/** Ausbuchtung der Kurve beim Stil `Curved` */
+const KURVEN_AUSBUCHTUNG = 10;
+var MrdArrowPosition;
+(function (MrdArrowPosition) {
+    MrdArrowPosition[MrdArrowPosition["Top"] = 0] = "Top";
+    MrdArrowPosition[MrdArrowPosition["TopRight"] = 1] = "TopRight";
+    MrdArrowPosition[MrdArrowPosition["Right"] = 2] = "Right";
+    MrdArrowPosition[MrdArrowPosition["BottomRight"] = 3] = "BottomRight";
+    MrdArrowPosition[MrdArrowPosition["Bottom"] = 4] = "Bottom";
+    MrdArrowPosition[MrdArrowPosition["BottomLeft"] = 5] = "BottomLeft";
+    MrdArrowPosition[MrdArrowPosition["Left"] = 6] = "Left";
+    MrdArrowPosition[MrdArrowPosition["TopLeft"] = 7] = "TopLeft";
+})(MrdArrowPosition || (MrdArrowPosition = {}));
+var MrdLineStyle;
+(function (MrdLineStyle) {
+    MrdLineStyle[MrdLineStyle["Straight"] = 0] = "Straight";
+    MrdLineStyle[MrdLineStyle["StraightCurve"] = 1] = "StraightCurve";
+    MrdLineStyle[MrdLineStyle["Curved"] = 2] = "Curved";
+})(MrdLineStyle || (MrdLineStyle = {}));
+/** Anteil an Breite und Hoehe des Elements je Position */
+const ANTEILE = {
+    [MrdArrowPosition.Top]: [0.5, 0],
+    [MrdArrowPosition.TopRight]: [1, 0],
+    [MrdArrowPosition.Right]: [1, 0.5],
+    [MrdArrowPosition.BottomRight]: [1, 1],
+    [MrdArrowPosition.Bottom]: [0.5, 1],
+    [MrdArrowPosition.BottomLeft]: [0, 1],
+    [MrdArrowPosition.Left]: [0, 0.5],
+    [MrdArrowPosition.TopLeft]: [0, 0]
+};
+/** Ein gezeichneter Pfeil; `clear()` entfernt ihn wieder */
+class MrdSvgArrow {
+    element;
+    constructor(element) {
+        this.element = element;
+    }
+    get id() {
+        return this.element.id;
+    }
+    clear() {
+        this.element.remove();
+    }
+}
+/**
+ * Zeichnet Pfeile zwischen zwei Elementen innerhalb eines gemeinsamen Root-Elements (z. B. Zuordnungen zwischen zwei Listen).
+ * Positionen werden ueber offsetLeft/offsetTop bestimmt; das Root wird dafuer bei Bedarf auf `position: relative` gesetzt.
+ */
+class MrdSvgArrowService {
+    static zaehler = 0;
+    pfeile = [];
+    /**
+     * Zeichnet einen Pfeil von `from` nach `to`; beide muessen im `root` liegen (offsetParent = root).
+     * @param options werden nicht veraendert; fehlende Werte bekommen Standardwerte
+     */
+    addArrow(root, from, to, options) {
+        const optionen = MrdSvgArrowService.optionenVervollstaendigen(options);
+        const svg = this.svgErzeugen(root, optionen.line);
+        const start = MrdSvgArrowService.punkt(from, optionen.from);
+        const ziel = MrdSvgArrowService.punkt(to, optionen.to);
+        const pfad = document.createElementNS(SVG_NS, 'path');
+        pfad.setAttribute('d', MrdSvgArrowService.pfadDaten(start, ziel, optionen.line.style));
+        svg.querySelector('g').appendChild(pfad);
+        const pfeil = new MrdSvgArrow(svg);
+        this.pfeile.push(pfeil);
+        return pfeil;
+    }
+    /** Entfernt die Pfeile im `root`, ohne Angabe alle */
+    clearAll(root) {
+        const entfernen = root ? this.pfeile.filter((pfeil) => root.contains(pfeil.element)) : this.pfeile;
+        entfernen.forEach((pfeil) => pfeil.clear());
+        this.pfeile = this.pfeile.filter((pfeil) => !entfernen.includes(pfeil));
+    }
+    svgErzeugen(root, linie) {
+        const nummer = ++MrdSvgArrowService.zaehler;
+        // Eigene Marker-ID je Pfeil, sonst teilen sich alle Pfeile Farbe und Groesse der ersten Spitze
+        const markerId = `mrd-pfeilspitze-${nummer}`;
+        const svg = document.createElementNS(SVG_NS, 'svg');
+        svg.id = `mrd-svg-arrow-${nummer}`;
+        svg.style.position = 'absolute';
+        svg.style.top = '0';
+        svg.style.left = '0';
+        svg.style.width = '1px';
+        svg.style.height = '1px';
+        svg.style.overflow = 'visible';
+        svg.style.pointerEvents = 'none';
+        const spitze = document.createElementNS(SVG_NS, 'path');
+        spitze.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+        spitze.setAttribute('fill', linie.color);
+        const marker = document.createElementNS(SVG_NS, 'marker');
+        marker.id = markerId;
+        marker.setAttribute('viewBox', '0 0 10 10');
+        marker.setAttribute('refX', '3');
+        marker.setAttribute('refY', '5');
+        marker.setAttribute('markerWidth', '6');
+        marker.setAttribute('markerHeight', '6');
+        marker.setAttribute('orient', 'auto');
+        marker.appendChild(spitze);
+        const defs = document.createElementNS(SVG_NS, 'defs');
+        defs.appendChild(marker);
+        const gruppe = document.createElementNS(SVG_NS, 'g');
+        gruppe.setAttribute('fill', 'none');
+        gruppe.setAttribute('stroke', linie.color);
+        gruppe.setAttribute('stroke-width', linie.width);
+        gruppe.setAttribute('marker-end', `url(#${markerId})`);
+        svg.appendChild(defs);
+        svg.appendChild(gruppe);
+        if (getComputedStyle(root).position === 'static') {
+            root.style.position = 'relative';
+        }
+        root.appendChild(svg);
+        return svg;
+    }
+    static optionenVervollstaendigen(options) {
+        const linieOderStil = options?.line;
+        const linie = typeof linieOderStil === 'object' ? linieOderStil : { style: linieOderStil };
+        return {
+            from: MrdSvgArrowService.gueltig(MrdArrowPosition, options?.from) ? options?.from : MrdArrowPosition.Right,
+            to: MrdSvgArrowService.gueltig(MrdArrowPosition, options?.to) ? options?.to : MrdArrowPosition.Left,
+            line: {
+                style: MrdSvgArrowService.gueltig(MrdLineStyle, linie.style) ? linie.style : MrdLineStyle.StraightCurve,
+                color: linie.color ?? 'black',
+                width: linie.width ?? '2'
+            }
+        };
+    }
+    static gueltig(aufzaehlung, wert) {
+        return wert !== undefined && wert !== null && Object.values(aufzaehlung).includes(wert);
+    }
+    static punkt(element, position) {
+        const [anteilX, anteilY] = ANTEILE[position];
+        return {
+            x: element.offsetLeft + element.offsetWidth * anteilX,
+            y: element.offsetTop + element.offsetHeight * anteilY
+        };
+    }
+    static pfadDaten(start, ziel, stil) {
+        if (stil === MrdLineStyle.Straight) {
+            const ende = MrdSvgArrowService.verkuerzen(start, ziel, SPITZEN_ABSTAND);
+            return `M ${start.x},${start.y} L ${ende.x},${ende.y}`;
+        }
+        const mitteX = (ziel.x - start.x) / 2 + start.x;
+        const mitteY = (ziel.y - start.y) / 2 + start.y;
+        const ausbuchtung = stil === MrdLineStyle.Curved ? KURVEN_AUSBUCHTUNG : 0;
+        return `M ${start.x},${start.y} ` +
+            `C ${mitteX + ausbuchtung} ${start.y}, ${mitteX + ausbuchtung} ${start.y}, ${mitteX} ${mitteY} ` +
+            `S ${mitteX - ausbuchtung} ${ziel.y}, ${ziel.x - SPITZEN_ABSTAND} ${ziel.y}`;
+    }
+    /** Punkt auf der Strecke start-ziel, der `abstand` vor dem Ziel liegt */
+    static verkuerzen(start, ziel, abstand) {
+        const dx = ziel.x - start.x;
+        const dy = ziel.y - start.y;
+        const laenge = Math.hypot(dx, dy);
+        if (laenge <= abstand) {
+            return ziel;
+        }
+        const faktor = (laenge - abstand) / laenge;
+        return { x: start.x + dx * faktor, y: start.y + dy * faktor };
+    }
+    /** @nocollapse */ static ɵfac = function MrdSvgArrowService_Factory(t) { return new (t || MrdSvgArrowService)(); };
+    /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: MrdSvgArrowService, factory: MrdSvgArrowService.ɵfac, providedIn: 'root' });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdSvgArrowService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], null, null); })();
+
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MatTabBodyPortal, MrdAccordionComponent, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map
