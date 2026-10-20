@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy }
 import { Moment } from 'moment';
 import { AccessableFormControl, BaseObject, ObservableValue } from 'mrd-core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
+import { Subject } from 'rxjs';
 import * as i0 from "@angular/core";
 export declare class MrdInputComponent extends BaseObject implements AfterViewInit, OnDestroy {
     private cdr;
@@ -14,7 +15,10 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     textAreaElement?: ElementRef<HTMLTextAreaElement>;
     dateInputElement?: ElementRef<HTMLInputElement>;
     timeInputElement?: ElementRef<HTMLInputElement>;
-    formControl?: AccessableFormControl;
+    /** Kann nach dem Aufbau wechseln (z. B. anderer Eintrag eines FormArrays); das Feld bindet sich dann neu. */
+    set formControl(value: AccessableFormControl | undefined);
+    get formControl(): AccessableFormControl | undefined;
+    private _formControl?;
     placeholder: string;
     value: string | null;
     maxLength?: number;
@@ -50,6 +54,8 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     blurred: EventEmitter<void>;
     valueChange: EventEmitter<string | null>;
     inputChange: EventEmitter<string | null>;
+    /** Meldet `mrd-form-field`, dass `mrdFormControl` nach dem Aufbau gewechselt hat */
+    readonly formControlGewechselt: Subject<void>;
     disabledColor: string;
     set labelPresent(value: boolean);
     get labelPresent(): boolean;
@@ -59,10 +65,16 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     showTimepicker: ObservableValue<boolean>;
     private formControlChangeValue;
     private selectTimeout;
+    private ansichtInitialisiert;
+    private formControlAbo?;
+    /** Nur aus dem ValidatorFloat des Controls uebernommene Nachkommastellen werden beim Control-Wechsel neu ermittelt */
+    private maxDigitsAusValidator;
     _positions: ConnectedPosition[];
     constructor(cdr: ChangeDetectorRef);
     ngOnDestroy(): void;
     ngAfterViewInit(): void;
+    /** Uebernimmt Wert, Validatoren und Konvertierung des aktuellen Controls und abonniert dessen Aenderungen. */
+    private formControlBinden;
     private formControlChanged;
     input(event: InputEvent): void;
     dateChanged(event: Moment): void;

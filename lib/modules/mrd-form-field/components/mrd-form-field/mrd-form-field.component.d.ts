@@ -47,10 +47,22 @@ export declare class MrdFormFieldComponent extends BaseObject implements AfterVi
     errorColorDark: string;
     errorColorOutline: string;
     private timeouts;
+    private controlAbos;
     constructor(cdr: ChangeDetectorRef);
     private focusAreaClickListener;
     ngOnDestroy(): void;
     ngAfterViewInit(): void;
+    /**
+     * Abonniert Wert und Status des FormControls von `mrd-input`. Wechselt das Control, beginnt die Anzeige von
+     * Fehler, Pflichtfeld und Sperre neu.
+     */
+    private inputControlBinden;
+    /** Wie `inputControlBinden` fuer `mrd-select` mit `mrdFormControl` oder `mrdFormArray`. */
+    private selectControlBinden;
+    private controlAbosBeenden;
+    private fehlerUebernehmen;
+    /** Verzoegert, weil sich der Pflichtfeld-Status waehrend der Change Detection aendern kann. */
+    private pflichtfeldAnzeigen;
     get errorIconTooltip(): string;
     private inputHasRawValue;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFormFieldComponent, never>;

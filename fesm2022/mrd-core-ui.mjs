@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
 import moment, { isMoment } from 'moment';
-import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, TypeConverter, ValidatorFloat, AccessableControlFactory } from 'mrd-core';
+import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, ObservableValue, TypeConverter, ValidatorFloat, AccessableFormArray, AccessableControlFactory } from 'mrd-core';
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
@@ -6928,7 +6928,21 @@ class MrdInputComponent extends BaseObject {
     textAreaElement;
     dateInputElement;
     timeInputElement;
-    formControl;
+    /** Kann nach dem Aufbau wechseln (z. B. anderer Eintrag eines FormArrays); das Feld bindet sich dann neu. */
+    set formControl(value) {
+        if (this._formControl === value) {
+            return;
+        }
+        this._formControl = value;
+        if (this.ansichtInitialisiert) {
+            this.formControlBinden();
+            this.formControlGewechselt.next();
+        }
+    }
+    get formControl() {
+        return this._formControl;
+    }
+    _formControl;
     placeholder = ' ';
     value = '';
     maxLength;
@@ -6979,6 +6993,8 @@ class MrdInputComponent extends BaseObject {
     blurred = new EventEmitter();
     valueChange = new EventEmitter();
     inputChange = new EventEmitter();
+    /** Meldet `mrd-form-field`, dass `mrdFormControl` nach dem Aufbau gewechselt hat */
+    formControlGewechselt = new Subject();
     disabledColor = _.isObject(ConfigUtil.getConfig().baseColors.disabled) ? ConfigUtil.getConfig().baseColors.disabled.text : ConfigUtil.getConfig().baseColors.disabled || '#afa6a6';
     set labelPresent(value) {
         if (this._labelPresent === value) {
@@ -6996,6 +7012,10 @@ class MrdInputComponent extends BaseObject {
     showTimepicker = new ObservableValue(false);
     formControlChangeValue;
     selectTimeout;
+    ansichtInitialisiert = false;
+    formControlAbo;
+    /** Nur aus dem ValidatorFloat des Controls uebernommene Nachkommastellen werden beim Control-Wechsel neu ermittelt */
+    maxDigitsAusValidator = false;
     _positions = [
         {
             originX: 'start',
@@ -7075,36 +7095,11 @@ class MrdInputComponent extends BaseObject {
         if (this.date || this.time) {
             this.cdr.detectChanges();
         }
-        if (this.date && Util.isDefined(this.formControl)) {
-            let datumValidator = this.formControl.validators.find((validator) => validator instanceof ValidatorDatum);
-            if (!Util.isDefined(datumValidator)) {
-                this.formControl.validateWith([...this.formControl.validators, new ValidatorDatum()], { emitEvent: false });
-            }
-        }
-        if (this.number && Util.isDefined(this.formControl)) {
-            if (!Util.isDefined(this.formControl.convertTo)) {
-                this.formControl.convertTo = TypeConverter.toNumber;
-            }
-            if (!Util.isDefined(this.formControl.showAs)) {
-                this.formControl.showAs = TypeConverter.asGermanFloat;
-            }
-            if (_.isNumber(this.formControl.control.value)) {
-                this.formControl.setValue(this.formControl.control.value, true, { emitEvent: false });
-            }
-        }
+        this.formControlBinden();
         if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.control.value)) {
-            this.value = this.formControl.control.value;
             this.cdr.detectChanges();
         }
-        if (Util.isDefined(this.formControl)) {
-            this.watch(this.formControl.valueChanges, new SubscriptionHandler(() => this.formControlChanged()));
-            if (!Util.isDefined(this.maxDigits)) {
-                let floatValidator = this.formControl.validators.find((validator) => validator instanceof ValidatorFloat);
-                if (Util.isDefined(floatValidator) && Util.isDefined(floatValidator.digitsAfter)) {
-                    this.maxDigits = floatValidator.digitsAfter;
-                }
-            }
-        }
+        this.ansichtInitialisiert = true;
         this.watch(this.showDatepicker.changed, new SubscriptionHandler((show) => {
             if (!show) {
                 this.isFocused = false;
@@ -7119,6 +7114,50 @@ class MrdInputComponent extends BaseObject {
             }
             this.cdr.detectChanges();
         }));
+    }
+    /** Uebernimmt Wert, Validatoren und Konvertierung des aktuellen Controls und abonniert dessen Aenderungen. */
+    formControlBinden() {
+        this.formControlAbo?.unsubscribe();
+        this.formControlAbo = undefined;
+        if (this.maxDigitsAusValidator) {
+            this.maxDigits = undefined;
+            this.maxDigitsAusValidator = false;
+        }
+        if (!Util.isDefined(this.formControl)) {
+            return;
+        }
+        if (this.date) {
+            let datumValidator = this.formControl.validators.find((validator) => validator instanceof ValidatorDatum);
+            if (!Util.isDefined(datumValidator)) {
+                this.formControl.validateWith([...this.formControl.validators, new ValidatorDatum()], { emitEvent: false });
+            }
+        }
+        if (this.number) {
+            if (!Util.isDefined(this.formControl.convertTo)) {
+                this.formControl.convertTo = TypeConverter.toNumber;
+            }
+            if (!Util.isDefined(this.formControl.showAs)) {
+                this.formControl.showAs = TypeConverter.asGermanFloat;
+            }
+            if (_.isNumber(this.formControl.control.value)) {
+                this.formControl.setValue(this.formControl.control.value, true, { emitEvent: false });
+            }
+        }
+        if (Util.isDefined(this.formControl.control.value)) {
+            this.value = this.formControl.control.value;
+        }
+        else if (this.ansichtInitialisiert) {
+            this.value = null;
+        }
+        this.formControlAbo = this.watch(this.formControl.valueChanges, new SubscriptionHandler(() => this.formControlChanged()));
+        if (!Util.isDefined(this.maxDigits)) {
+            let floatValidator = this.formControl.validators.find((validator) => validator instanceof ValidatorFloat);
+            if (Util.isDefined(floatValidator) && Util.isDefined(floatValidator.digitsAfter)) {
+                this.maxDigits = floatValidator.digitsAfter;
+                this.maxDigitsAusValidator = true;
+            }
+        }
+        this.cdr.markForCheck();
     }
     formControlChanged() {
         if (this.textarea) {
@@ -8297,8 +8336,29 @@ class MrdSelectComponent extends BasePushStrategyObject {
         }
         return this._initialized.pipe(switchMap(() => this.optionSelectionChanges));
     });
-    formControl;
-    formArrayControl;
+    /** Kann nach dem Aufbau wechseln (z. B. anderer Eintrag eines FormArrays); das Select bindet sich dann neu. */
+    set formControl(value) {
+        if (this._formControl === value) {
+            return;
+        }
+        this._formControl = value;
+        this.nachControlWechselNeuBinden();
+    }
+    get formControl() {
+        return this._formControl;
+    }
+    _formControl;
+    set formArrayControl(value) {
+        if (this._formArrayControl === value) {
+            return;
+        }
+        this._formArrayControl = value;
+        this.nachControlWechselNeuBinden();
+    }
+    get formArrayControl() {
+        return this._formArrayControl;
+    }
+    _formArrayControl;
     set value(value) {
         this.standalone = true;
         if (this._value === value) {
@@ -8365,6 +8425,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
      */
     chipClose = new EventEmitter();
     valueChange = new EventEmitter();
+    /** Meldet `mrd-form-field`, dass `mrdFormControl` bzw. `mrdFormArray` nach dem Aufbau gewechselt hat */
+    formControlGewechselt = new Subject();
+    ansichtInitialisiert = false;
+    formControlAbo;
     optionsVisible = false;
     _showNoOptionsOnSearch = false;
     standalone = false;
@@ -8455,12 +8519,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
         if ((Util.isDefined(this.formControl) || Util.isDefined(this.formArrayControl)) && this.disabled) {
             throw new Error('Ein deaktiviertes Select kann nicht mit einem FormControl oder FormArrayControl verwendet werden.');
         }
-        if (Util.isDefined(this.formControl)) {
-            this.watch(this.formControl.valueChanges, new SubscriptionHandler(() => this.formControlChanged()));
-        }
-        if (Util.isDefined(this.formArrayControl)) {
-            this.watch(this.formArrayControl.valueChanges, new SubscriptionHandler(() => this.formArrayControlChanged()));
-        }
+        this.formControlAbonnieren();
         if (this.standalone) {
             this.watch(this.valueChange, new SubscriptionHandler(() => this.modelChanged()));
         }
@@ -8501,6 +8560,36 @@ class MrdSelectComponent extends BasePushStrategyObject {
             this.virtuellFiltern(this.autoComplete ? this.showValue : this.searchText);
             this.virtuelleAnzeigeAktualisieren(true);
         }
+        this.ansichtInitialisiert = true;
+    }
+    formControlAbonnieren() {
+        this.formControlAbo?.unsubscribe();
+        this.formControlAbo = undefined;
+        if (Util.isDefined(this.formControl)) {
+            this.formControlAbo = this.watch(this.formControl.valueChanges, new SubscriptionHandler(() => this.formControlChanged()));
+        }
+        else if (Util.isDefined(this.formArrayControl)) {
+            this.formControlAbo = this.watch(this.formArrayControl.valueChanges, new SubscriptionHandler(() => this.formArrayControlChanged()));
+        }
+    }
+    /** Vor dem Aufbau uebernimmt ngAfterViewInit das Binden; danach Anzeige und Abo auf das neue Control umstellen. */
+    nachControlWechselNeuBinden() {
+        if (!this.ansichtInitialisiert) {
+            return;
+        }
+        this.formControlAbonnieren();
+        if (Util.isDefined(this.formControl)) {
+            this.formControlChanged();
+        }
+        else if (Util.isDefined(this.formArrayControl)) {
+            this.formArrayControlChanged();
+        }
+        else {
+            this.showValue = '';
+            this.options?.forEach(option => option.selected = false);
+            this.cdr.markForCheck();
+        }
+        this.formControlGewechselt.next();
     }
     formControlChanged() {
         if (this.virtualScroll) {
@@ -8535,9 +8624,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
                 if (!this.multiple) {
                     this.options.forEach(option => option.selected = false);
                     let option = this.options.find(option => option.value === this.formControl.value);
+                    // Ohne passende Option bliebe sonst der Text des vorherigen Werts bzw. Controls stehen
+                    this.showValue = Util.isDefined(option) ? option.optionValue?.nativeElement.innerText || '' : '';
                     if (Util.isDefined(option)) {
                         option.selected = true;
-                        this.showValue = option.optionValue?.nativeElement.innerText || '';
                     }
                 }
                 else {
@@ -9318,6 +9408,7 @@ class MrdFormFieldComponent extends BaseObject {
     errorColorDark = this.config.formField?.erroColorDark ?? ColorUtil.changeColorBrightnessPercent(this.config.baseColors.warn, 10);
     errorColorOutline = this.config.formField?.errorColorOutline ?? ColorUtil.changeColorOpacity(this.config.baseColors.warn, 40);
     timeouts = [];
+    controlAbos = [];
     constructor(cdr) {
         super();
         this.cdr = cdr;
@@ -9354,55 +9445,16 @@ class MrdFormFieldComponent extends BaseObject {
             this.isTextarea = this.input.textarea ?? false;
             this.input.centered = !this.input.centered ? this.centered : this.input.centered;
             this.input.textEnd = !this.input.textEnd ? this.textEnd : this.input.textEnd;
+            this.inputControlBinden();
             if (Util.isDefined(this.input.formControl)) {
-                this.watch(this.input.formControl.valueChanges, new SubscriptionHandler(() => {
-                    if (!this.input.validateOnBlur) {
-                        if (Util.isDefined(this.error)) {
-                            this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
-                            this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
-                        }
-                        this.hasError = Util.isDefined(this.input.formControl.error);
-                    }
-                    if (Util.isDefined(this.label)) {
-                        if ((Util.isDefined(this.input.formControl.value) && this.input.formControl.value !== '') || this.inputHasRawValue()) {
-                            this.label.floating.value = true;
-                        }
-                        else if (!this.input.isFocused) {
-                            this.label.floating.value = false;
-                        }
-                    }
-                    this.input.formControl.markAsDirty();
-                    this.cdr.markForCheck();
-                }));
-                this.watch(this.input.formControl.control.statusChanges, new SubscriptionHandler(() => {
-                    if (this.requiredAsterisk && Util.isDefined(this.label) && this.input.formControl.required) {
-                        this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
-                    }
-                    else if (Util.isDefined(this.label)) {
-                        this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
-                    }
-                    this.disabled = this.input.formControl.disabled || this.input.disabled;
-                    this.cdr.markForCheck();
-                }));
-                if (Util.isDefined(this.error) && this.input.formControl.touched) {
-                    this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
-                    this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
-                    this.hasError = Util.isDefined(this.input.formControl.error);
-                }
-                if (this.requiredAsterisk && Util.isDefined(this.label) && this.input.formControl.required) {
-                    this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
-                }
-                this.disabled = this.input.formControl.disabled || this.input.disabled;
-                if (Util.isDefined(this.input.formControl.value)) {
-                    this.input.formControl.control.updateValueAndValidity({ emitEvent: false });
-                    if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.input.formControl.error?.error) ? this.input.formControl.error.error : '';
-                        this.iconError = Util.isDefined(this.input.formControl.error?.iconError) ? this.input.formControl.error.iconError : undefined;
-                    }
-                    this.hasError = Util.isDefined(this.input.formControl.error);
-                }
                 this.cdr.detectChanges();
             }
+            this.watch(this.input.formControlGewechselt, new SubscriptionHandler(() => {
+                this.inputControlBinden();
+                if (Util.isDefined(this.label)) {
+                    this.label.floating.value = this.inputHasRawValue() || (Util.isDefined(this.input.value) && this.input.value !== '') || this.input.isFocused;
+                }
+            }));
             if (Util.isDefined(this.label)) {
                 this.input.labelPresent = true;
                 if ((Util.isDefined(this.input.formControl) && Util.isDefined(this.input.formControl.value) && this.input.formControl.value !== '') ||
@@ -9454,97 +9506,16 @@ class MrdFormFieldComponent extends BaseObject {
             });
         }
         if (Util.isDefined(this.select)) {
-            if (Util.isDefined(this.select.formControl)) {
-                this.watch(this.select.formControl.valueChanges, new SubscriptionHandler(() => {
-                    if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
-                        this.iconError = Util.isDefined(this.select.formControl.error?.iconError) ? this.select.formControl.error.iconError : undefined;
-                    }
-                    this.hasError = Util.isDefined(this.select.formControl.error);
-                    if (Util.isDefined(this.label)) {
-                        if (Util.isDefined(this.select.formControl.value) && this.select.formControl.value !== '') {
-                            this.label.floating.value = true;
-                        }
-                        else {
-                            this.label.floating.value = false;
-                        }
-                    }
-                    this.select.formControl.markAsDirty();
-                    this.cdr.markForCheck();
-                }));
-                this.watch(this.select.formControl.control.statusChanges, new SubscriptionHandler(() => {
-                    if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formControl.required) {
-                        this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
-                    }
-                    else if (Util.isDefined(this.label)) {
-                        this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
-                    }
-                    this.disabled = this.select.formControl.disabled || this.select.disabled;
-                    this.cdr.markForCheck();
-                }));
-                if (Util.isDefined(this.error) && this.select.formControl.touched) {
-                    this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
-                }
-                if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formControl.required) {
-                    this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
-                }
-                this.disabled = this.select.formControl.disabled || this.select.disabled;
-                if (Util.isDefined(this.select.formControl.value)) {
-                    this.select.formControl.control.updateValueAndValidity({ emitEvent: false });
-                    if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formControl.error?.error) ? this.select.formControl.error.error : '';
-                        this.iconError = Util.isDefined(this.select.formControl.error?.iconError) ? this.select.formControl.error.iconError : undefined;
-                    }
-                    this.hasError = Util.isDefined(this.select.formControl.error);
-                }
+            this.selectControlBinden();
+            if (Util.isDefined(this.select.formControl) || Util.isDefined(this.select.formArrayControl)) {
                 this.cdr.detectChanges();
             }
-            if (Util.isDefined(this.select.formArrayControl)) {
-                this.watch(this.select.formArrayControl.valueChanges, new SubscriptionHandler(() => {
-                    if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
-                        this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
-                    }
-                    this.hasError = Util.isDefined(this.select.formArrayControl.error);
-                    if (Util.isDefined(this.label)) {
-                        if (Util.isDefined(this.select.formArrayControl.control.value) && this.select.formArrayControl.control.value.length > 0) {
-                            this.label.floating.value = true;
-                        }
-                        else {
-                            this.label.floating.value = false;
-                        }
-                    }
-                    this.select.formArrayControl.markAsDirty();
-                    this.cdr.markForCheck();
-                }));
-                this.watch(this.select.formArrayControl.control.statusChanges, new SubscriptionHandler(() => {
-                    if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formArrayControl.required) {
-                        this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
-                    }
-                    else if (Util.isDefined(this.label)) {
-                        this.timeouts.push(setTimeout(() => this.label.required.value = false, 1));
-                    }
-                    this.disabled = this.select.formArrayControl.control.disabled || this.select.disabled;
-                    this.cdr.markForCheck();
-                }));
-                if (Util.isDefined(this.error) && this.select.formArrayControl.touched) {
-                    this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
-                    this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
+            this.watch(this.select.formControlGewechselt, new SubscriptionHandler(() => {
+                this.selectControlBinden();
+                if (Util.isDefined(this.label)) {
+                    this.label.floating.value = Util.isDefinedNotEmptyOrZero(this.select.showValue) || this.focused;
                 }
-                if (this.requiredAsterisk && Util.isDefined(this.label) && this.select.formArrayControl.required) {
-                    this.timeouts.push(setTimeout(() => this.label.required.value = true, 1));
-                }
-                this.disabled = this.select.formArrayControl.control.disabled || this.select.disabled;
-                if (this.select.formArrayControl.value.length > 0) {
-                    this.select.formArrayControl.control.updateValueAndValidity({ emitEvent: false });
-                    if (Util.isDefined(this.error)) {
-                        this.error.error = Util.isDefined(this.select.formArrayControl.error?.error) ? this.select.formArrayControl.error.error : '';
-                        this.iconError = Util.isDefined(this.select.formArrayControl.error?.iconError) ? this.select.formArrayControl.error.iconError : undefined;
-                    }
-                    this.hasError = Util.isDefined(this.select.formArrayControl.error);
-                }
-                this.cdr.detectChanges();
-            }
+            }));
             if (Util.isDefinedNotEmptyOrZero(this.select.value) || this.select.standalone) {
                 this.watch(this.select.valueChange, new SubscriptionHandler(() => {
                     if (Util.isDefined(this.label)) {
@@ -9633,6 +9604,105 @@ class MrdFormFieldComponent extends BaseObject {
         }
         this.cdr.markForCheck();
         this.cdr.detectChanges();
+    }
+    /**
+     * Abonniert Wert und Status des FormControls von `mrd-input`. Wechselt das Control, beginnt die Anzeige von
+     * Fehler, Pflichtfeld und Sperre neu.
+     */
+    inputControlBinden() {
+        this.controlAbosBeenden();
+        const formControl = this.input.formControl;
+        if (!Util.isDefined(formControl)) {
+            this.cdr.markForCheck();
+            return;
+        }
+        this.controlAbos.push(this.watch(formControl.valueChanges, new SubscriptionHandler(() => {
+            if (!this.input.validateOnBlur) {
+                this.fehlerUebernehmen(formControl);
+            }
+            if (Util.isDefined(this.label)) {
+                if ((Util.isDefined(formControl.value) && formControl.value !== '') || this.inputHasRawValue()) {
+                    this.label.floating.value = true;
+                }
+                else if (!this.input.isFocused) {
+                    this.label.floating.value = false;
+                }
+            }
+            formControl.markAsDirty();
+            this.cdr.markForCheck();
+        })));
+        this.controlAbos.push(this.watch(formControl.control.statusChanges, new SubscriptionHandler(() => {
+            this.pflichtfeldAnzeigen(formControl.required);
+            this.disabled = formControl.disabled || this.input.disabled;
+            this.cdr.markForCheck();
+        })));
+        if (formControl.touched || Util.isDefined(formControl.value)) {
+            if (Util.isDefined(formControl.value)) {
+                formControl.control.updateValueAndValidity({ emitEvent: false });
+            }
+            this.fehlerUebernehmen(formControl);
+        }
+        this.pflichtfeldAnzeigen(formControl.required);
+        this.disabled = formControl.disabled || this.input.disabled;
+        this.cdr.markForCheck();
+    }
+    /** Wie `inputControlBinden` fuer `mrd-select` mit `mrdFormControl` oder `mrdFormArray`. */
+    selectControlBinden() {
+        this.controlAbosBeenden();
+        const formControl = this.select.formControl ?? this.select.formArrayControl;
+        if (!Util.isDefined(formControl)) {
+            this.cdr.markForCheck();
+            return;
+        }
+        const hatWert = () => formControl instanceof AccessableFormArray ?
+            Util.isDefined(formControl.control.value) && formControl.control.value.length > 0 :
+            Util.isDefined(formControl.value) && formControl.value !== '';
+        this.controlAbos.push(this.watch(formControl.valueChanges, new SubscriptionHandler(() => {
+            this.fehlerUebernehmen(formControl);
+            if (Util.isDefined(this.label)) {
+                this.label.floating.value = hatWert();
+            }
+            formControl.markAsDirty();
+            this.cdr.markForCheck();
+        })));
+        this.controlAbos.push(this.watch(formControl.control.statusChanges, new SubscriptionHandler(() => {
+            this.pflichtfeldAnzeigen(formControl.required);
+            this.disabled = formControl.control.disabled || this.select.disabled;
+            this.cdr.markForCheck();
+        })));
+        if (formControl.touched || hatWert()) {
+            if (hatWert()) {
+                formControl.control.updateValueAndValidity({ emitEvent: false });
+            }
+            this.fehlerUebernehmen(formControl);
+        }
+        this.pflichtfeldAnzeigen(formControl.required);
+        this.disabled = formControl.control.disabled || this.select.disabled;
+        this.cdr.markForCheck();
+    }
+    controlAbosBeenden() {
+        this.controlAbos.forEach((abo) => abo.unsubscribe());
+        this.controlAbos = [];
+        this.hasError = false;
+        this.iconError = undefined;
+        if (Util.isDefined(this.error)) {
+            this.error.error = '';
+        }
+    }
+    fehlerUebernehmen(formControl) {
+        if (Util.isDefined(this.error)) {
+            this.error.error = Util.isDefined(formControl.error?.error) ? formControl.error.error : '';
+            this.iconError = Util.isDefined(formControl.error?.iconError) ? formControl.error.iconError : undefined;
+        }
+        this.hasError = Util.isDefined(formControl.error);
+    }
+    /** Verzoegert, weil sich der Pflichtfeld-Status waehrend der Change Detection aendern kann. */
+    pflichtfeldAnzeigen(pflichtfeld) {
+        if (!Util.isDefined(this.label)) {
+            return;
+        }
+        const anzeigen = this.requiredAsterisk && pflichtfeld;
+        this.timeouts.push(setTimeout(() => this.label.required.value = anzeigen, 1));
     }
     get errorIconTooltip() {
         if (this.hasError) {

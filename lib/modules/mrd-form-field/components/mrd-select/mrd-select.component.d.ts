@@ -1,7 +1,7 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnInit, QueryList, TrackByFunction } from '@angular/core';
 import { AccessableFormArray, AccessableFormControl, BasePushStrategyObject, ObservableValue } from 'mrd-core';
 import { MrdSelectOptionComponent } from '../mrd-select-option/mrd-select-option.component';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MrdSelectCustomTriggerComponent } from '../mrd-select-custom-trigger/mrd-select-custom-trigger.component';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { MrdSelectOptionTemplateDirective } from '../../common/directive/mrd-select-option-template.directive';
@@ -20,8 +20,13 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     virtuellesScroll?: MrdVirtualScrollComponent;
     private _initialized;
     readonly optionSelectionChanges: Observable<any>;
-    formControl?: AccessableFormControl;
-    formArrayControl?: AccessableFormArray<any>;
+    /** Kann nach dem Aufbau wechseln (z. B. anderer Eintrag eines FormArrays); das Select bindet sich dann neu. */
+    set formControl(value: AccessableFormControl | undefined);
+    get formControl(): AccessableFormControl | undefined;
+    private _formControl?;
+    set formArrayControl(value: AccessableFormArray<any> | undefined);
+    get formArrayControl(): AccessableFormArray<any> | undefined;
+    private _formArrayControl?;
     set value(value: any);
     get value(): any;
     private _value;
@@ -67,6 +72,10 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
      */
     chipClose: EventEmitter<void>;
     valueChange: EventEmitter<any>;
+    /** Meldet `mrd-form-field`, dass `mrdFormControl` bzw. `mrdFormArray` nach dem Aufbau gewechselt hat */
+    readonly formControlGewechselt: Subject<void>;
+    private ansichtInitialisiert;
+    private formControlAbo?;
     optionsVisible: boolean;
     _showNoOptionsOnSearch: boolean;
     standalone: boolean;
@@ -86,6 +95,9 @@ export declare class MrdSelectComponent extends BasePushStrategyObject implement
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
+    private formControlAbonnieren;
+    /** Vor dem Aufbau uebernimmt ngAfterViewInit das Binden; danach Anzeige und Abo auf das neue Control umstellen. */
+    private nachControlWechselNeuBinden;
     private formControlChanged;
     private formArrayControlChanged;
     private modelChanged;
