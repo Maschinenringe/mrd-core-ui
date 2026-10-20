@@ -8502,6 +8502,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
             if (Util.isDefined(this.formControl) && Util.isDefined(this.formControl.value)) {
                 this.formControlChanged();
             }
+            // [value] kommt oft vor den Optionen an (z. B. per *ngFor nachgeladen); die Anzeige erst mit ihnen aufloesen
+            if (this.standalone && !this.autoComplete) {
+                this.modelChanged();
+            }
         }));
         if (Util.isDefined(this.customTrigger)) {
             this.watch(this.customTrigger.triggerClick, new SubscriptionHandler(() => {
@@ -8711,9 +8715,10 @@ class MrdSelectComponent extends BasePushStrategyObject {
                 if (!this.multiple) {
                     this.options.forEach(option => option.selected = false);
                     let option = this.options.find(option => option.value === this.value);
+                    // Ohne passende Option bliebe sonst der Text des vorherigen Werts stehen
+                    this.showValue = Util.isDefined(option) ? option.optionValue?.nativeElement.innerText || '' : '';
                     if (Util.isDefined(option)) {
                         option.selected = true;
-                        this.showValue = option.optionValue?.nativeElement.innerText || '';
                     }
                 }
                 else {
