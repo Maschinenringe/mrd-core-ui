@@ -8534,7 +8534,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             else {
                 let selectedValues = this.formControl.value;
                 this.options.forEach(option => {
-                    if (selectedValues.includes(option.value)) {
+                    if (selectedValues.includes(option.value) && !option.selected) {
                         option.optionClick();
                     }
                 });
@@ -8547,7 +8547,7 @@ class MrdSelectComponent extends BasePushStrategyObject {
             else {
                 let selectedValues = this.value;
                 this.options.forEach(option => {
-                    if (selectedValues.includes(option.value)) {
+                    if (selectedValues.includes(option.value) && !option.selected) {
                         option.optionClick();
                     }
                 });
