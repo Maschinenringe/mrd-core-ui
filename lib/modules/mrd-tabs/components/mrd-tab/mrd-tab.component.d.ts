@@ -12,7 +12,14 @@ export declare class MrdTabComponent implements OnDestroy {
     set disabled(value: boolean);
     get disabled(): boolean;
     private _disabled;
-    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung und Sperre, damit der Kopf aktualisiert wird */
+    /**
+     * Landet als `configname`-Attribut am Tabkopf, damit die Rollenpruefung (`ROLE_GUARD` aus mrd-core) den Kopf
+     * findet und ausblenden kann. `*mrdTab="'Label'; configname: 'mat-tab::name'"`
+     */
+    set configname(value: string);
+    get configname(): string;
+    private _configname;
+    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung, Sperre und Configname, damit der Kopf aktualisiert wird */
     readonly zustandGeaendert: Subject<void>;
     private _embeddedViewRef;
     get content(): ViewRef | null;
@@ -31,7 +38,7 @@ export declare class MrdTabComponent implements OnDestroy {
     constructor(cdr: ChangeDetectorRef, tr: TemplateRef<any>);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdTabComponent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdTabComponent, "[mrdTab]", never, { "label": { "alias": "mrdTab"; "required": false; }; "disabled": { "alias": "mrdTabDisabled"; "required": false; }; "preserveContent": { "alias": "mrdTabPreserveContent"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdTabComponent, "[mrdTab]", never, { "label": { "alias": "mrdTab"; "required": false; }; "disabled": { "alias": "mrdTabDisabled"; "required": false; }; "configname": { "alias": "mrdTabConfigname"; "required": false; }; "preserveContent": { "alias": "mrdTabPreserveContent"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_preserveContent: unknown;
 }

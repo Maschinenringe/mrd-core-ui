@@ -3817,7 +3817,19 @@ class MrdTabComponent {
         return this._disabled;
     }
     _disabled = false;
-    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung und Sperre, damit der Kopf aktualisiert wird */
+    /**
+     * Landet als `configname`-Attribut am Tabkopf, damit die Rollenpruefung (`ROLE_GUARD` aus mrd-core) den Kopf
+     * findet und ausblenden kann. `*mrdTab="'Label'; configname: 'mat-tab::name'"`
+     */
+    set configname(value) {
+        this._configname = value;
+        this.zustandGeaendert.next();
+    }
+    get configname() {
+        return this._configname;
+    }
+    _configname;
+    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung, Sperre und Configname, damit der Kopf aktualisiert wird */
     zustandGeaendert = new Subject();
     _embeddedViewRef = null;
     get content() {
@@ -3861,7 +3873,7 @@ class MrdTabComponent {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx._implicitContent = _t.first);
-        } }, inputs: { label: ["mrdTab", "label"], disabled: ["mrdTabDisabled", "disabled", booleanAttribute], preserveContent: ["mrdTabPreserveContent", "preserveContent", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
+        } }, inputs: { label: ["mrdTab", "label"], disabled: ["mrdTabDisabled", "disabled", booleanAttribute], configname: ["mrdTabConfigname", "configname"], preserveContent: ["mrdTabPreserveContent", "preserveContent", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature] });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabComponent, [{
         type: Directive,
@@ -3877,6 +3889,9 @@ class MrdTabComponent {
         }], disabled: [{
             type: Input,
             args: [{ alias: 'mrdTabDisabled', transform: booleanAttribute }]
+        }], configname: [{
+            type: Input,
+            args: ['mrdTabConfigname']
         }], preserveContent: [{
             type: Input,
             args: [{ alias: 'mrdTabPreserveContent', transform: booleanAttribute }]
@@ -4035,8 +4050,8 @@ function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const tab_r4 = ctx.$implicit;
     const ctx_r2 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(4, _c1$m, tab_r4.active, tab_r4.disabled, ctx_r2.rounded, ctx_r2.labelsFit));
-    i0.ɵɵattribute("aria-selected", !!tab_r4.active)("aria-disabled", tab_r4.disabled);
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(5, _c1$m, tab_r4.active, tab_r4.disabled, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵattribute("aria-selected", !!tab_r4.active)("aria-disabled", tab_r4.disabled)("configname", tab_r4.configname || null);
     i0.ɵɵadvance(2);
     i0.ɵɵtextInterpolate1(" ", tab_r4.label, " ");
 } }
@@ -4049,7 +4064,7 @@ function MrdTabGroupComponent_div_0_div_2_Template(rf, ctx) { if (rf & 1) {
 const _c2$c = function (a0) { return { "height": a0 }; };
 function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 3);
-    i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 9, "div", 4);
+    i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 10, "div", 4);
     i0.ɵɵtemplate(2, MrdTabGroupComponent_div_0_div_2_Template, 1, 4, "div", 5);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
@@ -4296,7 +4311,7 @@ class MrdTabGroupComponent extends BaseObject {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabGroupComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-tab-group', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-tab-group-tabs-container\" [ngStyle]=\"{'height': headerHeight+'px'}\" *ngIf=\"!noHeader\" role=\"tablist\">\r\n  <div class=\"mrd-tab-group-tab\" #mrdTabHeader *ngFor=\"let tab of tabs\"\r\n    role=\"tab\" [attr.aria-selected]=\"!!tab.active\" [attr.aria-disabled]=\"tab.disabled\"\r\n    [ngClass]=\"{'tab-active': tab.active, 'tab-disabled': tab.disabled, 'tabs-rounded': rounded, 'fit-labels': labelsFit}\" (click)=\"tabGeklickt(tab)\">\r\n    {{tab.label}}\r\n    <div class=\"mrd-tab-group-tab-indicator\"></div>\r\n  </div>\r\n  <div class=\"mrd-tab-underline\" *ngIf=\"indicator\" [style.left.px]=\"tabUnderlineLeft\" [style.width.px]=\"tabUnderlineWidth\"></div>\r\n</div>\r\n<div class=\"mrd-tab-group-content-container\">\r\n  <!-- <ng-content></ng-content> -->\r\n  <ng-container *ngFor=\"let tab of tabs\">\r\n    <mrd-tab-body\r\n      [content]=\"tab.content\"\r\n      [active]=\"tab.active\"\r\n      [index]=\"tab.index\"\r\n      [preserveContent]=\"tab.preserveContent\"\r\n    >\r\n\r\n    </mrd-tab-body>\r\n  </ng-container>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container .mrd-tab-underline{position:absolute;bottom:0;height:2px;background-color:var(--mrd-tab-indicator-farbe, blue);transition:left .3s,width .3s}.mrd-tab-group-tabs-container .mrd-tab-group-tab{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container .mrd-tab-group-tab.fit-labels{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded,.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded .mrd-tab-group-tab-indicator{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-disabled{opacity:.5;cursor:default}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-disabled .mrd-tab-group-tab-indicator:hover{background-color:transparent}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active .mrd-tab-group-tab-indicator:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator{position:absolute;inset:0}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:active{pointer-events:none}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
+        args: [{ selector: 'mrd-tab-group', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-tab-group-tabs-container\" [ngStyle]=\"{'height': headerHeight+'px'}\" *ngIf=\"!noHeader\" role=\"tablist\">\r\n  <div class=\"mrd-tab-group-tab\" #mrdTabHeader *ngFor=\"let tab of tabs\"\r\n    role=\"tab\" [attr.aria-selected]=\"!!tab.active\" [attr.aria-disabled]=\"tab.disabled\" [attr.configname]=\"tab.configname || null\"\r\n    [ngClass]=\"{'tab-active': tab.active, 'tab-disabled': tab.disabled, 'tabs-rounded': rounded, 'fit-labels': labelsFit}\" (click)=\"tabGeklickt(tab)\">\r\n    {{tab.label}}\r\n    <div class=\"mrd-tab-group-tab-indicator\"></div>\r\n  </div>\r\n  <div class=\"mrd-tab-underline\" *ngIf=\"indicator\" [style.left.px]=\"tabUnderlineLeft\" [style.width.px]=\"tabUnderlineWidth\"></div>\r\n</div>\r\n<div class=\"mrd-tab-group-content-container\">\r\n  <!-- <ng-content></ng-content> -->\r\n  <ng-container *ngFor=\"let tab of tabs\">\r\n    <mrd-tab-body\r\n      [content]=\"tab.content\"\r\n      [active]=\"tab.active\"\r\n      [index]=\"tab.index\"\r\n      [preserveContent]=\"tab.preserveContent\"\r\n    >\r\n\r\n    </mrd-tab-body>\r\n  </ng-container>\r\n</div>\r\n", styles: [":host{display:flex;flex-direction:column;width:100%;flex:1 1 100%;max-height:100%}.mrd-tab-group-tabs-container{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border-bottom:1px solid lightgrey;background-color:#e5e5e5;position:relative;overflow-x:auto;scrollbar-width:none}.mrd-tab-group-tabs-container .mrd-tab-underline{position:absolute;bottom:0;height:2px;background-color:var(--mrd-tab-indicator-farbe, blue);transition:left .3s,width .3s}.mrd-tab-group-tabs-container .mrd-tab-group-tab{display:flex;flex:1 1 100%;flex-direction:column;align-items:center;justify-content:center;min-width:-moz-fit-content;min-width:fit-content;height:100%;padding:12px 32px;position:relative;color:gray;font-weight:700;background-color:#f0f0f0;border:1px solid #d2d2d2}.mrd-tab-group-tabs-container .mrd-tab-group-tab.fit-labels{max-width:-moz-fit-content;max-width:fit-content}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded,.mrd-tab-group-tabs-container .mrd-tab-group-tab.tabs-rounded .mrd-tab-group-tab-indicator{border-top-right-radius:24px;border-top-left-radius:24px}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-disabled{opacity:.5;cursor:default}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-disabled .mrd-tab-group-tab-indicator:hover{background-color:transparent}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active{background-color:#68b022;color:#fff;border-color:#68b022}.mrd-tab-group-tabs-container .mrd-tab-group-tab.tab-active .mrd-tab-group-tab-indicator:hover{background-color:#000;opacity:.1}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator{position:absolute;inset:0}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:active{pointer-events:none}.mrd-tab-group-tabs-container .mrd-tab-group-tab .mrd-tab-group-tab-indicator:hover{background-color:#68b022;opacity:.2}.mrd-tab-group-content-container{display:flex;flex-direction:row;flex:1 1 100%;overflow:hidden;position:relative}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }, { type: i1$3.Router }, { type: i1$3.ActivatedRoute }]; }, { tabs: [{
             type: ContentChildren,
             args: [MrdTabComponent]
