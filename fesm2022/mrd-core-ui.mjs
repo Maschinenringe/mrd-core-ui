@@ -4,8 +4,8 @@ import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, Observab
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, RendererStyleFlags2, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER, ViewEncapsulation } from '@angular/core';
-import { of, tap, map, throwError, finalize, share, Subscription, take, Subject, startWith, switchMap, merge, isObservable, fromEvent, defer, filter, BehaviorSubject } from 'rxjs';
+import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, RendererStyleFlags2, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, ElementRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER, ViewEncapsulation } from '@angular/core';
+import { of, tap, map, throwError, finalize, share, Subscription, take, Subject, startWith, switchMap, merge, isObservable, fromEvent, defer, filter, BehaviorSubject, timer } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import * as i1$4 from '@angular/cdk/table';
 import { CdkTable, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, STICKY_POSITIONING_LISTENER, CdkHeaderRow, CdkFooterRow, CdkRow, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkCell, CdkFooterCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkNoDataRow, CdkTableModule } from '@angular/cdk/table';
 import { _VIEW_REPEATER_STRATEGY, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
 import { _isNumberValue } from '@angular/cdk/coercion';
+import { debounce } from 'rxjs/operators';
 
 var MrdSButtonType;
 (function (MrdSButtonType) {
@@ -1813,12 +1814,12 @@ class MrdDirectiveModule {
 function MrdProgressBarComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 3);
 } }
-const _c0$E = function (a0) { return { "transform": a0 }; };
+const _c0$F = function (a0) { return { "transform": a0 }; };
 function MrdProgressBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 4);
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$E, "translateX(" + ctx_r1.value + "%)"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(1, _c0$F, "translateX(" + ctx_r1.value + "%)"));
 } }
 class MrdProgressBarComponent {
     cdr;
@@ -2093,7 +2094,7 @@ function MrdTooltipComponent_ng_template_2_Template(rf, ctx) { if (rf & 1) {
 function MrdTooltipComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$D = function (a0) { return { "mrd-tooltip-container": a0 }; };
+const _c0$E = function (a0) { return { "mrd-tooltip-container": a0 }; };
 class MrdTooltipComponent {
     /**
      * This is simple text which is to be shown in the tooltip
@@ -2120,7 +2121,7 @@ class MrdTooltipComponent {
         } if (rf & 2) {
             const _r0 = i0.ɵɵreference(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$D, ctx.defaultStyle));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0$E, ctx.defaultStyle));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || _r0);
         } }, dependencies: [i1$1.NgClass, i1$1.NgTemplateOutlet], styles: [".mrd-tooltip-container[_ngcontent-%COMP%]{border-radius:8px;padding:2px 12px;background:#737373;box-shadow:0 0 25px #0000004d;color:#fff;word-break:normal;max-width:350px;font-size:14px}"] });
@@ -2478,7 +2479,7 @@ class ToolTipRendererDirective {
             args: ['mouseleave', ['$event']]
         }] }); })();
 
-const _c0$C = ["mrdButtonTextContent"];
+const _c0$D = ["mrdButtonTextContent"];
 function MrdButtonComponent_mrd_progress_bar_12_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-progress-bar", 10);
 } if (rf & 2) {
@@ -2491,8 +2492,8 @@ function MrdButtonComponent_mrd_progress_spinner_13_Template(rf, ctx) { if (rf &
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵproperty("value", ctx_r3.loadingProgress == null ? null : ctx_r3.loadingProgress.value)("mode", ctx_r3.loadingProgress ? "determinate" : "indeterminate")("color", ctx_r3.progressColor);
 } }
-const _c1$l = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
-const _c2$c = function (a0) { return { "min-width": a0 }; };
+const _c1$n = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$d = function (a0) { return { "min-width": a0 }; };
 const _c3$9 = function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) { return { "mrd-icon-button": a0, "mrd-raised-button": a1, "mrd-outline-button": a2, "mrd-flat-button": a3, "mrd-fab-button": a4, "mrd-mini-fab-button": a5, "mrd-toggle-button": a6, "mrd-toggle-selected": a7, "mrd-toggle-simple": a8, "disabled": a9 }; };
 const _c4$6 = function (a0) { return { "isCollapsed": a0 }; };
 const _c5$4 = function (a0) { return { "full-icon": a0 }; };
@@ -3152,7 +3153,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
     };
     /** @nocollapse */ static ɵfac = function MrdButtonComponent_Factory(t) { return new (t || MrdButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdButtonComponent, selectors: [["mrd-button"]], viewQuery: function MrdButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$C, 7);
+            i0.ɵɵviewQuery(_c0$D, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -3161,7 +3162,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", ctx.fitContent ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
         } }, inputs: { icon: ["icon-button", "icon", booleanAttribute], raised: ["raised-button", "raised", booleanAttribute], outline: ["outline-button", "outline", booleanAttribute], flat: ["flat-button", "flat", booleanAttribute], fab: ["fab-button", "fab", booleanAttribute], miniFab: ["miniFab-button", "miniFab", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], toggleSimple: ["toggleSimple", "toggleSimple", booleanAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["customToggleUnselectedColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["customToggleUnselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedTextColor: ["customToggleSelectedTextColor", "customToggleSelectedTextColor", colorAttribute], progressColor: ["progressColor", "progressColor", colorAttribute], collapse: ["collapse", "collapse", booleanAttribute], collapseTo: "collapseTo", fitContent: ["fit-content", "fitContent", booleanAttribute], showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], fontFamily: "fontFamily", fontWeight: "fontWeight", diameter: ["diameter", "diameter", sizeAttribute], iconSize: ["iconSize", "iconSize", sizeAttribute], fullIcon: ["fullIcon", "fullIcon", booleanAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], customHoverColor: ["customHoverColor", "customHoverColor", colorAttribute], customHoverTextColor: ["customHoverTextColor", "customHoverTextColor", colorAttribute], value: "value" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$2, decls: 14, vars: 73, consts: [[1, "mrd-button-container", 3, "ngStyle", "ngClass", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-focus"], [1, "mrd-button-content", 3, "ngClass"], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "ngClass", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"]], template: function MrdButtonComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$l);
+            i0.ɵɵprojectionDef(_c1$n);
             i0.ɵɵelementStart(0, "button", 0, 1)(2, "div", 2);
             i0.ɵɵelement(3, "div", 3);
             i0.ɵɵelementEnd();
@@ -3181,7 +3182,7 @@ class MrdButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             const _r1 = i0.ɵɵreference(8);
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--text-color", ctx.textColor)("--hover-text-color", ctx.hoverTextColor)("--disabled-text-color", ctx.disabledTextColor)("--disabled-bg-color", ctx.disabledBgColor)("--border-width", ctx.borderWidth)("--border-color", ctx.borderColor)("--border-style", ctx.borderStyle)("--border-radius", ctx.borderRadius)("--min-height", ctx.minHeight)("--font-size", ctx.fontSize)("--font-family", ctx.fontFamily)("--font-weight", ctx.fontWeight)("--diameter", ctx.diameter)("--icon-size", ctx.iconSize)("--unselected-color", ctx.toggleUnselectedColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c2$c, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c3$9, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.toggle && ctx.toggleSimple, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(54, _c2$d, ctx.fitContent ? "fit-content" : "unset"))("ngClass", i0.ɵɵpureFunctionV(56, _c3$9, [ctx.icon, ctx.raised, ctx.outline, ctx.flat, ctx.fab, ctx.miniFab, ctx.toggle, ctx.toggleSelected, ctx.toggle && ctx.toggleSimple, ctx.disabled]))("mrdToolTip", ctx.tooltipText)("showOnTruncatedElement", ctx.tooltipIfTruncated ? _r1 : undefined)("showToolTip", ctx.showTooltip || ctx.tooltipIfCollapsed && ctx.isCollapsed);
             i0.ɵɵadvance(3);
             i0.ɵɵstyleProp("--hover-color", ctx.hoverColor)("--active-color", ctx.activeColor);
             i0.ɵɵadvance(1);
@@ -3449,7 +3450,7 @@ function iconColorAttribute(value) {
     return SCHLUESSELWOERTER.includes(value) ? value : colorAttribute(value);
 }
 
-const _c0$B = ["*"];
+const _c0$C = ["*"];
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -3724,7 +3725,7 @@ class MrdIconComponent {
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], hostAttrs: ["role", "img", "aria-hidden", "true"], hostVars: 6, hostBindings: function MrdIconComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-icon-size", ctx.aktuelleGroesse)("color", !ctx.icon ? ctx.color : null);
             i0.ɵɵclassProp("mrd-icon-sized", !!ctx.aktuelleGroesse);
-        } }, inputs: { svgIcon: "svgIcon", icon: "icon", outline: ["outline", "outline", booleanAttribute], full: ["full", "full", booleanAttribute], dashed: ["dashed", "dashed", booleanAttribute], color: ["color", "color", iconColorAttribute], innerColor: ["innerColor", "innerColor", iconColorAttribute], outerColor: ["outerColor", "outerColor", iconColorAttribute], direction: "direction", size: ["size", "size", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c0$B, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { svgIcon: "svgIcon", icon: "icon", outline: ["outline", "outline", booleanAttribute], full: ["full", "full", booleanAttribute], dashed: ["dashed", "dashed", booleanAttribute], color: ["color", "color", iconColorAttribute], innerColor: ["innerColor", "innerColor", iconColorAttribute], outerColor: ["outerColor", "outerColor", iconColorAttribute], direction: "direction", size: ["size", "size", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c0$C, decls: 1, vars: 0, template: function MrdIconComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: [".mrd-icon-sized[_nghost-%COMP%]{display:inline-flex;flex-shrink:0;box-sizing:border-box;width:var(--mrd-icon-size);height:var(--mrd-icon-size);line-height:0;vertical-align:middle}"], changeDetection: 0 });
@@ -3882,7 +3883,7 @@ class MrdTabComponent {
         }] }); })();
 
 function MrdTabBodyComponent_ng_template_1_Template(rf, ctx) { }
-const _c0$A = function (a0, a1) { return { "transform": a0, "display": a1 }; };
+const _c0$B = function (a0, a1) { return { "transform": a0, "display": a1 }; };
 class MatTabBodyPortal {
     viewContainerRef;
     _host;
@@ -3998,7 +3999,7 @@ class MrdTabBodyComponent {
             i0.ɵɵtemplate(1, MrdTabBodyComponent_ng_template_1_Template, 0, 0, "ng-template", 1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$A, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction2(1, _c0$B, "translateX(" + ctx.translate + ")", ctx.hidden ? "none" : "block"));
         } }, dependencies: [i1$1.NgStyle, MatTabBodyPortal], styles: [".mrd-tab-content[_ngcontent-%COMP%]{display:block;position:absolute;inset:0;transition:transform 1s ease-out}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdTabBodyComponent, [{
@@ -4022,8 +4023,8 @@ class MrdTabBodyComponent {
             type: Input
         }] }); })();
 
-const _c0$z = ["mrdTabHeader"];
-const _c1$k = function (a0, a1, a2, a3) { return { "tab-active": a0, "tab-disabled": a1, "tabs-rounded": a2, "fit-labels": a3 }; };
+const _c0$A = ["mrdTabHeader"];
+const _c1$m = function (a0, a1, a2, a3) { return { "tab-active": a0, "tab-disabled": a1, "tabs-rounded": a2, "fit-labels": a3 }; };
 function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r7 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div", 6, 7);
@@ -4034,7 +4035,7 @@ function MrdTabGroupComponent_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const tab_r4 = ctx.$implicit;
     const ctx_r2 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(4, _c1$k, tab_r4.active, tab_r4.disabled, ctx_r2.rounded, ctx_r2.labelsFit));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(4, _c1$m, tab_r4.active, tab_r4.disabled, ctx_r2.rounded, ctx_r2.labelsFit));
     i0.ɵɵattribute("aria-selected", !!tab_r4.active)("aria-disabled", tab_r4.disabled);
     i0.ɵɵadvance(2);
     i0.ɵɵtextInterpolate1(" ", tab_r4.label, " ");
@@ -4045,7 +4046,7 @@ function MrdTabGroupComponent_div_0_div_2_Template(rf, ctx) { if (rf & 1) {
     const ctx_r3 = i0.ɵɵnextContext(2);
     i0.ɵɵstyleProp("left", ctx_r3.tabUnderlineLeft, "px")("width", ctx_r3.tabUnderlineWidth, "px");
 } }
-const _c2$b = function (a0) { return { "height": a0 }; };
+const _c2$c = function (a0) { return { "height": a0 }; };
 function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 3);
     i0.ɵɵtemplate(1, MrdTabGroupComponent_div_0_div_1_Template, 4, 9, "div", 4);
@@ -4053,7 +4054,7 @@ function MrdTabGroupComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c2$b, ctx_r0.headerHeight + "px"));
+    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(3, _c2$c, ctx_r0.headerHeight + "px"));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngForOf", ctx_r0.tabs);
     i0.ɵɵadvance(1);
@@ -4277,7 +4278,7 @@ class MrdTabGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabs = _t);
         } }, viewQuery: function MrdTabGroupComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$z, 5);
+            i0.ɵɵviewQuery(_c0$A, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.tabBodys = _t);
@@ -4366,8 +4367,8 @@ class MrdTabsModule {
         MrdTabComponent,
         MrdTabBodyComponent] }); })();
 
-const _c0$y = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
-const _c1$j = function (a0, a1) { return { "selected": a0, "over": a1 }; };
+const _c0$z = function (a0, a1, a2) { return { "selected": a0, "main": a1, "back": a2 }; };
+const _c1$l = function (a0, a1) { return { "selected": a0, "over": a1 }; };
 /**
  * Komponente für die Darstellung von Geo-Icons (Schlagzeichnungen).
  *
@@ -4644,10 +4645,10 @@ class MrdGeoIconComponent {
             i0.ɵɵstyleProp("--width", ctx.width)("--height", ctx.height)("--margin", ctx.margin)("--transitionTime", ctx.transitionTime)("--mainColor", ctx.mainColor)("--mainSelectedColor", ctx.mainSelectedColor)("--backColor", ctx.backColor)("--backSelectedColor", ctx.backSelectedColor)("--overColor", ctx.overlayColor)("--overSelectedColor", ctx.overlaySelectedColor)("--mainOpacity", ctx.mainOpacity)("--mainSelectedOpacity", ctx.mainSelectedOpacity)("--backOpacity", ctx.backOpacity)("--backSelectedOpacity", ctx.backSelectedOpacity)("--overOpacity", ctx.overlayOpacity)("--overSelectedOpacity", ctx.overlaySelectedOpacity);
             i0.ɵɵattribute("viewBox", ctx.viewBox);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$y, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(37, _c0$z, ctx.isSelected, !ctx.hasOverlay, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.base);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$j, ctx.isSelected, ctx.hasOverlay));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(41, _c1$l, ctx.isSelected, ctx.hasOverlay));
             i0.ɵɵattribute("d", ctx.overlay);
         } }, dependencies: [i1$1.NgClass], styles: [".geoicon[_ngcontent-%COMP%]{width:var(--width);height:var(--height);margin:var(--margin)}.geoicon[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]{opacity:var(--mainOpacity);fill:var(--mainColor);transition:fill var(--transitionTime),opacity var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .main.selected[_ngcontent-%COMP%]{opacity:var(--mainSelectedOpacity);fill:var(--mainSelectedColor)}.geoicon[_ngcontent-%COMP%]   .back[_ngcontent-%COMP%]{opacity:var(--backOpacity);fill:var(--backColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .back.selected[_ngcontent-%COMP%]{opacity:var(--backSelectedOpacity);fill:var(--backSelectedColor)}.geoicon[_ngcontent-%COMP%]   .over[_ngcontent-%COMP%]{opacity:var(--overOpacity);fill:var(--overColor);transition:fill var(--transitionTime)}.geoicon[_ngcontent-%COMP%]   .over.selected[_ngcontent-%COMP%]{opacity:var(--overSelectedOpacity);fill:var(--overSelectedColor)}"] });
 }
@@ -4859,8 +4860,8 @@ class FlyOutData {
             }]
     }], null, null); })();
 
-const _c0$x = ["container"];
-const _c1$i = ["content"];
+const _c0$y = ["container"];
+const _c1$k = ["content"];
 function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     const _r4 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 7);
@@ -4870,7 +4871,7 @@ function MrdFlyOutComponent_mrd_button_5_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(2, "path", 9)(3, "path", 10);
     i0.ɵɵelementEnd()();
 } }
-const _c2$a = function (a0) { return { "open": a0 }; };
+const _c2$b = function (a0) { return { "open": a0 }; };
 const _c3$8 = function (a0, a1, a2, a3, a4, a5) { return { "open": a0, "centered": a1, "topDown": a2, "bottomUp": a3, "leftRight": a4, "rightLeft": a5 }; };
 /**
  * Diese Komponente stellt ein FlyOut dar, das von oben nach unten, von unten nach oben, von links nach rechts oder von rechts nach links einfliegt.
@@ -5181,8 +5182,8 @@ class MrdFlyOutComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdFlyOutComponent_Factory(t) { return new (t || MrdFlyOutComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(FlyOutService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFlyOutComponent, selectors: [["mrd-fly-out"]], viewQuery: function MrdFlyOutComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$x, 5);
-            i0.ɵɵviewQuery(_c1$i, 7, ViewContainerRef);
+            i0.ɵɵviewQuery(_c0$y, 5);
+            i0.ɵɵviewQuery(_c1$k, 7, ViewContainerRef);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.container = _t.first);
@@ -5197,7 +5198,7 @@ class MrdFlyOutComponent extends BaseObject {
             i0.ɵɵelementEnd()()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--bd-color", ctx.backdropColor)("--bd-transition-time", ctx.transitionTime);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(23, _c2$a, ctx.stateToggle.value));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(23, _c2$b, ctx.stateToggle.value));
             i0.ɵɵadvance(1);
             i0.ɵɵstyleProp("--fo-width", ctx.width)("--fo-max-width", ctx.maxWidth)("--fo-height", ctx.height)("--fo-max-height", ctx.maxHeight)("--fo-bg-color", ctx.backgroundColor)("--fo-padding", ctx.padding)("--fo-border-radius", ctx.borderRadius)("--fo-transition-time", ctx.transitionTime);
             i0.ɵɵadvance(1);
@@ -5304,7 +5305,7 @@ class MrdFlyOutModule {
         MrdButtonModule], exports: [MrdFlyOutComponent,
         MrdFlyOutCloseDirective] }); })();
 
-const _c0$w = ["*"];
+const _c0$x = ["*"];
 class MrdButtonToggleGroupComponent extends BaseObject {
     cdr;
     buttons;
@@ -5559,7 +5560,7 @@ class MrdButtonToggleGroupComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.buttons = _t);
         } }, hostVars: 2, hostBindings: function MrdButtonToggleGroupComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵclassProp("simple", ctx.simple);
-        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], simple: ["simple", "simple", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$w, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { rounded: ["rounded", "rounded", booleanAttribute], simple: ["simple", "simple", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], index: ["index", "index", numberAttribute], primary: ["primary", "primary", booleanAttribute], accent: ["accent", "accent", booleanAttribute], warn: ["warn", "warn", booleanAttribute], customTextColor: ["color", "customTextColor", colorThemeAttribute], customBgColor: ["backgroundColor", "customBgColor", colorAttribute], keepCustomTextColor: ["keepCustomTextColor", "keepCustomTextColor", booleanAttribute], keepCustomBgColor: ["keepCustomBgColor", "keepCustomBgColor", booleanAttribute], customToggleUnselectedColor: ["unselectedBgColor", "customToggleUnselectedColor", colorAttribute], customToggleUnselectedTextColor: ["unselectedTextColor", "customToggleUnselectedTextColor", colorAttribute], customToggleSelectedColor: ["selectedBgColor", "customToggleSelectedColor", colorAttribute], customToggleSelectedTextColor: ["selectedTextColor", "customToggleSelectedTextColor", colorAttribute], minHeight: ["minHeight", "minHeight", sizeAttribute], fontSize: ["fontSize", "fontSize", sizeAttribute], borderRadius: ["borderRadius", "borderRadius", sizeAttribute], value: "value" }, outputs: { valueChange: "valueChange", indexChange: "indexChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c0$x, decls: 2, vars: 0, consts: [[1, "flex", "flex-row", "justify-center"]], template: function MrdButtonToggleGroupComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -5663,7 +5664,7 @@ class MrdButtonToggleModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdButtonToggleModule, { declarations: [MrdButtonToggleGroupComponent], imports: [CommonModule,
         MrdButtonModule], exports: [MrdButtonToggleGroupComponent] }); })();
 
-const _c0$v = ["checkboxlabel"];
+const _c0$w = ["checkboxlabel"];
 function MrdCheckboxComponent_span_1_span_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "span", 9);
 } }
@@ -5697,7 +5698,7 @@ function MrdCheckboxComponent_div_2_ng_content_1_Template(rf, ctx) { if (rf & 1)
 function MrdCheckboxComponent_div_2_ng_content_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵprojection(0, 2, ["*ngIf", "!checked"]);
 } }
-const _c1$h = function (a0) { return { "isHover": a0 }; };
+const _c1$j = function (a0) { return { "isHover": a0 }; };
 function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 15);
     i0.ɵɵtemplate(1, MrdCheckboxComponent_div_2_ng_content_1_Template, 1, 0, "ng-content", 8);
@@ -5705,7 +5706,7 @@ function MrdCheckboxComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$h, !ctx_r1.customHoverIcons));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$j, !ctx_r1.customHoverIcons));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r1.checked);
     i0.ɵɵadvance(1);
@@ -5729,7 +5730,7 @@ function MrdCheckboxComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", !ctx_r2.checked);
 } }
-const _c2$9 = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
+const _c2$a = ["*", [["", "icon-checked", ""]], [["", "icon-unchecked", ""]], [["", "icon-checked-hover", ""]], [["", "icon-unchecked-hover", ""]]];
 const _c3$7 = function (a0) { return { "mrd-checkbox-disabled": a0 }; };
 const _c4$5 = ["*", "[icon-checked]", "[icon-unchecked]", "[icon-checked-hover]", "[icon-unchecked-hover]"];
 class MrdCheckboxComponent extends BaseObject {
@@ -5892,14 +5893,14 @@ class MrdCheckboxComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdCheckboxComponent_Factory(t) { return new (t || MrdCheckboxComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdCheckboxComponent, selectors: [["mrd-checkbox"]], viewQuery: function MrdCheckboxComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$v, 5);
+            i0.ɵɵviewQuery(_c0$w, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
         } }, hostVars: 2, hostBindings: function MrdCheckboxComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("max-width", ctx.fitContent ? "fit-content" : "100%");
         } }, inputs: { formControl: ["mrdFormControl", "formControl"], rounded: ["rounded", "rounded", booleanAttribute], color: ["color", "color", colorAttribute], colorHover: ["colorHover", "colorHover", colorAttribute], colorChecked: ["colorChecked", "colorChecked", colorAttribute], colorCheckedHover: ["colorCheckedHover", "colorCheckedHover", colorAttribute], bgColor: ["bgColor", "bgColor", colorAttribute], bgColorHover: ["bgColorHover", "bgColorHover", colorAttribute], bgColorChecked: ["bgColorChecked", "bgColorChecked", colorAttribute], bgColorCheckedHover: ["bgColorCheckedHover", "bgColorCheckedHover", colorAttribute], border: "border", borderHover: "borderHover", borderChecked: "borderChecked", borderCheckedHover: "borderCheckedHover", checked: ["checked", "checked", booleanAttribute], indeterminate: ["indeterminate", "indeterminate", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], customIcons: ["customIcons", "customIcons", booleanAttribute], customHoverIcons: ["customHoverIcons", "customHoverIcons", booleanAttribute], checkboxSize: ["checkboxSize", "checkboxSize", sizeAttribute], checkboxHeight: ["checkboxHeight", "checkboxHeight", sizeAttribute], checkboxWidth: ["checkboxWidth", "checkboxWidth", sizeAttribute], singleLine: ["single-line", "singleLine", booleanAttribute], fitContent: ["fit-content", "fitContent", booleanAttribute], ellipsis: ["ellipsis", "ellipsis", booleanAttribute], tooltip: ["tooltip", "tooltip", booleanAttribute], tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipText: "tooltipText", tooltipPosition: "tooltipPosition", tooltipDisabled: ["tooltipDisabled", "tooltipDisabled", booleanAttribute], controlled: ["controlled", "controlled", booleanAttribute], stopPropagation: ["stopPropagation", "stopPropagation", booleanAttribute] }, outputs: { checkedChange: "checkedChange", indeterminateChange: "indeterminateChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c4$5, decls: 7, vars: 50, consts: [["role", "checkbox", 1, "mrd-checkbox-container", 3, "ngClass", "mrdToolTip", "showToolTip", "position", "showOnTruncatedElement", "click"], ["class", "mrd-checkbox-box", 4, "ngIf"], ["class", "mrd-checkbox-custom", 3, "ngClass", 4, "ngIf"], ["class", "mrd-checkbox-custom-hover", 4, "ngIf"], [1, "mrd-checkbox-label"], ["checkboxlabel", ""], [1, "mrd-checkbox-box"], ["class", "mrd-checkbox-strich", 4, "ngIf"], [4, "ngIf"], [1, "mrd-checkbox-strich"], ["fill", "#ffffff", "width", "16px", "height", "16px", "viewBox", "-4 0 32 32", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "stroke", "#000000", "stroke-width", "0.00032"], ["id", "SVGRepo_bgCarrier", "stroke-width", "0"], ["id", "SVGRepo_tracerCarrier", "stroke-linecap", "round", "stroke-linejoin", "round"], ["id", "SVGRepo_iconCarrier"], ["d", "M19.375 5.063l-9.5 13.625-6.563-4.875-3.313 4.594 11.188 8.531 12.813-18.375z"], [1, "mrd-checkbox-custom", 3, "ngClass"], [1, "mrd-checkbox-custom-hover"]], template: function MrdCheckboxComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2$9);
+            i0.ɵɵprojectionDef(_c2$a);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdCheckboxComponent_Template_div_click_0_listener($event) { return ctx.toggle($event); });
             i0.ɵɵtemplate(1, MrdCheckboxComponent_span_1_Template, 3, 2, "span", 1);
@@ -6054,7 +6055,7 @@ class MrdCheckboxModule {
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdCheckboxModule, { declarations: [MrdCheckboxComponent], imports: [CommonModule,
         MrdTooltipModule], exports: [MrdCheckboxComponent] }); })();
 
-const _c0$u = ["chipText"];
+const _c0$v = ["chipText"];
 function MrdChipComponent_mrd_icon_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 6);
 } if (rf & 2) {
@@ -6082,8 +6083,8 @@ function MrdChipComponent_mrd_button_7_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵstyleProp("--chip-close-icon-color", ctx_r3.closeIconColor)("--chip-close-icon-cross-color", ctx_r3.closeIconCrossColor);
 } }
-const _c1$g = function (a0) { return { "cursor": a0 }; };
-const _c2$8 = function (a0) { return { "pointer-events": a0 }; };
+const _c1$i = function (a0) { return { "cursor": a0 }; };
+const _c2$9 = function (a0) { return { "pointer-events": a0 }; };
 const _c3$6 = ["*"];
 class MrdChipComponent {
     cdr;
@@ -6164,7 +6165,7 @@ class MrdChipComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdChipComponent_Factory(t) { return new (t || MrdChipComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdChipComponent, selectors: [["mrd-chip"]], viewQuery: function MrdChipComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$u, 5);
+            i0.ɵɵviewQuery(_c0$v, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.chipText = _t.first);
@@ -6181,9 +6182,9 @@ class MrdChipComponent {
             i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--chip-color", ctx.color)("--chip-background-color", ctx.backgroundColor);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$g, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(10, _c1$i, ctx.disabled || !ctx.clickable ? "default" : "pointer"));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$8, ctx.disabled ? "none" : "auto"));
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(12, _c2$9, ctx.disabled ? "none" : "auto"));
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.prefixIcon);
             i0.ɵɵadvance(1);
@@ -6275,7 +6276,7 @@ class MrdChipModule {
 function MrdDatepickerComponent_ng_container_10_div_17_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 8);
 } }
-const _c0$t = function (a0, a1) { return { "today": a0, "selected": a1 }; };
+const _c0$u = function (a0, a1) { return { "today": a0, "selected": a1 }; };
 function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Template(rf, ctx) { if (rf & 1) {
     const _r10 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 12);
@@ -6284,7 +6285,7 @@ function MrdDatepickerComponent_ng_container_10_ng_container_18_mrd_button_1_Tem
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const d_r8 = ctx.$implicit;
-    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$t, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction2(3, _c0$u, d_r8.isToday && !d_r8.isSelected.value, d_r8.isSelected.value));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", d_r8.day, " ");
 } }
@@ -6358,7 +6359,7 @@ function MrdDatepickerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) 
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r0.range);
 } }
-const _c1$f = function (a0) { return { "selected": a0 }; };
+const _c1$h = function (a0) { return { "selected": a0 }; };
 function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) { if (rf & 1) {
     const _r19 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-button", 17);
@@ -6368,7 +6369,7 @@ function MrdDatepickerComponent_ng_container_11_mrd_button_2_Template(rf, ctx) {
 } if (rf & 2) {
     const y_r17 = ctx.$implicit;
     const ctx_r16 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$f, y_r17 === ctx_r16.year));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$h, y_r17 === ctx_r16.year));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", y_r17, " ");
 } }
@@ -6393,7 +6394,7 @@ function MrdDatepickerComponent_ng_container_12_mrd_button_2_Template(rf, ctx) {
     const m_r21 = ctx.$implicit;
     const i_r22 = ctx.index;
     const ctx_r20 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$f, i_r22 === ctx_r20.monthIndex));
+    i0.ɵɵclassMap(i0.ɵɵpureFunction1(3, _c1$h, i_r22 === ctx_r20.monthIndex));
     i0.ɵɵadvance(1);
     i0.ɵɵtextInterpolate1(" ", m_r21, " ");
 } }
@@ -6832,9 +6833,9 @@ class MrdTimepickerComponent {
             type: Output
         }] }); })();
 
-const _c0$s = ["baseInput"];
-const _c1$e = ["textArea"];
-const _c2$7 = ["dateInput"];
+const _c0$t = ["baseInput"];
+const _c1$g = ["textArea"];
+const _c2$8 = ["dateInput"];
 const _c3$5 = ["timeInput"];
 function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
     const _r11 = i0.ɵɵgetCurrentView();
@@ -7321,9 +7322,9 @@ class MrdInputComponent extends BaseObject {
     }
     /** @nocollapse */ static ɵfac = function MrdInputComponent_Factory(t) { return new (t || MrdInputComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdInputComponent, selectors: [["mrd-input"]], viewQuery: function MrdInputComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$s, 5);
-            i0.ɵɵviewQuery(_c1$e, 5);
-            i0.ɵɵviewQuery(_c2$7, 5);
+            i0.ɵɵviewQuery(_c0$t, 5);
+            i0.ɵɵviewQuery(_c1$g, 5);
+            i0.ɵɵviewQuery(_c2$8, 5);
             i0.ɵɵviewQuery(_c3$5, 5);
         } if (rf & 2) {
             let _t;
@@ -7502,8 +7503,8 @@ function MrdLabelComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(1, "\u00A0*");
     i0.ɵɵelementContainerEnd();
 } }
-const _c0$r = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
-const _c1$d = ["*"];
+const _c0$s = function (a0, a1, a2) { return { "mrd-label-floating": a0, "mrd-label-hidden": a1, "mrd-label-top": a2 }; };
+const _c1$f = ["*"];
 class MrdLabelComponent extends BasePushStrategyObject {
     cdr;
     set labelTop(value) {
@@ -7526,7 +7527,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
         this.watch(this._labelTop.changed, new SubscriptionHandler(() => this.cdr.detectChanges()));
     }
     /** @nocollapse */ static ɵfac = function MrdLabelComponent_Factory(t) { return new (t || MrdLabelComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$d, decls: 4, vars: 10, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdLabelComponent, selectors: [["mrd-label"]], inputs: { labelTop: ["labelTop", "labelTop", booleanAttribute], float: "float" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$f, decls: 4, vars: 10, consts: [[1, "mrd-label-content", 3, "ngClass"], [1, "mrd-label-text"], [4, "ngIf"]], template: function MrdLabelComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
@@ -7534,7 +7535,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
             i0.ɵɵstyleProp("--label-color", ctx.labelColor)("--label-floating-color", ctx.labelFloatingColor);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(6, _c0$r, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(6, _c0$s, ctx.float === "always" || ctx.floating.value, ctx.float === "never" && ctx.floating.value, ctx.labelTop));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngIf", ctx.required.value);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf], styles: [".mrd-label-content[_ngcontent-%COMP%]{position:absolute;top:0;left:2px;transition:top .3s,font-size .3s;color:var(--label-color);pointer-events:none;overflow:hidden;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.mrd-label-content[_ngcontent-%COMP%]   .mrd-label-text[_ngcontent-%COMP%]{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mrd-label-content.mrd-label-top[_ngcontent-%COMP%]{justify-content:flex-start}.mrd-label-content.mrd-label-floating[_ngcontent-%COMP%]{top:-1.25em;font-size:.75em;color:var(--label-floating-color);justify-content:flex-start;overflow:visible;line-height:20px}.mrd-label-content.mrd-label-hidden[_ngcontent-%COMP%]{display:none}"], changeDetection: 0 });
@@ -7549,7 +7550,7 @@ class MrdLabelComponent extends BasePushStrategyObject {
             type: Input
         }] }); })();
 
-const _c0$q = function (a0) { return { "mrd-error-ellipsis": a0 }; };
+const _c0$r = function (a0) { return { "mrd-error-ellipsis": a0 }; };
 class MrdErrorComponent {
     cdr;
     ellipsis;
@@ -7576,7 +7577,7 @@ class MrdErrorComponent {
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$q, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.error);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c0$r, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.error);
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate1(" ", ctx.error, "\n");
         } }, dependencies: [i1$1.NgClass, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#da0000;display:flex;flex:0 1 fit-content}.mrd-error-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-error-container.mrd-error-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
@@ -7589,7 +7590,7 @@ class MrdErrorComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$p = ["optionValue"];
+const _c0$q = ["optionValue"];
 function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 4);
     i0.ɵɵelement(1, "mrd-checkbox", 5);
@@ -7599,8 +7600,8 @@ function MrdSelectOptionComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("checked", ctx_r0.selected);
 } }
-const _c1$c = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
-const _c2$6 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
+const _c1$e = [[["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], "*", [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$7 = function (a0, a1, a2, a3) { return { "selected": a0, "filtered": a1, "focused": a2, "disabled": a3 }; };
 const _c3$4 = ["mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "*", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
 class MrdSelectOptionComponent {
     elementRef;
@@ -7659,12 +7660,12 @@ class MrdSelectOptionComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdSelectOptionComponent_Factory(t) { return new (t || MrdSelectOptionComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MrdSelectComponent, 1), i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectOptionComponent, selectors: [["mrd-select-option"]], viewQuery: function MrdSelectOptionComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$p, 5);
+            i0.ɵɵviewQuery(_c0$q, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionValue = _t.first);
         } }, inputs: { value: "value", noCheckbox: ["noCheckbox", "noCheckbox", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], selected: "selected", focused: "focused" }, outputs: { optionClicked: "optionClicked" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c3$4, decls: 8, vars: 7, consts: [[1, "mrd-select-option-item", 3, "ngClass", "click"], ["class", "mrd-select-option-checkbox-wrapper", 4, "ngIf"], [1, "mrd-select-option-value-text"], ["optionValue", ""], [1, "mrd-select-option-checkbox-wrapper"], [3, "checked"]], template: function MrdSelectOptionComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$c);
+            i0.ɵɵprojectionDef(_c1$e);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵlistener("click", function MrdSelectOptionComponent_Template_div_click_0_listener() { return ctx.optionClick(); });
             i0.ɵɵelementStart(1, "span");
@@ -7676,7 +7677,7 @@ class MrdSelectOptionComponent {
             i0.ɵɵprojection(7, 2);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c2$6, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction4(2, _c2$7, ctx.selected, ctx.filtered, ctx.focused, ctx.disabled));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.multiple && !ctx.noCheckbox);
         } }, dependencies: [i1$1.NgClass, i1$1.NgIf, MrdCheckboxComponent], styles: ["[_nghost-%COMP%]{display:block;width:100%}.mrd-select-option-virtuell[_nghost-%COMP%]{height:100%}.mrd-select-option-virtuell[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]{height:100%;box-sizing:border-box}.mrd-select-search-option[_nghost-%COMP%]   .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:inherit}.mrd-select-option-item[_ngcontent-%COMP%]{height:3em;border-bottom:1px solid #afafaf;white-space:nowrap;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 16px;cursor:pointer}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]{width:100%;display:flex;flex-direction:row;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-value-text[_ngcontent-%COMP%]{display:flex;flex:1;align-items:center}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon{height:20px;width:20px;font-size:20px;margin-right:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]     .mat-icon.icon-end{margin-right:0;margin-left:6px}.mrd-select-option-item[_ngcontent-%COMP%] > span[_ngcontent-%COMP%]   .mrd-select-option-checkbox-wrapper[_ngcontent-%COMP%]{display:flex;pointer-events:none}.mrd-select-option-item.selected[_ngcontent-%COMP%]{background-color:#3fb61a21}.mrd-select-option-item.filtered[_ngcontent-%COMP%]{display:none}.mrd-select-option-item.focused[_ngcontent-%COMP%], .mrd-select-option-item[_ngcontent-%COMP%]:hover{background-color:#f0f0f0}.mrd-select-option-item[_ngcontent-%COMP%]:last-of-type{border-bottom:none}.mrd-select-option-item.disabled[_ngcontent-%COMP%]{pointer-events:none;opacity:.5}"], changeDetection: 0 });
@@ -7705,14 +7706,14 @@ class MrdSelectOptionComponent {
             type: Input
         }] }); })();
 
-const _c0$o = ["*"];
+const _c0$p = ["*"];
 class MrdSelectCustomTriggerComponent {
     triggerClick = new EventEmitter();
     triggerClicked() {
         this.triggerClick.emit();
     }
     /** @nocollapse */ static ɵfac = function MrdSelectCustomTriggerComponent_Factory(t) { return new (t || MrdSelectCustomTriggerComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$o, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSelectCustomTriggerComponent, selectors: [["mrd-select-custom-trigger"]], outputs: { triggerClick: "triggerClick" }, ngContentSelectors: _c0$p, decls: 2, vars: 0, consts: [[3, "click"]], template: function MrdSelectCustomTriggerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0);
             i0.ɵɵlistener("click", function MrdSelectCustomTriggerComponent_Template_span_click_0_listener() { return ctx.triggerClicked(); });
@@ -7794,7 +7795,7 @@ function itemSizeAttribute(value) {
 function MrdVirtualScrollComponent_div_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c0$n = function (a0, a1) { return { $implicit: a0, index: a1 }; };
+const _c0$o = function (a0, a1) { return { $implicit: a0, index: a1 }; };
 function MrdVirtualScrollComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 3);
     i0.ɵɵtemplate(1, MrdVirtualScrollComponent_div_2_ng_container_1_Template, 1, 0, "ng-container", 4);
@@ -7804,7 +7805,7 @@ function MrdVirtualScrollComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("height", eintrag_r1.hoehe, "px");
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.template)("ngTemplateOutletContext", i0.ɵɵpureFunction2(4, _c0$n, eintrag_r1.item, eintrag_r1.index));
+    i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.template)("ngTemplateOutletContext", i0.ɵɵpureFunction2(4, _c0$o, eintrag_r1.item, eintrag_r1.index));
 } }
 /**
  * Rendert von einer langen Liste nur die sichtbaren Zeilen (plus Puffer).
@@ -7851,10 +7852,16 @@ class MrdVirtualScrollComponent {
     /** Hoehe in px, bis zu der das Element mit seinem Inhalt waechst; ohne Angabe bestimmt der Aufrufer die Hoehe */
     maxHeight;
     visibleRangeChange = new EventEmitter();
+    /**
+     * Tatsaechlich sichtbare Zeilen ohne Puffer (auch angeschnittene), z. B. um eine ausgewaehlte Zeile anzuheften,
+     * sobald sie herausgescrollt ist. `visibleRangeChange` meldet dagegen den gerenderten Bereich inklusive Puffer.
+     */
+    sichtbarerBereichChange = new EventEmitter();
     sichtbareEintraege = [];
     versatz = 0;
     gesamtHoehe = 0;
     bereich = { start: 0, end: 0 };
+    sichtbarerBereich = { start: 0, end: 0 };
     initialisiert = false;
     animationFrame = null;
     resizeObserver;
@@ -7987,6 +7994,13 @@ class MrdVirtualScrollComponent {
             this.bereichBerechnen(false, true);
         });
     }
+    sichtbarenBereichSetzen(bereich) {
+        if (bereich.start === this.sichtbarerBereich.start && bereich.end === this.sichtbarerBereich.end) {
+            return;
+        }
+        this.sichtbarerBereich = bereich;
+        Promise.resolve().then(() => this.ngZone.run(() => this.sichtbarerBereichChange.emit({ ...bereich })));
+    }
     /**
      * @param erzwingen Auch neu aufbauen, wenn sich der Bereich nicht geaendert hat (z. B. neue Items)
      * @param rendern Sofort rendern; im Input-Setter nicht noetig, weil die Change Detection ohnehin folgt
@@ -8005,6 +8019,11 @@ class MrdVirtualScrollComponent {
             const letzter = this.indexBei(scrollTop + hoehe);
             start = Math.max(0, erster - this.buffer);
             ende = Math.min(anzahl, letzter + 1 + this.buffer);
+            // Die Zeile ab der Unterkante (scrollTop + hoehe) ist nicht mehr sichtbar, deshalb ein Pixel davor
+            this.sichtbarenBereichSetzen({ start: erster, end: this.indexBei(Math.max(scrollTop, scrollTop + hoehe - 1)) + 1 });
+        }
+        else if (this.initialisiert) {
+            this.sichtbarenBereichSetzen({ start: 0, end: 0 });
         }
         if (!erzwingen && start === this.bereich.start && ende === this.bereich.end) {
             return;
@@ -8034,7 +8053,7 @@ class MrdVirtualScrollComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.contentItem = _t.first);
         } }, hostVars: 2, hostBindings: function MrdVirtualScrollComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("height", ctx.automatischeHoehe, "px");
-        } }, inputs: { itemTemplate: "itemTemplate", items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], trackBy: "trackBy", maxHeight: ["maxHeight", "maxHeight", numberAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], decls: 3, vars: 6, consts: [[1, "mrd-virtual-scroll-platzhalter"], [1, "mrd-virtual-scroll-inhalt"], ["class", "mrd-virtual-scroll-zeile", 3, "height", 4, "ngFor", "ngForOf", "ngForTrackBy"], [1, "mrd-virtual-scroll-zeile"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdVirtualScrollComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { itemTemplate: "itemTemplate", items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], trackBy: "trackBy", maxHeight: ["maxHeight", "maxHeight", numberAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange", sichtbarerBereichChange: "sichtbarerBereichChange" }, features: [i0.ɵɵInputTransformsFeature], decls: 3, vars: 6, consts: [[1, "mrd-virtual-scroll-platzhalter"], [1, "mrd-virtual-scroll-inhalt"], ["class", "mrd-virtual-scroll-zeile", 3, "height", 4, "ngFor", "ngForOf", "ngForTrackBy"], [1, "mrd-virtual-scroll-zeile"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdVirtualScrollComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelement(0, "div", 0);
             i0.ɵɵelementStart(1, "div", 1);
             i0.ɵɵtemplate(2, MrdVirtualScrollComponent_div_2_Template, 2, 7, "div", 2);
@@ -8072,10 +8091,12 @@ class MrdVirtualScrollComponent {
             args: [{ transform: numberAttribute }]
         }], visibleRangeChange: [{
             type: Output
+        }], sichtbarerBereichChange: [{
+            type: Output
         }] }); })();
 
-const _c0$m = ["selectContainer"];
-const _c1$b = ["searchSelectionInput"];
+const _c0$n = ["selectContainer"];
+const _c1$d = ["searchSelectionInput"];
 function MrdSelectComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     const _r5 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
@@ -8250,7 +8271,7 @@ function MrdSelectComponent_ng_template_4_mrd_select_option_4_Template(rf, ctx) 
 function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
-const _c2$5 = function (a0, a1) { return { $implicit: a0, index: a1 }; };
+const _c2$6 = function (a0, a1) { return { $implicit: a0, index: a1 }; };
 function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
     i0.ɵɵtemplate(1, MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 34);
@@ -8261,7 +8282,7 @@ function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_
     const i_r46 = ctx_r51.index;
     const ctx_r47 = i0.ɵɵnextContext(3);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngTemplateOutlet", ctx_r47.optionTemplate.templateRef)("ngTemplateOutletContext", i0.ɵɵpureFunction2(2, _c2$5, item_r45, i_r46));
+    i0.ɵɵproperty("ngTemplateOutlet", ctx_r47.optionTemplate.templateRef)("ngTemplateOutletContext", i0.ɵɵpureFunction2(2, _c2$6, item_r45, i_r46));
 } }
 function MrdSelectComponent_ng_template_4_mrd_virtual_scroll_6_ng_template_1_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtext(0);
@@ -9165,8 +9186,8 @@ class MrdSelectComponent extends BasePushStrategyObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.optionTemplate = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.options = _t);
         } }, viewQuery: function MrdSelectComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$m, 5);
-            i0.ɵɵviewQuery(_c1$b, 5);
+            i0.ɵɵviewQuery(_c0$n, 5);
+            i0.ɵɵviewQuery(_c1$d, 5);
             i0.ɵɵviewQuery(MrdVirtualScrollComponent, 5);
         } if (rf & 2) {
             let _t;
@@ -9283,9 +9304,9 @@ class MrdSelectComponent extends BasePushStrategyObject {
             type: Output
         }] }); })();
 
-const _c0$l = ["hintContent"];
-const _c1$a = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
-const _c2$4 = ["*"];
+const _c0$m = ["hintContent"];
+const _c1$c = function (a0) { return { "mrd-hint-ellipsis": a0 }; };
+const _c2$5 = ["*"];
 class MrdHintComponent {
     cdr;
     hintContent;
@@ -9305,17 +9326,17 @@ class MrdHintComponent {
     }
     /** @nocollapse */ static ɵfac = function MrdHintComponent_Factory(t) { return new (t || MrdHintComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdHintComponent, selectors: [["mrd-hint"]], viewQuery: function MrdHintComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$l, 5);
+            i0.ɵɵviewQuery(_c0$m, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hintContent = _t.first);
-        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c2$4, decls: 3, vars: 5, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "line-clamp", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { ellipsis: ["ellipsis", "ellipsis", numberAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c2$5, decls: 3, vars: 5, consts: [["showIfTruncated", "", 1, "mrd-hint-container", 3, "ngClass", "line-clamp", "mrdToolTip"], ["hintContent", ""]], template: function MrdHintComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0, 1);
             i0.ɵɵprojection(2);
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$a, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.tootltipText);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c1$c, ctx.ellipsis > 0))("line-clamp", ctx.ellipsis > 0 ? ctx.ellipsis : null)("mrdToolTip", ctx.tootltipText);
         } }, dependencies: [i1$1.NgClass, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{font-size:.75em;color:#afa6a6;display:flex;flex:1 1 fit-content}.mrd-hint-container[_ngcontent-%COMP%]{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;min-width:-moz-fit-content;min-width:fit-content}.mrd-hint-container.mrd-hint-ellipsis[_ngcontent-%COMP%]{white-space:nowrap;white-space:normal;display:-webkit-box}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdHintComponent, [{
@@ -9329,9 +9350,9 @@ class MrdHintComponent {
             args: [{ transform: numberAttribute }]
         }] }); })();
 
-const _c0$k = ["focusArea"];
-const _c1$9 = function (a0) { return { "show-icons": a0 }; };
-const _c2$3 = function (a0) { return { "icon-visible": a0 }; };
+const _c0$l = ["focusArea"];
+const _c1$b = function (a0) { return { "show-icons": a0 }; };
+const _c2$4 = function (a0) { return { "icon-visible": a0 }; };
 const _c3$2 = function (a0, a1) { return { "hover-area-left": a0, "hover-area-top": a1 }; };
 const _c4$2 = function (a0) { return { "error-icon-visible": a0 }; };
 const _c5$1 = function (a0, a1) { return { "hover-area-right": a0, "hover-area-bottom": a1 }; };
@@ -9352,15 +9373,15 @@ function MrdFormFieldComponent_ng_container_13_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c1$9, ctx_r1.hasError && !ctx_r1.hideErrorIcon || ctx_r1.iconHint && !ctx_r1.hideHintIcon));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c1$b, ctx_r1.hasError && !ctx_r1.hideErrorIcon || ctx_r1.iconHint && !ctx_r1.hideHintIcon));
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(12, _c2$3, ctx_r1.hasError && !ctx_r1.hideErrorIcon));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(12, _c2$4, ctx_r1.hasError && !ctx_r1.hideErrorIcon));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(14, _c3$2, !ctx_r1.isTextarea && ctx_r1.iconHint && !ctx_r1.hideHintIcon, ctx_r1.isTextarea && ctx_r1.iconHint && !ctx_r1.hideHintIcon))("mrdToolTip", ctx_r1.errorIconTooltip);
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(17, _c4$2, ctx_r1.hasError && !ctx_r1.hideErrorIcon));
     i0.ɵɵadvance(3);
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(19, _c2$3, ctx_r1.iconHint && !ctx_r1.hideHintIcon));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(19, _c2$4, ctx_r1.iconHint && !ctx_r1.hideHintIcon));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(21, _c5$1, !ctx_r1.isTextarea && ctx_r1.hasError && !ctx_r1.hideErrorIcon, ctx_r1.isTextarea && ctx_r1.hasError && !ctx_r1.hideErrorIcon))("mrdToolTip", ctx_r1.iconHint);
     i0.ɵɵadvance(1);
@@ -9735,7 +9756,7 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hint = _t.first);
         } }, viewQuery: function MrdFormFieldComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdErrorComponent, 5);
-            i0.ɵɵviewQuery(_c0$k, 5);
+            i0.ɵɵviewQuery(_c0$l, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.errorNewFill = _t.first);
@@ -9842,10 +9863,10 @@ class MrdFormFieldComponent extends BaseObject {
             type: Input
         }] }); })();
 
-const _c0$j = ["*"];
+const _c0$k = ["*"];
 class MrdPrefixComponent {
     /** @nocollapse */ static ɵfac = function MrdPrefixComponent_Factory(t) { return new (t || MrdPrefixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$j, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdPrefixComponent, selectors: [["mrd-prefix"]], ngContentSelectors: _c0$k, decls: 1, vars: 0, template: function MrdPrefixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}"] });
@@ -9855,10 +9876,10 @@ class MrdPrefixComponent {
         args: [{ selector: 'mrd-prefix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-right:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$i = ["*"];
+const _c0$j = ["*"];
 class MrdSuffixComponent {
     /** @nocollapse */ static ɵfac = function MrdSuffixComponent_Factory(t) { return new (t || MrdSuffixComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$i, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSuffixComponent, selectors: [["mrd-suffix"]], ngContentSelectors: _c0$j, decls: 1, vars: 0, template: function MrdSuffixComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}"] });
@@ -9868,7 +9889,7 @@ class MrdSuffixComponent {
         args: [{ selector: 'mrd-suffix', template: "<ng-content></ng-content>\r\n", styles: [":host{display:flex;max-width:-moz-fit-content;max-width:fit-content;margin-left:4px;white-space:nowrap;align-items:baseline}\n"] }]
     }], null, null); })();
 
-const _c0$h = ["dateInput"];
+const _c0$i = ["dateInput"];
 function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 1) {
     const _r3 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-datepicker", 5);
@@ -9878,8 +9899,8 @@ function MrdDateRangePickerComponent_ng_template_6_Template(rf, ctx) { if (rf & 
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵproperty("startDate", ctx_r1.startValue)("endDate", ctx_r1.endValue);
 } }
-const _c1$8 = [[["mrd-input"]]];
-const _c2$2 = ["mrd-input"];
+const _c1$a = [[["mrd-input"]]];
+const _c2$3 = ["mrd-input"];
 class MrdDateRangePickerComponent {
     inputs;
     // static, damit der Overlay-Ursprung schon beim ersten Rendern feststeht (sonst NG0100)
@@ -9951,12 +9972,12 @@ class MrdDateRangePickerComponent {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.inputs = _t);
         } }, viewQuery: function MrdDateRangePickerComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$h, 7);
+            i0.ɵɵviewQuery(_c0$i, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, ngContentSelectors: _c2$2, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c1$8);
+        } }, ngContentSelectors: _c2$3, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1$a);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
             i0.ɵɵelement(2, "div", null, 1);
@@ -10196,7 +10217,7 @@ i0.ɵɵsetComponentScope(MrdTimepickerComponent, [i1$1.NgForOf, MrdButtonCompone
     MrdSelectComponent,
     MrdSelectOptionComponent], []);
 
-const _c0$g = function (a0) { return { "small": a0 }; };
+const _c0$h = function (a0) { return { "small": a0 }; };
 class MrdDecimalComponent {
     cdr;
     set backgroundColor(value) {
@@ -10306,7 +10327,7 @@ class MrdDecimalComponent {
             i0.ɵɵadvance(2);
             i0.ɵɵtextInterpolate(ctx.decimalValue);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$g, ctx.smallDigits));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c0$h, ctx.smallDigits));
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate(ctx.digitsValue);
         } }, dependencies: [i1$1.NgClass], styles: ["[_nghost-%COMP%]{height:100%;width:100%;display:flex;flex-direction:column;justify-content:center}.mrd-decimal-container[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:baseline;font-weight:900}.mrd-decimal-container[_ngcontent-%COMP%]   .mrd-digits-content.small[_ngcontent-%COMP%]{font-size:.8em}"], changeDetection: 0 });
@@ -10387,8 +10408,8 @@ function MrdToggleSwitchComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵlistener("click", function MrdToggleSwitchComponent_div_5_Template_div_click_2_listener($event) { i0.ɵɵrestoreView(_r4); const ctx_r5 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r5.toggle($event, ctx_r5.MrdToggleSwitchState.RIGHT)); });
     i0.ɵɵelementEnd()();
 } }
-const _c0$f = function (a0, a1, a2, a3, a4) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-aus": a1, "mrd-toggle-switch-state-left": a2, "mrd-toggle-switch-state-neutral": a3, "mrd-toggle-switch-state-right": a4 }; };
-const _c1$7 = ["*"];
+const _c0$g = function (a0, a1, a2, a3, a4) { return { "mrd-toggle-switch-disabled": a0, "mrd-toggle-switch-aus": a1, "mrd-toggle-switch-state-left": a2, "mrd-toggle-switch-state-neutral": a3, "mrd-toggle-switch-state-right": a4 }; };
+const _c1$9 = ["*"];
 /**
  * Schalter mit zwei Betriebsarten:
  * - Auswahl ueber `state`/`stateChange` (links, neutral, rechts), beide Seiten in `bgColor`
@@ -10539,7 +10560,7 @@ class MrdToggleSwitchComponent extends BaseObject {
             i0.ɵɵlistener("keydown.space", function MrdToggleSwitchComponent_keydown_space_HostBindingHandler($event) { return ctx.toggle($event); })("keydown.enter", function MrdToggleSwitchComponent_keydown_enter_HostBindingHandler($event) { return ctx.toggle($event); });
         } if (rf & 2) {
             i0.ɵɵattribute("aria-checked", ctx.state === ctx.MrdToggleSwitchState.RIGHT)("aria-disabled", ctx.istDeaktiviert)("tabindex", ctx.istDeaktiviert ? -1 : 0);
-        } }, inputs: { bgColor: ["bgColor", "bgColor", colorAttribute], bgNeutralColor: ["bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: ["knobColor", "knobColor", colorAttribute], knobNeutralColor: ["knobNeutralColor", "knobNeutralColor", colorAttribute], width: ["width", "width", sizeAttribute], height: ["height", "height", sizeAttribute], bgDisabledColor: ["bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: ["knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: ["disabled", "disabled", booleanAttribute], slim: ["slim", "slim", booleanAttribute], trackHeight: ["trackHeight", "trackHeight", sizeAttribute], knobBorder: "knobBorder", labelPosition: "labelPosition", imageLeft: "imageLeft", imageNeutral: "imageNeutral", imageRight: "imageRight", state: "state", checked: ["checked", "checked", booleanAttribute], formControl: ["mrdFormControl", "formControl"] }, outputs: { stateChange: "stateChange", checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$7, decls: 8, vars: 35, consts: [[1, "mrd-toggle-switch-wrapper"], [1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "ngClass", "click"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-switch-bild", "alt", "", 3, "src", 4, "ngIf"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-switch-label", 3, "click"], ["alt", "", 1, "mrd-toggle-switch-bild", 3, "src"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { bgColor: ["bgColor", "bgColor", colorAttribute], bgNeutralColor: ["bgNeutralColor", "bgNeutralColor", colorAttribute], knobColor: ["knobColor", "knobColor", colorAttribute], knobNeutralColor: ["knobNeutralColor", "knobNeutralColor", colorAttribute], width: ["width", "width", sizeAttribute], height: ["height", "height", sizeAttribute], bgDisabledColor: ["bgDisabledColor", "bgDisabledColor", colorAttribute], knobDisabledColor: ["knobDisabledColor", "knobDisabledColor", colorAttribute], disabled: ["disabled", "disabled", booleanAttribute], slim: ["slim", "slim", booleanAttribute], trackHeight: ["trackHeight", "trackHeight", sizeAttribute], knobBorder: "knobBorder", labelPosition: "labelPosition", imageLeft: "imageLeft", imageNeutral: "imageNeutral", imageRight: "imageRight", state: "state", checked: ["checked", "checked", booleanAttribute], formControl: ["mrdFormControl", "formControl"] }, outputs: { stateChange: "stateChange", checkedChange: "checkedChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$9, decls: 8, vars: 35, consts: [[1, "mrd-toggle-switch-wrapper"], [1, "mrd-toggle-switch-container"], [1, "mrd-toggle-switch-background", 3, "ngClass", "click"], [1, "mrd-toggle-switch-knob"], ["class", "mrd-toggle-switch-bild", "alt", "", 3, "src", 4, "ngIf"], ["class", "mrd-toggle-swtich-neutral-clickareas", 4, "ngIf"], [1, "mrd-toggle-switch-label", 3, "click"], ["alt", "", 1, "mrd-toggle-switch-bild", 3, "src"], [1, "mrd-toggle-swtich-neutral-clickareas"], [1, "mrd-toggle-switch-neutral-clickarea", 3, "click"]], template: function MrdToggleSwitchComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
             i0.ɵɵlistener("click", function MrdToggleSwitchComponent_Template_div_click_2_listener($event) { return ctx.toggle($event); });
@@ -10558,7 +10579,7 @@ class MrdToggleSwitchComponent extends BaseObject {
             i0.ɵɵstyleProp("--bg-color", ctx.bgColor)("--knob-color", ctx.knobColor)("--bg-neutral-color", ctx.bgNeutralColor)("--knob-neutral-color", ctx.knobNeutralColor)("--bg-disabled-color", ctx.bgDisabledColor)("--knob-disabled-color", ctx.knobDisabledColor)("--width", ctx.width)("--height", ctx.height)("--track-height", ctx.trackHeight)("--knob-border", ctx.knobBorder);
             i0.ɵɵclassProp("mrd-toggle-switch-slim", ctx.slim);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction5(29, _c0$f, ctx.istDeaktiviert, ctx.binaer && ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction5(29, _c0$g, ctx.istDeaktiviert, ctx.binaer && ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.LEFT, ctx.state === ctx.MrdToggleSwitchState.NEUTRAL, ctx.state === ctx.MrdToggleSwitchState.RIGHT));
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("ngIf", ctx.aktuellesBild);
             i0.ɵɵadvance(1);
@@ -10733,16 +10754,16 @@ class MrdStepComponent {
             type: Input
         }] }); })();
 
-const _c0$e = ["mrdStepHeader"];
-const _c1$6 = function (a0) { return { "next-step-active": a0 }; };
+const _c0$f = ["mrdStepHeader"];
+const _c1$8 = function (a0) { return { "next-step-active": a0 }; };
 function MrdStepperComponent_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", 10);
 } if (rf & 2) {
     const i_r3 = i0.ɵɵnextContext().index;
     const ctx_r5 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$6, ctx_r5.activeIndex > i_r3));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1$8, ctx_r5.activeIndex > i_r3));
 } }
-const _c2$1 = function (a0) { return { "last-step": a0 }; };
+const _c2$2 = function (a0) { return { "last-step": a0 }; };
 const _c3$1 = function (a0, a1, a2, a3, a4, a5) { return { "step-active": a0, "step-invalid": a1, "topLabel": a2, "bottomLabel": a3, "leftLabel": a4, "rightLabel": a5 }; };
 function MrdStepperComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r8 = i0.ɵɵgetCurrentView();
@@ -10760,7 +10781,7 @@ function MrdStepperComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     const step_r2 = ctx.$implicit;
     const i_r3 = ctx.index;
     const ctx_r0 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c2$1, i_r3 === ctx_r0.steps.length - 1));
+    i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(5, _c2$2, i_r3 === ctx_r0.steps.length - 1));
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction6(7, _c3$1, step_r2.active, step_r2.touched && step_r2.mrdStepControl && !step_r2.mrdStepControl.valid, ctx_r0.labelposition === "top", ctx_r0.labelposition === "bottom", ctx_r0.labelposition === "left", ctx_r0.labelposition === "right"));
     i0.ɵɵadvance(4);
@@ -10910,7 +10931,7 @@ class MrdStepperComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.steps = _t);
         } }, viewQuery: function MrdStepperComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdTabBodyComponent, 5);
-            i0.ɵɵviewQuery(_c0$e, 5);
+            i0.ɵɵviewQuery(_c0$f, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.stepBodys = _t);
@@ -11178,8 +11199,8 @@ class MrdIconGroupComponent {
             args: ['blur']
         }] }); })();
 
-const _c0$d = ["mrdButtonTextContent"];
-const _c1$5 = ["buttonTouchArea"];
+const _c0$e = ["mrdButtonTextContent"];
+const _c1$7 = ["buttonTouchArea"];
 function MrdSButtonComponent_span_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "span", 15);
     i0.ɵɵprojection(1, 1);
@@ -11290,7 +11311,7 @@ function MrdSButtonComponent_ng_template_16_Template(rf, ctx) { if (rf & 1) {
     const ctx_r11 = i0.ɵɵnextContext();
     i0.ɵɵproperty("icon", ctx_r11.iconDefinition.symbol)("outline", ctx_r11.iconDefinition.outer === "outline")("full", ctx_r11.iconDefinition.outer === "full")("dashed", ctx_r11.iconDefinition.outer === "dashed")("direction", ctx_r11.iconDefinition.direction)("size", ctx_r11.iconSizeNumber);
 } }
-const _c2 = [[["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
+const _c2$1 = [[["", 3, "mrd-icon", "", 5, "mrd-icon"]], [["mrd-icon", 3, "icon-end", ""], ["", "mrd-icon", "", 3, "icon-end", ""]], [["mrd-icon", "icon-end", ""], ["", "mrd-icon", "", "icon-end", ""]]];
 const _c3 = function (a0) { return { "min-width": a0 }; };
 const _c4 = function (a0) { return { "isCollapsed": a0 }; };
 const _c5 = [":not([mrd-icon]):not(mrd-icon)", "mrd-icon:not([icon-end]), [mrd-icon]:not([icon-end])", "mrd-icon[icon-end], [mrd-icon][icon-end]"];
@@ -11685,8 +11706,8 @@ class MrdSButtonComponent extends BasePushStrategyObject {
     };
     /** @nocollapse */ static ɵfac = function MrdSButtonComponent_Factory(t) { return new (t || MrdSButtonComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i0.ElementRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSButtonComponent, selectors: [["mrd-s-button"]], viewQuery: function MrdSButtonComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0$d, 7);
-            i0.ɵɵviewQuery(_c1$5, 7);
+            i0.ɵɵviewQuery(_c0$e, 7);
+            i0.ɵɵviewQuery(_c1$7, 7);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.mrdButtonTextContent = _t.first);
@@ -11696,7 +11717,7 @@ class MrdSButtonComponent extends BasePushStrategyObject {
         } if (rf & 2) {
             i0.ɵɵstyleProp("min-width", !ctx.collapse ? "fit-content" : "unset")("margin", ctx.toggle ? "0 -16px" : "unset")("transition", ctx.toggle ? "transform 0.2s" : "unset");
         } }, inputs: { theme: "theme", editButton: ["edit-button", "editButton", booleanAttribute], saveButton: ["save-button", "saveButton", booleanAttribute], cancelButton: ["cancel-button", "cancelButton", booleanAttribute], closeIconButton: ["close-icon-button", "closeIconButton", booleanAttribute], deleteButton: ["delete-button", "deleteButton", booleanAttribute], addButton: ["add-button", "addButton", booleanAttribute], toggle: ["toggle-button", "toggle", booleanAttribute], toggleSelected: ["selected", "toggleSelected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hovered: ["hovered", "hovered", booleanAttribute], loading: "loading", isLoading: ["isLoading", "isLoading", booleanAttribute], loadingProgress: "loadingProgress", showTooltip: ["tooltip", "showTooltip", booleanAttribute], tooltipText: "tooltipText", tooltipIfTruncated: ["tooltipIfTruncated", "tooltipIfTruncated", booleanAttribute], tooltipIfCollapsed: ["tooltipIfCollapsed", "tooltipIfCollapsed", booleanAttribute], size: "size", value: "value", iconStateMap: "iconStateMap", iconEnd: ["iconEnd", "iconEnd", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c5, decls: 18, vars: 66, consts: [[1, "mrd-button-container", 3, "ngStyle", "mrdToolTip", "showOnTruncatedElement", "showToolTip"], ["buttonContainer", ""], [1, "mrd-button-background"], [1, "mrd-button-touch-area", 3, "mouseenter", "mouseleave", "mousedown", "mouseup"], ["buttonTouchArea", ""], [1, "mrd-button-content", 3, "ngClass"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-right", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], [1, "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged"], ["mrdButtonTextContent", ""], ["class", "mrd-button-text-content", 3, "hideIfTruncated", "parentResizeElement", "hiddenChanged", 4, "ngIf"], ["class", "mrd-button-icon-content", "displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 3, "margin-left", "full-icon", "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement", 4, "ngIf"], ["class", "mrd-button-progress-bar", 3, "value", "mode", "color", 4, "ngIf"], ["class", "mrd-button-progress-spinner", 3, "value", "mode", "color", 4, "ngIf"], ["definiertesIcon", ""], ["displayState", "flex", "requiredHideAttribute", "icon-collapse", "checkChildrenForAttribute", "", 1, "mrd-button-icon-content", 3, "hideIfTruncated", "hideOnTruncatedElement", "parentResizeElement"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size", 4, "ngIf"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "svgs", "hostElement", "disabled", "hovered", "loading", "size"], [3, "ngTemplateOutlet"], [1, "mrd-button-progress-bar", 3, "value", "mode", "color"], [1, "mrd-button-progress-spinner", 3, "value", "mode", "color"], [3, "icon", "outline", "full", "dashed", "direction", "size"]], template: function MrdSButtonComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c2);
+            i0.ɵɵprojectionDef(_c2$1);
             i0.ɵɵelementStart(0, "button", 0, 1);
             i0.ɵɵelement(2, "div", 2);
             i0.ɵɵelementStart(3, "div", 3, 4);
@@ -11884,30 +11905,66 @@ class MrdListItemTemplateDirective {
         }] }); })();
 
 function MrdListComponent_mrd_virtual_scroll_1_Template(rf, ctx) { if (rf & 1) {
-    const _r2 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-virtual-scroll", 1);
-    i0.ɵɵlistener("visibleRangeChange", function MrdListComponent_mrd_virtual_scroll_1_Template_mrd_virtual_scroll_visibleRangeChange_0_listener($event) { i0.ɵɵrestoreView(_r2); const ctx_r1 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r1.visibleRangeChange.emit($event)); });
+    const _r3 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-virtual-scroll", 2);
+    i0.ɵɵlistener("visibleRangeChange", function MrdListComponent_mrd_virtual_scroll_1_Template_mrd_virtual_scroll_visibleRangeChange_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r2 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r2.visibleRangeChange.emit($event)); })("sichtbarerBereichChange", function MrdListComponent_mrd_virtual_scroll_1_Template_mrd_virtual_scroll_sichtbarerBereichChange_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r4 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r4.sichtbarerBereichGeaendert($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("items", ctx_r0.items)("itemSize", ctx_r0.itemSize)("buffer", ctx_r0.buffer)("maxHeight", ctx_r0.maxHeight)("trackBy", ctx_r0.trackBy)("itemTemplate", ctx_r0.itemTemplate == null ? null : ctx_r0.itemTemplate.templateRef);
 } }
-const _c0$c = ["*"];
+function MrdListComponent_div_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainer(0);
+} }
+const _c0$d = function (a0, a1) { return { $implicit: a0, index: a1 }; };
+function MrdListComponent_div_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 3);
+    i0.ɵɵtemplate(1, MrdListComponent_div_2_ng_container_1_Template, 1, 0, "ng-container", 4);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵstyleProp("height", ctx_r1.anheftHoehe, "px")("right", ctx_r1.scrollbarBreite, "px");
+    i0.ɵɵclassProp("mrd-list-angeheftet-unten", ctx_r1.anheftPosition === "unten");
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngTemplateOutlet", ctx_r1.itemTemplate == null ? null : ctx_r1.itemTemplate.templateRef)("ngTemplateOutletContext", i0.ɵɵpureFunction2(8, _c0$d, ctx_r1.angeheftet, ctx_r1.anheftIndex));
+} }
+const _c1$6 = ["*"];
 /**
  * Liste aus `mrd-list-item`s. Ohne `virtualScroll` werden die Eintraege normal projiziert,
  * mit `virtualScroll` kommen sie ueber `[items]` und ein `<ng-template mrdListItem>`.
  * Farben und Trennlinie werden als CSS-Variablen an die Eintraege vererbt.
  */
 class MrdListComponent {
+    cdr;
     itemTemplate;
     virtualScrollComponent;
+    virtualScrollElement;
     /** Trennlinie unter jedem Eintrag */
     divider = false;
     /** Eintraege sind anklickbar: Zeiger-Cursor und Hover-Farbe */
     selectable = false;
     virtualScroll = false;
     /** Nur mit `virtualScroll` */
-    items = [];
+    set items(value) {
+        this._items = value || [];
+        this.anheftIndexBerechnen();
+    }
+    get items() {
+        return this._items;
+    }
+    _items = [];
+    /**
+     * Nur mit `virtualScroll`: dieser Eintrag (z. B. die Auswahl) bleibt oben bzw. unten sichtbar, solange er herausgescrollt ist.
+     * Erkannt wird er ueber `trackBy`, ohne `trackBy` ueber die Objekt-Identitaet.
+     */
+    set angeheftet(value) {
+        this._angeheftet = value;
+        this.anheftIndexBerechnen();
+    }
+    get angeheftet() {
+        return this._angeheftet;
+    }
+    _angeheftet = null;
     /**
      * Zeilenhoehe in px; mit `virtualScroll` die feste Hoehe (Zahl oder `(item, index) => px` je Eintrag),
      * ohne `virtualScroll` die Mindesthoehe (nur als Zahl)
@@ -11917,15 +11974,38 @@ class MrdListComponent {
     buffer = 5;
     /** Nur mit `virtualScroll`: maximale Hoehe in px, bis dahin waechst die Liste mit ihrem Inhalt */
     maxHeight;
-    trackBy;
+    set trackBy(value) {
+        this._trackBy = value;
+        this.anheftIndexBerechnen();
+    }
+    get trackBy() {
+        return this._trackBy;
+    }
+    _trackBy;
     selectedBackgroundColor;
     selectedTextColor;
     hoverColor;
     dividerColor;
     visibleRangeChange = new EventEmitter();
     config = ConfigUtil.getConfig();
+    /** Wo der angeheftete Eintrag gerade eingeblendet ist; `null`, solange er in der Liste sichtbar ist */
+    anheftPosition = null;
+    anheftIndex = -1;
+    scrollbarBreite = 0;
+    sichtbarerBereich = null;
+    constructor(cdr) {
+        this.cdr = cdr;
+    }
     get mindestZeilenhoehe() {
         return typeof this.itemSize === 'number' ? this.itemSize : this.config.list.itemSize;
+    }
+    get anheftHoehe() {
+        const groesse = this.itemSize ?? this.config.list.itemSize;
+        return typeof groesse === 'function' ? groesse(this._angeheftet, this.anheftIndex) : groesse;
+    }
+    sichtbarerBereichGeaendert(bereich) {
+        this.sichtbarerBereich = bereich;
+        this.anheftPositionBerechnen();
     }
     /** Nur mit `virtualScroll` wirksam */
     scrollToIndex(index, position = 'nearest', behavior = 'auto') {
@@ -11935,7 +12015,38 @@ class MrdListComponent {
     checkViewportSize() {
         this.virtualScrollComponent?.checkViewportSize();
     }
-    /** @nocollapse */ static ɵfac = function MrdListComponent_Factory(t) { return new (t || MrdListComponent)(); };
+    anheftIndexBerechnen() {
+        const gesucht = this._angeheftet;
+        if (gesucht === null || gesucht === undefined) {
+            this.anheftIndex = -1;
+        }
+        else if (this._trackBy) {
+            this.anheftIndex = this._items.findIndex((item, index) => this._trackBy(index, item) === this._trackBy(index, gesucht));
+        }
+        else {
+            this.anheftIndex = this._items.indexOf(gesucht);
+        }
+        this.anheftPositionBerechnen();
+    }
+    anheftPositionBerechnen() {
+        let position = null;
+        if (this.anheftIndex >= 0 && this.sichtbarerBereich && this.sichtbarerBereich.end > 0) {
+            if (this.anheftIndex < this.sichtbarerBereich.start) {
+                position = 'oben';
+            }
+            else if (this.anheftIndex >= this.sichtbarerBereich.end) {
+                position = 'unten';
+            }
+        }
+        const element = this.virtualScrollElement?.nativeElement;
+        // Die Einblendung soll die Scrollbar nicht verdecken
+        this.scrollbarBreite = element ? element.offsetWidth - element.clientWidth : 0;
+        if (position !== this.anheftPosition) {
+            this.anheftPosition = position;
+            this.cdr.markForCheck();
+        }
+    }
+    /** @nocollapse */ static ɵfac = function MrdListComponent_Factory(t) { return new (t || MrdListComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdListComponent, selectors: [["mrd-list"]], contentQueries: function MrdListComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdListItemTemplateDirective, 5);
         } if (rf & 2) {
@@ -11943,20 +12054,25 @@ class MrdListComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.itemTemplate = _t.first);
         } }, viewQuery: function MrdListComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdVirtualScrollComponent, 5);
+            i0.ɵɵviewQuery(MrdVirtualScrollComponent, 5, ElementRef);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.virtualScrollComponent = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.virtualScrollElement = _t.first);
         } }, hostAttrs: ["role", "list"], hostVars: 14, hostBindings: function MrdListComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-list-item-height", ctx.mindestZeilenhoehe + "px")("--mrd-list-selected-background", ctx.selectedBackgroundColor || ctx.config.list.selectedBackgroundColor)("--mrd-list-selected-text", ctx.selectedTextColor || ctx.config.list.selectedTextColor)("--mrd-list-hover", ctx.selectable ? ctx.hoverColor || ctx.config.list.hoverColor : "transparent")("--mrd-list-cursor", ctx.selectable ? "pointer" : "default")("--mrd-list-divider", ctx.divider ? "1px solid " + (ctx.dividerColor || ctx.config.list.dividerColor) : "none");
             i0.ɵɵclassProp("mrd-list-virtual", ctx.virtualScroll);
-        } }, inputs: { divider: ["divider", "divider", booleanAttribute], selectable: ["selectable", "selectable", booleanAttribute], virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], items: "items", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], maxHeight: ["maxHeight", "maxHeight", numberAttribute], trackBy: "trackBy", selectedBackgroundColor: ["selectedBackgroundColor", "selectedBackgroundColor", colorAttribute], selectedTextColor: ["selectedTextColor", "selectedTextColor", colorAttribute], hoverColor: ["hoverColor", "hoverColor", colorAttribute], dividerColor: ["dividerColor", "dividerColor", colorAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$c, decls: 2, vars: 1, consts: [["class", "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange", 4, "ngIf"], [1, "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange"]], template: function MrdListComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { divider: ["divider", "divider", booleanAttribute], selectable: ["selectable", "selectable", booleanAttribute], virtualScroll: ["virtualScroll", "virtualScroll", booleanAttribute], items: "items", angeheftet: "angeheftet", itemSize: ["itemSize", "itemSize", itemSizeAttribute], buffer: ["buffer", "buffer", numberAttribute], maxHeight: ["maxHeight", "maxHeight", numberAttribute], trackBy: "trackBy", selectedBackgroundColor: ["selectedBackgroundColor", "selectedBackgroundColor", colorAttribute], selectedTextColor: ["selectedTextColor", "selectedTextColor", colorAttribute], hoverColor: ["hoverColor", "hoverColor", colorAttribute], dividerColor: ["dividerColor", "dividerColor", colorAttribute] }, outputs: { visibleRangeChange: "visibleRangeChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$6, decls: 3, vars: 2, consts: [["class", "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange", "sichtbarerBereichChange", 4, "ngIf"], ["class", "mrd-list-angeheftet", 3, "mrd-list-angeheftet-unten", "height", "right", 4, "ngIf"], [1, "mrd-list-virtual-scroll", 3, "items", "itemSize", "buffer", "maxHeight", "trackBy", "itemTemplate", "visibleRangeChange", "sichtbarerBereichChange"], [1, "mrd-list-angeheftet"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"]], template: function MrdListComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
             i0.ɵɵtemplate(1, MrdListComponent_mrd_virtual_scroll_1_Template, 1, 6, "mrd-virtual-scroll", 0);
+            i0.ɵɵtemplate(2, MrdListComponent_div_2_Template, 2, 11, "div", 1);
         } if (rf & 2) {
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.virtualScroll);
-        } }, dependencies: [i1$1.NgIf, MrdVirtualScrollComponent], styles: ["[_nghost-%COMP%]{display:block}.mrd-list-virtual[_nghost-%COMP%]{display:flex;flex-direction:column;min-height:0}.mrd-list-virtual[_nghost-%COMP%]   .mrd-list-virtual-scroll[_ngcontent-%COMP%]{flex:1 1 auto;min-height:0}"], changeDetection: 0 });
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.virtualScroll && ctx.anheftPosition);
+        } }, dependencies: [i1$1.NgIf, i1$1.NgTemplateOutlet, MrdVirtualScrollComponent], styles: ["[_nghost-%COMP%]{display:block}.mrd-list-virtual[_nghost-%COMP%]{display:flex;flex-direction:column;position:relative;min-height:0}.mrd-list-virtual[_nghost-%COMP%]   .mrd-list-virtual-scroll[_ngcontent-%COMP%]{flex:1 1 auto;min-height:0}.mrd-list-angeheftet[_ngcontent-%COMP%]{position:absolute;top:0;left:0;z-index:1;overflow:hidden;background-color:#fff;box-shadow:0 2px 4px #0003}.mrd-list-angeheftet.mrd-list-angeheftet-unten[_ngcontent-%COMP%]{top:auto;bottom:0;box-shadow:0 -2px 4px #0003}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdListComponent, [{
         type: Component,
@@ -11969,13 +12085,16 @@ class MrdListComponent {
                     '[style.--mrd-list-hover]': "selectable ? (hoverColor || config.list.hoverColor) : 'transparent'",
                     '[style.--mrd-list-cursor]': "selectable ? 'pointer' : 'default'",
                     '[style.--mrd-list-divider]': "divider ? '1px solid ' + (dividerColor || config.list.dividerColor) : 'none'"
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n<mrd-virtual-scroll *ngIf=\"virtualScroll\"\n  class=\"mrd-list-virtual-scroll\"\n  [items]=\"items\"\n  [itemSize]=\"itemSize\"\n  [buffer]=\"buffer\"\n  [maxHeight]=\"maxHeight\"\n  [trackBy]=\"trackBy\"\n  [itemTemplate]=\"itemTemplate?.templateRef\"\n  (visibleRangeChange)=\"visibleRangeChange.emit($event)\">\n</mrd-virtual-scroll>\n", styles: [":host{display:block}:host(.mrd-list-virtual){display:flex;flex-direction:column;min-height:0}:host(.mrd-list-virtual) .mrd-list-virtual-scroll{flex:1 1 auto;min-height:0}\n"] }]
-    }], null, { itemTemplate: [{
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n<mrd-virtual-scroll *ngIf=\"virtualScroll\"\n  class=\"mrd-list-virtual-scroll\"\n  [items]=\"items\"\n  [itemSize]=\"itemSize\"\n  [buffer]=\"buffer\"\n  [maxHeight]=\"maxHeight\"\n  [trackBy]=\"trackBy\"\n  [itemTemplate]=\"itemTemplate?.templateRef\"\n  (visibleRangeChange)=\"visibleRangeChange.emit($event)\"\n  (sichtbarerBereichChange)=\"sichtbarerBereichGeaendert($event)\">\n</mrd-virtual-scroll>\n<div *ngIf=\"virtualScroll && anheftPosition\"\n  class=\"mrd-list-angeheftet\"\n  [class.mrd-list-angeheftet-unten]=\"anheftPosition === 'unten'\"\n  [style.height.px]=\"anheftHoehe\"\n  [style.right.px]=\"scrollbarBreite\">\n  <ng-container *ngTemplateOutlet=\"itemTemplate?.templateRef; context: {$implicit: angeheftet, index: anheftIndex}\"></ng-container>\n</div>\n", styles: [":host{display:block}:host(.mrd-list-virtual){display:flex;flex-direction:column;position:relative;min-height:0}:host(.mrd-list-virtual) .mrd-list-virtual-scroll{flex:1 1 auto;min-height:0}.mrd-list-angeheftet{position:absolute;top:0;left:0;z-index:1;overflow:hidden;background-color:#fff;box-shadow:0 2px 4px #0003}.mrd-list-angeheftet.mrd-list-angeheftet-unten{top:auto;bottom:0;box-shadow:0 -2px 4px #0003}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { itemTemplate: [{
             type: ContentChild,
             args: [MrdListItemTemplateDirective]
         }], virtualScrollComponent: [{
             type: ViewChild,
             args: [MrdVirtualScrollComponent]
+        }], virtualScrollElement: [{
+            type: ViewChild,
+            args: [MrdVirtualScrollComponent, { read: ElementRef }]
         }], divider: [{
             type: Input,
             args: [{ transform: booleanAttribute }]
@@ -11986,6 +12105,8 @@ class MrdListComponent {
             type: Input,
             args: [{ transform: booleanAttribute }]
         }], items: [{
+            type: Input
+        }], angeheftet: [{
             type: Input
         }], itemSize: [{
             type: Input,
@@ -12014,7 +12135,7 @@ class MrdListComponent {
             type: Output
         }] }); })();
 
-const _c0$b = ["*"];
+const _c0$c = ["*"];
 class MrdListItemComponent {
     selected = false;
     disabled = false;
@@ -12022,7 +12143,7 @@ class MrdListItemComponent {
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdListItemComponent, selectors: [["mrd-list-item"]], hostAttrs: ["role", "listitem"], hostVars: 6, hostBindings: function MrdListItemComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵattribute("aria-current", ctx.selected ? "true" : null)("aria-disabled", ctx.disabled ? "true" : null);
             i0.ɵɵclassProp("mrd-list-item-selected", ctx.selected)("mrd-list-item-disabled", ctx.disabled);
-        } }, inputs: { selected: ["selected", "selected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$b, decls: 1, vars: 0, template: function MrdListItemComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { selected: ["selected", "selected", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$c, decls: 1, vars: 0, template: function MrdListItemComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;width:100%;min-height:var(--mrd-list-item-height, 48px);padding:0 16px;border-bottom:var(--mrd-list-divider, none);cursor:var(--mrd-list-cursor, default)}[_nghost-%COMP%]:hover{background-color:var(--mrd-list-hover, transparent)}.mrd-list-item-selected[_nghost-%COMP%]{background-color:var(--mrd-list-selected-background, #65B32E);color:var(--mrd-list-selected-text, #FFFFFF)}.mrd-list-item-disabled[_nghost-%COMP%]{opacity:.5;pointer-events:none}.mrd-list-virtual[_nghost-%COMP%], .mrd-list-virtual   [_nghost-%COMP%]{height:100%;min-height:0}"], changeDetection: 0 });
@@ -12076,7 +12197,7 @@ class MrdListModule {
         MrdListItemComponent,
         MrdListItemTemplateDirective] }); })();
 
-const _c0$a = ["*"];
+const _c0$b = ["*"];
 /**
  * Kopf- oder Fusszeile mit fester Hoehe. Die Farbe kommt aus `color`/`textColor`,
  * sonst aus den Attributen `green`, `grey` oder `blue`, sonst aus der Config.
@@ -12113,7 +12234,7 @@ class MrdToolbarComponent {
     /** @nocollapse */ static ɵfac = function MrdToolbarComponent_Factory(t) { return new (t || MrdToolbarComponent)(); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdToolbarComponent, selectors: [["mrd-toolbar"]], hostVars: 12, hostBindings: function MrdToolbarComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-toolbar-background", ctx.hintergrundfarbe)("--mrd-toolbar-text", ctx.textfarbe)("--mrd-toolbar-height", ctx.height || ctx.config.toolbar.height)("--mrd-toolbar-padding", ctx.padding || ctx.config.toolbar.padding)("--mrd-toolbar-font-size", ctx.fontSize || ctx.config.toolbar.fontSize)("--mrd-toolbar-font-weight", ctx.config.toolbar.fontWeight);
-        } }, inputs: { color: ["color", "color", colorAttribute], textColor: ["textColor", "textColor", colorAttribute], green: ["green", "green", booleanAttribute], grey: ["grey", "grey", booleanAttribute], blue: ["blue", "blue", booleanAttribute], height: ["height", "height", sizeAttribute], padding: "padding", fontSize: ["fontSize", "fontSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$a, decls: 1, vars: 0, template: function MrdToolbarComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { color: ["color", "color", colorAttribute], textColor: ["textColor", "textColor", colorAttribute], green: ["green", "green", booleanAttribute], grey: ["grey", "grey", booleanAttribute], blue: ["blue", "blue", booleanAttribute], height: ["height", "height", sizeAttribute], padding: "padding", fontSize: ["fontSize", "fontSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$b, decls: 1, vars: 0, template: function MrdToolbarComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;position:relative;width:100%;height:var(--mrd-toolbar-height);min-height:var(--mrd-toolbar-height);max-height:var(--mrd-toolbar-height);padding:var(--mrd-toolbar-padding);background-color:var(--mrd-toolbar-background);color:var(--mrd-toolbar-text);font-size:var(--mrd-toolbar-font-size);font-weight:var(--mrd-toolbar-font-weight);line-height:32px;white-space:nowrap}"], changeDetection: 0 });
@@ -12174,7 +12295,7 @@ class MrdToolbarModule {
     }], null, null); })();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdToolbarModule, { declarations: [MrdToolbarComponent], imports: [CommonModule], exports: [MrdToolbarComponent] }); })();
 
-const _c0$9 = ["*"];
+const _c0$a = ["*"];
 class MrdSidenavComponent {
     elementRef;
     renderer;
@@ -12250,7 +12371,7 @@ class MrdSidenavComponent {
     /** @nocollapse */ static ɵfac = function MrdSidenavComponent_Factory(t) { return new (t || MrdSidenavComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavComponent, selectors: [["mrd-sidenav"]], hostVars: 6, hostBindings: function MrdSidenavComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-sidenav-width", ctx.width || ctx.config.sidenav.width)("--mrd-sidenav-max-width", ctx.maxWidth || ctx.config.sidenav.maxWidth)("--mrd-sidenav-border", ctx.borderWidth ? ctx.borderWidth + " solid " + (ctx.borderColor || "transparent") : "none");
-        } }, inputs: { opened: ["opened", "opened", booleanAttribute], autoOpen: ["autoOpen", "autoOpen", booleanAttribute], width: ["width", "width", sizeAttribute], maxWidth: ["maxWidth", "maxWidth", sizeAttribute], borderWidth: ["borderWidth", "borderWidth", sizeAttribute], borderColor: ["borderColor", "borderColor", colorAttribute] }, outputs: { openedChange: "openedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$9, decls: 1, vars: 0, template: function MrdSidenavComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { opened: ["opened", "opened", booleanAttribute], autoOpen: ["autoOpen", "autoOpen", booleanAttribute], width: ["width", "width", sizeAttribute], maxWidth: ["maxWidth", "maxWidth", sizeAttribute], borderWidth: ["borderWidth", "borderWidth", sizeAttribute], borderColor: ["borderColor", "borderColor", colorAttribute] }, outputs: { openedChange: "openedChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$a, decls: 1, vars: 0, template: function MrdSidenavComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;flex:0 0 auto;box-sizing:border-box;height:100%;width:var(--mrd-sidenav-width);max-width:var(--mrd-sidenav-max-width);border-right:var(--mrd-sidenav-border);overflow:hidden}.mrd-sidenav-mobile[_nghost-%COMP%]{width:100%;max-width:none;border-right:none}.mrd-sidenav-geschlossen[_nghost-%COMP%]{display:none}"], changeDetection: 0 });
@@ -12284,7 +12405,7 @@ class MrdSidenavComponent {
             type: Output
         }] }); })();
 
-const _c0$8 = ["*"];
+const _c0$9 = ["*"];
 class MrdSidenavContentComponent {
     elementRef;
     renderer;
@@ -12302,7 +12423,7 @@ class MrdSidenavContentComponent {
         }
     }
     /** @nocollapse */ static ɵfac = function MrdSidenavContentComponent_Factory(t) { return new (t || MrdSidenavContentComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2)); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavContentComponent, selectors: [["mrd-sidenav-content"]], ngContentSelectors: _c0$8, decls: 1, vars: 0, template: function MrdSidenavContentComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdSidenavContentComponent, selectors: [["mrd-sidenav-content"]], ngContentSelectors: _c0$9, decls: 1, vars: 0, template: function MrdSidenavContentComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:block;flex:1 1 auto;box-sizing:border-box;min-width:0;height:100%;overflow:auto}.mrd-sidenav-content-verborgen[_nghost-%COMP%]{display:none}"], changeDetection: 0 });
@@ -12312,8 +12433,8 @@ class MrdSidenavContentComponent {
         args: [{ selector: 'mrd-sidenav-content', changeDetection: ChangeDetectionStrategy.OnPush, template: "<ng-content></ng-content>\n", styles: [":host{display:block;flex:1 1 auto;box-sizing:border-box;min-width:0;height:100%;overflow:auto}:host(.mrd-sidenav-content-verborgen){display:none}\n"] }]
     }], function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, null); })();
 
-const _c0$7 = [[["mrd-sidenav"]], [["mrd-sidenav-content"]]];
-const _c1$4 = ["mrd-sidenav", "mrd-sidenav-content"];
+const _c0$8 = [[["mrd-sidenav"]], [["mrd-sidenav-content"]]];
+const _c1$5 = ["mrd-sidenav", "mrd-sidenav-content"];
 /**
  * Seitenlayout aus `mrd-sidenav` (links) und `mrd-sidenav-content`.
  * Unterhalb von `breakpoint` ist die Ansicht mobil: die Sidenav nimmt die volle Breite ein und verdeckt den Inhalt, solange sie geoeffnet ist.
@@ -12401,8 +12522,8 @@ class MrdSidenavContainerComponent {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.content = _t.first);
         } }, hostVars: 2, hostBindings: function MrdSidenavContainerComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵclassProp("mrd-sidenav-container-mobile", ctx.mobile);
-        } }, inputs: { breakpoint: ["breakpoint", "breakpoint", numberAttribute] }, outputs: { mobileChange: "mobileChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$4, decls: 2, vars: 0, template: function MrdSidenavContainerComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$7);
+        } }, inputs: { breakpoint: ["breakpoint", "breakpoint", numberAttribute] }, outputs: { mobileChange: "mobileChange" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$5, decls: 2, vars: 0, template: function MrdSidenavContainerComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0$8);
             i0.ɵɵprojection(0);
             i0.ɵɵprojection(1, 1);
         } }, styles: ["[_nghost-%COMP%]{display:flex;flex-direction:row;box-sizing:border-box;position:relative;width:100%;height:100%;overflow:hidden}"], changeDetection: 0 });
@@ -12491,7 +12612,7 @@ function mrdIconsRegistrieren(configs) {
 
 const MRD_ACCORDION = new InjectionToken('MRD_ACCORDION');
 
-const _c0$6 = ["*"];
+const _c0$7 = ["*"];
 /**
  * Fasst mehrere `mrd-expansion-panel` zusammen. Ohne `multi` ist immer hoechstens ein Panel geoeffnet.
  */
@@ -12520,7 +12641,7 @@ class MrdAccordionComponent {
         this.panels.forEach((p) => p.close());
     }
     /** @nocollapse */ static ɵfac = function MrdAccordionComponent_Factory(t) { return new (t || MrdAccordionComponent)(); };
-    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdAccordionComponent, selectors: [["mrd-accordion"]], inputs: { multi: ["multi", "multi", booleanAttribute] }, features: [i0.ɵɵProvidersFeature([{ provide: MRD_ACCORDION, useExisting: MrdAccordionComponent }]), i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$6, decls: 1, vars: 0, template: function MrdAccordionComponent_Template(rf, ctx) { if (rf & 1) {
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdAccordionComponent, selectors: [["mrd-accordion"]], inputs: { multi: ["multi", "multi", booleanAttribute] }, features: [i0.ɵɵProvidersFeature([{ provide: MRD_ACCORDION, useExisting: MrdAccordionComponent }]), i0.ɵɵInputTransformsFeature], ngContentSelectors: _c0$7, decls: 1, vars: 0, template: function MrdAccordionComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵprojection(0);
         } }, styles: ["[_nghost-%COMP%]{display:block}"], changeDetection: 0 });
@@ -12558,8 +12679,8 @@ function MrdExpansionPanelComponent_ng_container_4_Template(rf, ctx) { if (rf & 
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("ngTemplateOutlet", ctx_r0.lazyInhalt.templateRef);
 } }
-const _c0$5 = [[["mrd-expansion-panel-header"]], "*"];
-const _c1$3 = ["mrd-expansion-panel-header", "*"];
+const _c0$6 = [[["mrd-expansion-panel-header"]], "*"];
+const _c1$4 = ["mrd-expansion-panel-header", "*"];
 let naechsteId = 0;
 /**
  * Aufklappbarer Bereich mit `mrd-expansion-panel-header` als Kopf. Einzeln nutzbar oder innerhalb von `mrd-accordion`.
@@ -12657,8 +12778,8 @@ class MrdExpansionPanelComponent {
         } }, hostVars: 16, hostBindings: function MrdExpansionPanelComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-expansion-panel-header-height", ctx.headerHeight || ctx.config.expansionPanel.headerHeight)("--mrd-expansion-panel-header-padding", ctx.headerPadding || ctx.config.expansionPanel.headerPadding)("--mrd-expansion-panel-header-background", ctx.headerBackground || ctx.config.expansionPanel.headerBackground)("--mrd-expansion-panel-header-color", ctx.headerColor || ctx.config.expansionPanel.headerColor)("--mrd-expansion-panel-background", ctx.background || ctx.config.expansionPanel.background)("--mrd-expansion-panel-dauer", ctx.config.expansionPanel.animationDuration);
             i0.ɵɵclassProp("mrd-expansion-panel-offen", ctx.expanded)("mrd-expansion-panel-disabled", ctx.disabled);
-        } }, inputs: { expanded: ["expanded", "expanded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hideToggle: ["hideToggle", "hideToggle", booleanAttribute], togglePosition: "togglePosition", headerHeight: ["headerHeight", "headerHeight", sizeAttribute], headerPadding: "headerPadding", headerBackground: ["headerBackground", "headerBackground", colorAttribute], headerColor: ["headerColor", "headerColor", colorAttribute], background: ["background", "background", colorAttribute] }, outputs: { expandedChange: "expandedChange", opened: "opened", closed: "closed" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$3, decls: 5, vars: 3, consts: [["role", "region", 1, "mrd-expansion-panel-koerper"], [1, "mrd-expansion-panel-inhalt"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "ngTemplateOutlet"]], template: function MrdExpansionPanelComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0$5);
+        } }, inputs: { expanded: ["expanded", "expanded", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], hideToggle: ["hideToggle", "hideToggle", booleanAttribute], togglePosition: "togglePosition", headerHeight: ["headerHeight", "headerHeight", sizeAttribute], headerPadding: "headerPadding", headerBackground: ["headerBackground", "headerBackground", colorAttribute], headerColor: ["headerColor", "headerColor", colorAttribute], background: ["background", "background", colorAttribute] }, outputs: { expandedChange: "expandedChange", opened: "opened", closed: "closed" }, features: [i0.ɵɵInputTransformsFeature], ngContentSelectors: _c1$4, decls: 5, vars: 3, consts: [["role", "region", 1, "mrd-expansion-panel-koerper"], [1, "mrd-expansion-panel-inhalt"], [3, "ngTemplateOutlet", 4, "ngIf"], [3, "ngTemplateOutlet"]], template: function MrdExpansionPanelComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0$6);
             i0.ɵɵprojection(0);
             i0.ɵɵelementStart(1, "div", 0)(2, "div", 1);
             i0.ɵɵprojection(3, 1);
@@ -12744,7 +12865,7 @@ function MrdExpansionPanelHeaderComponent_ng_template_4_Template(rf, ctx) { if (
     i0.ɵɵelement(1, "path", 5);
     i0.ɵɵelementEnd();
 } }
-const _c0$4 = ["*"];
+const _c0$5 = ["*"];
 /** Kopf eines `mrd-expansion-panel`; Klick, Enter und Leertaste klappen das Panel auf und zu */
 class MrdExpansionPanelHeaderComponent {
     panel;
@@ -12776,7 +12897,7 @@ class MrdExpansionPanelHeaderComponent {
         } if (rf & 2) {
             i0.ɵɵattribute("id", ctx.panel.headerId)("tabindex", ctx.panel.disabled ? -1 : 0)("aria-expanded", ctx.panel.expanded)("aria-controls", ctx.panel.inhaltId)("aria-disabled", ctx.panel.disabled);
             i0.ɵɵclassProp("mrd-expansion-panel-header-disabled", ctx.panel.disabled);
-        } }, ngContentSelectors: _c0$4, decls: 6, vars: 2, consts: [[3, "ngTemplateOutlet", 4, "ngIf"], [1, "mrd-expansion-panel-header-inhalt"], ["pfeil", ""], [3, "ngTemplateOutlet"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-expansion-panel-header-pfeil"], ["d", "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"]], template: function MrdExpansionPanelHeaderComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, ngContentSelectors: _c0$5, decls: 6, vars: 2, consts: [[3, "ngTemplateOutlet", 4, "ngIf"], [1, "mrd-expansion-panel-header-inhalt"], ["pfeil", ""], [3, "ngTemplateOutlet"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-expansion-panel-header-pfeil"], ["d", "M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"]], template: function MrdExpansionPanelHeaderComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵtemplate(0, MrdExpansionPanelHeaderComponent_ng_container_0_Template, 1, 1, "ng-container", 0);
             i0.ɵɵelementStart(1, "div", 1);
@@ -12914,8 +13035,8 @@ class MrdSortDirective {
             type: Output
         }] }); })();
 
-const _c0$3 = ["mrd-sort-header", ""];
-const _c1$2 = ["*"];
+const _c0$4 = ["mrd-sort-header", ""];
+const _c1$3 = ["*"];
 /**
  * Sortierbarer Spaltenkopf innerhalb von `[mrdSort]`; funktioniert auf `th` wie auf beliebigen Elementen.
  * Der Pfeil uebernimmt die Textfarbe; bei inaktiver Spalte erscheint er nur beim Hovern.
@@ -12975,7 +13096,7 @@ class MrdSortHeaderComponent {
             i0.ɵɵattribute("aria-sort", ctx.ariaSort)("tabindex", ctx.gesperrt ? null : 0);
             i0.ɵɵstyleProp("--mrd-sort-pfeil-groesse", ctx.arrowSize || ctx.config.sort.arrowSize);
             i0.ɵɵclassProp("mrd-sort-header-aktiv", ctx.aktiv)("mrd-sort-header-disabled", ctx.gesperrt);
-        } }, inputs: { id: ["mrd-sort-header", "id"], start: "start", disabled: ["disabled", "disabled", booleanAttribute], arrowPosition: "arrowPosition", arrowSize: ["arrowSize", "arrowSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0$3, ngContentSelectors: _c1$2, decls: 5, vars: 4, consts: [[1, "mrd-sort-header-container"], [1, "mrd-sort-header-inhalt"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-sort-header-pfeil"], ["d", "M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"]], template: function MrdSortHeaderComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { id: ["mrd-sort-header", "id"], start: "start", disabled: ["disabled", "disabled", booleanAttribute], arrowPosition: "arrowPosition", arrowSize: ["arrowSize", "arrowSize", sizeAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0$4, ngContentSelectors: _c1$3, decls: 5, vars: 4, consts: [[1, "mrd-sort-header-container"], [1, "mrd-sort-header-inhalt"], ["viewBox", "0 0 24 24", "aria-hidden", "true", 1, "mrd-sort-header-pfeil"], ["d", "M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"]], template: function MrdSortHeaderComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵelementStart(0, "span", 0)(1, "span", 1);
             i0.ɵɵprojection(2);
@@ -13047,14 +13168,14 @@ class MrdSortModule {
 
 const MRD_MENU = new InjectionToken('MRD_MENU');
 
-const _c0$2 = ["mrd-menu-item", ""];
+const _c0$3 = ["mrd-menu-item", ""];
 function MrdMenuItemComponent_mrd_icon_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "mrd-icon", 2);
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("icon", ctx_r0.icon)("svgIcon", ctx_r0.svgIcon);
 } }
-const _c1$1 = ["*"];
+const _c1$2 = ["*"];
 /**
  * Eintrag in einem `mrd-menu`, am besten auf einem `button`. Ein Klick schliesst das Menue.
  * Das Icon steht vor dem Text: `icon` fuer Symbole der IconFactory, `svgIcon` fuer registrierte Icons.
@@ -13088,7 +13209,7 @@ class MrdMenuItemComponent {
         } if (rf & 2) {
             i0.ɵɵattribute("aria-disabled", ctx.disabled)("disabled", ctx.disabled && ctx.istButton ? "" : null);
             i0.ɵɵclassProp("mrd-menu-item-disabled", ctx.disabled);
-        } }, inputs: { icon: "icon", svgIcon: "svgIcon", disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0$2, ngContentSelectors: _c1$1, decls: 3, vars: 1, consts: [["class", "mrd-menu-item-icon", "size", "20", 3, "icon", "svgIcon", 4, "ngIf"], [1, "mrd-menu-item-text"], ["size", "20", 1, "mrd-menu-item-icon", 3, "icon", "svgIcon"]], template: function MrdMenuItemComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { icon: "icon", svgIcon: "svgIcon", disabled: ["disabled", "disabled", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], attrs: _c0$3, ngContentSelectors: _c1$2, decls: 3, vars: 1, consts: [["class", "mrd-menu-item-icon", "size", "20", 3, "icon", "svgIcon", 4, "ngIf"], [1, "mrd-menu-item-text"], ["size", "20", 1, "mrd-menu-item-icon", 3, "icon", "svgIcon"]], template: function MrdMenuItemComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵtemplate(0, MrdMenuItemComponent_mrd_icon_0_Template, 1, 2, "mrd-icon", 0);
             i0.ɵɵelementStart(1, "span", 1);
@@ -13134,7 +13255,7 @@ function MrdMenuComponent_ng_template_0_Template(rf, ctx) { if (rf & 1) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("ngClass", ctx_r0.panelClass);
 } }
-const _c0$1 = ["*"];
+const _c0$2 = ["*"];
 /**
  * Aufklappmenue, das ueber `[mrdMenuTriggerFor]` geoeffnet wird. Der Inhalt erscheint erst beim Oeffnen im Overlay.
  *
@@ -13201,7 +13322,7 @@ class MrdMenuComponent {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.panelTemplate = _t.first);
-        } }, inputs: { xPosition: "xPosition", yPosition: "yPosition", panelClass: "panelClass" }, outputs: { opened: "opened", closed: "closed" }, exportAs: ["mrdMenu"], features: [i0.ɵɵProvidersFeature([{ provide: MRD_MENU, useExisting: MrdMenuComponent }])], ngContentSelectors: _c0$1, decls: 1, vars: 0, consts: [["role", "menu", 1, "mrd-menu-panel", 3, "ngClass", "keydown"]], template: function MrdMenuComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { xPosition: "xPosition", yPosition: "yPosition", panelClass: "panelClass" }, outputs: { opened: "opened", closed: "closed" }, exportAs: ["mrdMenu"], features: [i0.ɵɵProvidersFeature([{ provide: MRD_MENU, useExisting: MrdMenuComponent }])], ngContentSelectors: _c0$2, decls: 1, vars: 0, consts: [["role", "menu", 1, "mrd-menu-panel", 3, "ngClass", "keydown"]], template: function MrdMenuComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef();
             i0.ɵɵtemplate(0, MrdMenuComponent_ng_template_0_Template, 2, 1, "ng-template");
         } }, dependencies: [i1$1.NgClass], styles: [".mrd-menu-panel[_ngcontent-%COMP%]{display:flex;flex-direction:column;min-width:180px;max-width:320px;max-height:calc(100vh - 48px);overflow-y:auto;padding:8px 0;background-color:#fff;color:#293d4f;border-radius:8px;box-shadow:0 4px 16px #16222e33;outline:none}"], changeDetection: 0 });
@@ -13409,8 +13530,8 @@ class MrdMenuModule {
         MrdMenuDividerComponent,
         MrdMenuTriggerDirective] }); })();
 
-const _c0 = [[["caption"]], [["colgroup"], ["col"]]];
-const _c1 = ["caption", "colgroup, col"];
+const _c0$1 = [[["caption"]], [["colgroup"], ["col"]]];
+const _c1$1 = ["caption", "colgroup, col"];
 /**
  * Tabelle auf Basis der CDK-Tabelle, als natives `<table mrd-table>` oder als Element `<mrd-table>`.
  * `dataSource` nimmt ein Array, ein Observable oder eine `MrdTableDataSource`; sortiert wird mit `mrdSort` + `mrd-sort-header`.
@@ -13435,8 +13556,8 @@ class MrdTableComponent extends CdkTable {
                 { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
                 // Verschachtelte Tabellen sollen nicht den Sticky-Listener dieser Tabelle erben
                 { provide: STICKY_POSITIONING_LISTENER, useValue: null }
-            ]), i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1, decls: 6, vars: 0, consts: [["headerRowOutlet", ""], ["rowOutlet", ""], ["noDataRowOutlet", ""], ["footerRowOutlet", ""]], template: function MrdTableComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵprojectionDef(_c0);
+            ]), i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c1$1, decls: 6, vars: 0, consts: [["headerRowOutlet", ""], ["rowOutlet", ""], ["noDataRowOutlet", ""], ["footerRowOutlet", ""]], template: function MrdTableComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c0$1);
             i0.ɵɵprojection(0);
             i0.ɵɵprojection(1, 1);
             i0.ɵɵelementContainer(2, 0)(3, 1)(4, 2)(5, 3);
@@ -14598,8 +14719,657 @@ class MrdSvgArrowService {
     }], null, null); })();
 
 /**
+ * Eigene Darstellung einer Spalte, z. B. ein Favoriten-Stern:
+ * `<ng-template mrdDatenListeZelle="favorit" let-eintrag let-ausgewaehlt="ausgewaehlt">...</ng-template>`
+ */
+class MrdDatenListeZelleDirective {
+    templateRef;
+    /** `schluessel` der Spalte */
+    schluessel;
+    constructor(templateRef) {
+        this.templateRef = templateRef;
+    }
+    static ngTemplateContextGuard(dir, ctx) {
+        return true;
+    }
+    /** @nocollapse */ static ɵfac = function MrdDatenListeZelleDirective_Factory(t) { return new (t || MrdDatenListeZelleDirective)(i0.ɵɵdirectiveInject(i0.TemplateRef)); };
+    /** @nocollapse */ static ɵdir = /** @pureOrBreakMyCode */ i0.ɵɵdefineDirective({ type: MrdDatenListeZelleDirective, selectors: [["ng-template", "mrdDatenListeZelle", ""]], inputs: { schluessel: ["mrdDatenListeZelle", "schluessel"] } });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatenListeZelleDirective, [{
+        type: Directive,
+        args: [{
+                selector: 'ng-template[mrdDatenListeZelle]'
+            }]
+    }], function () { return [{ type: i0.TemplateRef }]; }, { schluessel: [{
+            type: Input,
+            args: [{ alias: 'mrdDatenListeZelle', required: true }]
+        }] }); })();
+
+/** Reine Funktionen der `mrd-daten-liste`, damit Suche und Sortierung ohne Komponente testbar sind. */
+class MrdDatenListeUtil {
+    static SORTIERER = new Intl.Collator('de', { sensitivity: 'base', numeric: true });
+    static wertVon(spalte, eintrag) {
+        return spalte.wert ? spalte.wert(eintrag) : eintrag[spalte.schluessel];
+    }
+    static alsText(wert) {
+        if (wert === null || wert === undefined) {
+            return '';
+        }
+        if (wert instanceof Date) {
+            return wert.toLocaleDateString('de-DE');
+        }
+        return String(wert);
+    }
+    /** Leere Werte stehen unabhaengig von der Richtung am Ende. */
+    static vergleichen(a, b, richtung) {
+        const aLeer = a === null || a === undefined || a === '';
+        const bLeer = b === null || b === undefined || b === '';
+        if (aLeer || bLeer) {
+            return aLeer === bLeer ? 0 : (aLeer ? 1 : -1);
+        }
+        let ergebnis;
+        if (a instanceof Date && b instanceof Date) {
+            ergebnis = a.getTime() - b.getTime();
+        }
+        else if (typeof a === 'number' && typeof b === 'number') {
+            ergebnis = a - b;
+        }
+        else if (typeof a === 'boolean' && typeof b === 'boolean') {
+            ergebnis = Number(a) - Number(b);
+        }
+        else {
+            ergebnis = MrdDatenListeUtil.SORTIERER.compare(MrdDatenListeUtil.alsText(a), MrdDatenListeUtil.alsText(b));
+        }
+        return richtung === 'desc' ? -ergebnis : ergebnis;
+    }
+    /** Stabil: gleiche Werte behalten die Reihenfolge der Eingabe (Standardsortierung). */
+    static sortieren(eintraege, wert, richtung) {
+        return eintraege
+            .map((eintrag, index) => ({ eintrag, index, wert: wert(eintrag) }))
+            .sort((a, b) => MrdDatenListeUtil.vergleichen(a.wert, b.wert, richtung) || a.index - b.index)
+            .map(element => element.eintrag);
+    }
+    static suchen(eintraege, suchtext, suchfelder) {
+        if (!suchtext) {
+            return eintraege;
+        }
+        const regex = TypeConverter.asRegex(suchtext);
+        return eintraege.filter((eintrag) => suchfelder.some((feld) => {
+            const wert = typeof feld === 'function' ? feld(eintrag) : eintrag[feld];
+            return regex.test(MrdDatenListeUtil.alsText(wert));
+        }));
+    }
+}
+
+function MrdDatenListeComponent_mrd_form_field_1_Template(rf, ctx) { if (rf & 1) {
+    const _r8 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-form-field", 8)(1, "mrd-label", 9);
+    i0.ɵɵtext(2);
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(3, "mrd-input", 10);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_mrd_form_field_1_Template_mrd_input_valueChange_3_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r7 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r7.suchtextGeaendert($event)); });
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(4, "mrd-suffix");
+    i0.ɵɵelement(5, "mrd-icon", 11);
+    i0.ɵɵelementEnd()();
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(2);
+    i0.ɵɵtextInterpolate(ctx_r0.suchPlatzhalter);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("value", ctx_r0.suchtext);
+} }
+function MrdDatenListeComponent_div_2_mrd_form_field_1_mrd_select_option_4_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-select-option", 19);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const betrieb_r12 = ctx.$implicit;
+    i0.ɵɵproperty("value", betrieb_r12.id);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(betrieb_r12.name);
+} }
+function MrdDatenListeComponent_div_2_mrd_form_field_1_Template(rf, ctx) { if (rf & 1) {
+    const _r14 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-form-field", 15)(1, "mrd-label", 16);
+    i0.ɵɵtext(2, "Betriebe");
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(3, "mrd-select", 17);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_mrd_form_field_1_Template_mrd_select_valueChange_3_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r13 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r13.betriebFilterGeaendert($event)); });
+    i0.ɵɵtemplate(4, MrdDatenListeComponent_div_2_mrd_form_field_1_mrd_select_option_4_Template, 2, 2, "mrd-select-option", 18);
+    i0.ɵɵelementEnd()();
+} if (rf & 2) {
+    const ctx_r9 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance(3);
+    i0.ɵɵproperty("value", ctx_r9.betriebFilter);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngForOf", ctx_r9.betriebe);
+} }
+function MrdDatenListeComponent_div_2_ng_container_2_mrd_select_option_5_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-select-option", 25);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const option_r16 = ctx.$implicit;
+    i0.ɵɵproperty("value", option_r16.schluessel);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(option_r16.bezeichnung);
+} }
+function MrdDatenListeComponent_div_2_ng_container_2_Template(rf, ctx) { if (rf & 1) {
+    const _r18 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵelementStart(1, "mrd-form-field", 20)(2, "mrd-label", 16);
+    i0.ɵɵtext(3, "Sortierung");
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(4, "mrd-select", 10);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_ng_container_2_Template_mrd_select_valueChange_4_listener($event) { i0.ɵɵrestoreView(_r18); const ctx_r17 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r17.sortierSchluesselGeaendert($event)); });
+    i0.ɵɵtemplate(5, MrdDatenListeComponent_div_2_ng_container_2_mrd_select_option_5_Template, 2, 2, "mrd-select-option", 21);
+    i0.ɵɵelementEnd()();
+    i0.ɵɵelementStart(6, "button", 22);
+    i0.ɵɵlistener("click", function MrdDatenListeComponent_div_2_ng_container_2_Template_button_click_6_listener() { i0.ɵɵrestoreView(_r18); const ctx_r19 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r19.richtungUmschalten()); });
+    i0.ɵɵnamespaceSVG();
+    i0.ɵɵelementStart(7, "svg", 23);
+    i0.ɵɵelement(8, "path", 24);
+    i0.ɵɵelementEnd()();
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const ctx_r10 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance(4);
+    i0.ɵɵproperty("value", ctx_r10.sortierSchluessel);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngForOf", ctx_r10.sortierOptionen);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("disabled", !ctx_r10.istSortiert);
+    i0.ɵɵattribute("aria-label", ctx_r10.absteigend ? "Absteigend sortiert" : "Aufsteigend sortiert");
+    i0.ɵɵadvance(1);
+    i0.ɵɵclassProp("mrd-daten-liste-richtung-absteigend", ctx_r10.absteigend);
+} }
+function MrdDatenListeComponent_div_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 12);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_div_2_mrd_form_field_1_Template, 5, 2, "mrd-form-field", 13);
+    i0.ɵɵtemplate(2, MrdDatenListeComponent_div_2_ng_container_2_Template, 9, 6, "ng-container", 14);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r1 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r1.betriebFilterSichtbar);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r1.sortierAuswahl);
+} }
+function MrdDatenListeComponent_mrd_toggle_switch_4_Template(rf, ctx) { if (rf & 1) {
+    const _r21 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-toggle-switch", 26);
+    i0.ɵɵlistener("checkedChange", function MrdDatenListeComponent_mrd_toggle_switch_4_Template_mrd_toggle_switch_checkedChange_0_listener($event) { i0.ɵɵrestoreView(_r21); const ctx_r20 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r20.inaktiveAusblendenGeaendert($event)); });
+    i0.ɵɵtext(1, " Inaktive ausblenden ");
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r2 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("checked", ctx_r2.inaktiveAusblenden);
+} }
+function MrdDatenListeComponent_ng_container_6_div_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 29);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const spalte_r22 = i0.ɵɵnextContext().$implicit;
+    i0.ɵɵstyleProp("width", spalte_r22.breite, "px");
+    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r22.flex)("mrd-daten-liste-mitte", spalte_r22.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r22.ausrichtung === "rechts");
+    i0.ɵɵproperty("mrd-sort-header", spalte_r22.schluessel)("arrowPosition", spalte_r22.ausrichtung === "rechts" ? "before" : "after");
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate1(" ", spalte_r22.titel, " ");
+} }
+function MrdDatenListeComponent_ng_container_6_ng_template_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 30);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const spalte_r22 = i0.ɵɵnextContext().$implicit;
+    i0.ɵɵstyleProp("width", spalte_r22.breite, "px");
+    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r22.flex)("mrd-daten-liste-mitte", spalte_r22.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r22.ausrichtung === "rechts");
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate1(" ", spalte_r22.titel, " ");
+} }
+function MrdDatenListeComponent_ng_container_6_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_ng_container_6_div_1_Template, 2, 11, "div", 27);
+    i0.ɵɵtemplate(2, MrdDatenListeComponent_ng_container_6_ng_template_2_Template, 2, 9, "ng-template", null, 28, i0.ɵɵtemplateRefExtractor);
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const spalte_r22 = ctx.$implicit;
+    const _r24 = i0.ɵɵreference(3);
+    const ctx_r3 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r3.kopfSortierung && spalte_r22.sortierbar)("ngIfElse", _r24);
+} }
+function MrdDatenListeComponent_div_7_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 31);
+    i0.ɵɵelement(1, "mrd-progress-spinner");
+    i0.ɵɵelementEnd();
+} }
+function MrdDatenListeComponent_div_8_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 31);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r5 = i0.ɵɵnextContext();
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(ctx_r5.leerText);
+} }
+function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainer(0);
+} }
+const _c0 = function (a0, a1) { return { $implicit: a0, ausgewaehlt: a1 }; };
+function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 38);
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const template_r35 = ctx.ngIf;
+    const eintrag_r29 = i0.ɵɵnextContext(2).$implicit;
+    const ctx_r32 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngTemplateOutlet", template_r35)("ngTemplateOutletContext", i0.ɵɵpureFunction2(2, _c0, eintrag_r29, ctx_r32.istAusgewaehlt(eintrag_r29)));
+} }
+function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_template_2_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "span", 39);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const spalte_r31 = i0.ɵɵnextContext().$implicit;
+    const eintrag_r29 = i0.ɵɵnextContext().$implicit;
+    const ctx_r34 = i0.ɵɵnextContext(2);
+    i0.ɵɵproperty("line-clamp", 2)("mrdToolTip", ctx_r34.text(spalte_r31, eintrag_r29));
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(ctx_r34.text(spalte_r31, eintrag_r29));
+} }
+function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "div", 30);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_Template, 2, 5, "ng-container", 36);
+    i0.ɵɵtemplate(2, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_template_2_Template, 2, 3, "ng-template", null, 37, i0.ɵɵtemplateRefExtractor);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const spalte_r31 = ctx.$implicit;
+    const _r33 = i0.ɵɵreference(3);
+    const ctx_r30 = i0.ɵɵnextContext(3);
+    i0.ɵɵstyleProp("width", spalte_r31.breite, "px");
+    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r31.flex)("mrd-daten-liste-mitte", spalte_r31.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r31.ausrichtung === "rechts");
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", ctx_r30.zelle(spalte_r31.schluessel))("ngIfElse", _r33);
+} }
+function MrdDatenListeComponent_mrd_list_9_ng_template_1_Template(rf, ctx) { if (rf & 1) {
+    const _r41 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-list-item", 34);
+    i0.ɵɵlistener("click", function MrdDatenListeComponent_mrd_list_9_ng_template_1_Template_mrd_list_item_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r41); const eintrag_r29 = restoredCtx.$implicit; const ctx_r40 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r40.auswahl.emit(eintrag_r29)); });
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_Template, 4, 10, "div", 35);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const eintrag_r29 = ctx.$implicit;
+    const ctx_r28 = i0.ɵɵnextContext(2);
+    i0.ɵɵclassProp("mrd-daten-liste-inaktiv", ctx_r28.istInaktiv(eintrag_r29));
+    i0.ɵɵproperty("selected", ctx_r28.istAusgewaehlt(eintrag_r29));
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngForOf", ctx_r28.spalten);
+} }
+function MrdDatenListeComponent_mrd_list_9_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-list", 32);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_Template, 2, 4, "ng-template", 33);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r6 = i0.ɵɵnextContext();
+    i0.ɵɵclassProp("mrd-daten-liste-leer", ctx_r6.angezeigt.length === 0);
+    i0.ɵɵproperty("items", ctx_r6.angezeigt)("itemSize", ctx_r6.zeilenhoehe)("trackBy", ctx_r6.trackBy)("angeheftet", ctx_r6.ausgewaehlt);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("mrdListItem", ctx_r6.angezeigt);
+} }
+const _c1 = [[["", "mrdDatenListeFilter", ""]], [["", "mrdDatenListeAktionen", ""]]];
+const _c2 = ["[mrdDatenListeFilter]", "[mrdDatenListeAktionen]"];
+/**
+ * Liste mit Spalten fuer Stammdaten-Seiten: oben Suche, Betriebs-Filter, Sortierung, Inaktiv-Toggle und eigene Filter
+ * (`[mrdDatenListeFilter]`), in der Mitte Spaltenkoepfe und virtuelle Liste, unten eigene Aktionen (`[mrdDatenListeAktionen]`).
+ * Die Breite ergibt sich aus den Spalten; in einer mobilen `mrd-sidenav` nimmt die Liste die volle Breite ein.
+ * `eintraege` kommen in der Standardsortierung; jede Sortierung laesst sich wieder darauf zuruecksetzen.
+ */
+class MrdDatenListeComponent extends BaseObject {
+    cdr;
+    static STANDARD = '__standard';
+    static BETRIEB = '__betrieb';
+    set zellen(value) {
+        this.zellenTemplates = new Map((value?.toArray() ?? []).map((zelle) => [zelle.schluessel, zelle.templateRef]));
+        this.cdr.markForCheck();
+    }
+    liste;
+    /** In der Standardsortierung, z. B. direkt aus dem Store */
+    eintraege = [];
+    spalten = [];
+    identifier = 'id';
+    /** Ausgewaehlter Eintrag; bleibt sichtbar (angeheftet), auch wenn er herausgescrollt ist */
+    ausgewaehlt = null;
+    zeilenhoehe = 56;
+    suche = true;
+    suchPlatzhalter = 'Durchsuchen';
+    /** Ohne Angabe werden die Werte aller Spalten durchsucht */
+    suchfelder;
+    /** Kuerzere Suchtexte filtern nicht */
+    suchMindestlaenge = 1;
+    suchVerzoegerung = 300;
+    /** Sortieren per Klick auf die Spaltenkoepfe (`sortierbar`); der dritte Klick stellt die Standardsortierung wieder her */
+    kopfSortierung = false;
+    /** Sortieren per Select (sortierbare Spalten, bei mehreren Betrieben auch "Betrieb") und Richtungs-Schalter */
+    sortierAuswahl = false;
+    /** Leer oder ohne Richtung: Standardsortierung */
+    sortierung = null;
+    /** Kennzeichnet inaktive Eintraege; nur damit erscheint der Toggle "Inaktive ausblenden" */
+    inaktivPruefung;
+    inaktiveAusblenden = false;
+    /** Ab zwei Betrieben erscheint der Betriebs-Filter */
+    betriebe = [];
+    /** Eintraege ohne Betrieb (betriebsuebergreifend) bleiben bei jedem Betriebs-Filter sichtbar */
+    betriebSchluessel = 'idBetrieb';
+    /** Leer: alle Betriebe */
+    betriebFilter = [];
+    laedt = false;
+    leerText = 'Keine Einträge gefunden';
+    /** Volle Breite statt Breite aus den Spalten (mobil in einer `mrd-sidenav` automatisch) */
+    volleBreite = false;
+    /** Klick auf eine Zeile; ob sie ausgewaehlt wird, entscheidet der Aufrufer ueber `ausgewaehlt` */
+    auswahl = new EventEmitter();
+    sortierungChange = new EventEmitter();
+    inaktiveAusblendenChange = new EventEmitter();
+    betriebFilterChange = new EventEmitter();
+    angezeigt = [];
+    suchtext = '';
+    sortierOptionen = [];
+    trackBy = (_, eintrag) => this.idVon(eintrag);
+    zellenTemplates = new Map();
+    wirksamerSuchtext = '';
+    suchtext$ = new Subject();
+    constructor(cdr) {
+        super();
+        this.cdr = cdr;
+        this.watch(this.suchtext$.pipe(debounce(() => timer(this.suchVerzoegerung))), new SubscriptionHandler((text) => {
+            this.wirksamerSuchtext = text.length >= this.suchMindestlaenge ? text : '';
+            this.aktualisieren();
+            this.cdr.markForCheck();
+        }));
+    }
+    ngOnChanges(changes) {
+        if (changes['spalten'] || changes['betriebe']) {
+            this.sortierOptionenBerechnen();
+        }
+        this.aktualisieren();
+        if (changes['ausgewaehlt']?.currentValue) {
+            // Nach dem Rendern, damit die virtuelle Liste ihre Hoehe kennt
+            Promise.resolve().then(() => this.zurAuswahlScrollen());
+        }
+    }
+    get betriebFilterSichtbar() {
+        return (this.betriebe?.length ?? 0) > 1;
+    }
+    get sortierSchluessel() {
+        return this.istSortiert ? this.sortierung.active : MrdDatenListeComponent.STANDARD;
+    }
+    get absteigend() {
+        return this.istSortiert && this.sortierung.direction === 'desc';
+    }
+    get istSortiert() {
+        return !!this.sortierung?.active && !!this.sortierung?.direction;
+    }
+    /** Summe der Spaltenbreiten; die Liste selbst ergaenzt Innenabstand und Scrollbar */
+    get spaltenBreite() {
+        return this.spalten.reduce((summe, spalte) => summe + spalte.breite, 0);
+    }
+    zelle(schluessel) {
+        return this.zellenTemplates.get(schluessel);
+    }
+    text(spalte, eintrag) {
+        return MrdDatenListeUtil.alsText(MrdDatenListeUtil.wertVon(spalte, eintrag));
+    }
+    istAusgewaehlt(eintrag) {
+        return this.ausgewaehlt !== null && this.ausgewaehlt !== undefined && this.idVon(eintrag) === this.idVon(this.ausgewaehlt);
+    }
+    istInaktiv(eintrag) {
+        return !!this.inaktivPruefung && this.inaktivPruefung(eintrag);
+    }
+    suchtextGeaendert(text) {
+        this.suchtext = text ?? '';
+        this.suchtext$.next(this.suchtext.trim());
+    }
+    sortierungSetzen(sortierung) {
+        this.sortierung = sortierung?.direction ? sortierung : null;
+        this.aktualisieren();
+        this.sortierungChange.emit(this.sortierung);
+    }
+    sortierSchluesselGeaendert(schluessel) {
+        const standard = !schluessel || schluessel === MrdDatenListeComponent.STANDARD;
+        this.sortierungSetzen(standard ? null : { active: schluessel, direction: this.absteigend ? 'desc' : 'asc' });
+    }
+    richtungUmschalten() {
+        if (this.istSortiert) {
+            this.sortierungSetzen({ active: this.sortierung.active, direction: this.absteigend ? 'asc' : 'desc' });
+        }
+    }
+    inaktiveAusblendenGeaendert(ausblenden) {
+        this.inaktiveAusblenden = ausblenden;
+        this.aktualisieren();
+        this.inaktiveAusblendenChange.emit(ausblenden);
+    }
+    betriebFilterGeaendert(ids) {
+        this.betriebFilter = ids ?? [];
+        this.aktualisieren();
+        this.betriebFilterChange.emit(this.betriebFilter);
+    }
+    zurAuswahlScrollen() {
+        const index = this.angezeigt.findIndex((eintrag) => this.istAusgewaehlt(eintrag));
+        if (index >= 0) {
+            this.liste?.scrollToIndex(index, 'nearest');
+        }
+    }
+    aktualisieren() {
+        let eintraege = this.eintraege ?? [];
+        if (this.inaktiveAusblenden && this.inaktivPruefung) {
+            // Die Auswahl bleibt sichtbar, auch wenn sie gerade inaktiv gesetzt wurde
+            eintraege = eintraege.filter((eintrag) => !this.inaktivPruefung(eintrag) || this.istAusgewaehlt(eintrag));
+        }
+        if (this.betriebFilterSichtbar && this.betriebFilter?.length) {
+            eintraege = eintraege.filter((eintrag) => {
+                const idBetrieb = eintrag[this.betriebSchluessel];
+                return idBetrieb === null || idBetrieb === undefined || this.betriebFilter.includes(idBetrieb);
+            });
+        }
+        eintraege = MrdDatenListeUtil.suchen(eintraege, this.wirksamerSuchtext, this.suchfelder ?? this.spalten.map((spalte) => (eintrag) => MrdDatenListeUtil.wertVon(spalte, eintrag)));
+        if (this.istSortiert) {
+            eintraege = MrdDatenListeUtil.sortieren(eintraege, this.sortierwert(this.sortierung.active), this.sortierung.direction);
+        }
+        this.angezeigt = eintraege;
+    }
+    sortierOptionenBerechnen() {
+        const optionen = [{ schluessel: MrdDatenListeComponent.STANDARD, bezeichnung: 'Standard' }];
+        (this.spalten ?? []).filter((spalte) => spalte.sortierbar)
+            .forEach((spalte) => optionen.push({ schluessel: spalte.schluessel, bezeichnung: spalte.titel }));
+        if (this.betriebFilterSichtbar) {
+            optionen.push({ schluessel: MrdDatenListeComponent.BETRIEB, bezeichnung: 'Betrieb' });
+        }
+        this.sortierOptionen = optionen;
+    }
+    sortierwert(schluessel) {
+        if (schluessel === MrdDatenListeComponent.BETRIEB) {
+            return (eintrag) => this.betriebe.find((betrieb) => betrieb.id === eintrag[this.betriebSchluessel])?.name;
+        }
+        const spalte = this.spalten.find((s) => s.schluessel === schluessel);
+        return spalte ? (eintrag) => MrdDatenListeUtil.wertVon(spalte, eintrag) : () => null;
+    }
+    idVon(eintrag) {
+        return eintrag?.[this.identifier];
+    }
+    /** @nocollapse */ static ɵfac = function MrdDatenListeComponent_Factory(t) { return new (t || MrdDatenListeComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDatenListeComponent, selectors: [["mrd-daten-liste"]], contentQueries: function MrdDatenListeComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, MrdDatenListeZelleDirective, 4);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.zellen = _t);
+        } }, viewQuery: function MrdDatenListeComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(MrdListComponent, 5);
+        } if (rf & 2) {
+            let _t;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.liste = _t.first);
+        } }, hostVars: 2, hostBindings: function MrdDatenListeComponent_HostBindings(rf, ctx) { if (rf & 2) {
+            i0.ɵɵclassProp("mrd-daten-liste-volle-breite", ctx.volleBreite);
+        } }, inputs: { eintraege: "eintraege", spalten: "spalten", identifier: "identifier", ausgewaehlt: "ausgewaehlt", zeilenhoehe: ["zeilenhoehe", "zeilenhoehe", numberAttribute], suche: ["suche", "suche", booleanAttribute], suchPlatzhalter: "suchPlatzhalter", suchfelder: "suchfelder", suchMindestlaenge: ["suchMindestlaenge", "suchMindestlaenge", numberAttribute], suchVerzoegerung: ["suchVerzoegerung", "suchVerzoegerung", numberAttribute], kopfSortierung: ["kopfSortierung", "kopfSortierung", booleanAttribute], sortierAuswahl: ["sortierAuswahl", "sortierAuswahl", booleanAttribute], sortierung: "sortierung", inaktivPruefung: "inaktivPruefung", inaktiveAusblenden: ["inaktiveAusblenden", "inaktiveAusblenden", booleanAttribute], betriebe: "betriebe", betriebSchluessel: "betriebSchluessel", betriebFilter: "betriebFilter", laedt: ["laedt", "laedt", booleanAttribute], leerText: "leerText", volleBreite: ["volleBreite", "volleBreite", booleanAttribute] }, outputs: { auswahl: "auswahl", sortierungChange: "sortierungChange", inaktiveAusblendenChange: "inaktiveAusblendenChange", betriebFilterChange: "betriebFilterChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c2, decls: 11, vars: 9, consts: [[1, "mrd-daten-liste-kopfbereich"], ["class", "mrd-daten-liste-suche", 4, "ngIf"], ["class", "mrd-daten-liste-auswahlzeile", 4, "ngIf"], ["slim", "", "class", "mrd-daten-liste-inaktiv-toggle", 3, "checked", "checkedChange", 4, "ngIf"], ["mrdSortClear", "", 1, "mrd-daten-liste-spaltenkoepfe", 3, "mrdSort", "mrdSortDisabled", "mrdSortChange"], [4, "ngFor", "ngForOf"], ["class", "mrd-daten-liste-hinweis", 4, "ngIf"], ["class", "mrd-daten-liste-liste", "divider", "", "selectable", "", "virtualScroll", "", 3, "mrd-daten-liste-leer", "items", "itemSize", "trackBy", "angeheftet", 4, "ngIf"], [1, "mrd-daten-liste-suche"], ["float", "never"], [3, "value", "valueChange"], ["icon", "suche"], [1, "mrd-daten-liste-auswahlzeile"], ["class", "mrd-daten-liste-betriebe", 4, "ngIf"], [4, "ngIf"], [1, "mrd-daten-liste-betriebe"], ["float", "always"], ["multiple", "", 3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [1, "mrd-daten-liste-sortierung"], ["noCheckbox", "", 3, "value", 4, "ngFor", "ngForOf"], ["type", "button", 1, "mrd-daten-liste-richtung", 3, "disabled", "click"], ["viewBox", "0 0 24 24", "aria-hidden", "true"], ["d", "M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"], ["noCheckbox", "", 3, "value"], ["slim", "", 1, "mrd-daten-liste-inaktiv-toggle", 3, "checked", "checkedChange"], ["class", "mrd-daten-liste-spalte", 3, "mrd-sort-header", "arrowPosition", "mrd-daten-liste-spalte-flex", "width", "mrd-daten-liste-mitte", "mrd-daten-liste-rechts", 4, "ngIf", "ngIfElse"], ["ohneSortierung", ""], [1, "mrd-daten-liste-spalte", 3, "mrd-sort-header", "arrowPosition"], [1, "mrd-daten-liste-spalte"], [1, "mrd-daten-liste-hinweis"], ["divider", "", "selectable", "", "virtualScroll", "", 1, "mrd-daten-liste-liste", 3, "items", "itemSize", "trackBy", "angeheftet"], [3, "mrdListItem"], [3, "selected", "click"], ["class", "mrd-daten-liste-spalte", 3, "mrd-daten-liste-spalte-flex", "width", "mrd-daten-liste-mitte", "mrd-daten-liste-rechts", 4, "ngFor", "ngForOf"], [4, "ngIf", "ngIfElse"], ["standardZelle", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["showIfTruncated", "", 1, "mrd-daten-liste-text", 3, "line-clamp", "mrdToolTip"]], template: function MrdDatenListeComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵprojectionDef(_c1);
+            i0.ɵɵelementStart(0, "div", 0);
+            i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_form_field_1_Template, 6, 2, "mrd-form-field", 1);
+            i0.ɵɵtemplate(2, MrdDatenListeComponent_div_2_Template, 3, 2, "div", 2);
+            i0.ɵɵprojection(3);
+            i0.ɵɵtemplate(4, MrdDatenListeComponent_mrd_toggle_switch_4_Template, 2, 1, "mrd-toggle-switch", 3);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(5, "div", 4);
+            i0.ɵɵlistener("mrdSortChange", function MrdDatenListeComponent_Template_div_mrdSortChange_5_listener($event) { return ctx.sortierungSetzen($event); });
+            i0.ɵɵtemplate(6, MrdDatenListeComponent_ng_container_6_Template, 4, 2, "ng-container", 5);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtemplate(7, MrdDatenListeComponent_div_7_Template, 2, 0, "div", 6);
+            i0.ɵɵtemplate(8, MrdDatenListeComponent_div_8_Template, 2, 1, "div", 6);
+            i0.ɵɵtemplate(9, MrdDatenListeComponent_mrd_list_9_Template, 2, 7, "mrd-list", 7);
+            i0.ɵɵprojection(10, 1);
+        } if (rf & 2) {
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.suche);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.betriebFilterSichtbar || ctx.sortierAuswahl);
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngIf", ctx.inaktivPruefung);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("mrdSort", ctx.kopfSortierung ? ctx.sortierung : null)("mrdSortDisabled", !ctx.kopfSortierung);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngForOf", ctx.spalten);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.laedt);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", !ctx.laedt && ctx.angezeigt.length === 0);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", !ctx.laedt);
+        } }, dependencies: [i1$1.NgForOf, i1$1.NgIf, i1$1.NgTemplateOutlet, MrdFormFieldComponent, MrdInputComponent, MrdSelectComponent, MrdSelectOptionComponent, MrdLabelComponent, MrdSuffixComponent, MrdIconComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdProgressSpinnerComponent, MrdSortDirective, MrdSortHeaderComponent, MrdToggleSwitchComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;box-sizing:border-box;height:100%;min-height:0;width:-moz-max-content;width:max-content;max-width:100%}.mrd-daten-liste-volle-breite[_nghost-%COMP%], .mrd-sidenav-mobile[_nghost-%COMP%], .mrd-sidenav-mobile   [_nghost-%COMP%]{width:100%}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%], .mrd-daten-liste-liste[_ngcontent-%COMP%], .mrd-daten-liste-hinweis[_ngcontent-%COMP%], [_nghost-%COMP%]     [mrdDatenListeFilter], [_nghost-%COMP%]     [mrdDatenListeAktionen]{box-sizing:border-box;width:0;min-width:100%}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%]{display:flex;flex-direction:column;gap:8px;padding:8px 16px}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%]:empty{display:none}.mrd-daten-liste-suche[_ngcontent-%COMP%]{width:100%}.mrd-daten-liste-auswahlzeile[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;gap:8px}.mrd-daten-liste-betriebe[_ngcontent-%COMP%], .mrd-daten-liste-sortierung[_ngcontent-%COMP%]{flex:1 1 0;min-width:0}.mrd-daten-liste-richtung[_ngcontent-%COMP%]{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:40px;height:40px;padding:0;border:none;border-radius:50%;background:transparent;color:#494949;cursor:pointer}.mrd-daten-liste-richtung[_ngcontent-%COMP%]:hover:not(:disabled){background-color:#ebeff3}.mrd-daten-liste-richtung[_ngcontent-%COMP%]:disabled{opacity:.4;cursor:default}.mrd-daten-liste-richtung[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]{width:24px;height:24px;fill:currentColor;transition:transform .15s ease}.mrd-daten-liste-richtung[_ngcontent-%COMP%]   svg.mrd-daten-liste-richtung-absteigend[_ngcontent-%COMP%]{transform:rotate(180deg)}.mrd-daten-liste-spaltenkoepfe[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;flex:0 0 auto;box-sizing:border-box;height:40px;padding:0 16px;overflow:hidden;scrollbar-gutter:stable;background-color:#65b32e;color:#fff;border-bottom:1px solid #FFFFFF;font-size:16px}.mrd-daten-liste-spalte[_ngcontent-%COMP%]{display:flex;align-items:center;flex:0 0 auto;box-sizing:border-box;min-width:0;padding-right:8px;overflow:hidden}.mrd-daten-liste-spalte.mrd-daten-liste-spalte-flex[_ngcontent-%COMP%]{flex:1 0 auto}.mrd-daten-liste-spalte.mrd-daten-liste-mitte[_ngcontent-%COMP%]{justify-content:center}.mrd-daten-liste-spalte.mrd-daten-liste-rechts[_ngcontent-%COMP%]{justify-content:flex-end}.mrd-daten-liste-spalte[_ngcontent-%COMP%]:last-child{padding-right:0}.mrd-daten-liste-text[_ngcontent-%COMP%]{overflow-wrap:anywhere}.mrd-daten-liste-liste[_ngcontent-%COMP%]{flex:1 1 auto;min-height:0}.mrd-daten-liste-liste.mrd-daten-liste-leer[_ngcontent-%COMP%]{display:none}[_nghost-%COMP%]   .mrd-daten-liste-liste[_ngcontent-%COMP%]     .mrd-list-virtual-scroll{scrollbar-gutter:stable}.mrd-daten-liste-inaktiv[_ngcontent-%COMP%]:not(.mrd-list-item-selected){color:#949ea7}.mrd-daten-liste-hinweis[_ngcontent-%COMP%]{display:flex;flex:1 1 auto;align-items:center;justify-content:center;padding:16px;color:#949ea7}"], changeDetection: 0 });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatenListeComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-daten-liste', host: {
+                    '[class.mrd-daten-liste-volle-breite]': 'volleBreite'
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-daten-liste-kopfbereich\">\n  <mrd-form-field *ngIf=\"suche\" class=\"mrd-daten-liste-suche\">\n    <mrd-label float=\"never\">{{suchPlatzhalter}}</mrd-label>\n    <mrd-input [value]=\"suchtext\" (valueChange)=\"suchtextGeaendert($event)\"></mrd-input>\n    <mrd-suffix><mrd-icon icon=\"suche\"></mrd-icon></mrd-suffix>\n  </mrd-form-field>\n\n  <div *ngIf=\"betriebFilterSichtbar || sortierAuswahl\" class=\"mrd-daten-liste-auswahlzeile\">\n    <mrd-form-field *ngIf=\"betriebFilterSichtbar\" class=\"mrd-daten-liste-betriebe\">\n      <mrd-label float=\"always\">Betriebe</mrd-label>\n      <mrd-select multiple [value]=\"betriebFilter\" (valueChange)=\"betriebFilterGeaendert($event)\">\n        <mrd-select-option *ngFor=\"let betrieb of betriebe\" [value]=\"betrieb.id\">{{betrieb.name}}</mrd-select-option>\n      </mrd-select>\n    </mrd-form-field>\n    <ng-container *ngIf=\"sortierAuswahl\">\n      <mrd-form-field class=\"mrd-daten-liste-sortierung\">\n        <mrd-label float=\"always\">Sortierung</mrd-label>\n        <mrd-select [value]=\"sortierSchluessel\" (valueChange)=\"sortierSchluesselGeaendert($event)\">\n          <mrd-select-option *ngFor=\"let option of sortierOptionen\" [value]=\"option.schluessel\" noCheckbox>{{option.bezeichnung}}</mrd-select-option>\n        </mrd-select>\n      </mrd-form-field>\n      <button type=\"button\" class=\"mrd-daten-liste-richtung\" [disabled]=\"!istSortiert\" (click)=\"richtungUmschalten()\"\n              [attr.aria-label]=\"absteigend ? 'Absteigend sortiert' : 'Aufsteigend sortiert'\">\n        <svg [class.mrd-daten-liste-richtung-absteigend]=\"absteigend\" viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n          <path d=\"M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z\"></path>\n        </svg>\n      </button>\n    </ng-container>\n  </div>\n\n  <ng-content select=\"[mrdDatenListeFilter]\"></ng-content>\n\n  <mrd-toggle-switch *ngIf=\"inaktivPruefung\" slim class=\"mrd-daten-liste-inaktiv-toggle\"\n                     [checked]=\"inaktiveAusblenden\" (checkedChange)=\"inaktiveAusblendenGeaendert($event)\">\n    Inaktive ausblenden\n  </mrd-toggle-switch>\n</div>\n\n<div class=\"mrd-daten-liste-spaltenkoepfe\" [mrdSort]=\"kopfSortierung ? sortierung : null\" mrdSortClear [mrdSortDisabled]=\"!kopfSortierung\"\n     (mrdSortChange)=\"sortierungSetzen($event)\">\n  <ng-container *ngFor=\"let spalte of spalten\">\n    <div *ngIf=\"kopfSortierung && spalte.sortierbar; else ohneSortierung\"\n         class=\"mrd-daten-liste-spalte\" [mrd-sort-header]=\"spalte.schluessel\"\n         [arrowPosition]=\"spalte.ausrichtung === 'rechts' ? 'before' : 'after'\"\n         [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n         [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n      {{spalte.titel}}\n    </div>\n    <ng-template #ohneSortierung>\n      <div class=\"mrd-daten-liste-spalte\" [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n           [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n        {{spalte.titel}}\n      </div>\n    </ng-template>\n  </ng-container>\n</div>\n\n<div *ngIf=\"laedt\" class=\"mrd-daten-liste-hinweis\">\n  <mrd-progress-spinner></mrd-progress-spinner>\n</div>\n<div *ngIf=\"!laedt && angezeigt.length === 0\" class=\"mrd-daten-liste-hinweis\">{{leerText}}</div>\n\n<mrd-list *ngIf=\"!laedt\" [class.mrd-daten-liste-leer]=\"angezeigt.length === 0\" class=\"mrd-daten-liste-liste\" divider selectable virtualScroll\n          [items]=\"angezeigt\" [itemSize]=\"zeilenhoehe\" [trackBy]=\"trackBy\" [angeheftet]=\"ausgewaehlt\">\n  <ng-template [mrdListItem]=\"angezeigt\" let-eintrag>\n    <mrd-list-item [selected]=\"istAusgewaehlt(eintrag)\" [class.mrd-daten-liste-inaktiv]=\"istInaktiv(eintrag)\" (click)=\"auswahl.emit(eintrag)\">\n      <div *ngFor=\"let spalte of spalten\" class=\"mrd-daten-liste-spalte\" [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n           [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n        <ng-container *ngIf=\"zelle(spalte.schluessel) as template; else standardZelle\">\n          <ng-container *ngTemplateOutlet=\"template; context: {$implicit: eintrag, ausgewaehlt: istAusgewaehlt(eintrag)}\"></ng-container>\n        </ng-container>\n        <ng-template #standardZelle>\n          <span class=\"mrd-daten-liste-text\" [line-clamp]=\"2\" [mrdToolTip]=\"text(spalte, eintrag)\" showIfTruncated>{{text(spalte, eintrag)}}</span>\n        </ng-template>\n      </div>\n    </mrd-list-item>\n  </ng-template>\n</mrd-list>\n\n<ng-content select=\"[mrdDatenListeAktionen]\"></ng-content>\n", styles: [":host{display:flex;flex-direction:column;box-sizing:border-box;height:100%;min-height:0;width:-moz-max-content;width:max-content;max-width:100%}:host(.mrd-daten-liste-volle-breite),:host-context(.mrd-sidenav-mobile){width:100%}.mrd-daten-liste-kopfbereich,.mrd-daten-liste-liste,.mrd-daten-liste-hinweis,:host ::ng-deep [mrdDatenListeFilter],:host ::ng-deep [mrdDatenListeAktionen]{box-sizing:border-box;width:0;min-width:100%}.mrd-daten-liste-kopfbereich{display:flex;flex-direction:column;gap:8px;padding:8px 16px}.mrd-daten-liste-kopfbereich:empty{display:none}.mrd-daten-liste-suche{width:100%}.mrd-daten-liste-auswahlzeile{display:flex;flex-direction:row;align-items:center;gap:8px}.mrd-daten-liste-betriebe,.mrd-daten-liste-sortierung{flex:1 1 0;min-width:0}.mrd-daten-liste-richtung{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:40px;height:40px;padding:0;border:none;border-radius:50%;background:transparent;color:#494949;cursor:pointer}.mrd-daten-liste-richtung:hover:not(:disabled){background-color:#ebeff3}.mrd-daten-liste-richtung:disabled{opacity:.4;cursor:default}.mrd-daten-liste-richtung svg{width:24px;height:24px;fill:currentColor;transition:transform .15s ease}.mrd-daten-liste-richtung svg.mrd-daten-liste-richtung-absteigend{transform:rotate(180deg)}.mrd-daten-liste-spaltenkoepfe{display:flex;flex-direction:row;align-items:center;flex:0 0 auto;box-sizing:border-box;height:40px;padding:0 16px;overflow:hidden;scrollbar-gutter:stable;background-color:#65b32e;color:#fff;border-bottom:1px solid #FFFFFF;font-size:16px}.mrd-daten-liste-spalte{display:flex;align-items:center;flex:0 0 auto;box-sizing:border-box;min-width:0;padding-right:8px;overflow:hidden}.mrd-daten-liste-spalte.mrd-daten-liste-spalte-flex{flex:1 0 auto}.mrd-daten-liste-spalte.mrd-daten-liste-mitte{justify-content:center}.mrd-daten-liste-spalte.mrd-daten-liste-rechts{justify-content:flex-end}.mrd-daten-liste-spalte:last-child{padding-right:0}.mrd-daten-liste-text{overflow-wrap:anywhere}.mrd-daten-liste-liste{flex:1 1 auto;min-height:0}.mrd-daten-liste-liste.mrd-daten-liste-leer{display:none}:host .mrd-daten-liste-liste ::ng-deep .mrd-list-virtual-scroll{scrollbar-gutter:stable}.mrd-daten-liste-inaktiv:not(.mrd-list-item-selected){color:#949ea7}.mrd-daten-liste-hinweis{display:flex;flex:1 1 auto;align-items:center;justify-content:center;padding:16px;color:#949ea7}\n"] }]
+    }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { zellen: [{
+            type: ContentChildren,
+            args: [MrdDatenListeZelleDirective]
+        }], liste: [{
+            type: ViewChild,
+            args: [MrdListComponent]
+        }], eintraege: [{
+            type: Input
+        }], spalten: [{
+            type: Input
+        }], identifier: [{
+            type: Input
+        }], ausgewaehlt: [{
+            type: Input
+        }], zeilenhoehe: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], suche: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], suchPlatzhalter: [{
+            type: Input
+        }], suchfelder: [{
+            type: Input
+        }], suchMindestlaenge: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], suchVerzoegerung: [{
+            type: Input,
+            args: [{ transform: numberAttribute }]
+        }], kopfSortierung: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], sortierAuswahl: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], sortierung: [{
+            type: Input
+        }], inaktivPruefung: [{
+            type: Input
+        }], inaktiveAusblenden: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], betriebe: [{
+            type: Input
+        }], betriebSchluessel: [{
+            type: Input
+        }], betriebFilter: [{
+            type: Input
+        }], laedt: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], leerText: [{
+            type: Input
+        }], volleBreite: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }], auswahl: [{
+            type: Output
+        }], sortierungChange: [{
+            type: Output
+        }], inaktiveAusblendenChange: [{
+            type: Output
+        }], betriebFilterChange: [{
+            type: Output
+        }] }); })();
+
+class MrdDatenListeModule {
+    /** @nocollapse */ static ɵfac = function MrdDatenListeModule_Factory(t) { return new (t || MrdDatenListeModule)(); };
+    /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdDatenListeModule });
+    /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            MrdFormFieldModule,
+            MrdIconModule,
+            MrdListModule,
+            MrdProgressSpinnerModule,
+            MrdSortModule,
+            MrdToggleSwitchModule,
+            MrdTooltipModule] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatenListeModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [
+                    MrdDatenListeComponent,
+                    MrdDatenListeZelleDirective
+                ],
+                imports: [
+                    CommonModule,
+                    MrdFormFieldModule,
+                    MrdIconModule,
+                    MrdListModule,
+                    MrdProgressSpinnerModule,
+                    MrdSortModule,
+                    MrdToggleSwitchModule,
+                    MrdTooltipModule
+                ],
+                exports: [
+                    MrdDatenListeComponent,
+                    MrdDatenListeZelleDirective
+                ]
+            }]
+    }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdDatenListeModule, { declarations: [MrdDatenListeComponent,
+        MrdDatenListeZelleDirective], imports: [CommonModule,
+        MrdFormFieldModule,
+        MrdIconModule,
+        MrdListModule,
+        MrdProgressSpinnerModule,
+        MrdSortModule,
+        MrdToggleSwitchModule,
+        MrdTooltipModule], exports: [MrdDatenListeComponent,
+        MrdDatenListeZelleDirective] }); })();
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatenListeComponent, MrdDatenListeModule, MrdDatenListeUtil, MrdDatenListeZelleDirective, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

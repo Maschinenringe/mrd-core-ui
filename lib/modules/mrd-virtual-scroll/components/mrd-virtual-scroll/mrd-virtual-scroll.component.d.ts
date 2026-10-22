@@ -40,10 +40,16 @@ export declare class MrdVirtualScrollComponent<T = any> implements AfterViewInit
     /** Hoehe in px, bis zu der das Element mit seinem Inhalt waechst; ohne Angabe bestimmt der Aufrufer die Hoehe */
     maxHeight: number;
     visibleRangeChange: EventEmitter<MrdVirtualScrollRange>;
+    /**
+     * Tatsaechlich sichtbare Zeilen ohne Puffer (auch angeschnittene), z. B. um eine ausgewaehlte Zeile anzuheften,
+     * sobald sie herausgescrollt ist. `visibleRangeChange` meldet dagegen den gerenderten Bereich inklusive Puffer.
+     */
+    sichtbarerBereichChange: EventEmitter<MrdVirtualScrollRange>;
     sichtbareEintraege: MrdVirtualScrollEintrag<T>[];
     versatz: number;
     gesamtHoehe: number;
     private bereich;
+    private sichtbarerBereich;
     private initialisiert;
     private animationFrame;
     private resizeObserver;
@@ -68,13 +74,14 @@ export declare class MrdVirtualScrollComponent<T = any> implements AfterViewInit
     /** Index des Eintrags, der die Position y (px ab Listenanfang) enthaelt */
     private indexBei;
     private bereichPlanen;
+    private sichtbarenBereichSetzen;
     /**
      * @param erzwingen Auch neu aufbauen, wenn sich der Bereich nicht geaendert hat (z. B. neue Items)
      * @param rendern Sofort rendern; im Input-Setter nicht noetig, weil die Change Detection ohnehin folgt
      */
     private bereichBerechnen;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdVirtualScrollComponent<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdVirtualScrollComponent<any>, "mrd-virtual-scroll", never, { "itemTemplate": { "alias": "itemTemplate"; "required": false; }; "items": { "alias": "items"; "required": false; }; "itemSize": { "alias": "itemSize"; "required": false; }; "buffer": { "alias": "buffer"; "required": false; }; "trackBy": { "alias": "trackBy"; "required": false; }; "maxHeight": { "alias": "maxHeight"; "required": false; }; }, { "visibleRangeChange": "visibleRangeChange"; }, ["contentItem"], never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdVirtualScrollComponent<any>, "mrd-virtual-scroll", never, { "itemTemplate": { "alias": "itemTemplate"; "required": false; }; "items": { "alias": "items"; "required": false; }; "itemSize": { "alias": "itemSize"; "required": false; }; "buffer": { "alias": "buffer"; "required": false; }; "trackBy": { "alias": "trackBy"; "required": false; }; "maxHeight": { "alias": "maxHeight"; "required": false; }; }, { "visibleRangeChange": "visibleRangeChange"; "sichtbarerBereichChange": "sichtbarerBereichChange"; }, ["contentItem"], never, false, never>;
     static ngAcceptInputType_itemSize: i1.MrdVirtualScrollItemSize | string;
     static ngAcceptInputType_buffer: unknown;
     static ngAcceptInputType_maxHeight: unknown;
