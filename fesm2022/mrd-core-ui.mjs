@@ -14817,15 +14817,15 @@ class MrdDatenListeUtil {
 }
 
 function MrdDatenListeComponent_mrd_form_field_1_Template(rf, ctx) { if (rf & 1) {
-    const _r8 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-form-field", 8)(1, "mrd-label", 9);
+    const _r7 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-form-field", 7)(1, "mrd-label", 8);
     i0.ɵɵtext(2);
     i0.ɵɵelementEnd();
-    i0.ɵɵelementStart(3, "mrd-input", 10);
-    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_mrd_form_field_1_Template_mrd_input_valueChange_3_listener($event) { i0.ɵɵrestoreView(_r8); const ctx_r7 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r7.suchtextGeaendert($event)); });
+    i0.ɵɵelementStart(3, "mrd-input", 9);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_mrd_form_field_1_Template_mrd_input_valueChange_3_listener($event) { i0.ɵɵrestoreView(_r7); const ctx_r6 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r6.suchtextGeaendert($event)); });
     i0.ɵɵelementEnd();
     i0.ɵɵelementStart(4, "mrd-suffix");
-    i0.ɵɵelement(5, "mrd-icon", 11);
+    i0.ɵɵelement(5, "mrd-icon", 10);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
@@ -14834,75 +14834,83 @@ function MrdDatenListeComponent_mrd_form_field_1_Template(rf, ctx) { if (rf & 1)
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("value", ctx_r0.suchtext);
 } }
-function MrdDatenListeComponent_div_2_mrd_form_field_1_mrd_select_option_4_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "mrd-select-option", 19);
+function MrdDatenListeComponent_div_2_mrd_form_field_1_mrd_select_option_6_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementStart(0, "mrd-select-option", 17);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const betrieb_r12 = ctx.$implicit;
-    i0.ɵɵproperty("value", betrieb_r12.id);
+    const betrieb_r11 = ctx.$implicit;
+    i0.ɵɵproperty("value", betrieb_r11.id);
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(betrieb_r12.name);
+    i0.ɵɵtextInterpolate(betrieb_r11.name);
 } }
 function MrdDatenListeComponent_div_2_mrd_form_field_1_Template(rf, ctx) { if (rf & 1) {
-    const _r14 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-form-field", 15)(1, "mrd-label", 16);
+    const _r13 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-form-field", 14)(1, "mrd-label", 15);
     i0.ɵɵtext(2, "Betriebe");
     i0.ɵɵelementEnd();
-    i0.ɵɵelementStart(3, "mrd-select", 17);
-    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_mrd_form_field_1_Template_mrd_select_valueChange_3_listener($event) { i0.ɵɵrestoreView(_r14); const ctx_r13 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r13.betriebFilterGeaendert($event)); });
-    i0.ɵɵtemplate(4, MrdDatenListeComponent_div_2_mrd_form_field_1_mrd_select_option_4_Template, 2, 2, "mrd-select-option", 18);
+    i0.ɵɵelementStart(3, "mrd-select", 16);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_mrd_form_field_1_Template_mrd_select_valueChange_3_listener($event) { i0.ɵɵrestoreView(_r13); const ctx_r12 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r12.betriebFilterGeaendert($event)); });
+    i0.ɵɵelementStart(4, "mrd-select-option", 17);
+    i0.ɵɵtext(5, "Alle");
+    i0.ɵɵelementEnd();
+    i0.ɵɵtemplate(6, MrdDatenListeComponent_div_2_mrd_form_field_1_mrd_select_option_6_Template, 2, 2, "mrd-select-option", 18);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
-    const ctx_r9 = i0.ɵɵnextContext(2);
+    const ctx_r8 = i0.ɵɵnextContext(2);
     i0.ɵɵadvance(3);
-    i0.ɵɵproperty("value", ctx_r9.betriebFilter);
+    i0.ɵɵproperty("value", ctx_r8.betriebAuswahl);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r9.betriebe);
+    i0.ɵɵproperty("value", ctx_r8.ALLE_BETRIEBE);
+    i0.ɵɵadvance(2);
+    i0.ɵɵproperty("ngForOf", ctx_r8.betriebe);
 } }
 function MrdDatenListeComponent_div_2_ng_container_2_mrd_select_option_5_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "mrd-select-option", 25);
+    i0.ɵɵelementStart(0, "mrd-select-option", 26);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const option_r16 = ctx.$implicit;
-    i0.ɵɵproperty("value", option_r16.schluessel);
+    const option_r15 = ctx.$implicit;
+    i0.ɵɵproperty("value", option_r15.schluessel);
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(option_r16.bezeichnung);
+    i0.ɵɵtextInterpolate(option_r15.bezeichnung);
 } }
 function MrdDatenListeComponent_div_2_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    const _r18 = i0.ɵɵgetCurrentView();
+    const _r17 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵelementStart(1, "mrd-form-field", 20)(2, "mrd-label", 16);
+    i0.ɵɵelementStart(1, "mrd-form-field", 19)(2, "mrd-label", 15);
     i0.ɵɵtext(3, "Sortierung");
     i0.ɵɵelementEnd();
-    i0.ɵɵelementStart(4, "mrd-select", 10);
-    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_ng_container_2_Template_mrd_select_valueChange_4_listener($event) { i0.ɵɵrestoreView(_r18); const ctx_r17 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r17.sortierSchluesselGeaendert($event)); });
-    i0.ɵɵtemplate(5, MrdDatenListeComponent_div_2_ng_container_2_mrd_select_option_5_Template, 2, 2, "mrd-select-option", 21);
+    i0.ɵɵelementStart(4, "mrd-select", 9);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_ng_container_2_Template_mrd_select_valueChange_4_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r16 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r16.sortierSchluesselGeaendert($event)); });
+    i0.ɵɵtemplate(5, MrdDatenListeComponent_div_2_ng_container_2_mrd_select_option_5_Template, 2, 2, "mrd-select-option", 20);
     i0.ɵɵelementEnd()();
-    i0.ɵɵelementStart(6, "button", 22);
-    i0.ɵɵlistener("click", function MrdDatenListeComponent_div_2_ng_container_2_Template_button_click_6_listener() { i0.ɵɵrestoreView(_r18); const ctx_r19 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r19.richtungUmschalten()); });
-    i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(7, "svg", 23);
-    i0.ɵɵelement(8, "path", 24);
+    i0.ɵɵelementStart(6, "mrd-button-toggle-group", 21);
+    i0.ɵɵlistener("valueChange", function MrdDatenListeComponent_div_2_ng_container_2_Template_mrd_button_toggle_group_valueChange_6_listener($event) { i0.ɵɵrestoreView(_r17); const ctx_r18 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r18.richtungGeaendert($event)); });
+    i0.ɵɵelementStart(7, "mrd-button", 22);
+    i0.ɵɵelement(8, "mrd-icon", 23);
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementStart(9, "mrd-button", 24);
+    i0.ɵɵelement(10, "mrd-icon", 25);
     i0.ɵɵelementEnd()();
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const ctx_r10 = i0.ɵɵnextContext(2);
+    const ctx_r9 = i0.ɵɵnextContext(2);
     i0.ɵɵadvance(4);
-    i0.ɵɵproperty("value", ctx_r10.sortierSchluessel);
+    i0.ɵɵproperty("value", ctx_r9.sortierSchluessel);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r10.sortierOptionen);
+    i0.ɵɵproperty("ngForOf", ctx_r9.sortierOptionen);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("disabled", !ctx_r10.istSortiert);
-    i0.ɵɵattribute("aria-label", ctx_r10.absteigend ? "Absteigend sortiert" : "Aufsteigend sortiert");
+    i0.ɵɵproperty("value", ctx_r9.richtung)("disabled", !ctx_r9.istSortiert);
     i0.ɵɵadvance(1);
-    i0.ɵɵclassProp("mrd-daten-liste-richtung-absteigend", ctx_r10.absteigend);
+    i0.ɵɵproperty("customToggleSelectedTextColor", ctx_r9.MrdColor.WEISS);
+    i0.ɵɵadvance(2);
+    i0.ɵɵproperty("customToggleSelectedTextColor", ctx_r9.MrdColor.WEISS);
 } }
 function MrdDatenListeComponent_div_2_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "div", 12);
-    i0.ɵɵtemplate(1, MrdDatenListeComponent_div_2_mrd_form_field_1_Template, 5, 2, "mrd-form-field", 13);
-    i0.ɵɵtemplate(2, MrdDatenListeComponent_div_2_ng_container_2_Template, 9, 6, "ng-container", 14);
+    i0.ɵɵelementStart(0, "div", 11);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_div_2_mrd_form_field_1_Template, 7, 3, "mrd-form-field", 12);
+    i0.ɵɵtemplate(2, MrdDatenListeComponent_div_2_ng_container_2_Template, 11, 6, "ng-container", 13);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
@@ -14911,143 +14919,138 @@ function MrdDatenListeComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("ngIf", ctx_r1.sortierAuswahl);
 } }
-function MrdDatenListeComponent_mrd_toggle_switch_4_Template(rf, ctx) { if (rf & 1) {
-    const _r21 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-toggle-switch", 26);
-    i0.ɵɵlistener("checkedChange", function MrdDatenListeComponent_mrd_toggle_switch_4_Template_mrd_toggle_switch_checkedChange_0_listener($event) { i0.ɵɵrestoreView(_r21); const ctx_r20 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r20.inaktiveAusblendenGeaendert($event)); });
-    i0.ɵɵtext(1, " Inaktive ausblenden ");
-    i0.ɵɵelementEnd();
-} if (rf & 2) {
-    const ctx_r2 = i0.ɵɵnextContext();
-    i0.ɵɵproperty("checked", ctx_r2.inaktiveAusblenden);
-} }
-function MrdDatenListeComponent_ng_container_6_div_1_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_ng_container_5_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 29);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const spalte_r22 = i0.ɵɵnextContext().$implicit;
-    i0.ɵɵstyleProp("width", spalte_r22.breite, "px");
-    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r22.flex)("mrd-daten-liste-mitte", spalte_r22.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r22.ausrichtung === "rechts");
-    i0.ɵɵproperty("mrd-sort-header", spalte_r22.schluessel)("arrowPosition", spalte_r22.ausrichtung === "rechts" ? "before" : "after");
+    const spalte_r19 = i0.ɵɵnextContext().$implicit;
+    i0.ɵɵstyleProp("width", spalte_r19.breite, "px");
+    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r19.flex)("mrd-daten-liste-mitte", spalte_r19.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r19.ausrichtung === "rechts");
+    i0.ɵɵproperty("mrd-sort-header", spalte_r19.schluessel)("arrowPosition", spalte_r19.ausrichtung === "rechts" ? "before" : "after");
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", spalte_r22.titel, " ");
+    i0.ɵɵtextInterpolate1(" ", spalte_r19.titel, " ");
 } }
-function MrdDatenListeComponent_ng_container_6_ng_template_2_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_ng_container_5_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 30);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const spalte_r22 = i0.ɵɵnextContext().$implicit;
-    i0.ɵɵstyleProp("width", spalte_r22.breite, "px");
-    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r22.flex)("mrd-daten-liste-mitte", spalte_r22.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r22.ausrichtung === "rechts");
+    const spalte_r19 = i0.ɵɵnextContext().$implicit;
+    i0.ɵɵstyleProp("width", spalte_r19.breite, "px");
+    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r19.flex)("mrd-daten-liste-mitte", spalte_r19.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r19.ausrichtung === "rechts");
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate1(" ", spalte_r22.titel, " ");
+    i0.ɵɵtextInterpolate1(" ", spalte_r19.titel, " ");
 } }
-function MrdDatenListeComponent_ng_container_6_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_ng_container_5_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵtemplate(1, MrdDatenListeComponent_ng_container_6_div_1_Template, 2, 11, "div", 27);
-    i0.ɵɵtemplate(2, MrdDatenListeComponent_ng_container_6_ng_template_2_Template, 2, 9, "ng-template", null, 28, i0.ɵɵtemplateRefExtractor);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_ng_container_5_div_1_Template, 2, 11, "div", 27);
+    i0.ɵɵtemplate(2, MrdDatenListeComponent_ng_container_5_ng_template_2_Template, 2, 9, "ng-template", null, 28, i0.ɵɵtemplateRefExtractor);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const spalte_r22 = ctx.$implicit;
-    const _r24 = i0.ɵɵreference(3);
-    const ctx_r3 = i0.ɵɵnextContext();
+    const spalte_r19 = ctx.$implicit;
+    const _r21 = i0.ɵɵreference(3);
+    const ctx_r2 = i0.ɵɵnextContext();
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r3.kopfSortierung && spalte_r22.sortierbar)("ngIfElse", _r24);
+    i0.ɵɵproperty("ngIf", ctx_r2.kopfSortierung && spalte_r19.sortierbar)("ngIfElse", _r21);
 } }
-function MrdDatenListeComponent_div_7_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_div_6_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 31);
     i0.ɵɵelement(1, "mrd-progress-spinner");
     i0.ɵɵelementEnd();
 } }
-function MrdDatenListeComponent_div_8_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_div_7_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 31);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r5 = i0.ɵɵnextContext();
+    const ctx_r4 = i0.ɵɵnextContext();
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(ctx_r5.leerText);
+    i0.ɵɵtextInterpolate(ctx_r4.leerText);
 } }
-function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainer(0);
 } }
 const _c0 = function (a0, a1) { return { $implicit: a0, ausgewaehlt: a1 }; };
-function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementContainerStart(0);
-    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 38);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 38);
     i0.ɵɵelementContainerEnd();
 } if (rf & 2) {
-    const template_r35 = ctx.ngIf;
-    const eintrag_r29 = i0.ɵɵnextContext(2).$implicit;
-    const ctx_r32 = i0.ɵɵnextContext(2);
+    const template_r32 = ctx.ngIf;
+    const eintrag_r26 = i0.ɵɵnextContext(2).$implicit;
+    const ctx_r29 = i0.ɵɵnextContext(2);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngTemplateOutlet", template_r35)("ngTemplateOutletContext", i0.ɵɵpureFunction2(2, _c0, eintrag_r29, ctx_r32.istAusgewaehlt(eintrag_r29)));
+    i0.ɵɵproperty("ngTemplateOutlet", template_r32)("ngTemplateOutletContext", i0.ɵɵpureFunction2(2, _c0, eintrag_r26, ctx_r29.istAusgewaehlt(eintrag_r26)));
 } }
-function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_template_2_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "span", 39);
     i0.ɵɵtext(1);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const spalte_r31 = i0.ɵɵnextContext().$implicit;
-    const eintrag_r29 = i0.ɵɵnextContext().$implicit;
-    const ctx_r34 = i0.ɵɵnextContext(2);
-    i0.ɵɵproperty("line-clamp", 2)("mrdToolTip", ctx_r34.text(spalte_r31, eintrag_r29));
+    const spalte_r28 = i0.ɵɵnextContext().$implicit;
+    const eintrag_r26 = i0.ɵɵnextContext().$implicit;
+    const ctx_r31 = i0.ɵɵnextContext(2);
+    i0.ɵɵproperty("line-clamp", 2)("mrdToolTip", ctx_r31.text(spalte_r28, eintrag_r26));
     i0.ɵɵadvance(1);
-    i0.ɵɵtextInterpolate(ctx_r34.text(spalte_r31, eintrag_r29));
+    i0.ɵɵtextInterpolate(ctx_r31.text(spalte_r28, eintrag_r26));
 } }
-function MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "div", 30);
-    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_container_1_Template, 2, 5, "ng-container", 36);
-    i0.ɵɵtemplate(2, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_ng_template_2_Template, 2, 3, "ng-template", null, 37, i0.ɵɵtemplateRefExtractor);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_ng_container_1_Template, 2, 5, "ng-container", 36);
+    i0.ɵɵtemplate(2, MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_ng_template_2_Template, 2, 3, "ng-template", null, 37, i0.ɵɵtemplateRefExtractor);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const spalte_r31 = ctx.$implicit;
-    const _r33 = i0.ɵɵreference(3);
-    const ctx_r30 = i0.ɵɵnextContext(3);
-    i0.ɵɵstyleProp("width", spalte_r31.breite, "px");
-    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r31.flex)("mrd-daten-liste-mitte", spalte_r31.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r31.ausrichtung === "rechts");
+    const spalte_r28 = ctx.$implicit;
+    const _r30 = i0.ɵɵreference(3);
+    const ctx_r27 = i0.ɵɵnextContext(3);
+    i0.ɵɵstyleProp("width", spalte_r28.breite, "px");
+    i0.ɵɵclassProp("mrd-daten-liste-spalte-flex", spalte_r28.flex)("mrd-daten-liste-mitte", spalte_r28.ausrichtung === "mitte")("mrd-daten-liste-rechts", spalte_r28.ausrichtung === "rechts");
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngIf", ctx_r30.zelle(spalte_r31.schluessel))("ngIfElse", _r33);
+    i0.ɵɵproperty("ngIf", ctx_r27.zelle(spalte_r28.schluessel))("ngIfElse", _r30);
 } }
-function MrdDatenListeComponent_mrd_list_9_ng_template_1_Template(rf, ctx) { if (rf & 1) {
-    const _r41 = i0.ɵɵgetCurrentView();
+function MrdDatenListeComponent_mrd_list_8_ng_template_1_Template(rf, ctx) { if (rf & 1) {
+    const _r38 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "mrd-list-item", 34);
-    i0.ɵɵlistener("click", function MrdDatenListeComponent_mrd_list_9_ng_template_1_Template_mrd_list_item_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r41); const eintrag_r29 = restoredCtx.$implicit; const ctx_r40 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r40.auswahl.emit(eintrag_r29)); });
-    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_div_1_Template, 4, 10, "div", 35);
+    i0.ɵɵlistener("click", function MrdDatenListeComponent_mrd_list_8_ng_template_1_Template_mrd_list_item_click_0_listener() { const restoredCtx = i0.ɵɵrestoreView(_r38); const eintrag_r26 = restoredCtx.$implicit; const ctx_r37 = i0.ɵɵnextContext(2); return i0.ɵɵresetView(ctx_r37.auswahl.emit(eintrag_r26)); });
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_8_ng_template_1_div_1_Template, 4, 10, "div", 35);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const eintrag_r29 = ctx.$implicit;
-    const ctx_r28 = i0.ɵɵnextContext(2);
-    i0.ɵɵclassProp("mrd-daten-liste-inaktiv", ctx_r28.istInaktiv(eintrag_r29));
-    i0.ɵɵproperty("selected", ctx_r28.istAusgewaehlt(eintrag_r29));
+    const eintrag_r26 = ctx.$implicit;
+    const ctx_r25 = i0.ɵɵnextContext(2);
+    i0.ɵɵclassProp("mrd-daten-liste-inaktiv", ctx_r25.istInaktiv(eintrag_r26));
+    i0.ɵɵproperty("selected", ctx_r25.istAusgewaehlt(eintrag_r26));
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("ngForOf", ctx_r28.spalten);
+    i0.ɵɵproperty("ngForOf", ctx_r25.spalten);
 } }
-function MrdDatenListeComponent_mrd_list_9_Template(rf, ctx) { if (rf & 1) {
+function MrdDatenListeComponent_mrd_list_8_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelementStart(0, "mrd-list", 32);
-    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_9_ng_template_1_Template, 2, 4, "ng-template", 33);
+    i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_list_8_ng_template_1_Template, 2, 4, "ng-template", 33);
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    const ctx_r6 = i0.ɵɵnextContext();
-    i0.ɵɵclassProp("mrd-daten-liste-leer", ctx_r6.angezeigt.length === 0);
-    i0.ɵɵproperty("items", ctx_r6.angezeigt)("itemSize", ctx_r6.zeilenhoehe)("trackBy", ctx_r6.trackBy)("angeheftet", ctx_r6.ausgewaehlt);
+    const ctx_r5 = i0.ɵɵnextContext();
+    i0.ɵɵclassProp("mrd-daten-liste-leer", ctx_r5.angezeigt.length === 0);
+    i0.ɵɵproperty("items", ctx_r5.angezeigt)("itemSize", ctx_r5.zeilenhoehe)("trackBy", ctx_r5.trackBy)("angeheftet", ctx_r5.ausgewaehlt);
     i0.ɵɵadvance(1);
-    i0.ɵɵproperty("mrdListItem", ctx_r6.angezeigt);
+    i0.ɵɵproperty("mrdListItem", ctx_r5.angezeigt);
 } }
 const _c1 = [[["", "mrdDatenListeFilter", ""]], [["", "mrdDatenListeAktionen", ""]]];
 const _c2 = ["[mrdDatenListeFilter]", "[mrdDatenListeAktionen]"];
 /**
- * Liste mit Spalten fuer Stammdaten-Seiten: oben Suche, Betriebs-Filter, Sortierung, Inaktiv-Toggle und eigene Filter
- * (`[mrdDatenListeFilter]`), in der Mitte Spaltenkoepfe und virtuelle Liste, unten eigene Aktionen (`[mrdDatenListeAktionen]`).
- * Die Breite ergibt sich aus den Spalten; in einer mobilen `mrd-sidenav` nimmt die Liste die volle Breite ein.
+ * Liste mit Spalten fuer Stammdaten-Seiten: oben Suche, Betriebs-Filter, Sortierung und eigene Filter (`[mrdDatenListeFilter]`),
+ * in der Mitte Spaltenkoepfe und virtuelle Liste, unten eigene Aktionen (`[mrdDatenListeAktionen]`), dort auch der
+ * Schalter `<mrd-daten-liste-inaktiv-schalter>`.
+ * Die Breite ergibt sich aus Spalten und Aktionen; in einer mobilen `mrd-sidenav` nimmt die Liste die volle Breite ein.
  * `eintraege` kommen in der Standardsortierung; jede Sortierung laesst sich wieder darauf zuruecksetzen.
  */
 class MrdDatenListeComponent extends BaseObject {
     cdr;
     static STANDARD = '__standard';
     static BETRIEB = '__betrieb';
+    /** Option "Alle" im Betriebs-Filter; steht fuer einen leeren Filter */
+    static ALLE_BETRIEBE = '__alle';
+    ALLE_BETRIEBE = MrdDatenListeComponent.ALLE_BETRIEBE;
+    MrdColor = MrdColor;
     set zellen(value) {
         this.zellenTemplates = new Map((value?.toArray() ?? []).map((zelle) => [zelle.schluessel, zelle.templateRef]));
         this.cdr.markForCheck();
@@ -15073,7 +15076,7 @@ class MrdDatenListeComponent extends BaseObject {
     sortierAuswahl = false;
     /** Leer oder ohne Richtung: Standardsortierung */
     sortierung = null;
-    /** Kennzeichnet inaktive Eintraege; nur damit erscheint der Toggle "Inaktive ausblenden" */
+    /** Kennzeichnet inaktive Eintraege; nur damit erscheint `<mrd-daten-liste-inaktiv-schalter>` */
     inaktivPruefung;
     inaktiveAusblenden = false;
     /** Ab zwei Betrieben erscheint der Betriebs-Filter */
@@ -15092,6 +15095,8 @@ class MrdDatenListeComponent extends BaseObject {
     inaktiveAusblendenChange = new EventEmitter();
     betriebFilterChange = new EventEmitter();
     angezeigt = [];
+    /** Wert des Betriebs-Selects; ohne Filter steht dort "Alle" (stabil, damit das Select nicht bei jedem Durchlauf neu setzt) */
+    betriebAuswahl = [MrdDatenListeComponent.ALLE_BETRIEBE];
     suchtext = '';
     sortierOptionen = [];
     trackBy = (_, eintrag) => this.idVon(eintrag);
@@ -15111,6 +15116,9 @@ class MrdDatenListeComponent extends BaseObject {
         if (changes['spalten'] || changes['betriebe']) {
             this.sortierOptionenBerechnen();
         }
+        if (changes['betriebFilter']) {
+            this.betriebAuswahlSetzen();
+        }
         this.aktualisieren();
         if (changes['ausgewaehlt']?.currentValue) {
             // Nach dem Rendern, damit die virtuelle Liste ihre Hoehe kennt
@@ -15125,6 +15133,9 @@ class MrdDatenListeComponent extends BaseObject {
     }
     get absteigend() {
         return this.istSortiert && this.sortierung.direction === 'desc';
+    }
+    get richtung() {
+        return this.istSortiert ? this.sortierung.direction : null;
     }
     get istSortiert() {
         return !!this.sortierung?.active && !!this.sortierung?.direction;
@@ -15158,19 +15169,29 @@ class MrdDatenListeComponent extends BaseObject {
         const standard = !schluessel || schluessel === MrdDatenListeComponent.STANDARD;
         this.sortierungSetzen(standard ? null : { active: schluessel, direction: this.absteigend ? 'desc' : 'asc' });
     }
-    richtungUmschalten() {
-        if (this.istSortiert) {
-            this.sortierungSetzen({ active: this.sortierung.active, direction: this.absteigend ? 'asc' : 'desc' });
+    richtungGeaendert(richtung) {
+        if (this.istSortiert && (richtung === 'asc' || richtung === 'desc') && richtung !== this.richtung) {
+            this.sortierungSetzen({ active: this.sortierung.active, direction: richtung });
         }
     }
+    /** Auch fuer `<mrd-daten-liste-inaktiv-schalter>`, der ausserhalb dieser View liegt */
     inaktiveAusblendenGeaendert(ausblenden) {
         this.inaktiveAusblenden = ausblenden;
         this.aktualisieren();
+        this.cdr.markForCheck();
         this.inaktiveAusblendenChange.emit(ausblenden);
     }
-    betriebFilterGeaendert(ids) {
-        this.betriebFilter = ids ?? [];
+    /**
+     * "Alle" schliesst die einzelnen Betriebe aus und umgekehrt: Wird "Alle" neu angehakt, faellt der Filter weg;
+     * wird ein Betrieb angehakt, verschwindet "Alle". Ohne Betrieb steht wieder "Alle" da.
+     */
+    betriebFilterGeaendert(werte) {
+        const alleNeu = (werte ?? []).includes(MrdDatenListeComponent.ALLE_BETRIEBE) &&
+            !this.betriebAuswahl.includes(MrdDatenListeComponent.ALLE_BETRIEBE);
+        this.betriebFilter = alleNeu ? [] : (werte ?? []).filter((wert) => wert !== MrdDatenListeComponent.ALLE_BETRIEBE);
+        this.betriebAuswahlSetzen();
         this.aktualisieren();
+        this.cdr.markForCheck();
         this.betriebFilterChange.emit(this.betriebFilter);
     }
     zurAuswahlScrollen() {
@@ -15196,6 +15217,9 @@ class MrdDatenListeComponent extends BaseObject {
             eintraege = MrdDatenListeUtil.sortieren(eintraege, this.sortierwert(this.sortierung.active), this.sortierung.direction);
         }
         this.angezeigt = eintraege;
+    }
+    betriebAuswahlSetzen() {
+        this.betriebAuswahl = this.betriebFilter?.length ? [...this.betriebFilter] : [MrdDatenListeComponent.ALLE_BETRIEBE];
     }
     sortierOptionenBerechnen() {
         const optionen = [{ schluessel: MrdDatenListeComponent.STANDARD, bezeichnung: 'Standard' }];
@@ -15229,30 +15253,27 @@ class MrdDatenListeComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.liste = _t.first);
         } }, hostVars: 2, hostBindings: function MrdDatenListeComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵclassProp("mrd-daten-liste-volle-breite", ctx.volleBreite);
-        } }, inputs: { eintraege: "eintraege", spalten: "spalten", identifier: "identifier", ausgewaehlt: "ausgewaehlt", zeilenhoehe: ["zeilenhoehe", "zeilenhoehe", numberAttribute], suche: ["suche", "suche", booleanAttribute], suchPlatzhalter: "suchPlatzhalter", suchfelder: "suchfelder", suchMindestlaenge: ["suchMindestlaenge", "suchMindestlaenge", numberAttribute], suchVerzoegerung: ["suchVerzoegerung", "suchVerzoegerung", numberAttribute], kopfSortierung: ["kopfSortierung", "kopfSortierung", booleanAttribute], sortierAuswahl: ["sortierAuswahl", "sortierAuswahl", booleanAttribute], sortierung: "sortierung", inaktivPruefung: "inaktivPruefung", inaktiveAusblenden: ["inaktiveAusblenden", "inaktiveAusblenden", booleanAttribute], betriebe: "betriebe", betriebSchluessel: "betriebSchluessel", betriebFilter: "betriebFilter", laedt: ["laedt", "laedt", booleanAttribute], leerText: "leerText", volleBreite: ["volleBreite", "volleBreite", booleanAttribute] }, outputs: { auswahl: "auswahl", sortierungChange: "sortierungChange", inaktiveAusblendenChange: "inaktiveAusblendenChange", betriebFilterChange: "betriebFilterChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c2, decls: 11, vars: 9, consts: [[1, "mrd-daten-liste-kopfbereich"], ["class", "mrd-daten-liste-suche", 4, "ngIf"], ["class", "mrd-daten-liste-auswahlzeile", 4, "ngIf"], ["slim", "", "class", "mrd-daten-liste-inaktiv-toggle", 3, "checked", "checkedChange", 4, "ngIf"], ["mrdSortClear", "", 1, "mrd-daten-liste-spaltenkoepfe", 3, "mrdSort", "mrdSortDisabled", "mrdSortChange"], [4, "ngFor", "ngForOf"], ["class", "mrd-daten-liste-hinweis", 4, "ngIf"], ["class", "mrd-daten-liste-liste", "divider", "", "selectable", "", "virtualScroll", "", 3, "mrd-daten-liste-leer", "items", "itemSize", "trackBy", "angeheftet", 4, "ngIf"], [1, "mrd-daten-liste-suche"], ["float", "never"], [3, "value", "valueChange"], ["icon", "suche"], [1, "mrd-daten-liste-auswahlzeile"], ["class", "mrd-daten-liste-betriebe", 4, "ngIf"], [4, "ngIf"], [1, "mrd-daten-liste-betriebe"], ["float", "always"], ["multiple", "", 3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [1, "mrd-daten-liste-sortierung"], ["noCheckbox", "", 3, "value", 4, "ngFor", "ngForOf"], ["type", "button", 1, "mrd-daten-liste-richtung", 3, "disabled", "click"], ["viewBox", "0 0 24 24", "aria-hidden", "true"], ["d", "M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"], ["noCheckbox", "", 3, "value"], ["slim", "", 1, "mrd-daten-liste-inaktiv-toggle", 3, "checked", "checkedChange"], ["class", "mrd-daten-liste-spalte", 3, "mrd-sort-header", "arrowPosition", "mrd-daten-liste-spalte-flex", "width", "mrd-daten-liste-mitte", "mrd-daten-liste-rechts", 4, "ngIf", "ngIfElse"], ["ohneSortierung", ""], [1, "mrd-daten-liste-spalte", 3, "mrd-sort-header", "arrowPosition"], [1, "mrd-daten-liste-spalte"], [1, "mrd-daten-liste-hinweis"], ["divider", "", "selectable", "", "virtualScroll", "", 1, "mrd-daten-liste-liste", 3, "items", "itemSize", "trackBy", "angeheftet"], [3, "mrdListItem"], [3, "selected", "click"], ["class", "mrd-daten-liste-spalte", 3, "mrd-daten-liste-spalte-flex", "width", "mrd-daten-liste-mitte", "mrd-daten-liste-rechts", 4, "ngFor", "ngForOf"], [4, "ngIf", "ngIfElse"], ["standardZelle", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["showIfTruncated", "", 1, "mrd-daten-liste-text", 3, "line-clamp", "mrdToolTip"]], template: function MrdDatenListeComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { eintraege: "eintraege", spalten: "spalten", identifier: "identifier", ausgewaehlt: "ausgewaehlt", zeilenhoehe: ["zeilenhoehe", "zeilenhoehe", numberAttribute], suche: ["suche", "suche", booleanAttribute], suchPlatzhalter: "suchPlatzhalter", suchfelder: "suchfelder", suchMindestlaenge: ["suchMindestlaenge", "suchMindestlaenge", numberAttribute], suchVerzoegerung: ["suchVerzoegerung", "suchVerzoegerung", numberAttribute], kopfSortierung: ["kopfSortierung", "kopfSortierung", booleanAttribute], sortierAuswahl: ["sortierAuswahl", "sortierAuswahl", booleanAttribute], sortierung: "sortierung", inaktivPruefung: "inaktivPruefung", inaktiveAusblenden: ["inaktiveAusblenden", "inaktiveAusblenden", booleanAttribute], betriebe: "betriebe", betriebSchluessel: "betriebSchluessel", betriebFilter: "betriebFilter", laedt: ["laedt", "laedt", booleanAttribute], leerText: "leerText", volleBreite: ["volleBreite", "volleBreite", booleanAttribute] }, outputs: { auswahl: "auswahl", sortierungChange: "sortierungChange", inaktiveAusblendenChange: "inaktiveAusblendenChange", betriebFilterChange: "betriebFilterChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature, i0.ɵɵNgOnChangesFeature], ngContentSelectors: _c2, decls: 10, vars: 8, consts: [[1, "mrd-daten-liste-kopfbereich"], ["class", "mrd-daten-liste-suche", 4, "ngIf"], ["class", "mrd-daten-liste-auswahlzeile", 4, "ngIf"], ["mrdSortClear", "", 1, "mrd-daten-liste-spaltenkoepfe", 3, "mrdSort", "mrdSortDisabled", "mrdSortChange"], [4, "ngFor", "ngForOf"], ["class", "mrd-daten-liste-hinweis", 4, "ngIf"], ["class", "mrd-daten-liste-liste", "divider", "", "selectable", "", "virtualScroll", "", 3, "mrd-daten-liste-leer", "items", "itemSize", "trackBy", "angeheftet", 4, "ngIf"], [1, "mrd-daten-liste-suche"], ["float", "never"], [3, "value", "valueChange"], ["icon", "suche"], [1, "mrd-daten-liste-auswahlzeile"], ["class", "mrd-daten-liste-betriebe", 4, "ngIf"], [4, "ngIf"], [1, "mrd-daten-liste-betriebe"], ["float", "always"], ["multiple", "", 3, "value", "valueChange"], [3, "value"], [3, "value", 4, "ngFor", "ngForOf"], [1, "mrd-daten-liste-sortierung"], ["noCheckbox", "", 3, "value", 4, "ngFor", "ngForOf"], ["simple", "", "primary", "", "borderRadius", "6", 1, "mrd-daten-liste-richtung", 3, "value", "disabled", "valueChange"], ["toggle-button", "", "iconSize", "1.5em", "value", "asc", "tooltip", "", "tooltipText", "Aufsteigend", 3, "customToggleSelectedTextColor"], ["svgIcon", "mrd:pfeil-up"], ["toggle-button", "", "iconSize", "1.5em", "value", "desc", "tooltip", "", "tooltipText", "Absteigend", 3, "customToggleSelectedTextColor"], ["svgIcon", "mrd:pfeil-down"], ["noCheckbox", "", 3, "value"], ["class", "mrd-daten-liste-spalte", 3, "mrd-sort-header", "arrowPosition", "mrd-daten-liste-spalte-flex", "width", "mrd-daten-liste-mitte", "mrd-daten-liste-rechts", 4, "ngIf", "ngIfElse"], ["ohneSortierung", ""], [1, "mrd-daten-liste-spalte", 3, "mrd-sort-header", "arrowPosition"], [1, "mrd-daten-liste-spalte"], [1, "mrd-daten-liste-hinweis"], ["divider", "", "selectable", "", "virtualScroll", "", 1, "mrd-daten-liste-liste", 3, "items", "itemSize", "trackBy", "angeheftet"], [3, "mrdListItem"], [3, "selected", "click"], ["class", "mrd-daten-liste-spalte", 3, "mrd-daten-liste-spalte-flex", "width", "mrd-daten-liste-mitte", "mrd-daten-liste-rechts", 4, "ngFor", "ngForOf"], [4, "ngIf", "ngIfElse"], ["standardZelle", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["showIfTruncated", "", 1, "mrd-daten-liste-text", 3, "line-clamp", "mrdToolTip"]], template: function MrdDatenListeComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵtemplate(1, MrdDatenListeComponent_mrd_form_field_1_Template, 6, 2, "mrd-form-field", 1);
             i0.ɵɵtemplate(2, MrdDatenListeComponent_div_2_Template, 3, 2, "div", 2);
             i0.ɵɵprojection(3);
-            i0.ɵɵtemplate(4, MrdDatenListeComponent_mrd_toggle_switch_4_Template, 2, 1, "mrd-toggle-switch", 3);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(5, "div", 4);
-            i0.ɵɵlistener("mrdSortChange", function MrdDatenListeComponent_Template_div_mrdSortChange_5_listener($event) { return ctx.sortierungSetzen($event); });
-            i0.ɵɵtemplate(6, MrdDatenListeComponent_ng_container_6_Template, 4, 2, "ng-container", 5);
+            i0.ɵɵelementStart(4, "div", 3);
+            i0.ɵɵlistener("mrdSortChange", function MrdDatenListeComponent_Template_div_mrdSortChange_4_listener($event) { return ctx.sortierungSetzen($event); });
+            i0.ɵɵtemplate(5, MrdDatenListeComponent_ng_container_5_Template, 4, 2, "ng-container", 4);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(7, MrdDatenListeComponent_div_7_Template, 2, 0, "div", 6);
-            i0.ɵɵtemplate(8, MrdDatenListeComponent_div_8_Template, 2, 1, "div", 6);
-            i0.ɵɵtemplate(9, MrdDatenListeComponent_mrd_list_9_Template, 2, 7, "mrd-list", 7);
-            i0.ɵɵprojection(10, 1);
+            i0.ɵɵtemplate(6, MrdDatenListeComponent_div_6_Template, 2, 0, "div", 5);
+            i0.ɵɵtemplate(7, MrdDatenListeComponent_div_7_Template, 2, 1, "div", 5);
+            i0.ɵɵtemplate(8, MrdDatenListeComponent_mrd_list_8_Template, 2, 7, "mrd-list", 6);
+            i0.ɵɵprojection(9, 1);
         } if (rf & 2) {
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.suche);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx.betriebFilterSichtbar || ctx.sortierAuswahl);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngIf", ctx.inaktivPruefung);
-            i0.ɵɵadvance(1);
             i0.ɵɵproperty("mrdSort", ctx.kopfSortierung ? ctx.sortierung : null)("mrdSortDisabled", !ctx.kopfSortierung);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngForOf", ctx.spalten);
@@ -15262,13 +15283,13 @@ class MrdDatenListeComponent extends BaseObject {
             i0.ɵɵproperty("ngIf", !ctx.laedt && ctx.angezeigt.length === 0);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", !ctx.laedt);
-        } }, dependencies: [i1$1.NgForOf, i1$1.NgIf, i1$1.NgTemplateOutlet, MrdFormFieldComponent, MrdInputComponent, MrdSelectComponent, MrdSelectOptionComponent, MrdLabelComponent, MrdSuffixComponent, MrdIconComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdProgressSpinnerComponent, MrdSortDirective, MrdSortHeaderComponent, MrdToggleSwitchComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;box-sizing:border-box;height:100%;min-height:0;width:-moz-max-content;width:max-content;max-width:100%}.mrd-daten-liste-volle-breite[_nghost-%COMP%], .mrd-sidenav-mobile[_nghost-%COMP%], .mrd-sidenav-mobile   [_nghost-%COMP%]{width:100%}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%], .mrd-daten-liste-liste[_ngcontent-%COMP%], .mrd-daten-liste-hinweis[_ngcontent-%COMP%], [_nghost-%COMP%]     [mrdDatenListeFilter], [_nghost-%COMP%]     [mrdDatenListeAktionen]{box-sizing:border-box;width:0;min-width:100%}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%]{display:flex;flex-direction:column;gap:8px;padding:8px 16px}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%]:empty{display:none}.mrd-daten-liste-suche[_ngcontent-%COMP%]{width:100%}.mrd-daten-liste-auswahlzeile[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;gap:8px}.mrd-daten-liste-betriebe[_ngcontent-%COMP%], .mrd-daten-liste-sortierung[_ngcontent-%COMP%]{flex:1 1 0;min-width:0}.mrd-daten-liste-richtung[_ngcontent-%COMP%]{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:40px;height:40px;padding:0;border:none;border-radius:50%;background:transparent;color:#494949;cursor:pointer}.mrd-daten-liste-richtung[_ngcontent-%COMP%]:hover:not(:disabled){background-color:#ebeff3}.mrd-daten-liste-richtung[_ngcontent-%COMP%]:disabled{opacity:.4;cursor:default}.mrd-daten-liste-richtung[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%]{width:24px;height:24px;fill:currentColor;transition:transform .15s ease}.mrd-daten-liste-richtung[_ngcontent-%COMP%]   svg.mrd-daten-liste-richtung-absteigend[_ngcontent-%COMP%]{transform:rotate(180deg)}.mrd-daten-liste-spaltenkoepfe[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;flex:0 0 auto;box-sizing:border-box;height:40px;padding:0 16px;overflow:hidden;scrollbar-gutter:stable;background-color:#65b32e;color:#fff;border-bottom:1px solid #FFFFFF;font-size:16px}.mrd-daten-liste-spalte[_ngcontent-%COMP%]{display:flex;align-items:center;flex:0 0 auto;box-sizing:border-box;min-width:0;padding-right:8px;overflow:hidden}.mrd-daten-liste-spalte.mrd-daten-liste-spalte-flex[_ngcontent-%COMP%]{flex:1 0 auto}.mrd-daten-liste-spalte.mrd-daten-liste-mitte[_ngcontent-%COMP%]{justify-content:center}.mrd-daten-liste-spalte.mrd-daten-liste-rechts[_ngcontent-%COMP%]{justify-content:flex-end}.mrd-daten-liste-spalte[_ngcontent-%COMP%]:last-child{padding-right:0}.mrd-daten-liste-text[_ngcontent-%COMP%]{overflow-wrap:anywhere}.mrd-daten-liste-liste[_ngcontent-%COMP%]{flex:1 1 auto;min-height:0}.mrd-daten-liste-liste.mrd-daten-liste-leer[_ngcontent-%COMP%]{display:none}[_nghost-%COMP%]   .mrd-daten-liste-liste[_ngcontent-%COMP%]     .mrd-list-virtual-scroll{scrollbar-gutter:stable}.mrd-daten-liste-inaktiv[_ngcontent-%COMP%]:not(.mrd-list-item-selected){color:#949ea7}.mrd-daten-liste-hinweis[_ngcontent-%COMP%]{display:flex;flex:1 1 auto;align-items:center;justify-content:center;padding:16px;color:#949ea7}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgForOf, i1$1.NgIf, i1$1.NgTemplateOutlet, MrdButtonComponent, MrdButtonToggleGroupComponent, MrdFormFieldComponent, MrdInputComponent, MrdSelectComponent, MrdSelectOptionComponent, MrdLabelComponent, MrdSuffixComponent, MrdIconComponent, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdProgressSpinnerComponent, MrdSortDirective, MrdSortHeaderComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:flex;flex-direction:column;box-sizing:border-box;height:100%;min-height:0;width:-moz-max-content;width:max-content;max-width:100%}.mrd-daten-liste-volle-breite[_nghost-%COMP%], .mrd-sidenav-mobile[_nghost-%COMP%], .mrd-sidenav-mobile   [_nghost-%COMP%]{width:100%}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%], .mrd-daten-liste-liste[_ngcontent-%COMP%], .mrd-daten-liste-hinweis[_ngcontent-%COMP%], [_nghost-%COMP%]     [mrdDatenListeFilter]{box-sizing:border-box;width:0;min-width:100%}[_nghost-%COMP%]     [mrdDatenListeAktionen]{box-sizing:border-box;min-width:100%}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%]{display:flex;flex-direction:column;gap:8px;padding:8px 16px}.mrd-daten-liste-kopfbereich[_ngcontent-%COMP%]:empty{display:none}.mrd-daten-liste-suche[_ngcontent-%COMP%]{width:100%}.mrd-daten-liste-auswahlzeile[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;gap:8px}.mrd-daten-liste-betriebe[_ngcontent-%COMP%], .mrd-daten-liste-sortierung[_ngcontent-%COMP%]{flex:1 1 0;min-width:0}.mrd-daten-liste-richtung[_ngcontent-%COMP%]{flex:0 0 80px}.mrd-daten-liste-richtung[_ngcontent-%COMP%]     mrd-button .mrd-button-container mrd-icon{margin-right:0}.mrd-daten-liste-spaltenkoepfe[_ngcontent-%COMP%]{display:flex;flex-direction:row;align-items:center;flex:0 0 auto;box-sizing:border-box;height:40px;padding:0 16px;overflow:hidden;scrollbar-gutter:stable;background-color:#65b32e;color:#fff;border-bottom:1px solid #FFFFFF;font-size:16px}.mrd-daten-liste-spalte[_ngcontent-%COMP%]{display:flex;align-items:center;flex:0 0 auto;box-sizing:border-box;min-width:0;padding-right:8px;overflow:hidden}.mrd-daten-liste-spalte.mrd-daten-liste-spalte-flex[_ngcontent-%COMP%]{flex:1 0 auto}.mrd-daten-liste-spalte.mrd-daten-liste-mitte[_ngcontent-%COMP%]{justify-content:center}.mrd-daten-liste-spalte.mrd-daten-liste-rechts[_ngcontent-%COMP%]{justify-content:flex-end}.mrd-daten-liste-spalte[_ngcontent-%COMP%]:last-child{padding-right:0}.mrd-daten-liste-text[_ngcontent-%COMP%]{overflow-wrap:anywhere}.mrd-daten-liste-liste[_ngcontent-%COMP%]{flex:1 1 auto;min-height:0}.mrd-daten-liste-liste.mrd-daten-liste-leer[_ngcontent-%COMP%]{display:none}[_nghost-%COMP%]   .mrd-daten-liste-liste[_ngcontent-%COMP%]     .mrd-list-virtual-scroll{scrollbar-gutter:stable}.mrd-daten-liste-inaktiv[_ngcontent-%COMP%]:not(.mrd-list-item-selected){background-color:#ebeff3;color:#949ea7}.mrd-daten-liste-hinweis[_ngcontent-%COMP%]{display:flex;flex:1 1 auto;align-items:center;justify-content:center;padding:16px;color:#949ea7}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatenListeComponent, [{
         type: Component,
         args: [{ selector: 'mrd-daten-liste', host: {
                     '[class.mrd-daten-liste-volle-breite]': 'volleBreite'
-                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-daten-liste-kopfbereich\">\n  <mrd-form-field *ngIf=\"suche\" class=\"mrd-daten-liste-suche\">\n    <mrd-label float=\"never\">{{suchPlatzhalter}}</mrd-label>\n    <mrd-input [value]=\"suchtext\" (valueChange)=\"suchtextGeaendert($event)\"></mrd-input>\n    <mrd-suffix><mrd-icon icon=\"suche\"></mrd-icon></mrd-suffix>\n  </mrd-form-field>\n\n  <div *ngIf=\"betriebFilterSichtbar || sortierAuswahl\" class=\"mrd-daten-liste-auswahlzeile\">\n    <mrd-form-field *ngIf=\"betriebFilterSichtbar\" class=\"mrd-daten-liste-betriebe\">\n      <mrd-label float=\"always\">Betriebe</mrd-label>\n      <mrd-select multiple [value]=\"betriebFilter\" (valueChange)=\"betriebFilterGeaendert($event)\">\n        <mrd-select-option *ngFor=\"let betrieb of betriebe\" [value]=\"betrieb.id\">{{betrieb.name}}</mrd-select-option>\n      </mrd-select>\n    </mrd-form-field>\n    <ng-container *ngIf=\"sortierAuswahl\">\n      <mrd-form-field class=\"mrd-daten-liste-sortierung\">\n        <mrd-label float=\"always\">Sortierung</mrd-label>\n        <mrd-select [value]=\"sortierSchluessel\" (valueChange)=\"sortierSchluesselGeaendert($event)\">\n          <mrd-select-option *ngFor=\"let option of sortierOptionen\" [value]=\"option.schluessel\" noCheckbox>{{option.bezeichnung}}</mrd-select-option>\n        </mrd-select>\n      </mrd-form-field>\n      <button type=\"button\" class=\"mrd-daten-liste-richtung\" [disabled]=\"!istSortiert\" (click)=\"richtungUmschalten()\"\n              [attr.aria-label]=\"absteigend ? 'Absteigend sortiert' : 'Aufsteigend sortiert'\">\n        <svg [class.mrd-daten-liste-richtung-absteigend]=\"absteigend\" viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n          <path d=\"M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z\"></path>\n        </svg>\n      </button>\n    </ng-container>\n  </div>\n\n  <ng-content select=\"[mrdDatenListeFilter]\"></ng-content>\n\n  <mrd-toggle-switch *ngIf=\"inaktivPruefung\" slim class=\"mrd-daten-liste-inaktiv-toggle\"\n                     [checked]=\"inaktiveAusblenden\" (checkedChange)=\"inaktiveAusblendenGeaendert($event)\">\n    Inaktive ausblenden\n  </mrd-toggle-switch>\n</div>\n\n<div class=\"mrd-daten-liste-spaltenkoepfe\" [mrdSort]=\"kopfSortierung ? sortierung : null\" mrdSortClear [mrdSortDisabled]=\"!kopfSortierung\"\n     (mrdSortChange)=\"sortierungSetzen($event)\">\n  <ng-container *ngFor=\"let spalte of spalten\">\n    <div *ngIf=\"kopfSortierung && spalte.sortierbar; else ohneSortierung\"\n         class=\"mrd-daten-liste-spalte\" [mrd-sort-header]=\"spalte.schluessel\"\n         [arrowPosition]=\"spalte.ausrichtung === 'rechts' ? 'before' : 'after'\"\n         [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n         [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n      {{spalte.titel}}\n    </div>\n    <ng-template #ohneSortierung>\n      <div class=\"mrd-daten-liste-spalte\" [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n           [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n        {{spalte.titel}}\n      </div>\n    </ng-template>\n  </ng-container>\n</div>\n\n<div *ngIf=\"laedt\" class=\"mrd-daten-liste-hinweis\">\n  <mrd-progress-spinner></mrd-progress-spinner>\n</div>\n<div *ngIf=\"!laedt && angezeigt.length === 0\" class=\"mrd-daten-liste-hinweis\">{{leerText}}</div>\n\n<mrd-list *ngIf=\"!laedt\" [class.mrd-daten-liste-leer]=\"angezeigt.length === 0\" class=\"mrd-daten-liste-liste\" divider selectable virtualScroll\n          [items]=\"angezeigt\" [itemSize]=\"zeilenhoehe\" [trackBy]=\"trackBy\" [angeheftet]=\"ausgewaehlt\">\n  <ng-template [mrdListItem]=\"angezeigt\" let-eintrag>\n    <mrd-list-item [selected]=\"istAusgewaehlt(eintrag)\" [class.mrd-daten-liste-inaktiv]=\"istInaktiv(eintrag)\" (click)=\"auswahl.emit(eintrag)\">\n      <div *ngFor=\"let spalte of spalten\" class=\"mrd-daten-liste-spalte\" [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n           [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n        <ng-container *ngIf=\"zelle(spalte.schluessel) as template; else standardZelle\">\n          <ng-container *ngTemplateOutlet=\"template; context: {$implicit: eintrag, ausgewaehlt: istAusgewaehlt(eintrag)}\"></ng-container>\n        </ng-container>\n        <ng-template #standardZelle>\n          <span class=\"mrd-daten-liste-text\" [line-clamp]=\"2\" [mrdToolTip]=\"text(spalte, eintrag)\" showIfTruncated>{{text(spalte, eintrag)}}</span>\n        </ng-template>\n      </div>\n    </mrd-list-item>\n  </ng-template>\n</mrd-list>\n\n<ng-content select=\"[mrdDatenListeAktionen]\"></ng-content>\n", styles: [":host{display:flex;flex-direction:column;box-sizing:border-box;height:100%;min-height:0;width:-moz-max-content;width:max-content;max-width:100%}:host(.mrd-daten-liste-volle-breite),:host-context(.mrd-sidenav-mobile){width:100%}.mrd-daten-liste-kopfbereich,.mrd-daten-liste-liste,.mrd-daten-liste-hinweis,:host ::ng-deep [mrdDatenListeFilter],:host ::ng-deep [mrdDatenListeAktionen]{box-sizing:border-box;width:0;min-width:100%}.mrd-daten-liste-kopfbereich{display:flex;flex-direction:column;gap:8px;padding:8px 16px}.mrd-daten-liste-kopfbereich:empty{display:none}.mrd-daten-liste-suche{width:100%}.mrd-daten-liste-auswahlzeile{display:flex;flex-direction:row;align-items:center;gap:8px}.mrd-daten-liste-betriebe,.mrd-daten-liste-sortierung{flex:1 1 0;min-width:0}.mrd-daten-liste-richtung{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:40px;height:40px;padding:0;border:none;border-radius:50%;background:transparent;color:#494949;cursor:pointer}.mrd-daten-liste-richtung:hover:not(:disabled){background-color:#ebeff3}.mrd-daten-liste-richtung:disabled{opacity:.4;cursor:default}.mrd-daten-liste-richtung svg{width:24px;height:24px;fill:currentColor;transition:transform .15s ease}.mrd-daten-liste-richtung svg.mrd-daten-liste-richtung-absteigend{transform:rotate(180deg)}.mrd-daten-liste-spaltenkoepfe{display:flex;flex-direction:row;align-items:center;flex:0 0 auto;box-sizing:border-box;height:40px;padding:0 16px;overflow:hidden;scrollbar-gutter:stable;background-color:#65b32e;color:#fff;border-bottom:1px solid #FFFFFF;font-size:16px}.mrd-daten-liste-spalte{display:flex;align-items:center;flex:0 0 auto;box-sizing:border-box;min-width:0;padding-right:8px;overflow:hidden}.mrd-daten-liste-spalte.mrd-daten-liste-spalte-flex{flex:1 0 auto}.mrd-daten-liste-spalte.mrd-daten-liste-mitte{justify-content:center}.mrd-daten-liste-spalte.mrd-daten-liste-rechts{justify-content:flex-end}.mrd-daten-liste-spalte:last-child{padding-right:0}.mrd-daten-liste-text{overflow-wrap:anywhere}.mrd-daten-liste-liste{flex:1 1 auto;min-height:0}.mrd-daten-liste-liste.mrd-daten-liste-leer{display:none}:host .mrd-daten-liste-liste ::ng-deep .mrd-list-virtual-scroll{scrollbar-gutter:stable}.mrd-daten-liste-inaktiv:not(.mrd-list-item-selected){color:#949ea7}.mrd-daten-liste-hinweis{display:flex;flex:1 1 auto;align-items:center;justify-content:center;padding:16px;color:#949ea7}\n"] }]
+                }, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mrd-daten-liste-kopfbereich\">\n  <mrd-form-field *ngIf=\"suche\" class=\"mrd-daten-liste-suche\">\n    <mrd-label float=\"never\">{{suchPlatzhalter}}</mrd-label>\n    <mrd-input [value]=\"suchtext\" (valueChange)=\"suchtextGeaendert($event)\"></mrd-input>\n    <mrd-suffix><mrd-icon icon=\"suche\"></mrd-icon></mrd-suffix>\n  </mrd-form-field>\n\n  <div *ngIf=\"betriebFilterSichtbar || sortierAuswahl\" class=\"mrd-daten-liste-auswahlzeile\">\n    <mrd-form-field *ngIf=\"betriebFilterSichtbar\" class=\"mrd-daten-liste-betriebe\">\n      <mrd-label float=\"always\">Betriebe</mrd-label>\n      <mrd-select multiple [value]=\"betriebAuswahl\" (valueChange)=\"betriebFilterGeaendert($event)\">\n        <mrd-select-option [value]=\"ALLE_BETRIEBE\">Alle</mrd-select-option>\n        <mrd-select-option *ngFor=\"let betrieb of betriebe\" [value]=\"betrieb.id\">{{betrieb.name}}</mrd-select-option>\n      </mrd-select>\n    </mrd-form-field>\n    <ng-container *ngIf=\"sortierAuswahl\">\n      <mrd-form-field class=\"mrd-daten-liste-sortierung\">\n        <mrd-label float=\"always\">Sortierung</mrd-label>\n        <mrd-select [value]=\"sortierSchluessel\" (valueChange)=\"sortierSchluesselGeaendert($event)\">\n          <mrd-select-option *ngFor=\"let option of sortierOptionen\" [value]=\"option.schluessel\" noCheckbox>{{option.bezeichnung}}</mrd-select-option>\n        </mrd-select>\n      </mrd-form-field>\n      <!-- Wie in der Schlagliste; in der Standardsortierung gibt es keine Richtung -->\n      <mrd-button-toggle-group class=\"mrd-daten-liste-richtung\" simple primary borderRadius=\"6\"\n                               [value]=\"richtung\" [disabled]=\"!istSortiert\" (valueChange)=\"richtungGeaendert($event)\">\n        <mrd-button toggle-button iconSize=\"1.5em\" [customToggleSelectedTextColor]=\"MrdColor.WEISS\" value=\"asc\" tooltip tooltipText=\"Aufsteigend\">\n          <mrd-icon svgIcon=\"mrd:pfeil-up\"></mrd-icon>\n        </mrd-button>\n        <mrd-button toggle-button iconSize=\"1.5em\" [customToggleSelectedTextColor]=\"MrdColor.WEISS\" value=\"desc\" tooltip tooltipText=\"Absteigend\">\n          <mrd-icon svgIcon=\"mrd:pfeil-down\"></mrd-icon>\n        </mrd-button>\n      </mrd-button-toggle-group>\n    </ng-container>\n  </div>\n\n  <ng-content select=\"[mrdDatenListeFilter]\"></ng-content>\n</div>\n\n<div class=\"mrd-daten-liste-spaltenkoepfe\" [mrdSort]=\"kopfSortierung ? sortierung : null\" mrdSortClear [mrdSortDisabled]=\"!kopfSortierung\"\n     (mrdSortChange)=\"sortierungSetzen($event)\">\n  <ng-container *ngFor=\"let spalte of spalten\">\n    <div *ngIf=\"kopfSortierung && spalte.sortierbar; else ohneSortierung\"\n         class=\"mrd-daten-liste-spalte\" [mrd-sort-header]=\"spalte.schluessel\"\n         [arrowPosition]=\"spalte.ausrichtung === 'rechts' ? 'before' : 'after'\"\n         [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n         [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n      {{spalte.titel}}\n    </div>\n    <ng-template #ohneSortierung>\n      <div class=\"mrd-daten-liste-spalte\" [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n           [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n        {{spalte.titel}}\n      </div>\n    </ng-template>\n  </ng-container>\n</div>\n\n<div *ngIf=\"laedt\" class=\"mrd-daten-liste-hinweis\">\n  <mrd-progress-spinner></mrd-progress-spinner>\n</div>\n<div *ngIf=\"!laedt && angezeigt.length === 0\" class=\"mrd-daten-liste-hinweis\">{{leerText}}</div>\n\n<mrd-list *ngIf=\"!laedt\" [class.mrd-daten-liste-leer]=\"angezeigt.length === 0\" class=\"mrd-daten-liste-liste\" divider selectable virtualScroll\n          [items]=\"angezeigt\" [itemSize]=\"zeilenhoehe\" [trackBy]=\"trackBy\" [angeheftet]=\"ausgewaehlt\">\n  <ng-template [mrdListItem]=\"angezeigt\" let-eintrag>\n    <mrd-list-item [selected]=\"istAusgewaehlt(eintrag)\" [class.mrd-daten-liste-inaktiv]=\"istInaktiv(eintrag)\" (click)=\"auswahl.emit(eintrag)\">\n      <div *ngFor=\"let spalte of spalten\" class=\"mrd-daten-liste-spalte\" [class.mrd-daten-liste-spalte-flex]=\"spalte.flex\" [style.width.px]=\"spalte.breite\"\n           [class.mrd-daten-liste-mitte]=\"spalte.ausrichtung === 'mitte'\" [class.mrd-daten-liste-rechts]=\"spalte.ausrichtung === 'rechts'\">\n        <ng-container *ngIf=\"zelle(spalte.schluessel) as template; else standardZelle\">\n          <ng-container *ngTemplateOutlet=\"template; context: {$implicit: eintrag, ausgewaehlt: istAusgewaehlt(eintrag)}\"></ng-container>\n        </ng-container>\n        <ng-template #standardZelle>\n          <span class=\"mrd-daten-liste-text\" [line-clamp]=\"2\" [mrdToolTip]=\"text(spalte, eintrag)\" showIfTruncated>{{text(spalte, eintrag)}}</span>\n        </ng-template>\n      </div>\n    </mrd-list-item>\n  </ng-template>\n</mrd-list>\n\n<ng-content select=\"[mrdDatenListeAktionen]\"></ng-content>\n", styles: [":host{display:flex;flex-direction:column;box-sizing:border-box;height:100%;min-height:0;width:-moz-max-content;width:max-content;max-width:100%}:host(.mrd-daten-liste-volle-breite),:host-context(.mrd-sidenav-mobile){width:100%}.mrd-daten-liste-kopfbereich,.mrd-daten-liste-liste,.mrd-daten-liste-hinweis,:host ::ng-deep [mrdDatenListeFilter]{box-sizing:border-box;width:0;min-width:100%}:host ::ng-deep [mrdDatenListeAktionen]{box-sizing:border-box;min-width:100%}.mrd-daten-liste-kopfbereich{display:flex;flex-direction:column;gap:8px;padding:8px 16px}.mrd-daten-liste-kopfbereich:empty{display:none}.mrd-daten-liste-suche{width:100%}.mrd-daten-liste-auswahlzeile{display:flex;flex-direction:row;align-items:center;gap:8px}.mrd-daten-liste-betriebe,.mrd-daten-liste-sortierung{flex:1 1 0;min-width:0}.mrd-daten-liste-richtung{flex:0 0 80px}.mrd-daten-liste-richtung ::ng-deep mrd-button .mrd-button-container mrd-icon{margin-right:0}.mrd-daten-liste-spaltenkoepfe{display:flex;flex-direction:row;align-items:center;flex:0 0 auto;box-sizing:border-box;height:40px;padding:0 16px;overflow:hidden;scrollbar-gutter:stable;background-color:#65b32e;color:#fff;border-bottom:1px solid #FFFFFF;font-size:16px}.mrd-daten-liste-spalte{display:flex;align-items:center;flex:0 0 auto;box-sizing:border-box;min-width:0;padding-right:8px;overflow:hidden}.mrd-daten-liste-spalte.mrd-daten-liste-spalte-flex{flex:1 0 auto}.mrd-daten-liste-spalte.mrd-daten-liste-mitte{justify-content:center}.mrd-daten-liste-spalte.mrd-daten-liste-rechts{justify-content:flex-end}.mrd-daten-liste-spalte:last-child{padding-right:0}.mrd-daten-liste-text{overflow-wrap:anywhere}.mrd-daten-liste-liste{flex:1 1 auto;min-height:0}.mrd-daten-liste-liste.mrd-daten-liste-leer{display:none}:host .mrd-daten-liste-liste ::ng-deep .mrd-list-virtual-scroll{scrollbar-gutter:stable}.mrd-daten-liste-inaktiv:not(.mrd-list-item-selected){background-color:#ebeff3;color:#949ea7}.mrd-daten-liste-hinweis{display:flex;flex:1 1 auto;align-items:center;justify-content:center;padding:16px;color:#949ea7}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { zellen: [{
             type: ContentChildren,
             args: [MrdDatenListeZelleDirective]
@@ -15336,10 +15357,61 @@ class MrdDatenListeComponent extends BaseObject {
             type: Output
         }] }); })();
 
+function MrdDatenListeInaktivSchalterComponent_mrd_toggle_switch_0_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+    i0.ɵɵelementContainerStart(0);
+    i0.ɵɵtext(1);
+    i0.ɵɵelementContainerEnd();
+} if (rf & 2) {
+    const ctx_r1 = i0.ɵɵnextContext(2);
+    i0.ɵɵadvance(1);
+    i0.ɵɵtextInterpolate(ctx_r1.TEXT);
+} }
+function MrdDatenListeInaktivSchalterComponent_mrd_toggle_switch_0_Template(rf, ctx) { if (rf & 1) {
+    const _r3 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "mrd-toggle-switch", 1);
+    i0.ɵɵlistener("checkedChange", function MrdDatenListeInaktivSchalterComponent_mrd_toggle_switch_0_Template_mrd_toggle_switch_checkedChange_0_listener($event) { i0.ɵɵrestoreView(_r3); const ctx_r2 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r2.liste.inaktiveAusblendenGeaendert($event)); });
+    i0.ɵɵtemplate(1, MrdDatenListeInaktivSchalterComponent_mrd_toggle_switch_0_ng_container_1_Template, 2, 1, "ng-container", 2);
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r0 = i0.ɵɵnextContext();
+    i0.ɵɵproperty("mrdToolTip", ctx_r0.kompakt ? ctx_r0.TEXT : null)("checked", ctx_r0.liste.inaktiveAusblenden);
+    i0.ɵɵadvance(1);
+    i0.ɵɵproperty("ngIf", !ctx_r0.kompakt);
+} }
+/**
+ * Schalter "Inaktive ausblenden" fuer die Aktionen einer `mrd-daten-liste` (z. B. in `<mrd-toolbar mrdDatenListeAktionen>`);
+ * steuert die umschliessende Liste und erscheint nur, wenn sie eine `inaktivPruefung` hat.
+ * `kompakt` zeigt nur den Schalter, den Text als Tooltip - fuer schmale Listen.
+ */
+class MrdDatenListeInaktivSchalterComponent {
+    liste;
+    static TEXT = 'Inaktive ausblenden';
+    TEXT = MrdDatenListeInaktivSchalterComponent.TEXT;
+    kompakt = false;
+    constructor(liste) {
+        this.liste = liste;
+    }
+    /** @nocollapse */ static ɵfac = function MrdDatenListeInaktivSchalterComponent_Factory(t) { return new (t || MrdDatenListeInaktivSchalterComponent)(i0.ɵɵdirectiveInject(MrdDatenListeComponent)); };
+    /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdDatenListeInaktivSchalterComponent, selectors: [["mrd-daten-liste-inaktiv-schalter"]], inputs: { kompakt: ["kompakt", "kompakt", booleanAttribute] }, features: [i0.ɵɵInputTransformsFeature], decls: 1, vars: 1, consts: [["slim", "", 3, "mrdToolTip", "checked", "checkedChange", 4, "ngIf"], ["slim", "", 3, "mrdToolTip", "checked", "checkedChange"], [4, "ngIf"]], template: function MrdDatenListeInaktivSchalterComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵtemplate(0, MrdDatenListeInaktivSchalterComponent_mrd_toggle_switch_0_Template, 2, 3, "mrd-toggle-switch", 0);
+        } if (rf & 2) {
+            i0.ɵɵproperty("ngIf", ctx.liste.inaktivPruefung);
+        } }, dependencies: [i1$1.NgIf, MrdToggleSwitchComponent, ToolTipRendererDirective], styles: ["[_nghost-%COMP%]{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap;font-size:14px}"] });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDatenListeInaktivSchalterComponent, [{
+        type: Component,
+        args: [{ selector: 'mrd-daten-liste-inaktiv-schalter', template: "<mrd-toggle-switch *ngIf=\"liste.inaktivPruefung\" slim [mrdToolTip]=\"kompakt ? TEXT : null\"\n                   [checked]=\"liste.inaktiveAusblenden\" (checkedChange)=\"liste.inaktiveAusblendenGeaendert($event)\">\n  <ng-container *ngIf=\"!kompakt\">{{TEXT}}</ng-container>\n</mrd-toggle-switch>\n", styles: [":host{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap;font-size:14px}\n"] }]
+    }], function () { return [{ type: MrdDatenListeComponent }]; }, { kompakt: [{
+            type: Input,
+            args: [{ transform: booleanAttribute }]
+        }] }); })();
+
 class MrdDatenListeModule {
     /** @nocollapse */ static ɵfac = function MrdDatenListeModule_Factory(t) { return new (t || MrdDatenListeModule)(); };
     /** @nocollapse */ static ɵmod = /** @pureOrBreakMyCode */ i0.ɵɵdefineNgModule({ type: MrdDatenListeModule });
     /** @nocollapse */ static ɵinj = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjector({ imports: [CommonModule,
+            MrdButtonModule,
+            MrdButtonToggleModule,
             MrdFormFieldModule,
             MrdIconModule,
             MrdListModule,
@@ -15353,10 +15425,13 @@ class MrdDatenListeModule {
         args: [{
                 declarations: [
                     MrdDatenListeComponent,
+                    MrdDatenListeInaktivSchalterComponent,
                     MrdDatenListeZelleDirective
                 ],
                 imports: [
                     CommonModule,
+                    MrdButtonModule,
+                    MrdButtonToggleModule,
                     MrdFormFieldModule,
                     MrdIconModule,
                     MrdListModule,
@@ -15367,12 +15442,16 @@ class MrdDatenListeModule {
                 ],
                 exports: [
                     MrdDatenListeComponent,
+                    MrdDatenListeInaktivSchalterComponent,
                     MrdDatenListeZelleDirective
                 ]
             }]
     }], null, null); })();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(MrdDatenListeModule, { declarations: [MrdDatenListeComponent,
+        MrdDatenListeInaktivSchalterComponent,
         MrdDatenListeZelleDirective], imports: [CommonModule,
+        MrdButtonModule,
+        MrdButtonToggleModule,
         MrdFormFieldModule,
         MrdIconModule,
         MrdListModule,
@@ -15380,11 +15459,12 @@ class MrdDatenListeModule {
         MrdSortModule,
         MrdToggleSwitchModule,
         MrdTooltipModule], exports: [MrdDatenListeComponent,
+        MrdDatenListeInaktivSchalterComponent,
         MrdDatenListeZelleDirective] }); })();
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatenListeComponent, MrdDatenListeModule, MrdDatenListeUtil, MrdDatenListeZelleDirective, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatenListeComponent, MrdDatenListeInaktivSchalterComponent, MrdDatenListeModule, MrdDatenListeUtil, MrdDatenListeZelleDirective, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

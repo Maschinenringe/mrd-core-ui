@@ -1,19 +1,25 @@
 import { ChangeDetectorRef, EventEmitter, OnChanges, QueryList, SimpleChanges, TemplateRef, TrackByFunction } from '@angular/core';
 import { BaseObject } from 'mrd-core';
+import { MrdColor } from '../../../../common/enum/color.enum';
 import { MrdSortierung } from '../../../mrd-sort/common/model/mrd-sort.model';
 import { MrdDatenListeZelleDirective } from '../../common/directive/mrd-daten-liste-zelle.directive';
 import { MrdDatenListeBetrieb, MrdDatenListeSortierOption, MrdDatenListeSpalte, MrdDatenListeSuchfeld, MrdDatenListeZelleKontext } from '../../common/model/mrd-daten-liste.model';
 import * as i0 from "@angular/core";
 /**
- * Liste mit Spalten fuer Stammdaten-Seiten: oben Suche, Betriebs-Filter, Sortierung, Inaktiv-Toggle und eigene Filter
- * (`[mrdDatenListeFilter]`), in der Mitte Spaltenkoepfe und virtuelle Liste, unten eigene Aktionen (`[mrdDatenListeAktionen]`).
- * Die Breite ergibt sich aus den Spalten; in einer mobilen `mrd-sidenav` nimmt die Liste die volle Breite ein.
+ * Liste mit Spalten fuer Stammdaten-Seiten: oben Suche, Betriebs-Filter, Sortierung und eigene Filter (`[mrdDatenListeFilter]`),
+ * in der Mitte Spaltenkoepfe und virtuelle Liste, unten eigene Aktionen (`[mrdDatenListeAktionen]`), dort auch der
+ * Schalter `<mrd-daten-liste-inaktiv-schalter>`.
+ * Die Breite ergibt sich aus Spalten und Aktionen; in einer mobilen `mrd-sidenav` nimmt die Liste die volle Breite ein.
  * `eintraege` kommen in der Standardsortierung; jede Sortierung laesst sich wieder darauf zuruecksetzen.
  */
 export declare class MrdDatenListeComponent<T = any> extends BaseObject implements OnChanges {
     private cdr;
     static readonly STANDARD: string;
     static readonly BETRIEB: string;
+    /** Option "Alle" im Betriebs-Filter; steht fuer einen leeren Filter */
+    static readonly ALLE_BETRIEBE: string;
+    readonly ALLE_BETRIEBE: string;
+    readonly MrdColor: typeof MrdColor;
     set zellen(value: QueryList<MrdDatenListeZelleDirective<T>>);
     private liste;
     /** In der Standardsortierung, z. B. direkt aus dem Store */
@@ -36,7 +42,7 @@ export declare class MrdDatenListeComponent<T = any> extends BaseObject implemen
     sortierAuswahl: boolean;
     /** Leer oder ohne Richtung: Standardsortierung */
     sortierung: MrdSortierung;
-    /** Kennzeichnet inaktive Eintraege; nur damit erscheint der Toggle "Inaktive ausblenden" */
+    /** Kennzeichnet inaktive Eintraege; nur damit erscheint `<mrd-daten-liste-inaktiv-schalter>` */
     inaktivPruefung: (eintrag: T) => boolean;
     inaktiveAusblenden: boolean;
     /** Ab zwei Betrieben erscheint der Betriebs-Filter */
@@ -55,6 +61,8 @@ export declare class MrdDatenListeComponent<T = any> extends BaseObject implemen
     inaktiveAusblendenChange: EventEmitter<boolean>;
     betriebFilterChange: EventEmitter<number[]>;
     angezeigt: T[];
+    /** Wert des Betriebs-Selects; ohne Filter steht dort "Alle" (stabil, damit das Select nicht bei jedem Durchlauf neu setzt) */
+    betriebAuswahl: (number | string)[];
     suchtext: string;
     sortierOptionen: MrdDatenListeSortierOption[];
     readonly trackBy: TrackByFunction<T>;
@@ -66,6 +74,7 @@ export declare class MrdDatenListeComponent<T = any> extends BaseObject implemen
     get betriebFilterSichtbar(): boolean;
     get sortierSchluessel(): string;
     get absteigend(): boolean;
+    get richtung(): 'asc' | 'desc' | null;
     get istSortiert(): boolean;
     /** Summe der Spaltenbreiten; die Liste selbst ergaenzt Innenabstand und Scrollbar */
     get spaltenBreite(): number;
@@ -76,11 +85,17 @@ export declare class MrdDatenListeComponent<T = any> extends BaseObject implemen
     suchtextGeaendert(text: string): void;
     sortierungSetzen(sortierung: MrdSortierung): void;
     sortierSchluesselGeaendert(schluessel: string): void;
-    richtungUmschalten(): void;
+    richtungGeaendert(richtung: 'asc' | 'desc'): void;
+    /** Auch fuer `<mrd-daten-liste-inaktiv-schalter>`, der ausserhalb dieser View liegt */
     inaktiveAusblendenGeaendert(ausblenden: boolean): void;
-    betriebFilterGeaendert(ids: number[]): void;
+    /**
+     * "Alle" schliesst die einzelnen Betriebe aus und umgekehrt: Wird "Alle" neu angehakt, faellt der Filter weg;
+     * wird ein Betrieb angehakt, verschwindet "Alle". Ohne Betrieb steht wieder "Alle" da.
+     */
+    betriebFilterGeaendert(werte: (number | string)[]): void;
     zurAuswahlScrollen(): void;
     private aktualisieren;
+    private betriebAuswahlSetzen;
     private sortierOptionenBerechnen;
     private sortierwert;
     private idVon;
