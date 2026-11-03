@@ -19,7 +19,11 @@ export declare class MrdTabComponent implements OnDestroy {
     set configname(value: string);
     get configname(): string;
     private _configname;
-    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung, Sperre und Configname, damit der Kopf aktualisiert wird */
+    /** Tooltip am Tabkopf; ohne Text (null, leer) erscheint keiner. `*mrdTab="'Label'; tooltip: text"` */
+    set tooltip(value: string | null);
+    get tooltip(): string | null;
+    private _tooltip;
+    /** Meldet der (OnPush-)Tab-Gruppe Aenderungen an Beschriftung, Sperre, Configname und Tooltip, damit der Kopf aktualisiert wird */
     readonly zustandGeaendert: Subject<void>;
     private _embeddedViewRef;
     get content(): ViewRef | null;
@@ -38,7 +42,7 @@ export declare class MrdTabComponent implements OnDestroy {
     constructor(cdr: ChangeDetectorRef, tr: TemplateRef<any>);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdTabComponent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdTabComponent, "[mrdTab]", never, { "label": { "alias": "mrdTab"; "required": false; }; "disabled": { "alias": "mrdTabDisabled"; "required": false; }; "configname": { "alias": "mrdTabConfigname"; "required": false; }; "preserveContent": { "alias": "mrdTabPreserveContent"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MrdTabComponent, "[mrdTab]", never, { "label": { "alias": "mrdTab"; "required": false; }; "disabled": { "alias": "mrdTabDisabled"; "required": false; }; "configname": { "alias": "mrdTabConfigname"; "required": false; }; "tooltip": { "alias": "mrdTabTooltip"; "required": false; }; "preserveContent": { "alias": "mrdTabPreserveContent"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_preserveContent: unknown;
 }
