@@ -1,3 +1,4 @@
+import { Injector } from '@angular/core';
 /**
  * Das Interface für die Konfiguration der MrdFlyOutComponent.
  *
@@ -11,6 +12,14 @@ export interface MrdFlyOutConfig {
      * @memberof MrdFlyOutConfig
      */
     data?: any;
+    /**
+     * Eltern-Injector der eingebetteten Komponente, z. B. der des Aufrufers, damit das FlyOut dessen
+     * Component-Provider erbt. Default: der Injector des FlyOutService (Root).
+     *
+     * @type {Injector}
+     * @memberof MrdFlyOutConfig
+     */
+    injector?: Injector;
     /**
      * Die Richtung, aus der das FlyOut einfliegt.
      * Default: 'bottom'

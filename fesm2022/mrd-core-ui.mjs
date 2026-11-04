@@ -4825,7 +4825,7 @@ class FlyOutService {
         // Wir erzeugen einen neuen Injector, um die Daten und die Referenz auf die MrdFlyOutComponent, an die eingebettete Komponente zu übergeben
         let contentInjector = Injector.create({
             providers: [{ provide: FlyOutData, useValue: config?.data }, { provide: (ComponentRef), useValue: componentRef }],
-            parent: this.injector
+            parent: config?.injector ?? this.injector
         });
         // Wir fügen die eingebettete Komponente in das FlyOut ein
         let contentRef = componentRef.instance.content.createComponent(component, { injector: contentInjector });
