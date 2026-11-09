@@ -102,6 +102,7 @@ var IconName;
     IconName["SCHNEIDEN"] = "schneiden";
     IconName["LINIE"] = "linie";
     IconName["LINEAL"] = "lineal";
+    IconName["KALENDER"] = "kalender";
 })(IconName || (IconName = {}));
 /** Gemeinsame Attribute der Strich-Symbole; die IconFactory faerbt `stroke` wie `fill` ein, `fill="none"` bleibt */
 const STRICH = 'stroke="#293D4F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"';
@@ -165,6 +166,8 @@ class IconLib {
     static SCHNEIDEN_PUR = `<circle cx="18" cy="46" r="8" ${STRICH}/><circle cx="46" cy="46" r="8" ${STRICH}/><path d="M23.5 40L50 8M40.5 40L14 8" ${STRICH}/>`;
     static LINIE_PUR = `<path d="M8 8V56H56M16 44L28 28L38 36L54 16" ${STRICH}/>`;
     static LINEAL_PUR = `<path d="M10 10L54 54H10ZM20 34L30 44H20ZM10 22H16M10 32H16M10 42H16M32 54V48M42 54V48" ${STRICH}/>`;
+    /** Bisheriges Datepicker-Icon (Ursprung 14.986 x 17.127), mittig auf 52 Einheiten Hoehe skaliert */
+    static KALENDER_PUR = `<path transform="translate(9.25 6) scale(3.036)" fill="#293D4F" d="M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z"/>`;
     /** Symbole fuer die Darstellung im Rahmen; Symbole, die es nur ohne Rahmen gibt, stehen nur in der PurMap */
     static IconMap = {
         [IconName.OUTLINE]: IconLib.KREIS_OUTLINE,
@@ -198,7 +201,8 @@ class IconLib {
         [IconName.SPIEGELN]: IconLib.imRahmen(IconLib.SPIEGELN_PUR),
         [IconName.SCHNEIDEN]: IconLib.imRahmen(IconLib.SCHNEIDEN_PUR),
         [IconName.LINIE]: IconLib.imRahmen(IconLib.LINIE_PUR),
-        [IconName.LINEAL]: IconLib.imRahmen(IconLib.LINEAL_PUR)
+        [IconName.LINEAL]: IconLib.imRahmen(IconLib.LINEAL_PUR),
+        [IconName.KALENDER]: IconLib.imRahmen(IconLib.KALENDER_PUR)
     };
     /**
      * Varianten ohne Rahmen (_PUR): Sie fuellen das Raster weiter aus als die Symbole fuer den Kreis
@@ -234,7 +238,8 @@ class IconLib {
         [IconName.SPIEGELN]: IconLib.SPIEGELN_PUR,
         [IconName.SCHNEIDEN]: IconLib.SCHNEIDEN_PUR,
         [IconName.LINIE]: IconLib.LINIE_PUR,
-        [IconName.LINEAL]: IconLib.LINEAL_PUR
+        [IconName.LINEAL]: IconLib.LINEAL_PUR,
+        [IconName.KALENDER]: IconLib.KALENDER_PUR
     };
 }
 
@@ -7206,7 +7211,7 @@ function MrdInputComponent_input_0_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("pointer-events", ctx_r0.readonly ? "none" : "auto")("text-align", ctx_r0.textEnd ? "end" : ctx_r0.centered ? "center" : "start");
-    i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.number || ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.nachkommastellen)("timeInput", ctx_r0.time);
+    i0.ɵɵproperty("value", ctx_r0.value)("disabled", (ctx_r0.formControl == null ? null : ctx_r0.formControl.disabled) || ctx_r0.disabled)("placeholder", !ctx_r0.labelPresent || ctx_r0.isFocused || ctx_r0.labelOben ? ctx_r0.placeholder : "")("decimalNumber", ctx_r0.number || ctx_r0.maxDigits || ctx_r0.maxDigits === 0)("nachkommastellen", ctx_r0.nachkommastellen)("timeInput", ctx_r0.time);
     i0.ɵɵattribute("inputmode", ctx_r0.number ? "decimal" : null);
 } }
 const _c4$4 = function (a0) { return { "line-height": a0 }; };
@@ -7218,7 +7223,7 @@ function MrdInputComponent_textarea_1_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r1 = i0.ɵɵnextContext();
     i0.ɵɵstyleProp("pointer-events", ctx_r1.readonly ? "none" : "auto");
-    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(6, _c4$4, ctx_r1.lineHeight + "px"));
+    i0.ɵɵproperty("value", ctx_r1.value)("disabled", (ctx_r1.formControl == null ? null : ctx_r1.formControl.disabled) || ctx_r1.disabled)("placeholder", !ctx_r1.labelPresent || ctx_r1.isFocused || ctx_r1.labelOben ? ctx_r1.placeholder : "")("ngStyle", i0.ɵɵpureFunction1(6, _c4$4, ctx_r1.lineHeight + "px"));
 } }
 function MrdInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵelement(0, "div", null, 9);
@@ -7227,27 +7232,23 @@ function MrdInputComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     const _r23 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "div")(1, "mrd-button", 10);
     i0.ɵɵlistener("click", function MrdInputComponent_div_3_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r23); const ctx_r22 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r22.toggleClicked()); });
-    i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(2, "svg", 11)(3, "defs")(4, "style");
-    i0.ɵɵtext(5, ".a{fill:#494949;}");
+    i0.ɵɵelement(2, "mrd-icon", 11);
     i0.ɵɵelementEnd()();
-    i0.ɵɵelement(6, "path", 12);
-    i0.ɵɵelementEnd()()();
 } if (rf & 2) {
     const ctx_r3 = i0.ɵɵnextContext();
     i0.ɵɵadvance(1);
     i0.ɵɵproperty("disabled", (ctx_r3.formControl == null ? null : ctx_r3.formControl.disabled) || ctx_r3.disabled);
 } }
 function MrdInputComponent_div_4_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelement(0, "div", null, 13);
+    i0.ɵɵelement(0, "div", null, 12);
 } }
 function MrdInputComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     const _r26 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "div")(1, "mrd-button", 14);
+    i0.ɵɵelementStart(0, "div")(1, "mrd-button", 13);
     i0.ɵɵlistener("click", function MrdInputComponent_div_5_Template_mrd_button_click_1_listener() { i0.ɵɵrestoreView(_r26); const ctx_r25 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r25.toggleClicked()); });
     i0.ɵɵnamespaceSVG();
-    i0.ɵɵelementStart(2, "svg", 15);
-    i0.ɵɵelement(3, "path", 16)(4, "path", 17)(5, "path", 18);
+    i0.ɵɵelementStart(2, "svg", 14);
+    i0.ɵɵelement(3, "path", 15)(4, "path", 16)(5, "path", 17);
     i0.ɵɵelementEnd()()();
 } if (rf & 2) {
     const ctx_r5 = i0.ɵɵnextContext();
@@ -7255,13 +7256,13 @@ function MrdInputComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵproperty("disabled", (ctx_r5.formControl == null ? null : ctx_r5.formControl.disabled) || ctx_r5.disabled);
 } }
 function MrdInputComponent_span_6_Template(rf, ctx) { if (rf & 1) {
-    i0.ɵɵelementStart(0, "span", 19);
+    i0.ɵɵelementStart(0, "span", 18);
     i0.ɵɵprojection(1);
     i0.ɵɵelementEnd();
 } }
 function MrdInputComponent_ng_template_7_Template(rf, ctx) { if (rf & 1) {
     const _r28 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-datepicker", 20);
+    i0.ɵɵelementStart(0, "mrd-datepicker", 19);
     i0.ɵɵlistener("dateChanged", function MrdInputComponent_ng_template_7_Template_mrd_datepicker_dateChanged_0_listener($event) { i0.ɵɵrestoreView(_r28); const ctx_r27 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r27.dateChanged($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
@@ -7270,7 +7271,7 @@ function MrdInputComponent_ng_template_7_Template(rf, ctx) { if (rf & 1) {
 } }
 function MrdInputComponent_ng_template_8_Template(rf, ctx) { if (rf & 1) {
     const _r30 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "mrd-timepicker", 21);
+    i0.ɵɵelementStart(0, "mrd-timepicker", 20);
     i0.ɵɵlistener("timeChanged", function MrdInputComponent_ng_template_8_Template_mrd_timepicker_timeChanged_0_listener($event) { i0.ɵɵrestoreView(_r30); const ctx_r29 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r29.timeChanged($event)); });
     i0.ɵɵelementEnd();
 } if (rf & 2) {
@@ -7369,6 +7370,21 @@ class MrdInputComponent extends BaseObject {
         return this._labelPresent;
     }
     _labelPresent = false;
+    /**
+     * Von `mrd-form-field` mit mehreren Inputs (`mrd-date-range-picker`) gesetzt, solange das Label oben steht:
+     * Dann ueberdeckt es keinen Placeholder, und alle Placeholder (z. B. "Von" und "Bis") bleiben sichtbar.
+     */
+    set labelOben(value) {
+        if (this._labelOben === value) {
+            return;
+        }
+        this._labelOben = value;
+        this.cdr.detectChanges();
+    }
+    get labelOben() {
+        return this._labelOben;
+    }
+    _labelOben = false;
     isFocused = false;
     showDatepicker = new ObservableValue(false);
     showTimepicker = new ObservableValue(false);
@@ -7693,12 +7709,12 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.textAreaElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.timeInputElement = _t.first);
-        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], number: ["number", "number", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["mrd-icon", "", "xmlns", "http://www.w3.org/2000/svg", "width", "100%", "height", "100%", "viewBox", "0 0 14.986 17.127", "fit", "", "preserveAspectRatio", "xMidYMid meet", "focusable", "false"], ["d", "M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z", "transform", "translate(0 0)", 1, "a"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { formControl: ["mrdFormControl", "formControl"], placeholder: "placeholder", value: "value", maxLength: ["maxLength", "maxLength", numberAttribute], minRows: ["minRows", "minRows", numberAttribute], maxRows: ["maxRows", "maxRows", numberAttribute], lineHeight: ["lineHeight", "lineHeight", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], required: ["required", "required", booleanAttribute], textarea: ["textarea", "textarea", booleanAttribute], date: ["date", "date", booleanAttribute], rangeStart: ["rangeStart", "rangeStart", booleanAttribute], rangeEnd: ["rangeEnd", "rangeEnd", booleanAttribute], time: ["time", "time", booleanAttribute], number: ["number", "number", booleanAttribute], customDateTimeToggle: ["customDateTimeToggle", "customDateTimeToggle", booleanAttribute], validateOnBlur: ["validateOnBlur", "validateOnBlur", booleanAttribute], formControlChangeOnBlur: ["formControlChangeOnBlur", "formControlChangeOnBlur", booleanAttribute], color: ["color", "color", colorAttribute], centered: ["text-centered", "centered", booleanAttribute], textEnd: ["text-end", "textEnd", booleanAttribute], datePickerToggle: "datePickerToggle", maxDigits: "maxDigits", autofocus: ["autofocus", "autofocus", booleanAttribute] }, outputs: { touched: "touched", focused: "focused", blurred: "blurred", valueChange: "valueChange", inputChange: "inputChange" }, features: [i0.ɵɵInputTransformsFeature, i0.ɵɵInheritDefinitionFeature], ngContentSelectors: _c6$1, decls: 9, vars: 15, consts: [[3, "value", "disabled", "placeholder", "pointer-events", "text-align", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input", 4, "ngIf"], ["rows", "1", 3, "value", "disabled", "placeholder", "pointer-events", "ngStyle", "click", "focus", "blur", "input", 4, "ngIf"], [4, "ngIf"], ["class", "unfocusedOverlay", 4, "ngIf"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], [3, "value", "disabled", "placeholder", "decimalNumber", "nachkommastellen", "timeInput", "click", "focus", "blur", "input"], ["baseInput", ""], ["rows", "1", 3, "value", "disabled", "placeholder", "ngStyle", "click", "focus", "blur", "input"], ["textArea", ""], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "disabled", "click"], ["icon", "kalender", "color", "#494949", "size", "16"], ["timeInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "18", 3, "disabled", "click"], ["mrd-icon", "", "viewBox", "0 0 24 24", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M12 6V12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M16.24 16.24L12 12", "stroke", "#000000", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "unfocusedOverlay"], [3, "date", "dateChanged"], [3, "time", "timeChanged"]], template: function MrdInputComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c5$3);
             i0.ɵɵtemplate(0, MrdInputComponent_input_0_Template, 2, 11, "input", 0);
             i0.ɵɵtemplate(1, MrdInputComponent_textarea_1_Template, 2, 8, "textarea", 1);
             i0.ɵɵtemplate(2, MrdInputComponent_div_2_Template, 2, 0, "div", 2);
-            i0.ɵɵtemplate(3, MrdInputComponent_div_3_Template, 7, 1, "div", 2);
+            i0.ɵɵtemplate(3, MrdInputComponent_div_3_Template, 3, 1, "div", 2);
             i0.ɵɵtemplate(4, MrdInputComponent_div_4_Template, 2, 0, "div", 2);
             i0.ɵɵtemplate(5, MrdInputComponent_div_5_Template, 6, 1, "div", 2);
             i0.ɵɵtemplate(6, MrdInputComponent_span_6_Template, 2, 0, "span", 3);
@@ -7724,11 +7740,11 @@ class MrdInputComponent extends BaseObject {
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.dateInputElement)("cdkConnectedOverlayOpen", ctx.showDatepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("cdkConnectedOverlayHasBackdrop", true)("cdkConnectedOverlayOrigin", ctx.timeInputElement)("cdkConnectedOverlayOpen", ctx.showTimepicker.value)("cdkConnectedOverlayPositions", ctx._positions);
-        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, DecimalNumberDirective, TimeInputDirective, MrdDatepickerComponent, MrdTimepickerComponent], styles: ["@charset \"UTF-8\";[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{scrollbar-color:#999 transparent}textarea[_ngcontent-%COMP%]::-webkit-scrollbar{width:10px;background:transparent}textarea[_ngcontent-%COMP%]::-webkit-scrollbar-thumb{background:#999;border-radius:5px}textarea[_ngcontent-%COMP%]::-webkit-scrollbar-corner{background:transparent}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
+        } }, dependencies: [i1$1.NgIf, i1$1.NgStyle, i1$2.CdkConnectedOverlay, MrdButtonComponent, MrdIconComponent, DecimalNumberDirective, TimeInputDirective, MrdDatepickerComponent, MrdTimepickerComponent], styles: ["@charset \"UTF-8\";[_nghost-%COMP%]{width:100%;display:flex;flex-direction:row}input[_ngcontent-%COMP%]{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled][_ngcontent-%COMP%]{color:#afa6a6}textarea[_ngcontent-%COMP%]{scrollbar-color:#999 transparent}textarea[_ngcontent-%COMP%]::-webkit-scrollbar{width:10px;background:transparent}textarea[_ngcontent-%COMP%]::-webkit-scrollbar-thumb{background:#999;border-radius:5px}textarea[_ngcontent-%COMP%]::-webkit-scrollbar-corner{background:transparent}.unfocusedOverlay[_ngcontent-%COMP%]{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}"], changeDetection: 0 });
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdInputComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [decimalNumber]=\"number || maxDigits || maxDigits === 0\" [nachkommastellen]=\"nachkommastellen\"\r\n  [attr.inputmode]=\"number ? 'decimal' : null\"\r\n  [timeInput]=\"time\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 14.986 17.127\" fit=\"\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\">\r\n      <defs><style>.a{fill:#494949;}</style></defs>\r\n      <path class=\"a\" d=\"M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z\" transform=\"translate(0 0)\"></path>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<div #timeInput *ngIf=\"time\"></div>\r\n<div *ngIf=\"time && !customDateTimeToggle\">  \r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M12 6V12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M16.24 16.24L12 12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false;\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showTimepicker.value = false;\"\r\n>\r\n  <mrd-timepicker\r\n    [time]=\"value\"\r\n    (timeChanged)=\"timeChanged($event)\"\r\n  ></mrd-timepicker>\r\n</ng-template>", styles: ["@charset \"UTF-8\";:host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}textarea{scrollbar-color:#999 transparent}textarea::-webkit-scrollbar{width:10px;background:transparent}textarea::-webkit-scrollbar-thumb{background:#999;border-radius:5px}textarea::-webkit-scrollbar-corner{background:transparent}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
+        args: [{ selector: 'mrd-input', changeDetection: ChangeDetectionStrategy.OnPush, template: "<input #baseInput\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused || labelOben ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  [style.text-align]=\"textEnd ? 'end' : centered ? 'center' : 'start'\"\r\n  [decimalNumber]=\"number || maxDigits || maxDigits === 0\" [nachkommastellen]=\"nachkommastellen\"\r\n  [attr.inputmode]=\"number ? 'decimal' : null\"\r\n  [timeInput]=\"time\"\r\n  *ngIf=\"!textarea\"\r\n  >\r\n\r\n<textarea #textArea\r\n  (click)=\"inputClicked($event)\"\r\n  (focus)=\"focus($event)\"\r\n  (blur)=\"blur($event)\"\r\n  [value]=\"value\"\r\n  (input)=\"input($event)\"\r\n  [disabled]=\"formControl?.disabled || disabled\"\r\n  [placeholder]=\"!labelPresent || isFocused || labelOben ? placeholder : ''\"\r\n  [style.pointer-events]=\"readonly ? 'none' : 'auto'\"\r\n  *ngIf=\"textarea\"\r\n  rows=\"1\"\r\n  [ngStyle]=\"{'line-height': lineHeight + 'px'}\"\r\n></textarea>\r\n\r\n\r\n<div #dateInput *ngIf=\"date\"></div>\r\n<div *ngIf=\"date && !customDateTimeToggle && !rangeStart && !rangeEnd\" >\r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <mrd-icon icon=\"kalender\" color=\"#494949\" size=\"16\"></mrd-icon>\r\n  </mrd-button>\r\n</div>\r\n\r\n<div #timeInput *ngIf=\"time\"></div>\r\n<div *ngIf=\"time && !customDateTimeToggle\">  \r\n  <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"18\" (click)=\"toggleClicked()\" [disabled]=\"formControl?.disabled || disabled\">\r\n    <svg mrd-icon viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M12 6V12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n      <path d=\"M16.24 16.24L12 12\" stroke=\"#000000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n    </svg>\r\n  </mrd-button>\r\n</div>\r\n\r\n<span class=\"unfocusedOverlay\" *ngIf=\"!isFocused\">\r\n  <ng-content select=\"[unfocusedOverlay]\"></ng-content>\r\n</span>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false;\"\r\n>\r\n  <mrd-datepicker\r\n    [date]=\"value\"\r\n    (dateChanged)=\"dateChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"timeInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showTimepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showTimepicker.value = false;\"\r\n>\r\n  <mrd-timepicker\r\n    [time]=\"value\"\r\n    (timeChanged)=\"timeChanged($event)\"\r\n  ></mrd-timepicker>\r\n</ng-template>", styles: ["@charset \"UTF-8\";:host{width:100%;display:flex;flex-direction:row}input{width:100%;height:1.5em;outline:none;padding:0 8px;background-color:transparent}input[disabled]{color:#afa6a6}textarea{outline:unset;background-color:transparent;width:100%;padding:0 2px;line-height:1.5em}textarea[disabled]{color:#afa6a6}textarea{scrollbar-color:#999 transparent}textarea::-webkit-scrollbar{width:10px;background:transparent}textarea::-webkit-scrollbar-thumb{background:#999;border-radius:5px}textarea::-webkit-scrollbar-corner{background:transparent}.unfocusedOverlay{position:absolute;width:100%;height:1.5em;outline:none;padding:1px 8px 0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}\n"] }]
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { baseInputElement: [{
             type: ViewChild,
             args: ['baseInput']
@@ -9760,6 +9776,8 @@ class MrdFormFieldComponent extends BaseObject {
     cdr;
     config = ConfigUtil.getConfig();
     input;
+    /** Mehrere Inputs gibt es im `mrd-date-range-picker`; das Label gehoert zu allen, Fehler und Pflichtfeld kommen vom ersten */
+    inputs;
     select;
     label;
     outerError;
@@ -9841,7 +9859,8 @@ class MrdFormFieldComponent extends BaseObject {
             this.watch(this.input.formControlGewechselt, new SubscriptionHandler(() => {
                 this.inputControlBinden();
                 if (Util.isDefined(this.label)) {
-                    this.label.floating.value = this.inputHasRawValue() || (Util.isDefined(this.input.value) && this.input.value !== '') || this.input.isFocused;
+                    this.label.floating.value = this.inputHasRawValue() || (Util.isDefined(this.input.value) && this.input.value !== '') || this.input.isFocused ||
+                        this.weitererInputAktiv();
                 }
             }));
             if (Util.isDefined(this.label)) {
@@ -9873,7 +9892,10 @@ class MrdFormFieldComponent extends BaseObject {
             });
             this.input.blurred.subscribe(() => {
                 this.focused = false;
-                if (Util.isDefined(this.label)) {
+                if (this.weitereInputs.length > 0) {
+                    this.bereichLabelNachBlurAktualisieren();
+                }
+                else if (Util.isDefined(this.label)) {
                     if (Util.isDefined(this.input.formControl)) {
                         if ((!Util.isDefined(this.input.formControl.value) || this.input.formControl.value === '') && !this.inputHasRawValue()) {
                             this.label.floating.value = false;
@@ -9893,6 +9915,7 @@ class MrdFormFieldComponent extends BaseObject {
                 }
                 this.cdr.markForCheck();
             });
+            this.weitereInputsBinden();
         }
         if (Util.isDefined(this.select)) {
             this.selectControlBinden();
@@ -10010,7 +10033,7 @@ class MrdFormFieldComponent extends BaseObject {
                 if ((Util.isDefined(formControl.value) && formControl.value !== '') || this.inputHasRawValue()) {
                     this.label.floating.value = true;
                 }
-                else if (!this.input.isFocused) {
+                else if (!this.input.isFocused && !this.weitererInputAktiv()) {
                     this.label.floating.value = false;
                 }
             }
@@ -10100,6 +10123,55 @@ class MrdFormFieldComponent extends BaseObject {
         let rawValue = this.input.formControl?.control.value;
         return Util.isDefined(rawValue) && rawValue !== '';
     }
+    get weitereInputs() {
+        return this.inputs?.filter((input) => input !== this.input) ?? [];
+    }
+    /** Bindet die Inputs ab dem zweiten an Label und Fokus; Fehler und Pflichtfeld bleiben beim ersten. */
+    weitereInputsBinden() {
+        const weitereInputs = this.weitereInputs;
+        if (weitereInputs.length === 0) {
+            return;
+        }
+        weitereInputs.forEach((input) => {
+            input.labelPresent = Util.isDefined(this.label);
+            this.watch(input.focused, new SubscriptionHandler(() => {
+                this.focused = true;
+                this.bereichLabelAktualisieren();
+            }));
+            this.watch(input.blurred, new SubscriptionHandler(() => {
+                this.focused = false;
+                this.bereichLabelNachBlurAktualisieren();
+            }));
+            if (Util.isDefined(input.formControl)) {
+                this.watch(input.formControl.valueChanges, new SubscriptionHandler(() => this.bereichLabelAktualisieren()));
+            }
+        });
+        if (Util.isDefined(this.label)) {
+            this.watch(this.label.floating.changed.pipe(startWith(this.label.floating.value)), new SubscriptionHandler((oben) => {
+                this.inputs.forEach((input) => input.labelOben = oben);
+            }));
+            if (this.weitererInputAktiv()) {
+                this.label.floating.value = true;
+            }
+        }
+    }
+    weitererInputAktiv() {
+        return this.weitereInputs.some((input) => input.isFocused || MrdFormFieldComponent.inputHatWert(input));
+    }
+    bereichLabelAktualisieren() {
+        if (Util.isDefined(this.label)) {
+            this.label.floating.value = this.inputs.some((input) => input.isFocused || MrdFormFieldComponent.inputHatWert(input));
+        }
+        this.cdr.markForCheck();
+    }
+    /** Beim Wechsel von "Von" nach "Bis" kommt der Fokus erst nach dem Blur an; sofort geprueft, wuerde das Label kurz herunterspringen. */
+    bereichLabelNachBlurAktualisieren() {
+        this.timeouts.push(setTimeout(() => this.bereichLabelAktualisieren()));
+    }
+    static inputHatWert(input) {
+        const wert = Util.isDefined(input.formControl) ? input.formControl.control.value : input.value;
+        return Util.isDefined(wert) && wert !== '';
+    }
     /** @nocollapse */ static ɵfac = function MrdFormFieldComponent_Factory(t) { return new (t || MrdFormFieldComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdFormFieldComponent, selectors: [["mrd-form-field"]], contentQueries: function MrdFormFieldComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
             i0.ɵɵcontentQuery(dirIndex, MrdInputComponent, 5);
@@ -10107,6 +10179,7 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵcontentQuery(dirIndex, MrdLabelComponent, 5);
             i0.ɵɵcontentQuery(dirIndex, MrdErrorComponent, 5);
             i0.ɵɵcontentQuery(dirIndex, MrdHintComponent, 5);
+            i0.ɵɵcontentQuery(dirIndex, MrdInputComponent, 5);
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.input = _t.first);
@@ -10114,6 +10187,7 @@ class MrdFormFieldComponent extends BaseObject {
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.label = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.outerError = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.hint = _t.first);
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.inputs = _t);
         } }, viewQuery: function MrdFormFieldComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(MrdErrorComponent, 5);
             i0.ɵɵviewQuery(_c0$l, 5);
@@ -10163,6 +10237,9 @@ class MrdFormFieldComponent extends BaseObject {
     }], function () { return [{ type: i0.ChangeDetectorRef }]; }, { input: [{
             type: ContentChild,
             args: [MrdInputComponent]
+        }], inputs: [{
+            type: ContentChildren,
+            args: [MrdInputComponent, { descendants: true }]
         }], select: [{
             type: ContentChild,
             args: [MrdSelectComponent]
@@ -10336,7 +10413,7 @@ class MrdDateRangePickerComponent {
         } if (rf & 2) {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.dateInputElement = _t.first);
-        } }, ngContentSelectors: _c2$3, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["svgIcon", "mrd_calendar"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, ngContentSelectors: _c2$3, decls: 7, vars: 4, consts: [[1, "mrd-date-range-picker-container"], ["dateInput", ""], ["icon-button", "", "fullIcon", "", "diameter", "24", "iconSize", "16", 3, "click"], ["icon", "kalender", "color", "#494949", "size", "16"], ["cdk-connected-overlay", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "backdropClick"], ["range-picker", "", 3, "startDate", "endDate", "dateRangeChanged"]], template: function MrdDateRangePickerComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵprojectionDef(_c1$a);
             i0.ɵɵelementStart(0, "div", 0);
             i0.ɵɵprojection(1);
@@ -10354,7 +10431,7 @@ class MrdDateRangePickerComponent {
 }
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdDateRangePickerComponent, [{
         type: Component,
-        args: [{ selector: 'mrd-date-range-picker', template: "<div class=\"mrd-date-range-picker-container\">\r\n    <ng-content select=\"mrd-input\"></ng-content>\r\n    <div #dateInput></div>\r\n    <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"showDatepicker.value = !showDatepicker.value\"><mrd-icon svgIcon=\"mrd_calendar\"></mrd-icon></mrd-button>\r\n</div>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false\"\r\n>\r\n  <mrd-datepicker\r\n    range-picker\r\n    [startDate]=\"startValue\"\r\n    [endDate]=\"endValue\"\r\n    (dateRangeChanged)=\"rangeChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>", styles: [".mrd-date-range-picker-container{display:flex;flex-direction:row}\n"] }]
+        args: [{ selector: 'mrd-date-range-picker', template: "<div class=\"mrd-date-range-picker-container\">\r\n    <ng-content select=\"mrd-input\"></ng-content>\r\n    <div #dateInput></div>\r\n    <mrd-button icon-button fullIcon diameter=\"24\" iconSize=\"16\" (click)=\"showDatepicker.value = !showDatepicker.value\"><mrd-icon icon=\"kalender\" color=\"#494949\" size=\"16\"></mrd-icon></mrd-button>\r\n</div>\r\n\r\n<ng-template\r\n  cdk-connected-overlay\r\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"dateInputElement\"\r\n  [cdkConnectedOverlayOpen]=\"showDatepicker.value\"\r\n  [cdkConnectedOverlayPositions]=\"_positions\"\r\n  (backdropClick)=\"showDatepicker.value = false\"\r\n>\r\n  <mrd-datepicker\r\n    range-picker\r\n    [startDate]=\"startValue\"\r\n    [endDate]=\"endValue\"\r\n    (dateRangeChanged)=\"rangeChanged($event)\"\r\n  ></mrd-datepicker>\r\n</ng-template>", styles: [".mrd-date-range-picker-container{display:flex;flex-direction:row}\n"] }]
     }], function () { return []; }, { inputs: [{
             type: ContentChildren,
             args: [MrdInputComponent]

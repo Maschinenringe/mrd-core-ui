@@ -60,6 +60,13 @@ export declare class MrdInputComponent extends BaseObject implements AfterViewIn
     set labelPresent(value: boolean);
     get labelPresent(): boolean;
     private _labelPresent;
+    /**
+     * Von `mrd-form-field` mit mehreren Inputs (`mrd-date-range-picker`) gesetzt, solange das Label oben steht:
+     * Dann ueberdeckt es keinen Placeholder, und alle Placeholder (z. B. "Von" und "Bis") bleiben sichtbar.
+     */
+    set labelOben(value: boolean);
+    get labelOben(): boolean;
+    private _labelOben;
     isFocused: boolean;
     showDatepicker: ObservableValue<boolean>;
     showTimepicker: ObservableValue<boolean>;

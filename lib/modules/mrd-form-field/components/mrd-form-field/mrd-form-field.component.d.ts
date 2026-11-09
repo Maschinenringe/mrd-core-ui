@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy, QueryList } from '@angular/core';
 import { MrdInputComponent } from '../mrd-input/mrd-input.component';
 import { MrdLabelComponent } from '../mrd-label/mrd-label.component';
 import { BaseObject } from 'mrd-core';
@@ -11,6 +11,8 @@ export declare class MrdFormFieldComponent extends BaseObject implements AfterVi
     private cdr;
     private config;
     input?: MrdInputComponent;
+    /** Mehrere Inputs gibt es im `mrd-date-range-picker`; das Label gehoert zu allen, Fehler und Pflichtfeld kommen vom ersten */
+    inputs?: QueryList<MrdInputComponent>;
     select?: MrdSelectComponent;
     label?: MrdLabelComponent;
     outerError?: MrdErrorComponent;
@@ -65,8 +67,16 @@ export declare class MrdFormFieldComponent extends BaseObject implements AfterVi
     private pflichtfeldAnzeigen;
     get errorIconTooltip(): string;
     private inputHasRawValue;
+    private get weitereInputs();
+    /** Bindet die Inputs ab dem zweiten an Label und Fokus; Fehler und Pflichtfeld bleiben beim ersten. */
+    private weitereInputsBinden;
+    private weitererInputAktiv;
+    private bereichLabelAktualisieren;
+    /** Beim Wechsel von "Von" nach "Bis" kommt der Fokus erst nach dem Blur an; sofort geprueft, wuerde das Label kurz herunterspringen. */
+    private bereichLabelNachBlurAktualisieren;
+    private static inputHatWert;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdFormFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdFormFieldComponent, "mrd-form-field", never, { "outline": { "alias": "outline"; "required": false; }; "fill": { "alias": "fill"; "required": false; }; "newFill": { "alias": "newFill"; "required": false; }; "dark": { "alias": "dark"; "required": false; }; "small": { "alias": "small"; "required": false; }; "requiredAsterisk": { "alias": "requiredAsterisk"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "fillColor": { "alias": "fillColor"; "required": false; }; "hideErrorIcon": { "alias": "hideErrorIcon"; "required": false; }; "hideHintIcon": { "alias": "hideHintIcon"; "required": false; }; "iconHint": { "alias": "iconHint"; "required": false; }; }, {}, ["input", "select", "label", "outerError", "hint"], ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-error", "mrd-hint"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdFormFieldComponent, "mrd-form-field", never, { "outline": { "alias": "outline"; "required": false; }; "fill": { "alias": "fill"; "required": false; }; "newFill": { "alias": "newFill"; "required": false; }; "dark": { "alias": "dark"; "required": false; }; "small": { "alias": "small"; "required": false; }; "requiredAsterisk": { "alias": "requiredAsterisk"; "required": false; }; "rounded": { "alias": "rounded"; "required": false; }; "borderRadius": { "alias": "borderRadius"; "required": false; }; "centered": { "alias": "text-centered"; "required": false; }; "textEnd": { "alias": "text-end"; "required": false; }; "fillColor": { "alias": "fillColor"; "required": false; }; "hideErrorIcon": { "alias": "hideErrorIcon"; "required": false; }; "hideHintIcon": { "alias": "hideHintIcon"; "required": false; }; "iconHint": { "alias": "iconHint"; "required": false; }; }, {}, ["input", "select", "label", "outerError", "hint", "inputs"], ["mrd-prefix", "mrd-input", "mrd-select", "mrd-label", "mrd-date-range-picker", "mrd-suffix", "mrd-error", "mrd-hint"], false, never>;
     static ngAcceptInputType_outline: unknown;
     static ngAcceptInputType_fill: unknown;
     static ngAcceptInputType_newFill: unknown;

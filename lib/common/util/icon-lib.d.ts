@@ -39,7 +39,8 @@ export declare enum IconName {
     SPIEGELN = "spiegeln",
     SCHNEIDEN = "schneiden",
     LINIE = "linie",
-    LINEAL = "lineal"
+    LINEAL = "lineal",
+    KALENDER = "kalender"
 }
 export declare class IconLib {
     /**
@@ -91,6 +92,8 @@ export declare class IconLib {
     static readonly SCHNEIDEN_PUR: string;
     static readonly LINIE_PUR: string;
     static readonly LINEAL_PUR: string;
+    /** Bisheriges Datepicker-Icon (Ursprung 14.986 x 17.127), mittig auf 52 Einheiten Hoehe skaliert */
+    static readonly KALENDER_PUR = "<path transform=\"translate(9.25 6) scale(3.036)\" fill=\"#293D4F\" d=\"M14.585,5.352H.4a.4.4,0,0,1-.4-.4v-1.2A1.606,1.606,0,0,1,1.606,2.141H3.211V.4a.4.4,0,0,1,.4-.4H4.951a.4.4,0,0,1,.4.4V2.141H9.634V.4a.4.4,0,0,1,.4-.4h1.338a.4.4,0,0,1,.4.4V2.141h1.606a1.606,1.606,0,0,1,1.606,1.606v1.2A.4.4,0,0,1,14.585,5.352ZM.4,6.423H14.585a.4.4,0,0,1,.4.4v8.7a1.606,1.606,0,0,1-1.606,1.606H1.606A1.606,1.606,0,0,1,0,15.522v-8.7A.4.4,0,0,1,.4,6.423Zm10.571,4.683a.4.4,0,0,0-.4-.4H8.564V8.7a.4.4,0,0,0-.4-.4H6.824a.4.4,0,0,0-.4.4V10.7H4.416a.4.4,0,0,0-.4.4v1.338a.4.4,0,0,0,.4.4H6.423v2.007a.4.4,0,0,0,.4.4H8.162a.4.4,0,0,0,.4-.4V12.845h2.007a.4.4,0,0,0,.4-.4Z\"/>";
     /** Symbole fuer die Darstellung im Rahmen; Symbole, die es nur ohne Rahmen gibt, stehen nur in der PurMap */
     static readonly IconMap: Partial<Record<IconName, string>>;
     /**
