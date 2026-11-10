@@ -33,6 +33,7 @@ export declare class MrdUploadComponent<T extends MrdUploadFormat = MrdUploadFor
     readonly ungueltigeDateien: EventEmitter<File[]>;
     /** Eigenes Control je Instanz, damit mehrere Upload-Felder sich nicht gegenseitig die Auswahl ueberschreiben */
     readonly infoFarbe: string;
+    readonly zuruecksetzenIconFarbe: string;
     readonly formatControl: AccessableFormControl;
     /** Formate samt ergaenztem "Alle Dateitypen" */
     formatListe: T[];
