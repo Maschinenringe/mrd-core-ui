@@ -27,6 +27,8 @@ export declare class MrdTabBodyComponent {
     get active(): boolean;
     private _active;
     preserveContent: boolean;
+    hoeheNachInhalt: boolean;
+    get imFluss(): boolean;
     private hideTimeout;
     _isHidden: EventEmitter<boolean>;
     _goingToActive: EventEmitter<boolean>;
@@ -38,6 +40,7 @@ export declare class MrdTabBodyComponent {
     private _hidden;
     constructor(cdr: ChangeDetectorRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdTabBodyComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdTabBodyComponent, "mrd-tab-body", never, { "content": { "alias": "content"; "required": false; }; "index": { "alias": "index"; "required": false; }; "active": { "alias": "active"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "hidden": { "alias": "hidden"; "required": false; }; }, { "_isHidden": "_isHidden"; "_goingToActive": "_goingToActive"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdTabBodyComponent, "mrd-tab-body", never, { "content": { "alias": "content"; "required": false; }; "index": { "alias": "index"; "required": false; }; "active": { "alias": "active"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "hoeheNachInhalt": { "alias": "hoeheNachInhalt"; "required": false; }; "hidden": { "alias": "hidden"; "required": false; }; }, { "_isHidden": "_isHidden"; "_goingToActive": "_goingToActive"; }, never, never, false, never>;
     static ngAcceptInputType_preserveContent: unknown;
+    static ngAcceptInputType_hoeheNachInhalt: unknown;
 }

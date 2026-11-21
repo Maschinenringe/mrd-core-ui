@@ -19,6 +19,11 @@ export declare class MrdTabGroupComponent extends BaseObject implements AfterVie
     noHeader: boolean;
     /** Linie unter dem aktiven Tab, die beim Wechsel mitwandert; standardmaessig aus */
     indicator: boolean;
+    /**
+     * Die Gruppe wächst mit dem Inhalt des aktiven Tabs, statt eine vorgegebene Höhe zu füllen;
+     * gescrollt wird dann im umgebenden Container (z. B. die ganze Seite)
+     */
+    hoeheNachInhalt: boolean;
     queryParameterActive: string;
     set headerHeight(value: number);
     get headerHeight(): number;
@@ -56,9 +61,10 @@ export declare class MrdTabGroupComponent extends BaseObject implements AfterVie
     private indexMelden;
     activateTab(index: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdTabGroupComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MrdTabGroupComponent, "mrd-tab-group", never, { "rounded": { "alias": "rounded"; "required": false; }; "labelsFit": { "alias": "labelsFit"; "required": false; }; "noHeader": { "alias": "noHeader"; "required": false; }; "indicator": { "alias": "indicator"; "required": false; }; "queryParameterActive": { "alias": "queryParameterActive"; "required": false; }; "headerHeight": { "alias": "headerHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "changeTab": { "alias": "changeTab"; "required": false; }; "canChangeTab": { "alias": "canChangeTab"; "required": false; }; }, { "selectedTabChanged": "selectedTabChanged"; "selectedTabIndexChanged": "selectedTabIndexChanged"; "selectedIndexChange": "selectedIndexChange"; }, ["tabs"], never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MrdTabGroupComponent, "mrd-tab-group", never, { "rounded": { "alias": "rounded"; "required": false; }; "labelsFit": { "alias": "labelsFit"; "required": false; }; "noHeader": { "alias": "noHeader"; "required": false; }; "indicator": { "alias": "indicator"; "required": false; }; "hoeheNachInhalt": { "alias": "hoeheNachInhalt"; "required": false; }; "queryParameterActive": { "alias": "queryParameterActive"; "required": false; }; "headerHeight": { "alias": "headerHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "changeTab": { "alias": "changeTab"; "required": false; }; "canChangeTab": { "alias": "canChangeTab"; "required": false; }; }, { "selectedTabChanged": "selectedTabChanged"; "selectedTabIndexChanged": "selectedTabIndexChanged"; "selectedIndexChange": "selectedIndexChange"; }, ["tabs"], never, false, never>;
     static ngAcceptInputType_rounded: unknown;
     static ngAcceptInputType_labelsFit: unknown;
     static ngAcceptInputType_noHeader: unknown;
     static ngAcceptInputType_indicator: unknown;
+    static ngAcceptInputType_hoeheNachInhalt: unknown;
 }
