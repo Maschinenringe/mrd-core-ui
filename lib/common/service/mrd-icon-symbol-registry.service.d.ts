@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { IconDirection } from './icon-factory.service';
 import { IconName } from '../util/icon-lib';
 import * as i0 from "@angular/core";
@@ -33,9 +34,19 @@ export interface MrdIconDefinition {
  * die mitgelieferten aus `IconLib` und eigene des Hosts (`provideMrdIcons({symbols})`).
  */
 export declare class MrdIconSymbolRegistryService {
+    /**
+     * Zuletzt erzeugte Instanz, für statische Helfer wie `PredefinedIconsService.GenerateIcon`,
+     * die ohne Dependency Injection auskommen müssen.
+     * @docs-private
+     */
+    static aktuelleInstanz: MrdIconSymbolRegistryService | null;
+    private readonly _aenderungen;
+    /** Meldet, dass Symbole hinzugekommen oder ersetzt worden sind, z. B. nach dem Laden aus der Datenbank */
+    readonly aenderungen$: Observable<void>;
     private readonly symbole;
     /** Varianten ohne Rahmen, siehe `IconLib.PurMap` */
     private readonly purSymbole;
+    constructor();
     /**
      * Registriert ein eigenes Symbol (Pfade im 64x64-Raster, mit oder ohne umschliessendes `<svg>`).
      * Enthaelt es weder `fill` noch `stroke`, wird es gefuellt dargestellt, damit es sich einfaerben laesst.
@@ -44,8 +55,15 @@ export declare class MrdIconSymbolRegistryService {
      * @security Das Markup wird ohne Sanitizing ins DOM uebernommen - nur Symbole aus dem eigenen Code registrieren.
      */
     addSymbol(name: string, svg: string | null, pur?: string): this;
+    /** Registriert mehrere Symbole und meldet die Änderung nur einmal */
     addSymbols(symbole: Record<string, string | MrdIconSymbolDefinition>): this;
     hasPurSymbol(name: string): boolean;
+    /** true, wenn es eine eigene Variante für die Darstellung im Rahmen gibt */
+    hasRahmenSymbol(name: string): boolean;
+    /** true für die Rahmen `outline`, `full` und `dashed`, die das Symbol umschließen */
+    istRahmen(name: string): boolean;
+    /** true, wenn das Symbol mit der Bibliothek ausgeliefert wird (`IconLib`); es kann trotzdem überschrieben sein */
+    istMitgeliefert(name: string): boolean;
     /** true, wenn es das Symbol mit oder ohne Rahmen gibt */
     hasSymbol(name: string): boolean;
     getSymbolNames(): string[];
@@ -58,8 +76,11 @@ export declare class MrdIconSymbolRegistryService {
     createSvgFromName(name: string): string | null;
     /**
      * Im Rahmen das Rahmen-Symbol, ohne Rahmen die Variante ohne Rahmen; fehlt die passende, wird die jeweils andere genommen
-     * (ein reines Pur-Symbol im Rahmen kann den Kreis ueberdecken).
+     * (ein reines Pur-Symbol im Rahmen kann den Kreis überdecken). undefined bei unbekanntem Symbol.
      */
+    findeSymbol(name: string, mitRahmen: boolean): string | undefined;
+    private symbolSetzen;
+    /** Wie `findeSymbol`, wirft aber einen Fehler bei unbekanntem Symbol */
     private symbolLesen;
     private static normalisieren;
     static ɵfac: i0.ɵɵFactoryDeclaration<MrdIconSymbolRegistryService, never>;

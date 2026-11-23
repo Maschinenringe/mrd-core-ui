@@ -94,6 +94,7 @@ export * from './lib/modules/mrd-form-field/common/directive/mrd-select-option-t
 export * from './lib/modules/mrd-virtual-scroll/common/transforms/item-size-transform';
 export { MrdIconSymbolRegistryService, MrdIconSymbol, MrdIconOuter, MrdIconSvgOptions, MrdIconSymbolDefinition, MrdIconDefinition, MRD_ICON_NAMESPACE } from './lib/common/service/mrd-icon-symbol-registry.service';
 export * from './lib/modules/mrd-icon/common/provider/provide-mrd-icons';
+export { MrdIconDatenbankService, MrdIconDatenbankConfig, MrdIconSymbolDto, MRD_ICON_DATENBANK_CONFIG, MRD_ICON_DATENBANK_STANDARD, MRD_ICON_CACHE_SCHLUESSEL } from './lib/common/service/mrd-icon-datenbank.service';
 export * from './lib/modules/mrd-icon/common/transforms/icon-color-transform';
 export * from './lib/modules/mrd-expansion/mrd-expansion.module';
 export * from './lib/modules/mrd-expansion/components/mrd-accordion/mrd-accordion.component';

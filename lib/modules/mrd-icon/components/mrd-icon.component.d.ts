@@ -1,6 +1,7 @@
-import { ElementRef, ErrorHandler, InjectionToken, OnChanges, SimpleChanges } from '@angular/core';
+import { ElementRef, ErrorHandler, InjectionToken, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { MrdIconRegistryService } from '../../../common/service/mrd-icon-registry.service';
 import { MrdIconSymbol, MrdIconSymbolRegistryService } from '../../../common/service/mrd-icon-symbol-registry.service';
+import { MrdIconDatenbankService } from '../../../common/service/mrd-icon-datenbank.service';
 import { IconDirection } from '../../../common/service/icon-factory.service';
 import * as i0 from "@angular/core";
 /**
@@ -26,12 +27,13 @@ export declare function MRD_ICON_LOCATION_FACTORY(): MrdIconLocation;
  *   die Factory-Symbole stehen dort unter `mrd:<symbol>[-outline|-full|-dashed][-up|-down|-left]` bereit
  * Ist `icon` gesetzt, hat es Vorrang vor `svgIcon`.
  */
-export declare class MrdIconComponent implements OnChanges {
+export declare class MrdIconComponent implements OnChanges, OnDestroy {
     private _elementRef;
     private _location;
     private _errorHandler;
     private _iconRegistry;
     private _symbolRegistry;
+    private _datenbank;
     /** Name of the icon in the SVG icon set. */
     get svgIcon(): string;
     set svgIcon(value: string);
@@ -64,7 +66,13 @@ export declare class MrdIconComponent implements OnChanges {
     private _elementsWithExternalReferences?;
     /** Subscription to the current in-progress SVG icon request. */
     private _currentIconFetch;
-    constructor(_elementRef: ElementRef<HTMLElement>, _location: MrdIconLocation, _errorHandler: ErrorHandler, _iconRegistry: MrdIconRegistryService, _symbolRegistry: MrdIconSymbolRegistryService);
+    private readonly _symbolAenderungen;
+    constructor(_elementRef: ElementRef<HTMLElement>, _location: MrdIconLocation, _errorHandler: ErrorHandler, _iconRegistry: MrdIconRegistryService, _symbolRegistry: MrdIconSymbolRegistryService, _datenbank: MrdIconDatenbankService);
+    ngOnDestroy(): void;
+    /** Bereits angezeigte Icons aus Factory-Symbolen neu bauen, z. B. nachdem die Symbole aus der Datenbank da sind */
+    private _symboleGeaendert;
+    /** Ein noch unbekanntes Symbol kann mit der ausstehenden Antwort der Datenbank noch kommen */
+    private get _symbolKannNochKommen();
     ngOnChanges(changes: SimpleChanges): void;
     get aktuelleGroesse(): string | null;
     private get _rahmen();

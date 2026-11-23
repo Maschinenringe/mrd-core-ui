@@ -4,9 +4,10 @@ import { Util, BasePushStrategyObject, BaseObject, SubscriptionHandler, Observab
 import * as i1$1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, RendererStyleFlags2, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, HostBinding, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, ElementRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER, ViewEncapsulation } from '@angular/core';
-import { of, tap, map, throwError, finalize, share, Subscription, take, Subject, startWith, switchMap, merge, isObservable, fromEvent, defer, filter, BehaviorSubject, timer } from 'rxjs';
+import { Injectable, SecurityContext, Optional, Inject, EventEmitter, booleanAttribute, Directive, Input, Output, numberAttribute, HostListener, NgModule, Component, ChangeDetectionStrategy, RendererStyleFlags2, ViewChild, InjectionToken, inject, TemplateRef, forwardRef, HostBinding, ContentChildren, ViewChildren, Injector, ComponentRef, ViewContainerRef, Host, ContentChild, ChangeDetectorRef, ElementRef, makeEnvironmentProviders, ENVIRONMENT_INITIALIZER, APP_INITIALIZER, ViewEncapsulation } from '@angular/core';
+import { Subject, of, tap, map, throwError, finalize, share, Subscription, take, startWith, switchMap, merge, isObservable, fromEvent, defer, filter, BehaviorSubject, timer } from 'rxjs';
 import * as i1 from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
@@ -1027,9 +1028,21 @@ const RICHTUNGEN = ['right', 'down', 'left', 'up'];
  * die mitgelieferten aus `IconLib` und eigene des Hosts (`provideMrdIcons({symbols})`).
  */
 class MrdIconSymbolRegistryService {
+    /**
+     * Zuletzt erzeugte Instanz, für statische Helfer wie `PredefinedIconsService.GenerateIcon`,
+     * die ohne Dependency Injection auskommen müssen.
+     * @docs-private
+     */
+    static aktuelleInstanz = null;
+    _aenderungen = new Subject();
+    /** Meldet, dass Symbole hinzugekommen oder ersetzt worden sind, z. B. nach dem Laden aus der Datenbank */
+    aenderungen$ = this._aenderungen.asObservable();
     symbole = new Map(Object.entries(IconLib.IconMap));
     /** Varianten ohne Rahmen, siehe `IconLib.PurMap` */
     purSymbole = new Map(Object.entries(IconLib.PurMap));
+    constructor() {
+        MrdIconSymbolRegistryService.aktuelleInstanz = this;
+    }
     /**
      * Registriert ein eigenes Symbol (Pfade im 64x64-Raster, mit oder ohne umschliessendes `<svg>`).
      * Enthaelt es weder `fill` noch `stroke`, wird es gefuellt dargestellt, damit es sich einfaerben laesst.
@@ -1038,36 +1051,40 @@ class MrdIconSymbolRegistryService {
      * @security Das Markup wird ohne Sanitizing ins DOM uebernommen - nur Symbole aus dem eigenen Code registrieren.
      */
     addSymbol(name, svg, pur) {
-        if (!svg && !pur) {
-            throw new Error(`Das Icon-Symbol "${name}" braucht svg oder pur.`);
-        }
-        if (svg) {
-            this.symbole.set(name, MrdIconSymbolRegistryService.normalisieren(svg));
-        }
-        else {
-            this.symbole.delete(name);
-        }
-        if (pur) {
-            this.purSymbole.set(name, MrdIconSymbolRegistryService.normalisieren(pur));
-        }
-        else {
-            this.purSymbole.delete(name);
-        }
+        this.symbolSetzen(name, svg, pur);
+        this._aenderungen.next();
         return this;
     }
+    /** Registriert mehrere Symbole und meldet die Änderung nur einmal */
     addSymbols(symbole) {
-        Object.entries(symbole).forEach(([name, definition]) => {
+        const eintraege = Object.entries(symbole);
+        eintraege.forEach(([name, definition]) => {
             if (typeof definition === 'string') {
-                this.addSymbol(name, definition);
+                this.symbolSetzen(name, definition);
             }
             else {
-                this.addSymbol(name, definition.svg, definition.pur);
+                this.symbolSetzen(name, definition.svg, definition.pur);
             }
         });
+        if (eintraege.length) {
+            this._aenderungen.next();
+        }
         return this;
     }
     hasPurSymbol(name) {
         return this.purSymbole.has(name);
+    }
+    /** true, wenn es eine eigene Variante für die Darstellung im Rahmen gibt */
+    hasRahmenSymbol(name) {
+        return this.symbole.has(name);
+    }
+    /** true für die Rahmen `outline`, `full` und `dashed`, die das Symbol umschließen */
+    istRahmen(name) {
+        return RAHMEN.includes(name);
+    }
+    /** true, wenn das Symbol mit der Bibliothek ausgeliefert wird (`IconLib`); es kann trotzdem überschrieben sein */
+    istMitgeliefert(name) {
+        return name in IconLib.IconMap || name in IconLib.PurMap;
     }
     /** true, wenn es das Symbol mit oder ohne Rahmen gibt */
     hasSymbol(name) {
@@ -1114,15 +1131,36 @@ class MrdIconSymbolRegistryService {
     }
     /**
      * Im Rahmen das Rahmen-Symbol, ohne Rahmen die Variante ohne Rahmen; fehlt die passende, wird die jeweils andere genommen
-     * (ein reines Pur-Symbol im Rahmen kann den Kreis ueberdecken).
+     * (ein reines Pur-Symbol im Rahmen kann den Kreis überdecken). undefined bei unbekanntem Symbol.
      */
+    findeSymbol(name, mitRahmen) {
+        return mitRahmen
+            ? this.symbole.get(name) ?? this.purSymbole.get(name)
+            : this.purSymbole.get(name) ?? this.symbole.get(name);
+    }
+    symbolSetzen(name, svg, pur) {
+        if (!svg && !pur) {
+            throw new Error(`Das Icon-Symbol "${name}" braucht svg oder pur.`);
+        }
+        if (svg) {
+            this.symbole.set(name, MrdIconSymbolRegistryService.normalisieren(svg));
+        }
+        else {
+            this.symbole.delete(name);
+        }
+        if (pur) {
+            this.purSymbole.set(name, MrdIconSymbolRegistryService.normalisieren(pur));
+        }
+        else {
+            this.purSymbole.delete(name);
+        }
+    }
+    /** Wie `findeSymbol`, wirft aber einen Fehler bei unbekanntem Symbol */
     symbolLesen(name, mitRahmen) {
         if (!name) {
             return undefined;
         }
-        const svg = mitRahmen
-            ? this.symbole.get(name) ?? this.purSymbole.get(name)
-            : this.purSymbole.get(name) ?? this.symbole.get(name);
+        const svg = this.findeSymbol(name, mitRahmen);
         if (svg === undefined) {
             throw new Error(`Unbekanntes Icon-Symbol "${name}". Registrierte Symbole: ${this.getSymbolNames().join(', ')}`);
         }
@@ -1143,7 +1181,7 @@ class MrdIconSymbolRegistryService {
         args: [{
                 providedIn: 'root'
             }]
-    }], null, null); })();
+    }], function () { return []; }, null); })();
 
 /**
  * The Trusted Types policy, or null if Trusted Types are not
@@ -1211,12 +1249,20 @@ class MrdIconRegistryService {
     _inProgressUrlFetches = new Map();
     /** Registered icon resolver functions. */
     _resolvers = [];
+    /** Schlüssel der aus Factory-Symbolen gebauten "mrd:"-Icons in `_svgIconConfigs` */
+    _factoryIconKeys = new Set();
     constructor(_httpClient, _sanitizer, document, _errorHandler, _symbolRegistry) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
         this._errorHandler = _errorHandler;
         this._symbolRegistry = _symbolRegistry;
         this._document = document;
+        // Aus Factory-Symbolen gebaute "mrd:"-Icons verwerfen, sobald sich Symbole ändern (z. B. nach dem Laden aus der Datenbank)
+        this._symbolRegistry.aenderungen$.subscribe(() => this._mrdIconsVerwerfen());
+    }
+    _mrdIconsVerwerfen() {
+        this._factoryIconKeys.forEach((key) => this._svgIconConfigs.delete(key));
+        this._factoryIconKeys.clear();
     }
     /**
      * Registriert ein Icon aus SVG-Markup (ohne HTTP) im Standard-Namensraum.
@@ -1310,6 +1356,7 @@ class MrdIconRegistryService {
             if (svg) {
                 config = new SvgIconConfig('', trustedHTMLFromString(svg));
                 this._svgIconConfigs.set(key, config);
+                this._factoryIconKeys.add(key);
                 return this._getSvgFromConfig(config);
             }
         }
@@ -1478,21 +1525,29 @@ function isSafeUrlWithOptions(value) {
  * Erzeugt Icon-Kombinationen als SVG-String mit festen Farben, z. B. fuer `iconGroup`/`iconStateMap` des mrd-s-button,
  * wenn sich Icon oder Farbe je Zustand unterscheiden sollen. Sonst ist `<mrd-icon icon="..." outline>` einfacher,
  * weil es die Textfarbe uebernimmt.
+ * Die Symbole kommen aus der `MrdIconSymbolRegistryService` (inkl. der aus der Datenbank geladenen);
+ * der erzeugte String ändert sich aber nicht mehr, wenn später neue Symbole geladen werden.
  */
 class PredefinedIconsService {
     static GenerateIcon(outer, inner, color, size = 24, innerDirection = 'right') {
         return IconFactoryService.build({
-            outer: outer != null ? IconLib.IconMap[outer] : undefined,
+            outer: outer != null ? PredefinedIconsService.symbol(outer, true) : undefined,
             // Ohne Rahmen die groessere Variante, im Rahmen das Rahmen-Symbol; fehlt eine davon, die andere
-            inner: inner != null
-                ? (outer == null ? IconLib.PurMap[inner] ?? IconLib.IconMap[inner] : IconLib.IconMap[inner] ?? IconLib.PurMap[inner])
-                : undefined,
+            inner: inner != null ? PredefinedIconsService.symbol(inner, outer != null) : undefined,
             color: typeof color === 'string' ? color : undefined,
             outerColor: typeof color === 'object' ? color.outer : undefined,
             innerColor: typeof color === 'object' ? color.inner : undefined,
             size,
             innerDirection
         });
+    }
+    /** Aus der Symbol-Registry; ohne Registry-Instanz (vor dem ersten Inject) direkt aus `IconLib` */
+    static symbol(name, mitRahmen) {
+        const registry = MrdIconSymbolRegistryService.aktuelleInstanz;
+        if (registry) {
+            return registry.findeSymbol(name, mitRahmen);
+        }
+        return mitRahmen ? IconLib.IconMap[name] ?? IconLib.PurMap[name] : IconLib.PurMap[name] ?? IconLib.IconMap[name];
     }
     /** @nocollapse */ static ɵfac = function PredefinedIconsService_Factory(t) { return new (t || PredefinedIconsService)(); };
     /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: PredefinedIconsService, factory: PredefinedIconsService.ɵfac, providedIn: 'root' });
@@ -3455,6 +3510,224 @@ function iconColorAttribute(value) {
     return SCHLUESSELWOERTER.includes(value) ? value : colorAttribute(value);
 }
 
+const MRD_ICON_DATENBANK_STANDARD = {
+    aktiv: true,
+    url: '/api/alg/icons',
+    zeitlimitMs: 1500
+};
+/** Konfiguration für das Laden der Icon-Symbole aus der Datenbank, siehe `provideMrdIconDatenbank` */
+const MRD_ICON_DATENBANK_CONFIG = new InjectionToken('mrd-icon-datenbank-config', {
+    providedIn: 'root',
+    factory: () => MRD_ICON_DATENBANK_STANDARD
+});
+/** Schlüssel im localStorage, unter dem die zuletzt geladenen Symbole liegen */
+const MRD_ICON_CACHE_SCHLUESSEL = 'mrd-icon-symbole';
+const NAME_MUSTER = /^[A-Za-z0-9_-]{1,64}$/;
+const MAX_LAENGE = 50000;
+const SVG_NS$1 = 'http://www.w3.org/2000/svg';
+const ERLAUBTE_ELEMENTE = new Set(['g', 'path', 'circle', 'ellipse', 'rect', 'line', 'polyline', 'polygon']);
+const ERLAUBTE_ATTRIBUTE = new Set([
+    'd', 'cx', 'cy', 'r', 'rx', 'ry', 'x', 'y', 'x1', 'y1', 'x2', 'y2', 'width', 'height', 'points', 'pathLength',
+    'fill', 'fill-rule', 'fill-opacity', 'clip-rule', 'opacity', 'transform',
+    'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit',
+    'stroke-dasharray', 'stroke-dashoffset', 'stroke-opacity'
+]);
+/**
+ * Lädt die Icon-Symbole aus der Datenbank und registriert sie in der `MrdIconSymbolRegistryService`.
+ * Die mitgelieferten Symbole aus `IconLib` bleiben als Fallback; Symbole aus der Datenbank ersetzen oder ergänzen sie.
+ * Die zuletzt geladenen Symbole liegen im localStorage und stehen beim nächsten Start sofort bereit.
+ */
+class MrdIconDatenbankService {
+    config;
+    symbolRegistry;
+    errorHandler;
+    http;
+    ladevorgang = null;
+    _laeuft = false;
+    _geladeneNamen = new Set();
+    constructor(config, symbolRegistry, errorHandler, httpBackend) {
+        this.config = config;
+        this.symbolRegistry = symbolRegistry;
+        this.errorHandler = errorHandler;
+        // Eigener HttpClient ohne die Interceptors des Hosts: der Endpunkt braucht keine Anmeldung
+        this.http = httpBackend ? new HttpClient(httpBackend) : null;
+    }
+    /** true, solange die Antwort des Endpunkts noch aussteht */
+    get laeuft() {
+        return this._laeuft;
+    }
+    /** Namen der Symbole, die aus der Datenbank (oder deren Cache im localStorage) registriert wurden */
+    get geladeneNamen() {
+        return this._geladeneNamen;
+    }
+    /**
+     * Registriert die zwischengespeicherten Symbole sofort und lädt danach die aktuellen vom Server.
+     * Das Promise wird spätestens nach `zeitlimitMs` erfüllt und nie abgelehnt; mehrere Aufrufe teilen sich einen Ladevorgang.
+     * @param fehlendesHttpMelden Meldet über den ErrorHandler, wenn der Host keinen HttpClient bereitstellt
+     */
+    laden(fehlendesHttpMelden = true) {
+        if (!this.config.aktiv) {
+            return Promise.resolve();
+        }
+        if (!this.ladevorgang) {
+            this.ladevorgang = this.ladenStarten(fehlendesHttpMelden);
+        }
+        return this.ladevorgang;
+    }
+    ladenStarten(fehlendesHttpMelden) {
+        this.ausCacheRegistrieren();
+        if (!this.http) {
+            if (fehlendesHttpMelden) {
+                this.errorHandler.handleError(new Error('MrdIconDatenbankService: Kein HttpClient vorhanden (HttpClientModule fehlt), es bleibt bei den mitgelieferten Icons.'));
+            }
+            return Promise.resolve();
+        }
+        const http = this.http;
+        this._laeuft = true;
+        return new Promise((erledigt) => {
+            // Nach dem Zeitlimit startet die Anwendung; die Symbole werden dann nachträglich ausgetauscht
+            const timer = setTimeout(erledigt, this.config.zeitlimitMs);
+            const beenden = () => {
+                this._laeuft = false;
+                clearTimeout(timer);
+                erledigt();
+            };
+            http.get(this.config.url).subscribe({
+                next: (antwort) => {
+                    try {
+                        this.antwortUebernehmen(antwort);
+                    }
+                    catch (fehler) {
+                        this.errorHandler.handleError(fehler);
+                    }
+                    finally {
+                        beenden();
+                    }
+                },
+                // Server nicht erreichbar: es bleibt bei Cache und mitgelieferten Symbolen
+                error: () => beenden()
+            });
+        });
+    }
+    antwortUebernehmen(antwort) {
+        const symbole = this.gueltigeSymbole(antwort, true);
+        // Leer ist der Fehlerfall des Servers: Cache und Registry bleiben unverändert
+        if (!Object.keys(symbole).length) {
+            return;
+        }
+        this.registrieren(symbole);
+        this.cacheSchreiben(Object.entries(symbole).map(([name, definition]) => ({ name, ...definition })));
+    }
+    ausCacheRegistrieren() {
+        let gespeichert;
+        try {
+            const text = localStorage.getItem(MRD_ICON_CACHE_SCHLUESSEL);
+            gespeichert = text ? JSON.parse(text) : null;
+        }
+        catch {
+            return;
+        }
+        const symbole = this.gueltigeSymbole(gespeichert, false);
+        if (Object.keys(symbole).length) {
+            this.registrieren(symbole);
+        }
+    }
+    registrieren(symbole) {
+        Object.keys(symbole).forEach((name) => this._geladeneNamen.add(name));
+        this.symbolRegistry.addSymbols(symbole);
+    }
+    cacheSchreiben(symbole) {
+        try {
+            localStorage.setItem(MRD_ICON_CACHE_SCHLUESSEL, JSON.stringify(symbole));
+        }
+        catch {
+            // localStorage gesperrt oder voll: dann eben ohne Cache
+        }
+    }
+    /** Prüft die Symbole und liefert nur die gültigen; ungültige werden (bei Bedarf) über den ErrorHandler gemeldet */
+    gueltigeSymbole(daten, fehlerMelden) {
+        // Ohne Prototyp, damit ein Name wie "__proto__" ein normaler Eintrag bleibt
+        const ergebnis = Object.create(null);
+        if (!Array.isArray(daten)) {
+            return ergebnis;
+        }
+        daten.forEach((dto) => {
+            const fehler = MrdIconDatenbankService.symbolPruefen(dto);
+            if (fehler) {
+                if (fehlerMelden) {
+                    this.errorHandler.handleError(new Error(`Icon-Symbol aus der Datenbank verworfen: ${fehler}`));
+                }
+                return;
+            }
+            ergebnis[dto.name] = { svg: dto.svg || undefined, pur: dto.pur || undefined };
+        });
+        return ergebnis;
+    }
+    /** Liefert eine Fehlerbeschreibung oder null, wenn das Symbol gültig ist */
+    static symbolPruefen(dto) {
+        if (!dto || typeof dto.name !== 'string' || !NAME_MUSTER.test(dto.name)) {
+            return `ungültiger Name ${JSON.stringify(dto?.name)}`;
+        }
+        if (!dto.svg && !dto.pur) {
+            return `"${dto.name}" hat weder svg noch pur`;
+        }
+        for (const markup of [dto.svg, dto.pur]) {
+            if (markup) {
+                const fehler = MrdIconDatenbankService.markupPruefen(markup);
+                if (fehler) {
+                    return `"${dto.name}": ${fehler}`;
+                }
+            }
+        }
+        return null;
+    }
+    /**
+     * Lässt nur einfache Zeichenelemente mit Geometrie- und Darstellungsattributen zu,
+     * da Symbole ohne Sanitizing ins DOM übernommen werden (siehe `MrdIconSymbolRegistryService.addSymbol`).
+     */
+    static markupPruefen(markup) {
+        if (typeof markup !== 'string' || markup.length > MAX_LAENGE) {
+            return 'Markup fehlt oder ist zu lang';
+        }
+        // Eine umschließende <svg>-Hülle entfernt auch die Registry beim Normalisieren
+        const inhalt = markup.replace(/<svg[^>]*>/, '').replace(/<\/svg>/, '');
+        const dokument = new DOMParser().parseFromString(`<svg xmlns="${SVG_NS$1}">${inhalt}</svg>`, 'image/svg+xml');
+        const wurzel = dokument.documentElement;
+        if (wurzel.localName !== 'svg' || dokument.getElementsByTagName('parsererror').length) {
+            return 'Markup ist kein gültiges SVG';
+        }
+        const elemente = Array.from(wurzel.getElementsByTagName('*'));
+        for (const element of elemente) {
+            if (element.namespaceURI !== SVG_NS$1 || !ERLAUBTE_ELEMENTE.has(element.localName)) {
+                return `Element <${element.localName}> ist nicht erlaubt`;
+            }
+            for (const attribut of Array.from(element.attributes)) {
+                // Aus Grafikprogrammen kopierte Pfade tragen oft den (überflüssigen) SVG-Namensraum
+                if (attribut.name === 'xmlns' && attribut.value === SVG_NS$1) {
+                    continue;
+                }
+                if (!ERLAUBTE_ATTRIBUTE.has(attribut.name) || /url\s*\(|javascript:/i.test(attribut.value)) {
+                    return `Attribut ${attribut.name} an <${element.localName}> ist nicht erlaubt`;
+                }
+            }
+        }
+        return null;
+    }
+    /** @nocollapse */ static ɵfac = function MrdIconDatenbankService_Factory(t) { return new (t || MrdIconDatenbankService)(i0.ɵɵinject(MRD_ICON_DATENBANK_CONFIG), i0.ɵɵinject(MrdIconSymbolRegistryService), i0.ɵɵinject(i0.ErrorHandler), i0.ɵɵinject(i1.HttpBackend, 8)); };
+    /** @nocollapse */ static ɵprov = /** @pureOrBreakMyCode */ i0.ɵɵdefineInjectable({ token: MrdIconDatenbankService, factory: MrdIconDatenbankService.ɵfac, providedIn: 'root' });
+}
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(MrdIconDatenbankService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: undefined, decorators: [{
+                type: Inject,
+                args: [MRD_ICON_DATENBANK_CONFIG]
+            }] }, { type: MrdIconSymbolRegistryService }, { type: i0.ErrorHandler }, { type: i1.HttpBackend, decorators: [{
+                type: Optional
+            }] }]; }, null); })();
+
 const _c0$E = ["*"];
 /**
  * Injection token used to provide the current location to `MatIcon`.
@@ -3510,6 +3783,7 @@ class MrdIconComponent {
     _errorHandler;
     _iconRegistry;
     _symbolRegistry;
+    _datenbank;
     /** Name of the icon in the SVG icon set. */
     get svgIcon() {
         return this._svgIcon;
@@ -3557,12 +3831,34 @@ class MrdIconComponent {
     _elementsWithExternalReferences;
     /** Subscription to the current in-progress SVG icon request. */
     _currentIconFetch = Subscription.EMPTY;
-    constructor(_elementRef, _location, _errorHandler, _iconRegistry, _symbolRegistry) {
+    _symbolAenderungen;
+    constructor(_elementRef, _location, _errorHandler, _iconRegistry, _symbolRegistry, _datenbank) {
         this._elementRef = _elementRef;
         this._location = _location;
         this._errorHandler = _errorHandler;
         this._iconRegistry = _iconRegistry;
         this._symbolRegistry = _symbolRegistry;
+        this._datenbank = _datenbank;
+        // Ohne provideMrdIconDatenbank() im Host startet das erste Icon das Laden, ohne darauf zu warten
+        void this._datenbank.laden(false);
+        this._symbolAenderungen = this._symbolRegistry.aenderungen$.subscribe(() => this._symboleGeaendert());
+    }
+    ngOnDestroy() {
+        this._symbolAenderungen.unsubscribe();
+        this._currentIconFetch.unsubscribe();
+    }
+    /** Bereits angezeigte Icons aus Factory-Symbolen neu bauen, z. B. nachdem die Symbole aus der Datenbank da sind */
+    _symboleGeaendert() {
+        if (this.icon) {
+            this._factoryIconAnzeigen();
+        }
+        else if (this._svgIcon && this._splitIconName(this._svgIcon)[0] === MRD_ICON_NAMESPACE) {
+            this._updateSvgIcon(this._svgIcon);
+        }
+    }
+    /** Ein noch unbekanntes Symbol kann mit der ausstehenden Antwort der Datenbank noch kommen */
+    get _symbolKannNochKommen() {
+        return this._datenbank.laeuft;
     }
     ngOnChanges(changes) {
         if (!FACTORY_INPUTS.some(input => input in changes)) {
@@ -3608,7 +3904,9 @@ class MrdIconComponent {
         }
         catch (fehler) {
             this._clearSvgElement();
-            this._errorHandler.handleError(fehler);
+            if (!this._symbolKannNochKommen) {
+                this._errorHandler.handleError(fehler);
+            }
         }
     }
     _setSvgElement(svg) {
@@ -3694,6 +3992,9 @@ class MrdIconComponent {
                 .getNamedSvgIcon(iconName, namespace)
                 .pipe(take(1))
                 .subscribe(svg => this._setSvgElement(svg), (err) => {
+                if (namespace === MRD_ICON_NAMESPACE && this._symbolKannNochKommen) {
+                    return;
+                }
                 const errorMessage = `Error retrieving icon ${namespace}:${iconName}! ${err.message}`;
                 this._errorHandler.handleError(new Error(errorMessage));
             });
@@ -3726,7 +4027,7 @@ class MrdIconComponent {
                 throw Error(`Invalid icon name: "${iconName}"`); // TODO: add an ngDevMode check
         }
     }
-    /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService), i0.ɵɵdirectiveInject(MrdIconSymbolRegistryService)); };
+    /** @nocollapse */ static ɵfac = function MrdIconComponent_Factory(t) { return new (t || MrdIconComponent)(i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(MRD_ICON_LOCATION), i0.ɵɵdirectiveInject(i0.ErrorHandler), i0.ɵɵdirectiveInject(MrdIconRegistryService), i0.ɵɵdirectiveInject(MrdIconSymbolRegistryService), i0.ɵɵdirectiveInject(MrdIconDatenbankService)); };
     /** @nocollapse */ static ɵcmp = /** @pureOrBreakMyCode */ i0.ɵɵdefineComponent({ type: MrdIconComponent, selectors: [["mrd-icon"]], hostAttrs: ["role", "img", "aria-hidden", "true"], hostVars: 6, hostBindings: function MrdIconComponent_HostBindings(rf, ctx) { if (rf & 2) {
             i0.ɵɵstyleProp("--mrd-icon-size", ctx.aktuelleGroesse)("color", !ctx.icon ? ctx.color : null);
             i0.ɵɵclassProp("mrd-icon-sized", !!ctx.aktuelleGroesse);
@@ -3748,7 +4049,7 @@ class MrdIconComponent {
     }], function () { return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [MRD_ICON_LOCATION]
-            }] }, { type: i0.ErrorHandler }, { type: MrdIconRegistryService }, { type: MrdIconSymbolRegistryService }]; }, { svgIcon: [{
+            }] }, { type: i0.ErrorHandler }, { type: MrdIconRegistryService }, { type: MrdIconSymbolRegistryService }, { type: MrdIconDatenbankService }]; }, { svgIcon: [{
             type: Input
         }], icon: [{
             type: Input
@@ -13052,6 +13353,28 @@ function provideMrdIcons(...configs) {
         }
     ]);
 }
+/**
+ * Lädt die Icon-Symbole beim Start der Anwendung aus der Datenbank (Endpunkt `alg/icons` des AllgemeinService),
+ * nur im AppModule: `providers: [provideMrdIconDatenbank()]`.
+ * Der Start wartet höchstens `zeitlimitMs` darauf, sonst werden die Icons nachträglich ausgetauscht.
+ * Ohne diesen Provider lädt `mrd-icon` die Symbole beim ersten Icon trotzdem, dann aber ohne zu warten.
+ * Bis die Symbole da sind und wenn der Server nicht erreichbar ist, gelten die mitgelieferten Icons.
+ * Voraussetzung: Der Host stellt `HttpClient` bereit (`HttpClientModule`).
+ */
+function provideMrdIconDatenbank(config = {}) {
+    return makeEnvironmentProviders([
+        {
+            provide: MRD_ICON_DATENBANK_CONFIG,
+            useValue: { ...MRD_ICON_DATENBANK_STANDARD, ...config }
+        },
+        {
+            provide: APP_INITIALIZER,
+            multi: true,
+            useFactory: (service) => () => service.laden(),
+            deps: [MrdIconDatenbankService]
+        }
+    ]);
+}
 function mrdIconsRegistrieren(configs) {
     const registry = inject(MrdIconRegistryService);
     const symbolRegistry = inject(MrdIconSymbolRegistryService);
@@ -15919,5 +16242,5 @@ class MrdDatenListeModule {
  * Generated bundle index. Do not edit.
  */
 
-export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_RADIO_GROUP, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatenListeComponent, MrdDatenListeInaktivSchalterComponent, MrdDatenListeModule, MrdDatenListeUtil, MrdDatenListeZelleDirective, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRadioButtonComponent, MrdRadioGroupComponent, MrdRadioModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
+export { ColorUtil, ConfigUtil, DecimalNumberDirective, FlyOutData, FlyOutService, HideIfTruncatedDirective, IconFactoryService, IconName, MRD_ACCORDION, MRD_ICON_CACHE_SCHLUESSEL, MRD_ICON_DATENBANK_CONFIG, MRD_ICON_DATENBANK_STANDARD, MRD_ICON_LOCATION, MRD_ICON_LOCATION_FACTORY, MRD_ICON_NAMESPACE, MRD_MENU, MRD_RADIO_GROUP, MRD_UPLOAD_ALLE_DATEITYPEN, MatTabBodyPortal, MrdAccordionComponent, MrdArrowPosition, MrdButtonComponent, MrdButtonModule, MrdButtonToggleGroupComponent, MrdButtonToggleModule, MrdCellDefDirective, MrdCellDirective, MrdCheckboxComponent, MrdCheckboxModule, MrdChipComponent, MrdChipModule, MrdColor, MrdColumnDefDirective, MrdDatePickerToggle, MrdDateRangeIndicatorDirective, MrdDateRangePickerComponent, MrdDatenListeComponent, MrdDatenListeInaktivSchalterComponent, MrdDatenListeModule, MrdDatenListeUtil, MrdDatenListeZelleDirective, MrdDatepickerComponent, MrdDatumUtil, MrdDecimalComponent, MrdDecimalModule, MrdDirectiveModule, MrdErrorComponent, MrdExpansionModule, MrdExpansionPanelComponent, MrdExpansionPanelContentDirective, MrdExpansionPanelHeaderComponent, MrdFlyOutCloseDirective, MrdFlyOutComponent, MrdFlyOutModule, MrdFooterCellDefDirective, MrdFooterCellDirective, MrdFooterRowComponent, MrdFooterRowDefDirective, MrdFormFieldComponent, MrdFormFieldModule, MrdGeoIconComponent, MrdGeoIconModule, MrdHeaderCellDefDirective, MrdHeaderCellDirective, MrdHeaderRowComponent, MrdHeaderRowDefDirective, MrdHintComponent, MrdIconComponent, MrdIconDatenbankService, MrdIconModule, MrdIconRegistryService, MrdIconSymbolRegistryService, MrdInputComponent, MrdLabelComponent, MrdLineStyle, MrdListComponent, MrdListItemComponent, MrdListItemTemplateDirective, MrdListModule, MrdMenuComponent, MrdMenuDividerComponent, MrdMenuItemComponent, MrdMenuModule, MrdMenuTriggerDirective, MrdNoDataRowDirective, MrdPrefixComponent, MrdProgressBarComponent, MrdProgressBarModule, MrdProgressSpinnerComponent, MrdProgressSpinnerModule, MrdRadioButtonComponent, MrdRadioGroupComponent, MrdRadioModule, MrdRowComponent, MrdRowDefDirective, MrdSButtonComponent, MrdSButtonModule, MrdSButtonSizeType, MrdSButtonType, MrdSelectComponent, MrdSelectCustomTriggerComponent, MrdSelectOptionComponent, MrdSelectOptionTemplateDirective, MrdSidenavComponent, MrdSidenavContainerComponent, MrdSidenavContentComponent, MrdSidenavModule, MrdSortDirective, MrdSortHeaderComponent, MrdSortModule, MrdStepComponent, MrdStepperComponent, MrdStepperModule, MrdSuffixComponent, MrdSvgArrow, MrdSvgArrowService, MrdTabBodyComponent, MrdTabComponent, MrdTabGroupComponent, MrdTableComponent, MrdTableDataSource, MrdTableModule, MrdTableVirtualScrollDirective, MrdTabsModule, MrdTimepickerComponent, MrdToggleSwitchComponent, MrdToggleSwitchModule, MrdToggleSwitchState, MrdToolbarComponent, MrdToolbarModule, MrdTooltipModule, MrdUploadComponent, MrdUploadModule, MrdVirtualScrollComponent, MrdVirtualScrollItemDirective, MrdVirtualScrollModule, PredefinedIconsService, TimeInputDirective, ToggleOnHoverDirective, ToolTipRendererDirective, ValidatorDatum, colorAttribute, colorThemeAttribute, iconColorAttribute, itemSizeAttribute, provideMrdIconDatenbank, provideMrdIcons, sizeAttribute, timeAttribute, zeilenAnzahlAttribute };
 //# sourceMappingURL=mrd-core-ui.mjs.map

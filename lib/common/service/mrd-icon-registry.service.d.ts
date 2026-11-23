@@ -58,7 +58,10 @@ export declare class MrdIconRegistryService {
     private _inProgressUrlFetches;
     /** Registered icon resolver functions. */
     private _resolvers;
+    /** Schlüssel der aus Factory-Symbolen gebauten "mrd:"-Icons in `_svgIconConfigs` */
+    private _factoryIconKeys;
     constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler: ErrorHandler, _symbolRegistry: MrdIconSymbolRegistryService);
+    private _mrdIconsVerwerfen;
     /**
      * Registriert ein Icon aus SVG-Markup (ohne HTTP) im Standard-Namensraum.
      * @param literal Mit `DomSanitizer.bypassSecurityTrustHtml` freigegebenes SVG-Markup.
